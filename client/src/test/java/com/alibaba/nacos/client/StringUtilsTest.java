@@ -59,4 +59,28 @@ public class StringUtilsTest {
         collection.add("bar");
         assertEquals("foo,bar", join(collection, ","));
     }
+
+    @Test
+    public void testEscapeJavaScript() {
+        assertNull( null , StringUtils.escapeJavaScript(null));
+
+        assertEquals("1", StringUtils.escapeJavaScript("1"));
+        assertEquals("\\'", StringUtils.escapeJavaScript("'"));
+        assertEquals("\\\"", StringUtils.escapeJavaScript("\""));
+        assertEquals("\\/", StringUtils.escapeJavaScript("/"));
+        assertEquals("\\u008A\\u0000", StringUtils.escapeJavaScript("\u008a\u0000"));
+        assertEquals("o\\b", StringUtils.escapeJavaScript("o\b"));
+        assertEquals( "\\r\\u0002", StringUtils.escapeJavaScript("\r\u0002"));
+        assertEquals( "\\r\\f", StringUtils.escapeJavaScript("\r\f"));
+        assertEquals( "\\u000E\\n", StringUtils.escapeJavaScript("\u000E\n"));
+        assertEquals( "\\t\\u00FD", StringUtils.escapeJavaScript("\t\u00fd"));
+        assertEquals( "\\u07EF", StringUtils.escapeJavaScript("\u07ef"));
+        assertEquals( "\\u07EF\\uC000", StringUtils.escapeJavaScript("\u07ef\uc000"));
+        assertEquals( "\\u07EF\\\\", StringUtils.escapeJavaScript( "\u07ef\\"));
+        assertEquals( "\\u001C\\\\", StringUtils.escapeJavaScript("\u001c\\"));
+
+
+    }
+
+
 }
