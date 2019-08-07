@@ -78,9 +78,5 @@ public class StringUtilsTest {
         assertEquals( "\\u07EF\\uC000", StringUtils.escapeJavaScript("\u07ef\uc000"));
         assertEquals( "\\u07EF\\\\", StringUtils.escapeJavaScript( "\u07ef\\"));
         assertEquals( "\\u001C\\\\", StringUtils.escapeJavaScript("\u001c\\"));
-
-
     }
-
-
 }
