@@ -7,7 +7,7 @@ public class ProtocolDiffblueTest {
   @Test
   public void getVersionNumberTest() {
     // Arrange, Act and Assert
-    assertEquals(0, Protocol.getVersionNumber("aaaaa"));
+    assertEquals(0, Protocol.getVersionNumber("foo"));
   }
 }
 

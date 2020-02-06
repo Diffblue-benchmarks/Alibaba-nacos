@@ -31,19 +31,19 @@ public class NacosFactoryDiffblueTest {
   public void createMaintainServiceTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
-    NacosFactory.createMaintainService("aaaaa");
+    NacosFactory.createMaintainService("foo");
   }
   @Test
   public void createConfigServiceTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
-    NacosFactory.createConfigService("aaaaa");
+    NacosFactory.createConfigService("foo");
   }
   @Test
   public void createNamingServiceTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
-    NacosFactory.createNamingService("aaaaa");
+    NacosFactory.createNamingService("foo");
   }
 }
 

@@ -3,6 +3,7 @@ package com.alibaba.nacos.config.server.utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
@@ -10,54 +11,54 @@ public class ZipUtilsDiffblueTest {
   @Test
   public void setItemNameTest() {
     // Arrange
-    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("aaaaa", "aaaaa");
+    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("name", "foo");
 
     // Act
-    zipItem.setItemName("aaaaa");
+    zipItem.setItemName("name");
 
     // Assert
-    assertEquals("aaaaa", zipItem.getItemName());
+    assertEquals("name", zipItem.getItemName());
   }
 
   @Test
   public void getItemNameTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new ZipUtils.ZipItem("aaaaa", "aaaaa")).getItemName());
+    assertEquals("name", (new ZipUtils.ZipItem("name", "foo")).getItemName());
   }
 
   @Test
   public void setItemDataTest() {
     // Arrange
-    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("aaaaa", "aaaaa");
+    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("name", "foo");
 
     // Act
-    zipItem.setItemData("aaaaa");
+    zipItem.setItemData("foo");
 
     // Assert
-    assertEquals("aaaaa", zipItem.getItemData());
+    assertEquals("foo", zipItem.getItemData());
   }
 
   @Test
   public void getItemDataTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new ZipUtils.ZipItem("aaaaa", "aaaaa")).getItemData());
+    assertEquals("foo", (new ZipUtils.ZipItem("name", "foo")).getItemData());
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    ZipUtils.ZipItem actualZipItem = new ZipUtils.ZipItem("aaaaa", "aaaaa");
+    ZipUtils.ZipItem actualZipItem = new ZipUtils.ZipItem("name", "foo");
 
     // Assert
     String actualItemData = actualZipItem.getItemData();
-    assertEquals("aaaaa", actualItemData);
-    assertEquals("aaaaa", actualZipItem.getItemName());
+    assertEquals("foo", actualItemData);
+    assertEquals("name", actualZipItem.getItemName());
   }
 
   @Test
   public void constructorTest() {
     // Arrange
-    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("aaaaa", "aaaaa");
+    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("name", "foo");
 
     // Act
     ZipUtils.UnZipResult actualUnZipResult = new ZipUtils.UnZipResult(null, zipItem);
@@ -71,8 +72,8 @@ public class ZipUtilsDiffblueTest {
   @Test
   public void setMetaDataItemTest() {
     // Arrange
-    ZipUtils.UnZipResult unZipResult = new ZipUtils.UnZipResult(null, new ZipUtils.ZipItem("aaaaa", "aaaaa"));
-    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("aaaaa", "aaaaa");
+    ZipUtils.UnZipResult unZipResult = new ZipUtils.UnZipResult(null, new ZipUtils.ZipItem("name", "foo"));
+    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("name", "name");
 
     // Act
     unZipResult.setMetaDataItem(zipItem);
@@ -84,7 +85,7 @@ public class ZipUtilsDiffblueTest {
   @Test
   public void getMetaDataItemTest() {
     // Arrange
-    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("aaaaa", "aaaaa");
+    ZipUtils.ZipItem zipItem = new ZipUtils.ZipItem("name", "foo");
 
     // Act and Assert
     assertSame(zipItem, (new ZipUtils.UnZipResult(null, zipItem)).getMetaDataItem());
@@ -93,7 +94,7 @@ public class ZipUtilsDiffblueTest {
   @Test
   public void setZipItemListTest() {
     // Arrange
-    ZipUtils.UnZipResult unZipResult = new ZipUtils.UnZipResult(null, new ZipUtils.ZipItem("aaaaa", "aaaaa"));
+    ZipUtils.UnZipResult unZipResult = new ZipUtils.UnZipResult(null, new ZipUtils.ZipItem("name", "foo"));
 
     // Act
     unZipResult.setZipItemList(null);
@@ -105,13 +106,17 @@ public class ZipUtilsDiffblueTest {
   @Test
   public void getZipItemListTest() {
     // Arrange, Act and Assert
-    assertNull((new ZipUtils.UnZipResult(null, new ZipUtils.ZipItem("aaaaa", "aaaaa"))).getZipItemList());
+    assertNull((new ZipUtils.UnZipResult(null, new ZipUtils.ZipItem("name", "foo"))).getZipItemList());
   }
 
   @Test
   public void unzipTest() {
-    // Arrange, Act and Assert
-    assertNull(ZipUtils.unzip(new byte[24]).getMetaDataItem());
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
+    assertNull(ZipUtils.unzip(byteArray).getMetaDataItem());
   }
 }
 

@@ -12,16 +12,16 @@ public class ConfigInfoChangedDiffblueTest {
     ConfigInfoChanged configInfoChanged = new ConfigInfoChanged();
 
     // Act
-    configInfoChanged.setTenant("aaaaa");
+    configInfoChanged.setTenant("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoChanged.getTenant());
+    assertEquals("foo", configInfoChanged.getTenant());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfoChanged()).equals("aaaaa"));
+    assertFalse((new ConfigInfoChanged()).equals("foo"));
   }
 
   @Test
@@ -30,10 +30,10 @@ public class ConfigInfoChangedDiffblueTest {
     ConfigInfoChanged configInfoChanged = new ConfigInfoChanged();
 
     // Act
-    configInfoChanged.setGroup("aaaaa");
+    configInfoChanged.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoChanged.getGroup());
+    assertEquals("foo", configInfoChanged.getGroup());
   }
 
   @Test
@@ -42,10 +42,10 @@ public class ConfigInfoChangedDiffblueTest {
     ConfigInfoChanged configInfoChanged = new ConfigInfoChanged();
 
     // Act
-    configInfoChanged.setDataId("aaaaa");
+    configInfoChanged.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", configInfoChanged.getDataId());
+    assertEquals("123", configInfoChanged.getDataId());
   }
 
   @Test
@@ -90,14 +90,14 @@ public class ConfigInfoChangedDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfoChanged actualConfigInfoChanged = new ConfigInfoChanged("aaaaa", "aaaaa", "aaaaa");
+    ConfigInfoChanged actualConfigInfoChanged = new ConfigInfoChanged("123", "foo", "foo");
 
     // Assert
     String actualDataId = actualConfigInfoChanged.getDataId();
     String actualGroup = actualConfigInfoChanged.getGroup();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfoChanged.getTenant());
-    assertEquals("aaaaa", actualGroup);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualConfigInfoChanged.getTenant());
+    assertEquals("foo", actualGroup);
   }
 
   @Test

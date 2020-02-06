@@ -11,10 +11,10 @@ public class SubInfoDiffblueTest {
     SubInfo subInfo = new SubInfo();
 
     // Act
-    subInfo.setAppName("aaaaa");
+    subInfo.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", subInfo.getAppName());
+    assertEquals("name", subInfo.getAppName());
   }
 
   @Test
@@ -23,10 +23,10 @@ public class SubInfoDiffblueTest {
     SubInfo subInfo = new SubInfo();
 
     // Act
-    subInfo.setGroup("aaaaa");
+    subInfo.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", subInfo.getGroup());
+    assertEquals("foo", subInfo.getGroup());
   }
 
   @Test
@@ -35,10 +35,10 @@ public class SubInfoDiffblueTest {
     SubInfo subInfo = new SubInfo();
 
     // Act
-    subInfo.setDataId("aaaaa");
+    subInfo.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", subInfo.getDataId());
+    assertEquals("123", subInfo.getDataId());
   }
 
   @Test
@@ -80,10 +80,10 @@ public class SubInfoDiffblueTest {
     SubInfo subInfo = new SubInfo();
 
     // Act
-    subInfo.setLocalIp("aaaaa");
+    subInfo.setLocalIp("foo");
 
     // Assert
-    assertEquals("aaaaa", subInfo.getLocalIp());
+    assertEquals("foo", subInfo.getLocalIp());
   }
 
   @Test

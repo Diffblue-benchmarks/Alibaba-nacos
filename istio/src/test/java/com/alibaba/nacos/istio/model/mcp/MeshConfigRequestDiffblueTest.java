@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,58 +16,22 @@ public class MeshConfigRequestDiffblueTest {
   public ExpectedException thrown = ExpectedException.none();
 
   @Test
-  public void toBuilderTest() {
-    // Arrange and Act
-    MeshConfigRequest.Builder actualToBuilderResult = MeshConfigRequest.getDefaultInstance().toBuilder();
-
-    // Assert
-    String actualResponseNonce = actualToBuilderResult.getResponseNonce();
-    String actualVersionInfo = actualToBuilderResult.getVersionInfo();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualToBuilderResult.getTypeUrl());
-    assertEquals("", actualVersionInfo);
-  }
-
-  @Test
-  public void newBuilderForTypeTest() {
-    // Arrange and Act
-    MeshConfigRequest.Builder actualNewBuilderForTypeResult = MeshConfigRequest.getDefaultInstance()
-        .newBuilderForType();
-
-    // Assert
-    String actualResponseNonce = actualNewBuilderForTypeResult.getResponseNonce();
-    String actualVersionInfo = actualNewBuilderForTypeResult.getVersionInfo();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualNewBuilderForTypeResult.getTypeUrl());
-    assertEquals("", actualVersionInfo);
-  }
-
-  @Test
   public void newInstanceTest() {
-    // Arrange, Act and Assert
-    String actualResponseNonce = ((MeshConfigRequest) MeshConfigRequest.getDefaultInstance().newInstance(null))
-        .getResponseNonce();
-    String actualVersionInfo = ((MeshConfigRequest) MeshConfigRequest.getDefaultInstance().newInstance(null))
-        .getVersionInfo();
-    boolean actualIsInitializedResult = ((MeshConfigRequest) MeshConfigRequest.getDefaultInstance().newInstance(null))
-        .isInitialized();
+    // Arrange and Act
+    Object actualNewInstanceResult = MeshConfigRequest.getDefaultInstance().newInstance(null);
+
+    // Assert
+    String actualToStringResult = actualNewInstanceResult.toString();
+    int actualSerializedSize = ((MeshConfigRequest) actualNewInstanceResult).getSerializedSize();
+    String actualResponseNonce = ((MeshConfigRequest) actualNewInstanceResult).getResponseNonce();
+    String actualVersionInfo = ((MeshConfigRequest) actualNewInstanceResult).getVersionInfo();
+    boolean actualIsInitializedResult = ((MeshConfigRequest) actualNewInstanceResult).isInitialized();
+    assertEquals("", actualToStringResult);
+    assertEquals(0, actualSerializedSize);
+    assertEquals("", actualVersionInfo);
     assertEquals("", actualResponseNonce);
     assertTrue(actualIsInitializedResult);
-    assertEquals("", ((MeshConfigRequest) MeshConfigRequest.getDefaultInstance().newInstance(null)).getTypeUrl());
-    assertEquals("", actualVersionInfo);
-  }
-
-  @Test
-  public void newBuilderTest2() {
-    // Arrange and Act
-    MeshConfigRequest.Builder actualNewBuilderResult = MeshConfigRequest.newBuilder();
-
-    // Assert
-    String actualResponseNonce = actualNewBuilderResult.getResponseNonce();
-    String actualVersionInfo = actualNewBuilderResult.getVersionInfo();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualNewBuilderResult.getTypeUrl());
-    assertEquals("", actualVersionInfo);
+    assertEquals("", ((MeshConfigRequest) actualNewInstanceResult).getTypeUrl());
   }
 
   @Test
@@ -88,16 +53,31 @@ public class MeshConfigRequestDiffblueTest {
   }
 
   @Test
-  public void parseFromTest() throws InvalidProtocolBufferException {
-    // Arrange, Act and Assert
+  public void parseFromTest2() throws InvalidProtocolBufferException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
     thrown.expect(InvalidProtocolBufferException.class);
-    MeshConfigRequest.parseFrom(new byte[24]);
+    MeshConfigRequest.parseFrom(byteArray);
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse(MeshConfigRequest.getDefaultInstance().equals(""));
+    assertFalse(MeshConfigRequest.getDefaultInstance().equals("foo"));
+  }
+
+  @Test
+  public void parseFromTest() throws IOException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    MeshConfigRequest.parseFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
@@ -114,18 +94,13 @@ public class MeshConfigRequestDiffblueTest {
 
   @Test
   public void parseDelimitedFromTest() throws IOException {
-    // Arrange and Act
-    MeshConfigRequest actualParseDelimitedFromResult = MeshConfigRequest
-        .parseDelimitedFrom(new ByteArrayInputStream(new byte[24]));
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-    // Assert
-    String actualResponseNonce = actualParseDelimitedFromResult.getResponseNonce();
-    String actualVersionInfo = actualParseDelimitedFromResult.getVersionInfo();
-    boolean actualIsInitializedResult = actualParseDelimitedFromResult.isInitialized();
-    assertEquals("", actualResponseNonce);
-    assertTrue(actualIsInitializedResult);
-    assertEquals("", actualParseDelimitedFromResult.getTypeUrl());
-    assertEquals("", actualVersionInfo);
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    MeshConfigRequest.parseDelimitedFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
@@ -141,23 +116,15 @@ public class MeshConfigRequestDiffblueTest {
   }
 
   @Test
-  public void newBuilderTest() {
-    // Arrange and Act
-    MeshConfigRequest.Builder actualNewBuilderResult = MeshConfigRequest
-        .newBuilder(MeshConfigRequest.getDefaultInstance());
-
-    // Assert
-    String actualResponseNonce = actualNewBuilderResult.getResponseNonce();
-    String actualVersionInfo = actualNewBuilderResult.getVersionInfo();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualNewBuilderResult.getTypeUrl());
-    assertEquals("", actualVersionInfo);
-  }
-
-  @Test
   public void getResponseNonceTest() {
     // Arrange, Act and Assert
     assertEquals("", MeshConfigRequest.getDefaultInstance().getResponseNonce());
+  }
+
+  @Test
+  public void getSerializedSizeTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, MeshConfigRequest.getDefaultInstance().getSerializedSize());
   }
 }
 

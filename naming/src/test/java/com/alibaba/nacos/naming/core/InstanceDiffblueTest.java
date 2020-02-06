@@ -16,7 +16,7 @@ public class InstanceDiffblueTest {
   public void compareToTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    (new Instance()).compareTo("(\\d|\\.)+");
+    (new Instance()).compareTo("foo");
   }
 
   @Test
@@ -35,6 +35,60 @@ public class InstanceDiffblueTest {
 
     // Assert
     assertEquals(1L, instance.getLastBeat());
+  }
+
+  @Test
+  public void constructorTest4() {
+    // Arrange and Act
+    Instance actualInstance = new Instance("127.0.0.1", 8080);
+
+    // Assert
+    boolean actualIsMockValidResult = actualInstance.isMockValid();
+    double actualWeight = actualInstance.getWeight();
+    String actualIp = actualInstance.getIp();
+    String actualClusterName = actualInstance.getClusterName();
+    boolean actualIsEphemeralResult = actualInstance.isEphemeral();
+    int actualPort = actualInstance.getPort();
+    boolean actualIsHealthyResult = actualInstance.isHealthy();
+    boolean actualIsMarkedResult = actualInstance.isMarked();
+    boolean actualIsEnabledResult = actualInstance.isEnabled();
+    assertEquals(30000L, actualInstance.getIpDeleteTimeout());
+    assertTrue(actualIsEnabledResult);
+    assertFalse(actualIsMarkedResult);
+    assertTrue(actualIsHealthyResult);
+    assertEquals(8080, actualPort);
+    assertTrue(actualIsEphemeralResult);
+    assertEquals("DEFAULT", actualClusterName);
+    assertEquals("127.0.0.1", actualIp);
+    assertEquals(1.0, actualWeight, 0.0);
+    assertFalse(actualIsMockValidResult);
+  }
+
+  @Test
+  public void constructorTest3() {
+    // Arrange and Act
+    Instance actualInstance = new Instance("127.0.0.1", 8080, "name");
+
+    // Assert
+    boolean actualIsMockValidResult = actualInstance.isMockValid();
+    double actualWeight = actualInstance.getWeight();
+    String actualIp = actualInstance.getIp();
+    String actualClusterName = actualInstance.getClusterName();
+    boolean actualIsEphemeralResult = actualInstance.isEphemeral();
+    int actualPort = actualInstance.getPort();
+    boolean actualIsHealthyResult = actualInstance.isHealthy();
+    boolean actualIsMarkedResult = actualInstance.isMarked();
+    boolean actualIsEnabledResult = actualInstance.isEnabled();
+    assertEquals(30000L, actualInstance.getIpDeleteTimeout());
+    assertTrue(actualIsEnabledResult);
+    assertFalse(actualIsMarkedResult);
+    assertTrue(actualIsHealthyResult);
+    assertEquals(8080, actualPort);
+    assertTrue(actualIsEphemeralResult);
+    assertEquals("name", actualClusterName);
+    assertEquals("127.0.0.1", actualIp);
+    assertEquals(1.0, actualWeight, 0.0);
+    assertFalse(actualIsMockValidResult);
   }
 
   @Test
@@ -61,16 +115,16 @@ public class InstanceDiffblueTest {
     Instance instance = new Instance();
 
     // Act
-    instance.setTenant("(\\d|\\.)+");
+    instance.setTenant("foo");
 
     // Assert
-    assertEquals("(\\d|\\.)+", instance.getTenant());
+    assertEquals("foo", instance.getTenant());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new Instance()).equals("(\\d|\\.)+"));
+    assertFalse((new Instance()).equals("foo"));
   }
 
   @Test
@@ -86,6 +140,27 @@ public class InstanceDiffblueTest {
   }
 
   @Test
+  public void constructorTest2() {
+    // Arrange and Act
+    Instance actualInstance = new Instance();
+
+    // Assert
+    boolean actualIsMockValidResult = actualInstance.isMockValid();
+    double actualWeight = actualInstance.getWeight();
+    boolean actualIsEphemeralResult = actualInstance.isEphemeral();
+    boolean actualIsHealthyResult = actualInstance.isHealthy();
+    boolean actualIsMarkedResult = actualInstance.isMarked();
+    boolean actualIsEnabledResult = actualInstance.isEnabled();
+    assertEquals(30000L, actualInstance.getIpDeleteTimeout());
+    assertTrue(actualIsEnabledResult);
+    assertFalse(actualIsMarkedResult);
+    assertTrue(actualIsHealthyResult);
+    assertTrue(actualIsEphemeralResult);
+    assertEquals(1.0, actualWeight, 0.0);
+    assertFalse(actualIsMockValidResult);
+  }
+
+  @Test
   public void getCheckRTTest() {
     // Arrange, Act and Assert
     assertEquals(-1L, (new Instance()).getCheckRT());
@@ -95,18 +170,6 @@ public class InstanceDiffblueTest {
   public void toStringTest() {
     // Arrange, Act and Assert
     assertEquals("null:unknown:null_1.0_true_false_null", (new Instance()).toString());
-  }
-
-  @Test
-  public void setAppTest() {
-    // Arrange
-    Instance instance = new Instance();
-
-    // Act
-    instance.setApp("(\\d|\\.)+");
-
-    // Assert
-    assertEquals("(\\d|\\.)+", instance.getApp());
   }
 
   @Test
@@ -134,25 +197,42 @@ public class InstanceDiffblueTest {
   }
 
   @Test
+  public void fromJSONTest3() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    Instance.fromJSON("_");
+  }
+
+  @Test
+  public void fromJSONTest2() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    Instance.fromJSON("foo");
+  }
+
+  @Test
   public void fromJSONTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    Instance.fromJSON("(\\d|\\.)+");
+    Instance.fromJSON("");
   }
 
   @Test
   public void fromStringTest() {
-    // Arrange, Act and Assert
-    assertNull(Instance.fromString("(\\d|\\.)+"));
+    // Arrange
+    Instance actualFromStringResult = Instance.fromString("foo");
+
+    // Act and Assert
+    assertNull(actualFromStringResult);
+    assertNull(Instance.fromString("_"));
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    Instance actualInstance = new Instance("(\\d|\\.)+", 1, "(\\d|\\.)+", "(\\d|\\.)+", "(\\d|\\.)+");
+    Instance actualInstance = new Instance("127.0.0.1", 8080, "name", "foo", "foo");
 
     // Assert
-    String actualInstanceIdGenerator = actualInstance.getInstanceIdGenerator();
     boolean actualIsMockValidResult = actualInstance.isMockValid();
     String actualApp = actualInstance.getApp();
     double actualWeight = actualInstance.getWeight();
@@ -163,18 +243,19 @@ public class InstanceDiffblueTest {
     int actualPort = actualInstance.getPort();
     boolean actualIsHealthyResult = actualInstance.isHealthy();
     boolean actualIsMarkedResult = actualInstance.isMarked();
+    long actualInstanceHeartBeatTimeOut = actualInstance.getInstanceHeartBeatTimeOut();
     assertTrue(actualInstance.isEnabled());
+    assertEquals(15000L, actualInstanceHeartBeatTimeOut);
     assertFalse(actualIsMarkedResult);
     assertTrue(actualIsHealthyResult);
-    assertEquals(1, actualPort);
+    assertEquals(8080, actualPort);
     assertTrue(actualIsEphemeralResult);
-    assertEquals("(\\d|\\.)+", actualTenant);
-    assertEquals("(\\d|\\.)+", actualClusterName);
-    assertEquals("(\\d|\\.)+", actualIp);
+    assertEquals("foo", actualTenant);
+    assertEquals("name", actualClusterName);
+    assertEquals("127.0.0.1", actualIp);
     assertEquals(1.0, actualWeight, 0.0);
-    assertEquals("(\\d|\\.)+", actualApp);
+    assertEquals("foo", actualApp);
     assertFalse(actualIsMockValidResult);
-    assertEquals("simple", actualInstanceIdGenerator);
   }
 
   @Test

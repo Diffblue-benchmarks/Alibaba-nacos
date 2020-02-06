@@ -10,7 +10,7 @@ public class LeaderElectFinishedEventDiffblueTest {
     RaftPeer raftPeer = new RaftPeer();
 
     // Act and Assert
-    assertSame(raftPeer, (new LeaderElectFinishedEvent("aaaaa", raftPeer)).getRaftPeer());
+    assertSame(raftPeer, (new LeaderElectFinishedEvent("foo", raftPeer)).getRaftPeer());
   }
 }
 

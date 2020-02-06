@@ -12,10 +12,10 @@ public class ConfigInfoDiffblueTest {
     ConfigInfo configInfo = new ConfigInfo();
 
     // Act
-    configInfo.setAppName("aaaaa");
+    configInfo.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", configInfo.getAppName());
+    assertEquals("name", configInfo.getAppName());
   }
 
   @Test
@@ -24,10 +24,10 @@ public class ConfigInfoDiffblueTest {
     ConfigInfo configInfo = new ConfigInfo();
 
     // Act
-    configInfo.setType("aaaaa");
+    configInfo.setType("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfo.getType());
+    assertEquals("foo", configInfo.getType());
   }
 
   @Test
@@ -45,24 +45,24 @@ public class ConfigInfoDiffblueTest {
   @Test
   public void constructorTest4() {
     // Arrange and Act
-    ConfigInfo actualConfigInfo = new ConfigInfo("aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    ConfigInfo actualConfigInfo = new ConfigInfo("123", "foo", "name", "foo");
 
     // Assert
     String actualDataId = actualConfigInfo.getDataId();
     String actualContent = actualConfigInfo.getContent();
     String actualMd5 = actualConfigInfo.getMd5();
     String actualGroup = actualConfigInfo.getGroup();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfo.getAppName());
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("name", actualConfigInfo.getAppName());
+    assertEquals("foo", actualGroup);
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfo()).equals("aaaaa"));
+    assertFalse((new ConfigInfo()).equals("foo"));
   }
 
   @Test
@@ -71,10 +71,10 @@ public class ConfigInfoDiffblueTest {
     ConfigInfo configInfo = new ConfigInfo();
 
     // Act
-    configInfo.setTenant("aaaaa");
+    configInfo.setTenant("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfo.getTenant());
+    assertEquals("foo", configInfo.getTenant());
   }
 
   @Test
@@ -125,7 +125,7 @@ public class ConfigInfoDiffblueTest {
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    ConfigInfo actualConfigInfo = new ConfigInfo("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    ConfigInfo actualConfigInfo = new ConfigInfo("123", "foo", "foo", "name", "foo");
 
     // Assert
     String actualDataId = actualConfigInfo.getDataId();
@@ -133,27 +133,27 @@ public class ConfigInfoDiffblueTest {
     String actualMd5 = actualConfigInfo.getMd5();
     String actualGroup = actualConfigInfo.getGroup();
     String actualTenant = actualConfigInfo.getTenant();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfo.getAppName());
-    assertEquals("aaaaa", actualTenant);
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("name", actualConfigInfo.getAppName());
+    assertEquals("foo", actualTenant);
+    assertEquals("foo", actualGroup);
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfo actualConfigInfo = new ConfigInfo("aaaaa", "aaaaa", "aaaaa");
+    ConfigInfo actualConfigInfo = new ConfigInfo("123", "foo", "foo");
 
     // Assert
     String actualDataId = actualConfigInfo.getDataId();
     String actualContent = actualConfigInfo.getContent();
     String actualMd5 = actualConfigInfo.getMd5();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfo.getGroup());
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualConfigInfo.getGroup());
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 }
 

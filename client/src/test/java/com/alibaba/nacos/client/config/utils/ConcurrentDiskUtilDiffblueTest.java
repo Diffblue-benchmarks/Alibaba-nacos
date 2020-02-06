@@ -13,7 +13,7 @@ public class ConcurrentDiskUtilDiffblueTest {
   public void getFileContentTest() throws IOException {
     // Arrange, Act and Assert
     thrown.expect(FileNotFoundException.class);
-    ConcurrentDiskUtil.getFileContent("r", "r");
+    ConcurrentDiskUtil.getFileContent("foo", "UTF-8");
   }
 }
 

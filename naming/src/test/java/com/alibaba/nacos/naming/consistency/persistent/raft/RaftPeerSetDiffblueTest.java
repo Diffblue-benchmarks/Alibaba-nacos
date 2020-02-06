@@ -32,7 +32,7 @@ public class RaftPeerSetDiffblueTest {
   @Test
   public void getTest() {
     // Arrange, Act and Assert
-    assertNull((new RaftPeerSet()).get("/v1/ns/raft/peer"));
+    assertNull((new RaftPeerSet()).get("foo"));
   }
 
   @Test
@@ -66,7 +66,7 @@ public class RaftPeerSetDiffblueTest {
   @Test
   public void isLeaderTest() {
     // Arrange, Act and Assert
-    assertFalse((new RaftPeerSet()).isLeader("/v1/ns/raft/peer"));
+    assertFalse((new RaftPeerSet()).isLeader("127.0.0.1"));
   }
 
   @Test

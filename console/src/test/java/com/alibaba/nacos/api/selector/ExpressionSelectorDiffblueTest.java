@@ -23,10 +23,10 @@ public class ExpressionSelectorDiffblueTest {
     ExpressionSelector expressionSelector = new ExpressionSelector();
 
     // Act
-    expressionSelector.setExpression("aaaaa");
+    expressionSelector.setExpression("foo");
 
     // Assert
-    assertEquals("aaaaa", expressionSelector.getExpression());
+    assertEquals("foo", expressionSelector.getExpression());
   }
 }
 

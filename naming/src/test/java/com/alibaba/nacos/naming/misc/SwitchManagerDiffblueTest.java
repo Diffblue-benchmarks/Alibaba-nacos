@@ -8,7 +8,7 @@ public class SwitchManagerDiffblueTest {
   @Test
   public void interestsTest() {
     // Arrange, Act and Assert
-    assertFalse((new SwitchManager()).interests(":"));
+    assertFalse((new SwitchManager()).interests("foo"));
   }
 
   @Test
@@ -26,7 +26,7 @@ public class SwitchManagerDiffblueTest {
   @Test
   public void matchUnlistenKeyTest() {
     // Arrange, Act and Assert
-    assertFalse((new SwitchManager()).matchUnlistenKey(":"));
+    assertFalse((new SwitchManager()).matchUnlistenKey("foo"));
   }
 }
 

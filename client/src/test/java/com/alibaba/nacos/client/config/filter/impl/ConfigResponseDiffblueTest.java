@@ -12,7 +12,7 @@ public class ConfigResponseDiffblueTest {
     ConfigResponse configResponse = new ConfigResponse();
 
     // Act
-    configResponse.setGroup("content");
+    configResponse.setGroup("foo");
 
     // Assert
     assertNull(configResponse.getDataId());
@@ -24,10 +24,10 @@ public class ConfigResponseDiffblueTest {
     ConfigResponse configResponse = new ConfigResponse();
 
     // Act
-    configResponse.setDataId("content");
+    configResponse.setDataId("123");
 
     // Assert
-    assertEquals("content", configResponse.getDataId());
+    assertEquals("123", configResponse.getDataId());
   }
 
   @Test
@@ -36,7 +36,7 @@ public class ConfigResponseDiffblueTest {
     ConfigResponse configResponse = new ConfigResponse();
 
     // Act
-    configResponse.setTenant("content");
+    configResponse.setTenant("foo");
 
     // Assert
     assertNull(configResponse.getDataId());
@@ -48,7 +48,7 @@ public class ConfigResponseDiffblueTest {
     ConfigResponse configResponse = new ConfigResponse();
 
     // Act
-    configResponse.setContent("content");
+    configResponse.setContent("foo");
 
     // Assert
     assertNull(configResponse.getDataId());
@@ -80,7 +80,7 @@ public class ConfigResponseDiffblueTest {
   @Test
   public void getParameterTest() {
     // Arrange, Act and Assert
-    assertNull((new ConfigResponse()).getParameter("content"));
+    assertNull((new ConfigResponse()).getParameter("foo"));
   }
 
   @Test

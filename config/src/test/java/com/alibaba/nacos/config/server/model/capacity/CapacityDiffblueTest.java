@@ -1,5 +1,6 @@
 package com.alibaba.nacos.config.server.model.capacity;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import java.sql.Timestamp;
 import org.junit.Test;
@@ -41,10 +42,10 @@ public class CapacityDiffblueTest {
     Capacity capacity = new Capacity();
 
     // Act
-    capacity.setMaxAggrSize(null);
+    capacity.setMaxAggrSize(Integer.valueOf(3));
 
     // Assert
-    assertNull(capacity.getMaxAggrSize());
+    assertEquals(Integer.valueOf(3), capacity.getMaxAggrSize());
   }
 
   @Test
@@ -53,10 +54,10 @@ public class CapacityDiffblueTest {
     Capacity capacity = new Capacity();
 
     // Act
-    capacity.setUsage(null);
+    capacity.setUsage(Integer.valueOf(1));
 
     // Assert
-    assertNull(capacity.getUsage());
+    assertEquals(Integer.valueOf(1), capacity.getUsage());
   }
 
   @Test
@@ -65,10 +66,10 @@ public class CapacityDiffblueTest {
     Capacity capacity = new Capacity();
 
     // Act
-    capacity.setId(null);
+    capacity.setId(Long.valueOf(123L));
 
     // Assert
-    assertNull(capacity.getId());
+    assertEquals(Long.valueOf(123L), capacity.getId());
   }
 
   @Test
@@ -77,10 +78,10 @@ public class CapacityDiffblueTest {
     Capacity capacity = new Capacity();
 
     // Act
-    capacity.setMaxSize(null);
+    capacity.setMaxSize(Integer.valueOf(3));
 
     // Assert
-    assertNull(capacity.getMaxSize());
+    assertEquals(Integer.valueOf(3), capacity.getMaxSize());
   }
 
   @Test
@@ -89,10 +90,10 @@ public class CapacityDiffblueTest {
     Capacity capacity = new Capacity();
 
     // Act
-    capacity.setMaxAggrCount(null);
+    capacity.setMaxAggrCount(Integer.valueOf(3));
 
     // Assert
-    assertNull(capacity.getMaxAggrCount());
+    assertEquals(Integer.valueOf(3), capacity.getMaxAggrCount());
   }
 
   @Test
@@ -107,10 +108,10 @@ public class CapacityDiffblueTest {
     Capacity capacity = new Capacity();
 
     // Act
-    capacity.setQuota(null);
+    capacity.setQuota(Integer.valueOf(1));
 
     // Assert
-    assertNull(capacity.getQuota());
+    assertEquals(Integer.valueOf(1), capacity.getQuota());
   }
 
   @Test

@@ -11,10 +11,10 @@ public class EntityEventDiffblueTest {
     EntityEvent entityEvent = new EntityEvent();
 
     // Act
-    entityEvent.setEntityName("aaaaa");
+    entityEvent.setEntityName("name");
 
     // Assert
-    assertEquals("aaaaa", entityEvent.getEntityName());
+    assertEquals("name", entityEvent.getEntityName());
   }
 
   @Test
@@ -35,10 +35,10 @@ public class EntityEventDiffblueTest {
     EntityEvent entityEvent = new EntityEvent();
 
     // Act
-    entityEvent.setEntityType("aaaaa");
+    entityEvent.setEntityType("foo");
 
     // Assert
-    assertEquals("aaaaa", entityEvent.getEntityType());
+    assertEquals("foo", entityEvent.getEntityType());
   }
 
   @Test

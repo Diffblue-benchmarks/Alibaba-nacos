@@ -8,7 +8,7 @@ public class ConfigChangeHandlerDiffblueTest {
   @Test
   public void parseChangeDataTest() throws IOException {
     // Arrange, Act and Assert
-    assertEquals(0, ConfigChangeHandler.getInstance().parseChangeData("aaaaa", "aaaaa", "aaaaa").size());
+    assertEquals(0, ConfigChangeHandler.getInstance().parseChangeData("foo", "foo", "foo").size());
   }
 }
 

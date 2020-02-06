@@ -12,10 +12,10 @@ public class LabelDiffblueTest {
     Label label = new Label();
 
     // Act
-    label.setDescription("aaaaa");
+    label.setDescription("description");
 
     // Assert
-    assertEquals("aaaaa", label.getDescription());
+    assertEquals("description", label.getDescription());
   }
 
   @Test
@@ -30,10 +30,10 @@ public class LabelDiffblueTest {
     Label label = new Label();
 
     // Act
-    label.setName("aaaaa");
+    label.setName("name");
 
     // Assert
-    assertEquals("aaaaa", label.getName());
+    assertEquals("name", label.getName());
   }
 
   @Test

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -19,7 +18,7 @@ public class HealthControllerDiffblueTest {
 
     // Assert
     boolean actualHasBodyResult = actualCheckersResult.hasBody();
-    assertEquals(HttpStatus.OK, actualCheckersResult.getStatusCode());
+    assertEquals(200, actualCheckersResult.getStatusCodeValue());
     assertTrue(actualHasBodyResult);
   }
   @Test

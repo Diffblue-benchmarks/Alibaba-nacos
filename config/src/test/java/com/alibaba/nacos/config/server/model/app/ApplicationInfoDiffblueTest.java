@@ -10,31 +10,31 @@ public class ApplicationInfoDiffblueTest {
   @Test
   public void currentServerTest() {
     // Arrange, Act and Assert
-    assertEquals("10.42.2.68", (new ApplicationInfo("aaaaa")).currentServer());
+    assertEquals("10.42.2.68", (new ApplicationInfo("name")).currentServer());
   }
 
   @Test
   public void setAppNameTest() {
     // Arrange
-    ApplicationInfo applicationInfo = new ApplicationInfo("aaaaa");
+    ApplicationInfo applicationInfo = new ApplicationInfo("name");
 
     // Act
-    applicationInfo.setAppName("aaaaa");
+    applicationInfo.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", applicationInfo.getAppName());
+    assertEquals("name", applicationInfo.getAppName());
   }
 
   @Test
   public void getSubInfoCollectLockOwnerTest() {
     // Arrange, Act and Assert
-    assertNull((new ApplicationInfo("aaaaa")).getSubInfoCollectLockOwner());
+    assertNull((new ApplicationInfo("name")).getSubInfoCollectLockOwner());
   }
 
   @Test
   public void setSubInfoCollectLockExpireTimeTest() {
     // Arrange
-    ApplicationInfo applicationInfo = new ApplicationInfo("aaaaa");
+    ApplicationInfo applicationInfo = new ApplicationInfo("name");
 
     // Act
     applicationInfo.setSubInfoCollectLockExpireTime(1L);
@@ -46,19 +46,19 @@ public class ApplicationInfoDiffblueTest {
   @Test
   public void getLastSubscribeInfoCollectedTimeTest() {
     // Arrange, Act and Assert
-    assertEquals(0L, (new ApplicationInfo("aaaaa")).getLastSubscribeInfoCollectedTime());
+    assertEquals(0L, (new ApplicationInfo("name")).getLastSubscribeInfoCollectedTime());
   }
 
   @Test
   public void getAppNameTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new ApplicationInfo("aaaaa")).getAppName());
+    assertEquals("name", (new ApplicationInfo("name")).getAppName());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ApplicationInfo actualApplicationInfo = new ApplicationInfo("aaaaa");
+    ApplicationInfo actualApplicationInfo = new ApplicationInfo("name");
 
     // Assert
     boolean actualIsDynamicCollectDisabledResult = actualApplicationInfo.isDynamicCollectDisabled();
@@ -69,19 +69,19 @@ public class ApplicationInfoDiffblueTest {
     assertNull(actualApplicationInfo.getSubInfoCollectLockOwner());
     assertEquals(0L, actualSubInfoCollectLockExpireTime);
     assertEquals(0L, actualLastSubscribeInfoCollectedTime);
-    assertEquals("aaaaa", actualAppName);
+    assertEquals("name", actualAppName);
   }
 
   @Test
   public void isSubInfoRecentlyCollectedTest() {
     // Arrange, Act and Assert
-    assertFalse((new ApplicationInfo("aaaaa")).isSubInfoRecentlyCollected());
+    assertFalse((new ApplicationInfo("name")).isSubInfoRecentlyCollected());
   }
 
   @Test
   public void setDynamicCollectDisabledTest() {
     // Arrange
-    ApplicationInfo applicationInfo = new ApplicationInfo("aaaaa");
+    ApplicationInfo applicationInfo = new ApplicationInfo("name");
 
     // Act
     applicationInfo.setDynamicCollectDisabled(true);
@@ -93,7 +93,7 @@ public class ApplicationInfoDiffblueTest {
   @Test
   public void setLastSubscribeInfoCollectedTimeTest() {
     // Arrange
-    ApplicationInfo applicationInfo = new ApplicationInfo("aaaaa");
+    ApplicationInfo applicationInfo = new ApplicationInfo("name");
 
     // Act
     applicationInfo.setLastSubscribeInfoCollectedTime(1L);
@@ -105,31 +105,31 @@ public class ApplicationInfoDiffblueTest {
   @Test
   public void getSubInfoCollectLockExpireTimeTest() {
     // Arrange, Act and Assert
-    assertEquals(0L, (new ApplicationInfo("aaaaa")).getSubInfoCollectLockExpireTime());
+    assertEquals(0L, (new ApplicationInfo("name")).getSubInfoCollectLockExpireTime());
   }
 
   @Test
   public void setSubInfoCollectLockOwnerTest() {
     // Arrange
-    ApplicationInfo applicationInfo = new ApplicationInfo("aaaaa");
+    ApplicationInfo applicationInfo = new ApplicationInfo("name");
 
     // Act
-    applicationInfo.setSubInfoCollectLockOwner("aaaaa");
+    applicationInfo.setSubInfoCollectLockOwner("foo");
 
     // Assert
-    assertEquals("aaaaa", applicationInfo.getSubInfoCollectLockOwner());
+    assertEquals("foo", applicationInfo.getSubInfoCollectLockOwner());
   }
 
   @Test
   public void canCurrentServerOwnTheLockTest() {
     // Arrange, Act and Assert
-    assertTrue((new ApplicationInfo("aaaaa")).canCurrentServerOwnTheLock());
+    assertTrue((new ApplicationInfo("name")).canCurrentServerOwnTheLock());
   }
 
   @Test
   public void isDynamicCollectDisabledTest() {
     // Arrange, Act and Assert
-    assertFalse((new ApplicationInfo("aaaaa")).isDynamicCollectDisabled());
+    assertFalse((new ApplicationInfo("name")).isDynamicCollectDisabled());
   }
 }
 

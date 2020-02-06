@@ -9,7 +9,7 @@ public class GroupInfoDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new GroupInfo()).equals("aaaaa"));
+    assertFalse((new GroupInfo()).equals("foo"));
   }
 
   @Test
@@ -18,10 +18,10 @@ public class GroupInfoDiffblueTest {
     GroupInfo groupInfo = new GroupInfo();
 
     // Act
-    groupInfo.setDataId("aaaaa");
+    groupInfo.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", groupInfo.getDataId());
+    assertEquals("123", groupInfo.getDataId());
   }
 
   @Test
@@ -30,10 +30,10 @@ public class GroupInfoDiffblueTest {
     GroupInfo groupInfo = new GroupInfo();
 
     // Act
-    groupInfo.setGroup("aaaaa");
+    groupInfo.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", groupInfo.getGroup());
+    assertEquals("foo", groupInfo.getGroup());
   }
 
   @Test
@@ -42,10 +42,10 @@ public class GroupInfoDiffblueTest {
     GroupInfo groupInfo = new GroupInfo();
 
     // Act
-    groupInfo.setAddress("aaaaa");
+    groupInfo.setAddress("foo");
 
     // Assert
-    assertEquals("aaaaa", groupInfo.getAddress());
+    assertEquals("foo", groupInfo.getAddress());
   }
 
   @Test
@@ -72,10 +72,10 @@ public class GroupInfoDiffblueTest {
     GroupInfo groupInfo = new GroupInfo();
 
     // Act
-    groupInfo.setId(1L);
+    groupInfo.setId(123L);
 
     // Assert
-    assertEquals(1L, groupInfo.getId());
+    assertEquals(123L, groupInfo.getId());
   }
 
   @Test
@@ -96,14 +96,14 @@ public class GroupInfoDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    GroupInfo actualGroupInfo = new GroupInfo("aaaaa", "aaaaa", "aaaaa");
+    GroupInfo actualGroupInfo = new GroupInfo("foo", "123", "foo");
 
     // Assert
     String actualDataId = actualGroupInfo.getDataId();
     String actualGroup = actualGroupInfo.getGroup();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualGroupInfo.getAddress());
-    assertEquals("aaaaa", actualGroup);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualGroupInfo.getAddress());
+    assertEquals("foo", actualGroup);
   }
 
   @Test

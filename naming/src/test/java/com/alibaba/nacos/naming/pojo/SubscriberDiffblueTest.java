@@ -8,79 +8,79 @@ public class SubscriberDiffblueTest {
   @Test
   public void getAddrStrTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).getAddrStr());
+    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getAddrStr());
   }
 
   @Test
   public void getServiceNameTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).getServiceName());
+    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getServiceName());
   }
 
   @Test
   public void setAgentTest() {
     // Arrange
-    Subscriber subscriber = new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
 
     // Act
-    subscriber.setAgent("aaaaa");
+    subscriber.setAgent("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriber.getAgent());
+    assertEquals("foo", subscriber.getAgent());
   }
 
   @Test
   public void setAppTest() {
     // Arrange
-    Subscriber subscriber = new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
 
     // Act
-    subscriber.setApp("aaaaa");
+    subscriber.setApp("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriber.getApp());
+    assertEquals("foo", subscriber.getApp());
   }
 
   @Test
   public void getAgentTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).getAgent());
+    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getAgent());
   }
 
   @Test
   public void getIpTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).getIp());
+    assertEquals("127.0.0.1", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getIp());
   }
 
   @Test
   public void setAddrStrTest() {
     // Arrange
-    Subscriber subscriber = new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
 
     // Act
-    subscriber.setAddrStr("aaaaa");
+    subscriber.setAddrStr("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriber.getAddrStr());
+    assertEquals("foo", subscriber.getAddrStr());
   }
 
   @Test
   public void setNamespaceIdTest() {
     // Arrange
-    Subscriber subscriber = new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
 
     // Act
-    subscriber.setNamespaceId("aaaaa");
+    subscriber.setNamespaceId("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriber.getNamespaceId());
+    assertEquals("foo", subscriber.getNamespaceId());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    Subscriber actualSubscriber = new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    Subscriber actualSubscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
 
     // Assert
     String actualNamespaceId = actualSubscriber.getNamespaceId();
@@ -88,69 +88,67 @@ public class SubscriberDiffblueTest {
     String actualAgent = actualSubscriber.getAgent();
     String actualApp = actualSubscriber.getApp();
     String actualServiceName = actualSubscriber.getServiceName();
-    assertEquals("aaaaa", actualNamespaceId);
-    assertEquals("aaaaa", actualSubscriber.getAddrStr());
-    assertEquals("aaaaa", actualServiceName);
-    assertEquals("aaaaa", actualApp);
-    assertEquals("aaaaa", actualAgent);
-    assertEquals("aaaaa", actualIp);
+    assertEquals("123", actualNamespaceId);
+    assertEquals("foo", actualSubscriber.getAddrStr());
+    assertEquals("foo", actualServiceName);
+    assertEquals("foo", actualApp);
+    assertEquals("foo", actualAgent);
+    assertEquals("127.0.0.1", actualIp);
   }
 
   @Test
   public void setServiceNameTest() {
     // Arrange
-    Subscriber subscriber = new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
 
     // Act
-    subscriber.setServiceName("aaaaa");
+    subscriber.setServiceName("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriber.getServiceName());
+    assertEquals("foo", subscriber.getServiceName());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).equals("aaaaa"));
+    assertFalse((new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).equals("foo"));
   }
 
   @Test
   public void getAppTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).getApp());
+    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getApp());
   }
 
   @Test
   public void hashCodeTest() {
     // Arrange, Act and Assert
-    assertEquals(-1182552159, (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).hashCode());
+    assertEquals(-918599540, (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).hashCode());
   }
 
   @Test
   public void toStringTest() {
     // Arrange, Act and Assert
-    assertEquals(
-        "Subscriber{addrStr='aaaaa', agent='aaaaa', app='aaaaa',"
-            + " ip='aaaaa', namespaceId='aaaaa', serviceName='aaaaa" + "'}",
-        (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).toString());
+    assertEquals("Subscriber{addrStr='foo', agent='foo', app='foo'," + " ip='127.0.0.1', namespaceId='123', serviceName"
+        + "='foo'}", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).toString());
   }
 
   @Test
   public void setIpTest() {
     // Arrange
-    Subscriber subscriber = new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
 
     // Act
-    subscriber.setIp("aaaaa");
+    subscriber.setIp("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriber.getIp());
+    assertEquals("foo", subscriber.getIp());
   }
 
   @Test
   public void getNamespaceIdTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Subscriber("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa")).getNamespaceId());
+    assertEquals("123", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getNamespaceId());
   }
 }
 

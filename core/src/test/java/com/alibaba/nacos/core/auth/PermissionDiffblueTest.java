@@ -17,10 +17,10 @@ public class PermissionDiffblueTest {
     Permission permission = new Permission();
 
     // Act
-    permission.setAction("aaaaa");
+    permission.setAction("foo");
 
     // Assert
-    assertEquals("aaaaa", permission.getAction());
+    assertEquals("foo", permission.getAction());
   }
 
   @Test
@@ -40,10 +40,10 @@ public class PermissionDiffblueTest {
     Permission permission = new Permission();
 
     // Act
-    permission.setResource("aaaaa");
+    permission.setResource("foo");
 
     // Assert
-    assertEquals("aaaaa", permission.getResource());
+    assertEquals("foo", permission.getResource());
   }
 
   @Test
@@ -55,12 +55,12 @@ public class PermissionDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    Permission actualPermission = new Permission("aaaaa", "aaaaa");
+    Permission actualPermission = new Permission("foo", "foo");
 
     // Assert
     String actualResource = actualPermission.getResource();
-    assertEquals("aaaaa", actualResource);
-    assertEquals("aaaaa", actualPermission.getAction());
+    assertEquals("foo", actualResource);
+    assertEquals("foo", actualPermission.getAction());
   }
 }
 

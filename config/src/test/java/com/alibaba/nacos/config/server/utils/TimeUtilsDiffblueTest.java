@@ -7,7 +7,7 @@ public class TimeUtilsDiffblueTest {
   @Test
   public void getCurrentTimeStrTest() {
     // Arrange, Act and Assert
-    assertEquals("2020-02-06 11:53:10", TimeUtils.getCurrentTimeStr());
+    assertEquals("2020-02-06 12:17:45", TimeUtils.getCurrentTimeStr());
   }
 }
 

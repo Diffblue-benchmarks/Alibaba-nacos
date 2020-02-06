@@ -26,19 +26,6 @@ public class ClientBeatProcessorDiffblueTest {
   }
 
   @Test
-  public void setServiceTest() {
-    // Arrange
-    ClientBeatProcessor clientBeatProcessor = new ClientBeatProcessor();
-    Service service = new Service();
-
-    // Act
-    clientBeatProcessor.setService(service);
-
-    // Assert
-    assertSame(service, clientBeatProcessor.getService());
-  }
-
-  @Test
   public void constructorTest() {
     // Arrange and Act
     ClientBeatProcessor actualClientBeatProcessor = new ClientBeatProcessor();

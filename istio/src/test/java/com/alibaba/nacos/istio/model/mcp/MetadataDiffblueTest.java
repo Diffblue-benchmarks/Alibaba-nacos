@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -21,61 +22,74 @@ public class MetadataDiffblueTest {
   }
 
   @Test
+  public void getLabelsOrDefaultTest() {
+    // Arrange, Act and Assert
+    assertEquals("foo", Metadata.getDefaultInstance().getLabelsOrDefault("foo", "foo"));
+  }
+
+  @Test
   public void isInitializedTest() {
     // Arrange, Act and Assert
     assertTrue(Metadata.getDefaultInstance().isInitialized());
   }
 
   @Test
+  public void containsAnnotationsTest() {
+    // Arrange, Act and Assert
+    assertFalse(Metadata.getDefaultInstance().containsAnnotations("foo"));
+  }
+
+  @Test
+  public void getLabelsCountTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, Metadata.getDefaultInstance().getLabelsCount());
+  }
+
+  @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse(Metadata.getDefaultInstance().equals(""));
+    assertFalse(Metadata.getDefaultInstance().equals("foo"));
   }
 
   @Test
-  public void newBuilderTest2() {
-    // Arrange and Act
-    Metadata.Builder actualNewBuilderResult = Metadata.newBuilder(Metadata.getDefaultInstance());
-
-    // Assert
-    String actualName = actualNewBuilderResult.getName();
-    assertEquals("", actualName);
-    assertEquals("", actualNewBuilderResult.getVersion());
+  public void containsLabelsTest() {
+    // Arrange, Act and Assert
+    assertFalse(Metadata.getDefaultInstance().containsLabels("foo"));
   }
 
   @Test
-  public void newBuilderTest() {
-    // Arrange and Act
-    Metadata.Builder actualNewBuilderResult = Metadata.newBuilder();
+  public void parseFromTest2() throws IOException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-    // Assert
-    String actualName = actualNewBuilderResult.getName();
-    assertEquals("", actualName);
-    assertEquals("", actualNewBuilderResult.getVersion());
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    Metadata.parseFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
-  public void toBuilderTest() {
-    // Arrange and Act
-    Metadata.Builder actualToBuilderResult = Metadata.getDefaultInstance().toBuilder();
+  public void getAnnotationsOrThrowTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    Metadata.getDefaultInstance().getAnnotationsOrThrow("foo");
+  }
 
-    // Assert
-    String actualName = actualToBuilderResult.getName();
-    assertEquals("", actualName);
-    assertEquals("", actualToBuilderResult.getVersion());
+  @Test
+  public void getAnnotationsOrDefaultTest() {
+    // Arrange, Act and Assert
+    assertEquals("foo", Metadata.getDefaultInstance().getAnnotationsOrDefault("foo", "foo"));
   }
 
   @Test
   public void parseDelimitedFromTest() throws IOException {
-    // Arrange and Act
-    Metadata actualParseDelimitedFromResult = Metadata.parseDelimitedFrom(new ByteArrayInputStream(new byte[24]));
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-    // Assert
-    String actualName = actualParseDelimitedFromResult.getName();
-    boolean actualIsInitializedResult = actualParseDelimitedFromResult.isInitialized();
-    assertEquals("", actualName);
-    assertEquals("", actualParseDelimitedFromResult.getVersion());
-    assertTrue(actualIsInitializedResult);
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    Metadata.parseDelimitedFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
@@ -86,19 +100,48 @@ public class MetadataDiffblueTest {
 
   @Test
   public void parseFromTest() throws InvalidProtocolBufferException {
-    // Arrange, Act and Assert
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
     thrown.expect(InvalidProtocolBufferException.class);
-    Metadata.parseFrom(new byte[24]);
+    Metadata.parseFrom(byteArray);
+  }
+
+  @Test
+  public void getAnnotationsTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, Metadata.getDefaultInstance().getAnnotations().size());
   }
 
   @Test
   public void newInstanceTest() {
-    // Arrange, Act and Assert
-    String actualName = ((Metadata) Metadata.getDefaultInstance().newInstance(null)).getName();
-    boolean actualIsInitializedResult = ((Metadata) Metadata.getDefaultInstance().newInstance(null)).isInitialized();
+    // Arrange and Act
+    Object actualNewInstanceResult = Metadata.getDefaultInstance().newInstance(null);
+
+    // Assert
+    String actualName = ((Metadata) actualNewInstanceResult).getName();
+    String actualToStringResult = actualNewInstanceResult.toString();
+    int actualSerializedSize = ((Metadata) actualNewInstanceResult).getSerializedSize();
+    boolean actualIsInitializedResult = ((Metadata) actualNewInstanceResult).isInitialized();
     assertEquals("", actualName);
-    assertEquals("", ((Metadata) Metadata.getDefaultInstance().newInstance(null)).getVersion());
+    assertEquals("", ((Metadata) actualNewInstanceResult).getVersion());
+    assertEquals("", actualToStringResult);
     assertTrue(actualIsInitializedResult);
+    assertEquals(0, actualSerializedSize);
+  }
+
+  @Test
+  public void getAnnotationsCountTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, Metadata.getDefaultInstance().getAnnotationsCount());
+  }
+
+  @Test
+  public void getLabelsMapTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, Metadata.getDefaultInstance().getLabelsMap().size());
   }
 
   @Test
@@ -108,27 +151,41 @@ public class MetadataDiffblueTest {
   }
 
   @Test
-  public void internalGetMapFieldTest() {
+  public void getAnnotationsMapTest() {
     // Arrange, Act and Assert
-    thrown.expect(RuntimeException.class);
-    Metadata.getDefaultInstance().internalGetMapField(1);
+    assertEquals(0, Metadata.getDefaultInstance().getAnnotationsMap().size());
   }
 
   @Test
-  public void newBuilderForTypeTest() {
-    // Arrange and Act
-    Metadata.Builder actualNewBuilderForTypeResult = Metadata.getDefaultInstance().newBuilderForType();
+  public void getLabelsOrThrowTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    Metadata.getDefaultInstance().getLabelsOrThrow("foo");
+  }
 
-    // Assert
-    String actualName = actualNewBuilderForTypeResult.getName();
-    assertEquals("", actualName);
-    assertEquals("", actualNewBuilderForTypeResult.getVersion());
+  @Test
+  public void internalGetMapFieldTest() {
+    // Arrange, Act and Assert
+    thrown.expect(RuntimeException.class);
+    Metadata.getDefaultInstance().internalGetMapField(10);
+  }
+
+  @Test
+  public void getSerializedSizeTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, Metadata.getDefaultInstance().getSerializedSize());
   }
 
   @Test
   public void getNameTest() {
     // Arrange, Act and Assert
     assertEquals("", Metadata.getDefaultInstance().getName());
+  }
+
+  @Test
+  public void getLabelsTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, Metadata.getDefaultInstance().getLabels().size());
   }
 }
 

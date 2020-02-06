@@ -16,51 +16,51 @@ public class CacheDataDiffblueTest {
   @Test
   public void getTaskIdTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).getTaskId());
+    assertEquals(0, (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).getTaskId());
   }
 
   @Test
   public void setTypeTest() {
     // Arrange
-    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=");
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
 
     // Act
-    cacheData.setType("dataId=");
+    cacheData.setType("foo");
 
     // Assert
-    assertEquals("dataId=", cacheData.getType());
+    assertEquals("foo", cacheData.getType());
   }
 
   @Test
   public void setTaskIdTest() {
     // Arrange
-    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=");
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
 
     // Act
-    cacheData.setTaskId(1);
+    cacheData.setTaskId(123);
 
     // Assert
-    assertEquals(1, cacheData.getTaskId());
+    assertEquals(123, cacheData.getTaskId());
   }
 
   @Test
   public void setContentTest() {
     // Arrange
-    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=");
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
 
     // Act
-    cacheData.setContent("dataId=");
+    cacheData.setContent("foo");
 
     // Assert
     String actualContent = cacheData.getContent();
-    assertEquals("c09c83251b1e5b813b98d84de8cc4dc3", cacheData.getMd5());
-    assertEquals("dataId=", actualContent);
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", cacheData.getMd5());
+    assertEquals("foo", actualContent);
   }
 
   @Test
   public void setLocalConfigInfoVersionTest() {
     // Arrange
-    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=");
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
 
     // Act
     cacheData.setLocalConfigInfoVersion(1L);
@@ -72,7 +72,7 @@ public class CacheDataDiffblueTest {
   @Test
   public void setInitializingTest() {
     // Arrange
-    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=");
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
 
     // Act
     cacheData.setInitializing(true);
@@ -84,15 +84,15 @@ public class CacheDataDiffblueTest {
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    CacheData actualCacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=");
+    CacheData actualCacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
 
     // Assert
     String actualContent = actualCacheData.getContent();
     boolean actualIsInitializingResult = actualCacheData.isInitializing();
     String actualMd5 = actualCacheData.getMd5();
     boolean actualIsUseLocalConfigInfoResult = actualCacheData.isUseLocalConfigInfo();
-    assertEquals("dataId=", actualCacheData.group);
-    assertEquals("dataId=", actualCacheData.dataId);
+    assertEquals("foo", actualCacheData.group);
+    assertEquals("123", actualCacheData.dataId);
     assertEquals("", actualCacheData.getTenant());
     assertFalse(actualIsUseLocalConfigInfoResult);
     assertEquals("", actualMd5);
@@ -101,9 +101,9 @@ public class CacheDataDiffblueTest {
   }
 
   @Test
-  public void setUseLocalConfigInfoTest() {
+  public void setUseLocalConfigInfoTest2() {
     // Arrange
-    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=");
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
 
     // Act
     cacheData.setUseLocalConfigInfo(true);
@@ -113,43 +113,56 @@ public class CacheDataDiffblueTest {
   }
 
   @Test
+  public void setUseLocalConfigInfoTest() {
+    // Arrange
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
+
+    // Act
+    cacheData.setUseLocalConfigInfo(false);
+
+    // Assert
+    long actualLocalConfigInfoVersion = cacheData.getLocalConfigInfoVersion();
+    assertEquals(-1L, actualLocalConfigInfoVersion);
+    assertFalse(cacheData.isUseLocalConfigInfo());
+  }
+
+  @Test
   public void getMd5Test() {
     // Arrange, Act and Assert
-    assertEquals("", (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).getMd5());
+    assertEquals("", (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).getMd5());
   }
 
   @Test
   public void getMd5StringTest() {
     // Arrange, Act and Assert
-    assertEquals("c09c83251b1e5b813b98d84de8cc4dc3", CacheData.getMd5String("dataId="));
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", CacheData.getMd5String("foo"));
   }
 
   @Test
   public void getTypeTest() {
     // Arrange, Act and Assert
-    assertNull((new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).getType());
+    assertNull((new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).getType());
   }
 
   @Test
   public void getContentTest() {
     // Arrange, Act and Assert
-    assertNull((new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).getContent());
+    assertNull((new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).getContent());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    CacheData actualCacheData = new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=",
-        "dataId=");
+    CacheData actualCacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo", "foo");
 
     // Assert
     String actualContent = actualCacheData.getContent();
     boolean actualIsInitializingResult = actualCacheData.isInitializing();
     String actualMd5 = actualCacheData.getMd5();
     boolean actualIsUseLocalConfigInfoResult = actualCacheData.isUseLocalConfigInfo();
-    assertEquals("dataId=", actualCacheData.group);
-    assertEquals("dataId=", actualCacheData.dataId);
-    assertEquals("dataId=", actualCacheData.getTenant());
+    assertEquals("foo", actualCacheData.group);
+    assertEquals("123", actualCacheData.dataId);
+    assertEquals("foo", actualCacheData.getTenant());
     assertFalse(actualIsUseLocalConfigInfoResult);
     assertEquals("", actualMd5);
     assertTrue(actualIsInitializingResult);
@@ -159,68 +172,64 @@ public class CacheDataDiffblueTest {
   @Test
   public void getLocalConfigInfoVersionTest() {
     // Arrange, Act and Assert
-    assertEquals(0L,
-        (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).getLocalConfigInfoVersion());
+    assertEquals(0L, (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).getLocalConfigInfoVersion());
   }
 
   @Test
   public void getListenersTest() {
     // Arrange, Act and Assert
-    assertEquals(0,
-        (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).getListeners().size());
+    assertEquals(0, (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).getListeners().size());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).equals("dataId="));
+    assertFalse((new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).equals("foo"));
   }
 
   @Test
   public void removeListenerTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).removeListener(null);
+    (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).removeListener(null);
   }
 
   @Test
   public void getTenantTest() {
     // Arrange, Act and Assert
-    assertEquals("", (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).getTenant());
+    assertEquals("", (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).getTenant());
   }
 
   @Test
   public void hashCodeTest() {
     // Arrange, Act and Assert
-    assertEquals(-1063071039,
-        (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).hashCode());
+    assertEquals(1611925, (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).hashCode());
   }
 
   @Test
   public void isUseLocalConfigInfoTest() {
     // Arrange, Act and Assert
-    assertFalse(
-        (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).isUseLocalConfigInfo());
+    assertFalse((new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).isUseLocalConfigInfo());
   }
 
   @Test
   public void toStringTest() {
     // Arrange, Act and Assert
-    assertEquals("CacheData [dataId=, dataId=]",
-        (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).toString());
+    assertEquals("CacheData [123, foo]",
+        (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).toString());
   }
 
   @Test
   public void addListenerTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    (new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).addListener(null);
+    (new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).addListener(null);
   }
 
   @Test
   public void isInitializingTest() {
     // Arrange, Act and Assert
-    assertTrue((new CacheData(new ConfigFilterChainManager(), "dataId=", "dataId=", "dataId=")).isInitializing());
+    assertTrue((new CacheData(new ConfigFilterChainManager(), "name", "123", "foo")).isInitializing());
   }
 }
 

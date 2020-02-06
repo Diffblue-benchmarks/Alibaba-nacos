@@ -11,7 +11,7 @@ public class UserPersistServiceDiffblueTest {
   public void findUserByUsernameTest() {
     // Arrange, Act and Assert
     thrown.expect(RuntimeException.class);
-    (new UserPersistService()).findUserByUsername("aaaaa");
+    (new UserPersistService()).findUserByUsername("username");
   }
 }
 

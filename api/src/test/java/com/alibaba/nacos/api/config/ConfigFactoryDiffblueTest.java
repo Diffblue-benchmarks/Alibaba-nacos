@@ -19,7 +19,7 @@ public class ConfigFactoryDiffblueTest {
   public void createConfigServiceTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
-    ConfigFactory.createConfigService("aaaaa");
+    ConfigFactory.createConfigService("foo");
   }
 }
 

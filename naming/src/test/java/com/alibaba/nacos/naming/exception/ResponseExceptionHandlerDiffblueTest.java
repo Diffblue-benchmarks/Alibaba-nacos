@@ -15,12 +15,12 @@ public class ResponseExceptionHandlerDiffblueTest {
 
     // Act
     ResponseEntity<String> actualHandleMissingParamsResult = responseExceptionHandler
-        .handleMissingParams(new MissingServletRequestParameterException("aaaaa", "aaaaa"));
+        .handleMissingParams(new MissingServletRequestParameterException("name", "foo"));
 
     // Assert
     String actualToStringResult = actualHandleMissingParamsResult.toString();
     boolean actualHasBodyResult = actualHandleMissingParamsResult.hasBody();
-    assertEquals("<400 BAD_REQUEST Bad Request,Parameter 'aaaaa' is" + " missing,{}>", actualToStringResult);
+    assertEquals("<400 BAD_REQUEST Bad Request,Parameter 'name' is" + " missing,{}>", actualToStringResult);
     assertEquals(HttpStatus.BAD_REQUEST, actualHandleMissingParamsResult.getStatusCode());
     assertTrue(actualHasBodyResult);
   }

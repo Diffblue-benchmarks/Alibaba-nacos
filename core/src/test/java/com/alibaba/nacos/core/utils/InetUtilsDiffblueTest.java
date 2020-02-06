@@ -15,7 +15,7 @@ public class InetUtilsDiffblueTest {
   @Test
   public void matchTest() {
     // Arrange, Act and Assert
-    assertFalse(InetUtils.match("$", "$"));
+    assertTrue(InetUtils.match("foo", "foo"));
   }
 
   @Test
@@ -27,13 +27,13 @@ public class InetUtilsDiffblueTest {
   @Test
   public void isIPTest() {
     // Arrange, Act and Assert
-    assertFalse(InetUtils.isIP("$"));
+    assertFalse(InetUtils.isIP("foo"));
   }
 
   @Test
   public void ignoreInterfaceTest() {
     // Arrange, Act and Assert
-    assertFalse(InetUtils.ignoreInterface("$"));
+    assertFalse(InetUtils.ignoreInterface("name"));
   }
 
   @Test

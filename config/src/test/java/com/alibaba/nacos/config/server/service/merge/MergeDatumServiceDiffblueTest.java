@@ -26,8 +26,7 @@ public class MergeDatumServiceDiffblueTest {
     MergeDatumService mergeDatumService = new MergeDatumService(new PersistService());
 
     // Act
-    mergeDatumService.addMergeTask("com.alibaba.nacos.MergeDatum", "com.alibaba.nacos.MergeDatum",
-        "com.alibaba.nacos.MergeDatum", "com.alibaba.nacos.MergeDatum", "com.alibaba.nacos.MergeDatum");
+    mergeDatumService.addMergeTask("123", "123", "foo", "foo", "foo");
 
     // Assert
     assertEquals(1, mergeDatumService.mergeTasks.size());
@@ -51,8 +50,7 @@ public class MergeDatumServiceDiffblueTest {
     MergeDatumService mergeDatumService = new MergeDatumService(new PersistService());
 
     // Act
-    mergeDatumService.addMergeTask("com.alibaba.nacos.MergeDatum", "com.alibaba.nacos.MergeDatum",
-        "com.alibaba.nacos.MergeDatum", "com.alibaba.nacos.MergeDatum");
+    mergeDatumService.addMergeTask("123", "123", "foo", "foo");
 
     // Assert
     assertEquals(1, mergeDatumService.mergeTasks.size());

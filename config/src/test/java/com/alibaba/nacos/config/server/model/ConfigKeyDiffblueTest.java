@@ -11,10 +11,10 @@ public class ConfigKeyDiffblueTest {
     ConfigKey configKey = new ConfigKey();
 
     // Act
-    configKey.setAppName("aaaaa");
+    configKey.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", configKey.getAppName());
+    assertEquals("name", configKey.getAppName());
   }
 
   @Test
@@ -23,10 +23,10 @@ public class ConfigKeyDiffblueTest {
     ConfigKey configKey = new ConfigKey();
 
     // Act
-    configKey.setGroup("aaaaa");
+    configKey.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", configKey.getGroup());
+    assertEquals("foo", configKey.getGroup());
   }
 
   @Test
@@ -35,10 +35,10 @@ public class ConfigKeyDiffblueTest {
     ConfigKey configKey = new ConfigKey();
 
     // Act
-    configKey.setDataId("aaaaa");
+    configKey.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", configKey.getDataId());
+    assertEquals("123", configKey.getDataId());
   }
 
   @Test
@@ -69,14 +69,14 @@ public class ConfigKeyDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigKey actualConfigKey = new ConfigKey("aaaaa", "aaaaa", "aaaaa");
+    ConfigKey actualConfigKey = new ConfigKey("name", "123", "foo");
 
     // Assert
     String actualDataId = actualConfigKey.getDataId();
     String actualGroup = actualConfigKey.getGroup();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigKey.getAppName());
-    assertEquals("aaaaa", actualGroup);
+    assertEquals("123", actualDataId);
+    assertEquals("name", actualConfigKey.getAppName());
+    assertEquals("foo", actualGroup);
   }
 
   @Test

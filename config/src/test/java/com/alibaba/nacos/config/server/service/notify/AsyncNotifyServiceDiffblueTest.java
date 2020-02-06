@@ -5,10 +5,10 @@ import org.junit.Test;
 
 public class AsyncNotifyServiceDiffblueTest {
   @Test
-  public void constructorTest3() {
+  public void constructorTest4() {
     // Arrange and Act
-    AsyncNotifyService.NotifySingleTask actualNotifySingleTask = new AsyncNotifyService.NotifySingleTask("&tag=",
-        "&tag=", "&tag=", 1L, "&tag=", true);
+    AsyncNotifyService.NotifySingleTask actualNotifySingleTask = new AsyncNotifyService.NotifySingleTask("123", "foo",
+        "foo", 1L, "foo", true);
 
     // Assert
     String actualDataId = actualNotifySingleTask.getDataId();
@@ -17,22 +17,46 @@ public class AsyncNotifyServiceDiffblueTest {
     String actualGroup = actualNotifySingleTask.getGroup();
     int actualFailCount = actualNotifySingleTask.getFailCount();
     String actualTenant = actualNotifySingleTask.getTenant();
-    assertEquals("&tag=", actualDataId);
-    assertEquals("http://&tag=null/v1/cs/communication/dataChange" + "?dataId=%26tag%3D&group=%26tag%3D&tenant=&tag=",
+    assertEquals("123", actualDataId);
+    assertEquals("http://foonull/v1/cs/communication/dataChange?dataId" + "=123&group=foo&tenant=foo",
         actualNotifySingleTask.url);
     assertEquals(1L, actualNotifySingleTask.getLastModified());
-    assertEquals("&tag=", actualTenant);
+    assertEquals("foo", actualTenant);
     assertEquals(0, actualFailCount);
-    assertEquals("&tag=", actualGroup);
+    assertEquals("foo", actualGroup);
     assertEquals(3000L, actualTaskInterval);
-    assertEquals("&tag=", actualTargetIP);
+    assertEquals("foo", actualTargetIP);
+  }
+
+  @Test
+  public void constructorTest3() {
+    // Arrange and Act
+    AsyncNotifyService.NotifySingleTask actualNotifySingleTask = new AsyncNotifyService.NotifySingleTask("123", "foo",
+        "foo", "foo", 1L, "foo", true);
+
+    // Assert
+    String actualDataId = actualNotifySingleTask.getDataId();
+    String actualTargetIP = actualNotifySingleTask.getTargetIP();
+    long actualTaskInterval = actualNotifySingleTask.getTaskInterval();
+    String actualGroup = actualNotifySingleTask.getGroup();
+    int actualFailCount = actualNotifySingleTask.getFailCount();
+    String actualTenant = actualNotifySingleTask.getTenant();
+    assertEquals("123", actualDataId);
+    assertEquals("http://foonull/v1/cs/communication/dataChange?dataId" + "=123&group=foo&tenant=foo&tag=foo",
+        actualNotifySingleTask.url);
+    assertEquals(1L, actualNotifySingleTask.getLastModified());
+    assertEquals("foo", actualTenant);
+    assertEquals(0, actualFailCount);
+    assertEquals("foo", actualGroup);
+    assertEquals(3000L, actualTaskInterval);
+    assertEquals("foo", actualTargetIP);
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    AsyncNotifyService.NotifySingleTask actualNotifySingleTask = new AsyncNotifyService.NotifySingleTask("&tag=",
-        "&tag=", "&tag=", "&tag=", 1L, "&tag=", true);
+    AsyncNotifyService.NotifySingleTask actualNotifySingleTask = new AsyncNotifyService.NotifySingleTask("123", "foo",
+        "foo", 1L, "foo");
 
     // Assert
     String actualDataId = actualNotifySingleTask.getDataId();
@@ -41,22 +65,22 @@ public class AsyncNotifyServiceDiffblueTest {
     String actualGroup = actualNotifySingleTask.getGroup();
     int actualFailCount = actualNotifySingleTask.getFailCount();
     String actualTenant = actualNotifySingleTask.getTenant();
-    assertEquals("&tag=", actualDataId);
-    assertEquals("http://&tag=null/v1/cs/communication/dataChange" + "?dataId=%26tag%3D&group=%26tag%3D&tenant=&tag="
-        + "&tag=&tag=", actualNotifySingleTask.url);
+    assertEquals("123", actualDataId);
+    assertEquals("http://foonull/v1/cs/communication/dataChange?dataId" + "=123&group=foo&tenant=foo",
+        actualNotifySingleTask.url);
     assertEquals(1L, actualNotifySingleTask.getLastModified());
-    assertEquals("&tag=", actualTenant);
+    assertEquals("foo", actualTenant);
     assertEquals(0, actualFailCount);
-    assertEquals("&tag=", actualGroup);
+    assertEquals("foo", actualGroup);
     assertEquals(3000L, actualTaskInterval);
-    assertEquals("&tag=", actualTargetIP);
+    assertEquals("foo", actualTargetIP);
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    AsyncNotifyService.NotifySingleTask actualNotifySingleTask = new AsyncNotifyService.NotifySingleTask("&tag=",
-        "&tag=", "&tag=", 1L, "&tag=");
+    AsyncNotifyService.NotifySingleTask actualNotifySingleTask = new AsyncNotifyService.NotifySingleTask("123", "foo",
+        "", 1L, "foo");
 
     // Assert
     String actualDataId = actualNotifySingleTask.getDataId();
@@ -65,15 +89,14 @@ public class AsyncNotifyServiceDiffblueTest {
     String actualGroup = actualNotifySingleTask.getGroup();
     int actualFailCount = actualNotifySingleTask.getFailCount();
     String actualTenant = actualNotifySingleTask.getTenant();
-    assertEquals("&tag=", actualDataId);
-    assertEquals("http://&tag=null/v1/cs/communication/dataChange" + "?dataId=%26tag%3D&group=%26tag%3D&tenant=&tag=",
-        actualNotifySingleTask.url);
+    assertEquals("123", actualDataId);
+    assertEquals("http://foonull/v1/cs/communication/dataChange?dataId" + "=123&group=foo", actualNotifySingleTask.url);
     assertEquals(1L, actualNotifySingleTask.getLastModified());
-    assertEquals("&tag=", actualTenant);
+    assertEquals("", actualTenant);
     assertEquals(0, actualFailCount);
-    assertEquals("&tag=", actualGroup);
+    assertEquals("foo", actualGroup);
     assertEquals(3000L, actualTaskInterval);
-    assertEquals("&tag=", actualTargetIP);
+    assertEquals("foo", actualTargetIP);
   }
 }
 

@@ -12,10 +12,10 @@ public class ServiceDetailInfoDiffblueTest {
     ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
 
     // Act
-    serviceDetailInfo.setServiceName("aaaaa");
+    serviceDetailInfo.setServiceName("name");
 
     // Assert
-    assertEquals("aaaaa", serviceDetailInfo.getServiceName());
+    assertEquals("name", serviceDetailInfo.getServiceName());
   }
 
   @Test
@@ -42,10 +42,10 @@ public class ServiceDetailInfoDiffblueTest {
     ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
 
     // Act
-    serviceDetailInfo.setGroupName("aaaaa");
+    serviceDetailInfo.setGroupName("name");
 
     // Assert
-    assertEquals("aaaaa", serviceDetailInfo.getGroupName());
+    assertEquals("name", serviceDetailInfo.getGroupName());
   }
 
   @Test

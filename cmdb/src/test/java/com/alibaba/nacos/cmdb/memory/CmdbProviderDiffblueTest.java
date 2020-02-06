@@ -13,20 +13,20 @@ public class CmdbProviderDiffblueTest {
   @Test
   public void queryEntityTest() throws NacosException {
     // Arrange, Act and Assert
-    assertNull((new CmdbProvider()).queryEntity("aaaaa", "aaaaa"));
+    assertNull((new CmdbProvider()).queryEntity("name", "foo"));
   }
 
   @Test
   public void queryEntitiesByLabelTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(UnsupportedOperationException.class);
-    (new CmdbProvider()).queryEntitiesByLabel("aaaaa", "aaaaa");
+    (new CmdbProvider()).queryEntitiesByLabel("name", "foo");
   }
 
   @Test
   public void queryLabelTest() throws NacosException {
     // Arrange, Act and Assert
-    assertNull((new CmdbProvider()).queryLabel("aaaaa", "aaaaa", "aaaaa"));
+    assertNull((new CmdbProvider()).queryLabel("name", "foo", "name"));
   }
 }
 

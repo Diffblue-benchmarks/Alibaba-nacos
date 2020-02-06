@@ -8,7 +8,7 @@ public class SwitchServiceDiffblueTest {
   @Test
   public void getSwitchIntegerTest() {
     // Arrange, Act and Assert
-    assertEquals(1, SwitchService.getSwitchInteger("#", 1));
+    assertEquals(42, SwitchService.getSwitchInteger("foo", 42));
   }
 
   @Test
@@ -20,13 +20,13 @@ public class SwitchServiceDiffblueTest {
   @Test
   public void getSwitchBooleanTest() {
     // Arrange, Act and Assert
-    assertTrue(SwitchService.getSwitchBoolean("#", true));
+    assertTrue(SwitchService.getSwitchBoolean("foo", true));
   }
 
   @Test
   public void getSwitchStringTest() {
     // Arrange, Act and Assert
-    assertEquals("#", SwitchService.getSwitchString("#", "#"));
+    assertEquals("foo", SwitchService.getSwitchString("foo", "foo"));
   }
 }
 

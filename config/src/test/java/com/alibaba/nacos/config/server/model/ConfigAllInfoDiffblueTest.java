@@ -12,10 +12,10 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setUse("aaaaa");
+    configAllInfo.setUse("foo");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getUse());
+    assertEquals("foo", configAllInfo.getUse());
   }
 
   @Test
@@ -24,10 +24,10 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setType("aaaaa");
+    configAllInfo.setType("foo");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getType());
+    assertEquals("foo", configAllInfo.getType());
   }
 
   @Test
@@ -36,10 +36,10 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setDesc("aaaaa");
+    configAllInfo.setDesc("description");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getDesc());
+    assertEquals("description", configAllInfo.getDesc());
   }
 
   @Test
@@ -66,10 +66,10 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setConfigTags("aaaaa");
+    configAllInfo.setConfigTags("foo");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getConfigTags());
+    assertEquals("foo", configAllInfo.getConfigTags());
   }
 
   @Test
@@ -90,16 +90,16 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setEffect("aaaaa");
+    configAllInfo.setEffect("foo");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getEffect());
+    assertEquals("foo", configAllInfo.getEffect());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigAllInfo()).equals("aaaaa"));
+    assertFalse((new ConfigAllInfo()).equals("foo"));
   }
 
   @Test
@@ -114,10 +114,10 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setSchema("aaaaa");
+    configAllInfo.setSchema("foo");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getSchema());
+    assertEquals("foo", configAllInfo.getSchema());
   }
 
   @Test
@@ -194,10 +194,10 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setCreateIp("aaaaa");
+    configAllInfo.setCreateIp("foo");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getCreateIp());
+    assertEquals("foo", configAllInfo.getCreateIp());
   }
 
   @Test
@@ -224,10 +224,10 @@ public class ConfigAllInfoDiffblueTest {
     ConfigAllInfo configAllInfo = new ConfigAllInfo();
 
     // Act
-    configAllInfo.setCreateUser("aaaaa");
+    configAllInfo.setCreateUser("foo");
 
     // Assert
-    assertEquals("aaaaa", configAllInfo.getCreateUser());
+    assertEquals("foo", configAllInfo.getCreateUser());
   }
 
   @Test

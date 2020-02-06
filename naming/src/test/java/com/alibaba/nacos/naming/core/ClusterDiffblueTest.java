@@ -32,10 +32,10 @@ public class ClusterDiffblueTest {
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setDefCkport(1);
+    cluster.setDefCkport(8080);
 
     // Assert
-    assertEquals(1, cluster.getDefCkport());
+    assertEquals(8080, cluster.getDefCkport());
   }
 
   @Test
@@ -44,16 +44,16 @@ public class ClusterDiffblueTest {
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setServiceName("");
+    cluster.setServiceName("name");
 
     // Assert
-    assertEquals("", cluster.getServiceName());
+    assertEquals("name", cluster.getServiceName());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new Cluster()).equals(""));
+    assertFalse((new Cluster()).equals("foo"));
   }
 
   @Test
@@ -86,15 +86,28 @@ public class ClusterDiffblueTest {
   }
 
   @Test
-  public void setDefIPPortTest() {
+  public void setDefIPPortTest2() {
     // Arrange
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setDefIPPort(1);
+    cluster.setDefIPPort(8080);
 
     // Assert
-    assertEquals(1, cluster.getDefIPPort());
+    assertEquals(8080, cluster.getDefIPPort());
+  }
+
+  @Test
+  public void setDefIPPortTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    (new Cluster()).setDefIPPort(0);
+  }
+
+  @Test
+  public void allIPsTest3() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new Cluster()).allIPs(false).size());
   }
 
   @Test
@@ -152,10 +165,10 @@ public class ClusterDiffblueTest {
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setSitegroup("");
+    cluster.setSitegroup("foo");
 
     // Assert
-    assertEquals("", cluster.getSitegroup());
+    assertEquals("foo", cluster.getSitegroup());
   }
 
   @Test

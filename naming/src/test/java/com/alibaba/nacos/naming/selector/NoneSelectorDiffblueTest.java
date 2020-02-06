@@ -14,7 +14,7 @@ public class NoneSelectorDiffblueTest {
   @Test
   public void selectTest() {
     // Arrange, Act and Assert
-    assertNull((new NoneSelector()).select("aaaaa", null));
+    assertNull((new NoneSelector()).select("foo", null));
   }
 }
 

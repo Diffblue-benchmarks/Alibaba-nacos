@@ -8,7 +8,7 @@ public class RaftPeerDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new RaftPeer()).equals("aaaaa"));
+    assertFalse((new RaftPeer()).equals("foo"));
   }
 
   @Test

@@ -17,10 +17,10 @@ public class PermissionInfoDiffblueTest {
     PermissionInfo permissionInfo = new PermissionInfo();
 
     // Act
-    permissionInfo.setAction("aaaaa");
+    permissionInfo.setAction("foo");
 
     // Assert
-    assertEquals("aaaaa", permissionInfo.getAction());
+    assertEquals("foo", permissionInfo.getAction());
   }
 
   @Test
@@ -48,10 +48,10 @@ public class PermissionInfoDiffblueTest {
     PermissionInfo permissionInfo = new PermissionInfo();
 
     // Act
-    permissionInfo.setRole("aaaaa");
+    permissionInfo.setRole("foo");
 
     // Assert
-    assertEquals("aaaaa", permissionInfo.getRole());
+    assertEquals("foo", permissionInfo.getRole());
   }
 
   @Test
@@ -60,10 +60,10 @@ public class PermissionInfoDiffblueTest {
     PermissionInfo permissionInfo = new PermissionInfo();
 
     // Act
-    permissionInfo.setResource("aaaaa");
+    permissionInfo.setResource("foo");
 
     // Assert
-    assertEquals("aaaaa", permissionInfo.getResource());
+    assertEquals("foo", permissionInfo.getResource());
   }
 
   @Test

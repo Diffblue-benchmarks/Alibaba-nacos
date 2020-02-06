@@ -9,7 +9,7 @@ public class ConfigInfoBaseExDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfoBaseEx()).equals("aaaaa"));
+    assertFalse((new ConfigInfoBaseEx()).equals("foo"));
   }
 
   @Test
@@ -76,16 +76,16 @@ public class ConfigInfoBaseExDiffblueTest {
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    ConfigInfoBaseEx actualConfigInfoBaseEx = new ConfigInfoBaseEx("aaaaa", "aaaaa", "aaaaa");
+    ConfigInfoBaseEx actualConfigInfoBaseEx = new ConfigInfoBaseEx("123", "foo", "foo");
 
     // Assert
     String actualDataId = actualConfigInfoBaseEx.getDataId();
     String actualContent = actualConfigInfoBaseEx.getContent();
     String actualMd5 = actualConfigInfoBaseEx.getMd5();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfoBaseEx.getGroup());
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualConfigInfoBaseEx.getGroup());
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 
   @Test
@@ -94,16 +94,16 @@ public class ConfigInfoBaseExDiffblueTest {
     ConfigInfoBaseEx configInfoBaseEx = new ConfigInfoBaseEx();
 
     // Act
-    configInfoBaseEx.setMessage("aaaaa");
+    configInfoBaseEx.setMessage("message");
 
     // Assert
-    assertEquals("aaaaa", configInfoBaseEx.getMessage());
+    assertEquals("message", configInfoBaseEx.getMessage());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfoBaseEx actualConfigInfoBaseEx = new ConfigInfoBaseEx("aaaaa", "aaaaa", "aaaaa", 1, "aaaaa");
+    ConfigInfoBaseEx actualConfigInfoBaseEx = new ConfigInfoBaseEx("123", "foo", "foo", 1, "message");
 
     // Assert
     String actualDataId = actualConfigInfoBaseEx.getDataId();
@@ -111,12 +111,12 @@ public class ConfigInfoBaseExDiffblueTest {
     String actualMessage = actualConfigInfoBaseEx.getMessage();
     String actualMd5 = actualConfigInfoBaseEx.getMd5();
     String actualGroup = actualConfigInfoBaseEx.getGroup();
-    assertEquals("aaaaa", actualDataId);
+    assertEquals("123", actualDataId);
     assertEquals(1, actualConfigInfoBaseEx.getStatus());
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualMessage);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("foo", actualGroup);
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("message", actualMessage);
+    assertEquals("foo", actualContent);
   }
 }
 

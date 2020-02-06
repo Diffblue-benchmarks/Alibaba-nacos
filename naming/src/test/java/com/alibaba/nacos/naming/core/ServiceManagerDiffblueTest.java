@@ -15,7 +15,7 @@ public class ServiceManagerDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange, Act and Assert
-    assertEquals("public", (new ServiceManager.ServiceChecksum("public")).namespaceId);
+    assertEquals("123", (new ServiceManager.ServiceChecksum("123")).namespaceId);
   }
 
   @Test
@@ -37,7 +37,7 @@ public class ServiceManagerDiffblueTest {
 
     // Act and Assert
     thrown.expect(NacosException.class);
-    serviceManager.updateInstance("", "", new Instance());
+    serviceManager.updateInstance("123", "name", new Instance());
   }
 
   @Test
@@ -55,7 +55,7 @@ public class ServiceManagerDiffblueTest {
   @Test
   public void getPagedServiceTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new ServiceManager()).getPagedService("", 1, 1, "", "", null, true));
+    assertEquals(0, (new ServiceManager()).getPagedService("123", 1, 3, "foo", "foo", null, true));
   }
 
   @Test
@@ -65,27 +65,10 @@ public class ServiceManagerDiffblueTest {
   }
 
   @Test
-  public void registerInstanceTest() throws NacosException {
-    // Arrange
-    ServiceManager serviceManager = new ServiceManager();
-
-    // Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    serviceManager.registerInstance("", "", new Instance());
-  }
-
-  @Test
   public void onDeleteTest() throws Exception {
     // Arrange, Act and Assert
     thrown.expect(ArrayIndexOutOfBoundsException.class);
-    (new ServiceManager()).onDelete("");
-  }
-
-  @Test
-  public void createEmptyServiceTest() throws NacosException {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    (new ServiceManager()).createEmptyService("", "", true);
+    (new ServiceManager()).onDelete("foo");
   }
 
   @Test
@@ -95,13 +78,13 @@ public class ServiceManagerDiffblueTest {
 
     // Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    serviceManager.createServiceIfAbsent("", "", true, new Cluster());
+    serviceManager.createServiceIfAbsent("123", "name", true, new Cluster());
   }
 
   @Test
   public void getServiceTest() {
     // Arrange, Act and Assert
-    assertNull((new ServiceManager()).getService("", ""));
+    assertNull((new ServiceManager()).getService("123", "name"));
   }
 
   @Test
@@ -113,13 +96,13 @@ public class ServiceManagerDiffblueTest {
   @Test
   public void getAllServiceNameListTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new ServiceManager()).getAllServiceNameList("").size());
+    assertEquals(0, (new ServiceManager()).getAllServiceNameList("123").size());
   }
 
   @Test
   public void chooseServiceMapTest() {
     // Arrange, Act and Assert
-    assertNull((new ServiceManager()).chooseServiceMap(""));
+    assertNull((new ServiceManager()).chooseServiceMap("123"));
   }
 
   @Test
@@ -129,17 +112,17 @@ public class ServiceManagerDiffblueTest {
     Service service = new Service();
 
     // Act
-    serviceManager.onChange("", service);
+    serviceManager.onChange("foo", service);
 
     // Assert
     assertEquals("public", service.getNamespaceId());
-    assertEquals(0, serviceManager.getServiceCount());
+    assertEquals(0, serviceManager.getInstanceCount());
   }
 
   @Test
   public void interestsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ServiceManager()).interests(""));
+    assertFalse((new ServiceManager()).interests("foo"));
   }
 
   @Test
@@ -157,7 +140,7 @@ public class ServiceManagerDiffblueTest {
   @Test
   public void containServiceTest() {
     // Arrange, Act and Assert
-    assertFalse((new ServiceManager()).containService("", ""));
+    assertFalse((new ServiceManager()).containService("123", "name"));
   }
 
   @Test
@@ -169,26 +152,26 @@ public class ServiceManagerDiffblueTest {
   @Test
   public void getServiceMapTest() {
     // Arrange, Act and Assert
-    assertNull((new ServiceManager()).getServiceMap(""));
+    assertNull((new ServiceManager()).getServiceMap("123"));
   }
 
   @Test
   public void getInstanceTest() {
     // Arrange, Act and Assert
-    assertNull((new ServiceManager()).getInstance("", "", "", "", 1));
+    assertNull((new ServiceManager()).getInstance("123", "name", "foo", "127.0.0.1", 8080));
   }
 
   @Test
   public void easyRemoveServiceTest() throws Exception {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    (new ServiceManager()).easyRemoveService("", "");
+    (new ServiceManager()).easyRemoveService("123", "name");
   }
 
   @Test
   public void matchUnlistenKeyTest() {
     // Arrange, Act and Assert
-    assertFalse((new ServiceManager()).matchUnlistenKey(""));
+    assertFalse((new ServiceManager()).matchUnlistenKey("foo"));
   }
 }
 

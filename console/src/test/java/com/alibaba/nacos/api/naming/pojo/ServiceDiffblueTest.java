@@ -11,10 +11,10 @@ public class ServiceDiffblueTest {
     Service service = new Service();
 
     // Act
-    service.setAppName("aaaaa");
+    service.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", service.getAppName());
+    assertEquals("name", service.getAppName());
   }
 
   @Test
@@ -38,15 +38,15 @@ public class ServiceDiffblueTest {
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    Service actualService = new Service("aaaaa");
+    Service actualService = new Service("name");
 
     // Assert
     String actualName = actualService.getName();
     String actualToStringResult = actualService.toString();
     assertEquals(0.0f, actualService.getProtectThreshold(), 0.0f);
-    assertEquals("Service{name='aaaaa', protectThreshold=0.0," + " appName='null', groupName='null', metadata={}}",
+    assertEquals("Service{name='name', protectThreshold=0.0, appName='null'," + " groupName='null', metadata={}}",
         actualToStringResult);
-    assertEquals("aaaaa", actualName);
+    assertEquals("name", actualName);
   }
 
   @Test
@@ -55,10 +55,10 @@ public class ServiceDiffblueTest {
     Service service = new Service();
 
     // Act
-    service.setProtectThreshold(1.0f);
+    service.setProtectThreshold(10.0f);
 
     // Assert
-    assertEquals(1.0f, service.getProtectThreshold(), 0.0f);
+    assertEquals(10.0f, service.getProtectThreshold(), 0.0f);
   }
 
   @Test
@@ -85,10 +85,10 @@ public class ServiceDiffblueTest {
     Service service = new Service();
 
     // Act
-    service.setGroupName("aaaaa");
+    service.setGroupName("name");
 
     // Assert
-    assertEquals("aaaaa", service.getGroupName());
+    assertEquals("name", service.getGroupName());
   }
 
   @Test
@@ -97,10 +97,10 @@ public class ServiceDiffblueTest {
     Service service = new Service();
 
     // Act
-    service.setName("aaaaa");
+    service.setName("name");
 
     // Assert
-    assertEquals("aaaaa", service.getName());
+    assertEquals("name", service.getName());
   }
 
   @Test

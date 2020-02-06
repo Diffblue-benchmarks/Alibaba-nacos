@@ -35,7 +35,7 @@ public class BasicDataSourceServiceImplDiffblueTest {
   @Test
   public void defaultIfNullTest() {
     // Arrange, Act and Assert
-    assertEquals("10", BasicDataSourceServiceImpl.defaultIfNull("10", "10"));
+    assertEquals("value", BasicDataSourceServiceImpl.defaultIfNull("value", "foo"));
   }
 
   @Test

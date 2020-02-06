@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,36 +16,38 @@ public class IncrementalMeshConfigRequestDiffblueTest {
   public ExpectedException thrown = ExpectedException.none();
 
   @Test
-  public void newBuilderTest2() {
+  public void newInstanceTest() {
     // Arrange and Act
-    IncrementalMeshConfigRequest.Builder actualNewBuilderResult = IncrementalMeshConfigRequest
-        .newBuilder(IncrementalMeshConfigRequest.getDefaultInstance());
+    Object actualNewInstanceResult = IncrementalMeshConfigRequest.getDefaultInstance().newInstance(null);
 
     // Assert
-    String actualResponseNonce = actualNewBuilderResult.getResponseNonce();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualNewBuilderResult.getTypeUrl());
-  }
-
-  @Test
-  public void newInstanceTest() {
-    // Arrange, Act and Assert
-    String actualResponseNonce = ((IncrementalMeshConfigRequest) IncrementalMeshConfigRequest.getDefaultInstance()
-        .newInstance(null)).getResponseNonce();
-    boolean actualIsInitializedResult = ((IncrementalMeshConfigRequest) IncrementalMeshConfigRequest
-        .getDefaultInstance().newInstance(null)).isInitialized();
+    String actualToStringResult = actualNewInstanceResult.toString();
+    int actualSerializedSize = ((IncrementalMeshConfigRequest) actualNewInstanceResult).getSerializedSize();
+    String actualResponseNonce = ((IncrementalMeshConfigRequest) actualNewInstanceResult).getResponseNonce();
+    boolean actualIsInitializedResult = ((IncrementalMeshConfigRequest) actualNewInstanceResult).isInitialized();
+    assertEquals("", actualToStringResult);
+    assertEquals(0, actualSerializedSize);
     assertEquals("", actualResponseNonce);
     assertTrue(actualIsInitializedResult);
-    assertEquals("",
-        ((IncrementalMeshConfigRequest) IncrementalMeshConfigRequest.getDefaultInstance().newInstance(null))
-            .getTypeUrl());
+    assertEquals("", ((IncrementalMeshConfigRequest) actualNewInstanceResult).getTypeUrl());
   }
 
   @Test
-  public void parseFromTest() throws InvalidProtocolBufferException {
-    // Arrange, Act and Assert
+  public void parseFromTest2() throws InvalidProtocolBufferException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
     thrown.expect(InvalidProtocolBufferException.class);
-    IncrementalMeshConfigRequest.parseFrom(new byte[24]);
+    IncrementalMeshConfigRequest.parseFrom(byteArray);
+  }
+
+  @Test
+  public void getInitialResourceVersionsOrThrowTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    IncrementalMeshConfigRequest.getDefaultInstance().getInitialResourceVersionsOrThrow("foo");
   }
 
   @Test
@@ -62,18 +65,25 @@ public class IncrementalMeshConfigRequestDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse(IncrementalMeshConfigRequest.getDefaultInstance().equals(""));
+    assertFalse(IncrementalMeshConfigRequest.getDefaultInstance().equals("foo"));
   }
 
   @Test
-  public void newBuilderTest() {
-    // Arrange and Act
-    IncrementalMeshConfigRequest.Builder actualNewBuilderResult = IncrementalMeshConfigRequest.newBuilder();
+  public void getInitialResourceVersionsOrDefaultTest() {
+    // Arrange, Act and Assert
+    assertEquals("foo",
+        IncrementalMeshConfigRequest.getDefaultInstance().getInitialResourceVersionsOrDefault("foo", "foo"));
+  }
 
-    // Assert
-    String actualResponseNonce = actualNewBuilderResult.getResponseNonce();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualNewBuilderResult.getTypeUrl());
+  @Test
+  public void parseFromTest() throws IOException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    IncrementalMeshConfigRequest.parseFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
@@ -90,6 +100,12 @@ public class IncrementalMeshConfigRequestDiffblueTest {
   }
 
   @Test
+  public void containsInitialResourceVersionsTest() {
+    // Arrange, Act and Assert
+    assertFalse(IncrementalMeshConfigRequest.getDefaultInstance().containsInitialResourceVersions("foo"));
+  }
+
+  @Test
   public void getTypeUrlTest() {
     // Arrange, Act and Assert
     assertEquals("", IncrementalMeshConfigRequest.getDefaultInstance().getTypeUrl());
@@ -102,54 +118,51 @@ public class IncrementalMeshConfigRequestDiffblueTest {
   }
 
   @Test
-  public void toBuilderTest() {
-    // Arrange and Act
-    IncrementalMeshConfigRequest.Builder actualToBuilderResult = IncrementalMeshConfigRequest.getDefaultInstance()
-        .toBuilder();
-
-    // Assert
-    String actualResponseNonce = actualToBuilderResult.getResponseNonce();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualToBuilderResult.getTypeUrl());
-  }
-
-  @Test
-  public void newBuilderForTypeTest() {
-    // Arrange and Act
-    IncrementalMeshConfigRequest.Builder actualNewBuilderForTypeResult = IncrementalMeshConfigRequest
-        .getDefaultInstance().newBuilderForType();
-
-    // Assert
-    String actualResponseNonce = actualNewBuilderForTypeResult.getResponseNonce();
-    assertEquals("", actualResponseNonce);
-    assertEquals("", actualNewBuilderForTypeResult.getTypeUrl());
+  public void getInitialResourceVersionsCountTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, IncrementalMeshConfigRequest.getDefaultInstance().getInitialResourceVersionsCount());
   }
 
   @Test
   public void parseDelimitedFromTest() throws IOException {
-    // Arrange and Act
-    IncrementalMeshConfigRequest actualParseDelimitedFromResult = IncrementalMeshConfigRequest
-        .parseDelimitedFrom(new ByteArrayInputStream(new byte[24]));
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-    // Assert
-    String actualResponseNonce = actualParseDelimitedFromResult.getResponseNonce();
-    boolean actualIsInitializedResult = actualParseDelimitedFromResult.isInitialized();
-    assertEquals("", actualResponseNonce);
-    assertTrue(actualIsInitializedResult);
-    assertEquals("", actualParseDelimitedFromResult.getTypeUrl());
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    IncrementalMeshConfigRequest.parseDelimitedFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
   public void internalGetMapFieldTest() {
     // Arrange, Act and Assert
     thrown.expect(RuntimeException.class);
-    IncrementalMeshConfigRequest.getDefaultInstance().internalGetMapField(1);
+    IncrementalMeshConfigRequest.getDefaultInstance().internalGetMapField(10);
+  }
+
+  @Test
+  public void getInitialResourceVersionsTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, IncrementalMeshConfigRequest.getDefaultInstance().getInitialResourceVersions().size());
   }
 
   @Test
   public void getResponseNonceTest() {
     // Arrange, Act and Assert
     assertEquals("", IncrementalMeshConfigRequest.getDefaultInstance().getResponseNonce());
+  }
+
+  @Test
+  public void getInitialResourceVersionsMapTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, IncrementalMeshConfigRequest.getDefaultInstance().getInitialResourceVersionsMap().size());
+  }
+
+  @Test
+  public void getSerializedSizeTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, IncrementalMeshConfigRequest.getDefaultInstance().getSerializedSize());
   }
 }
 

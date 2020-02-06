@@ -7,13 +7,13 @@ public class IPUtilDiffblueTest {
   @Test
   public void isIPV4Test() {
     // Arrange, Act and Assert
-    assertFalse(IPUtil.isIPV4("aaaaa"));
+    assertFalse(IPUtil.isIPV4("foo"));
   }
 
   @Test
   public void isIPV6Test() {
     // Arrange, Act and Assert
-    assertFalse(IPUtil.isIPV6("aaaaa"));
+    assertFalse(IPUtil.isIPV6("foo"));
   }
 }
 

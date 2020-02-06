@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,78 +16,145 @@ public class SinkNodeDiffblueTest {
   public ExpectedException thrown = ExpectedException.none();
 
   @Test
-  public void newInstanceTest() {
+  public void getAnnotationsTest() {
     // Arrange, Act and Assert
-    String actualId = ((SinkNode) SinkNode.getDefaultInstance().newInstance(null)).getId();
-    assertEquals("", actualId);
-    assertTrue(((SinkNode) SinkNode.getDefaultInstance().newInstance(null)).isInitialized());
+    assertEquals(0, SinkNode.getDefaultInstance().getAnnotations().size());
   }
 
   @Test
-  public void isInitializedTest() {
+  public void newInstanceTest() {
+    // Arrange and Act
+    Object actualNewInstanceResult = SinkNode.getDefaultInstance().newInstance(null);
+
+    // Assert
+    String actualToStringResult = actualNewInstanceResult.toString();
+    int actualSerializedSize = ((SinkNode) actualNewInstanceResult).getSerializedSize();
+    String actualId = ((SinkNode) actualNewInstanceResult).getId();
+    assertEquals("", actualToStringResult);
+    assertEquals(0, actualSerializedSize);
+    assertEquals("", actualId);
+    assertTrue(((SinkNode) actualNewInstanceResult).isInitialized());
+  }
+
+  @Test
+  public void parseFromTest2() throws IOException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    SinkNode.parseFrom(new ByteArrayInputStream(byteArray));
+  }
+
+  @Test
+  public void containsAnnotationsTest() {
     // Arrange, Act and Assert
-    assertTrue(SinkNode.getDefaultInstance().isInitialized());
+    assertFalse(SinkNode.getDefaultInstance().containsAnnotations("foo"));
   }
 
   @Test
   public void parseDelimitedFromTest() throws IOException {
-    // Arrange and Act
-    SinkNode actualParseDelimitedFromResult = SinkNode.parseDelimitedFrom(new ByteArrayInputStream(new byte[24]));
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-    // Assert
-    String actualId = actualParseDelimitedFromResult.getId();
-    assertEquals("", actualId);
-    assertTrue(actualParseDelimitedFromResult.isInitialized());
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    SinkNode.parseDelimitedFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
-  public void equalsTest() {
+  public void getAnnotationsCountTest() {
     // Arrange, Act and Assert
-    assertFalse(SinkNode.getDefaultInstance().equals(""));
+    assertEquals(0, SinkNode.getDefaultInstance().getAnnotationsCount());
   }
 
   @Test
   public void newBuilderForTypeTest() {
+    // Arrange and Act
+    SinkNode.Builder actualNewBuilderForTypeResult = SinkNode.getDefaultInstance().newBuilderForType();
+
+    // Assert
+    String actualToStringResult = actualNewBuilderForTypeResult.toString();
+    assertEquals("", actualToStringResult);
+    assertEquals("", actualNewBuilderForTypeResult.getId());
+  }
+
+  @Test
+  public void getAnnotationsOrThrowTest() {
     // Arrange, Act and Assert
-    assertEquals("", SinkNode.getDefaultInstance().newBuilderForType().getId());
+    thrown.expect(IllegalArgumentException.class);
+    SinkNode.getDefaultInstance().getAnnotationsOrThrow("foo");
   }
 
   @Test
   public void parseFromTest() throws InvalidProtocolBufferException {
-    // Arrange, Act and Assert
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
     thrown.expect(InvalidProtocolBufferException.class);
-    SinkNode.parseFrom(new byte[24]);
+    SinkNode.parseFrom(byteArray);
+  }
+
+  @Test
+  public void getAnnotationsOrDefaultTest() {
+    // Arrange, Act and Assert
+    assertEquals("foo", SinkNode.getDefaultInstance().getAnnotationsOrDefault("foo", "foo"));
   }
 
   @Test
   public void toBuilderTest() {
+    // Arrange and Act
+    SinkNode.Builder actualToBuilderResult = SinkNode.getDefaultInstance().toBuilder();
+
+    // Assert
+    String actualToStringResult = actualToBuilderResult.toString();
+    assertEquals("", actualToStringResult);
+    assertEquals("", actualToBuilderResult.getId());
+  }
+
+  @Test
+  public void getAnnotationsMapTest() {
     // Arrange, Act and Assert
-    assertEquals("", SinkNode.getDefaultInstance().toBuilder().getId());
+    assertEquals(0, SinkNode.getDefaultInstance().getAnnotationsMap().size());
   }
 
   @Test
   public void newBuilderTest2() {
-    // Arrange, Act and Assert
-    assertEquals("", SinkNode.newBuilder(SinkNode.getDefaultInstance()).getId());
-  }
+    // Arrange and Act
+    SinkNode.Builder actualNewBuilderResult = SinkNode.newBuilder(SinkNode.getDefaultInstance());
 
-  @Test
-  public void getIdTest() {
-    // Arrange, Act and Assert
-    assertEquals("", SinkNode.getDefaultInstance().getId());
+    // Assert
+    String actualToStringResult = actualNewBuilderResult.toString();
+    assertEquals("", actualToStringResult);
+    assertEquals("", actualNewBuilderResult.getId());
   }
 
   @Test
   public void internalGetMapFieldTest() {
     // Arrange, Act and Assert
     thrown.expect(RuntimeException.class);
-    SinkNode.getDefaultInstance().internalGetMapField(1);
+    SinkNode.getDefaultInstance().internalGetMapField(10);
+  }
+
+  @Test
+  public void getSerializedSizeTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, SinkNode.getDefaultInstance().getSerializedSize());
   }
 
   @Test
   public void newBuilderTest() {
-    // Arrange, Act and Assert
-    assertEquals("", SinkNode.newBuilder().getId());
+    // Arrange and Act
+    SinkNode.Builder actualNewBuilderResult = SinkNode.newBuilder();
+
+    // Assert
+    String actualToStringResult = actualNewBuilderResult.toString();
+    assertEquals("", actualToStringResult);
+    assertEquals("", actualNewBuilderResult.getId());
   }
 }
 

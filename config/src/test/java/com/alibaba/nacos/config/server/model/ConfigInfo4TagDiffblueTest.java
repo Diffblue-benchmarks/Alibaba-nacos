@@ -9,7 +9,7 @@ public class ConfigInfo4TagDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfo4Tag()).equals("aaaaa"));
+    assertFalse((new ConfigInfo4Tag()).equals("foo"));
   }
 
   @Test
@@ -18,10 +18,10 @@ public class ConfigInfo4TagDiffblueTest {
     ConfigInfo4Tag configInfo4Tag = new ConfigInfo4Tag();
 
     // Act
-    configInfo4Tag.setTag("aaaaa");
+    configInfo4Tag.setTag("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfo4Tag.getTag());
+    assertEquals("foo", configInfo4Tag.getTag());
   }
 
   @Test
@@ -67,7 +67,7 @@ public class ConfigInfo4TagDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfo4Tag actualConfigInfo4Tag = new ConfigInfo4Tag("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    ConfigInfo4Tag actualConfigInfo4Tag = new ConfigInfo4Tag("123", "foo", "foo", "name", "foo");
 
     // Assert
     String actualDataId = actualConfigInfo4Tag.getDataId();
@@ -75,12 +75,12 @@ public class ConfigInfo4TagDiffblueTest {
     String actualMd5 = actualConfigInfo4Tag.getMd5();
     String actualGroup = actualConfigInfo4Tag.getGroup();
     String actualAppName = actualConfigInfo4Tag.getAppName();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfo4Tag.getTag());
-    assertEquals("aaaaa", actualAppName);
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualConfigInfo4Tag.getTag());
+    assertEquals("name", actualAppName);
+    assertEquals("foo", actualGroup);
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 }
 

@@ -11,10 +11,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setUse("aaaaa");
+    configAdvanceInfo.setUse("foo");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getUse());
+    assertEquals("foo", configAdvanceInfo.getUse());
   }
 
   @Test
@@ -23,10 +23,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setType("aaaaa");
+    configAdvanceInfo.setType("foo");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getType());
+    assertEquals("foo", configAdvanceInfo.getType());
   }
 
   @Test
@@ -35,10 +35,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setDesc("aaaaa");
+    configAdvanceInfo.setDesc("description");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getDesc());
+    assertEquals("description", configAdvanceInfo.getDesc());
   }
 
   @Test
@@ -65,10 +65,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setConfigTags("aaaaa");
+    configAdvanceInfo.setConfigTags("foo");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getConfigTags());
+    assertEquals("foo", configAdvanceInfo.getConfigTags());
   }
 
   @Test
@@ -89,10 +89,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setEffect("aaaaa");
+    configAdvanceInfo.setEffect("foo");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getEffect());
+    assertEquals("foo", configAdvanceInfo.getEffect());
   }
 
   @Test
@@ -107,10 +107,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setSchema("aaaaa");
+    configAdvanceInfo.setSchema("foo");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getSchema());
+    assertEquals("foo", configAdvanceInfo.getSchema());
   }
 
   @Test
@@ -164,10 +164,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setCreateIp("aaaaa");
+    configAdvanceInfo.setCreateIp("foo");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getCreateIp());
+    assertEquals("foo", configAdvanceInfo.getCreateIp());
   }
 
   @Test
@@ -194,10 +194,10 @@ public class ConfigAdvanceInfoDiffblueTest {
     ConfigAdvanceInfo configAdvanceInfo = new ConfigAdvanceInfo();
 
     // Act
-    configAdvanceInfo.setCreateUser("aaaaa");
+    configAdvanceInfo.setCreateUser("foo");
 
     // Assert
-    assertEquals("aaaaa", configAdvanceInfo.getCreateUser());
+    assertEquals("foo", configAdvanceInfo.getCreateUser());
   }
 
   @Test

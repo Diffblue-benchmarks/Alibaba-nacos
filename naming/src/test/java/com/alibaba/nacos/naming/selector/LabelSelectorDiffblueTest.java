@@ -15,25 +15,38 @@ public class LabelSelectorDiffblueTest {
   @Test
   public void getTermsTest() {
     // Arrange and Act
-    List<String> actualTerms = LabelSelector.ExpressionInterpreter.getTerms("CONSUMER.label.");
+    List<String> actualTerms = LabelSelector.ExpressionInterpreter.getTerms("foo");
 
     // Assert
     assertEquals(1, actualTerms.size());
-    assertEquals("CONSUMER.label.", actualTerms.get(0));
+    assertEquals("foo", actualTerms.get(0));
   }
 
   @Test
-  public void parseExpressionTest2() throws NacosException {
+  public void parseExpressionTest4() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(ArrayIndexOutOfBoundsException.class);
     LabelSelector.ExpressionInterpreter.parseExpression("CONSUMER.label.");
   }
 
   @Test
+  public void parseExpressionTest3() throws NacosException {
+    // Arrange, Act and Assert
+    thrown.expect(NacosException.class);
+    LabelSelector.ExpressionInterpreter.parseExpression("foo");
+  }
+
+  @Test
+  public void parseExpressionTest2() throws NacosException {
+    // Arrange, Act and Assert
+    assertEquals(0, LabelSelector.ExpressionInterpreter.parseExpression("").size());
+  }
+
+  @Test
   public void parseExpressionTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
-    LabelSelector.parseExpression("aaaaa");
+    LabelSelector.parseExpression("foo");
   }
 
   @Test

@@ -11,7 +11,7 @@ public class TaskManagerDiffblueTest {
   @Test
   public void getTaskProcessorTest() {
     // Arrange, Act and Assert
-    assertNull((new TaskManager()).getTaskProcessor(":type="));
+    assertNull((new TaskManager()).getTaskProcessor("foo"));
   }
 
   @Test
@@ -21,9 +21,22 @@ public class TaskManagerDiffblueTest {
   }
 
   @Test
+  public void constructorTest3() {
+    // Arrange and Act
+    TaskManager actualTaskManager = new TaskManager("name");
+
+    // Assert
+    String actualTaskInfos = actualTaskManager.getTaskInfos();
+    TaskProcessor actualDefaultTaskProcessor = actualTaskManager.getDefaultTaskProcessor();
+    assertEquals("", actualTaskInfos);
+    assertEquals(0, actualTaskManager.size());
+    assertNull(actualDefaultTaskProcessor);
+  }
+
+  @Test
   public void constructorTest2() {
     // Arrange and Act
-    TaskManager actualTaskManager = new TaskManager(":type=");
+    TaskManager actualTaskManager = new TaskManager("");
 
     // Assert
     String actualTaskInfos = actualTaskManager.getTaskInfos();
@@ -42,7 +55,7 @@ public class TaskManagerDiffblueTest {
   @Test
   public void getTaskTest() {
     // Arrange, Act and Assert
-    assertNull((new TaskManager()).getTask(":type="));
+    assertNull((new TaskManager()).getTask("foo"));
   }
 
   @Test
@@ -63,7 +76,7 @@ public class TaskManagerDiffblueTest {
     TaskManager taskManager = new TaskManager();
 
     // Act
-    taskManager.removeTask(":type=");
+    taskManager.removeTask("foo");
 
     // Assert
     assertEquals(0, taskManager.size());
@@ -85,7 +98,7 @@ public class TaskManagerDiffblueTest {
   @Test
   public void awaitTest() throws InterruptedException {
     // Arrange, Act and Assert
-    assertFalse((new TaskManager()).await(1L, TimeUnit.NANOSECONDS));
+    assertFalse((new TaskManager()).await(10L, TimeUnit.NANOSECONDS));
   }
 
   @Test
@@ -94,7 +107,7 @@ public class TaskManagerDiffblueTest {
     TaskManager taskManager = new TaskManager();
 
     // Act
-    taskManager.removeProcessor(":type=");
+    taskManager.removeProcessor("foo");
 
     // Assert
     assertEquals("", taskManager.getTaskInfos());

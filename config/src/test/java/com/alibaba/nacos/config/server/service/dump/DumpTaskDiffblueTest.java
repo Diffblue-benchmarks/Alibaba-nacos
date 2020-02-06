@@ -10,43 +10,43 @@ public class DumpTaskDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    DumpTask actualDumpTask = new DumpTask("aaaaa", "aaaaa", 1L, "aaaaa", true);
+    DumpTask actualDumpTask = new DumpTask("foo", "foo", 1L, "foo", true);
 
     // Assert
     assertEquals(1000L, actualDumpTask.getTaskInterval());
-    assertEquals("aaaaa", actualDumpTask.groupKey);
+    assertEquals("foo", actualDumpTask.groupKey);
     assertTrue(actualDumpTask.isBeta);
-    assertEquals("aaaaa", actualDumpTask.tag);
+    assertEquals("foo", actualDumpTask.tag);
     assertEquals(1L, actualDumpTask.lastModified);
-    assertEquals("aaaaa", actualDumpTask.handleIp);
+    assertEquals("foo", actualDumpTask.handleIp);
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    DumpTask actualDumpTask = new DumpTask("aaaaa", 1L, "aaaaa", true);
+    DumpTask actualDumpTask = new DumpTask("foo", 1L, "foo", true);
 
     // Assert
     assertEquals(1000L, actualDumpTask.getTaskInterval());
-    assertEquals("aaaaa", actualDumpTask.groupKey);
+    assertEquals("foo", actualDumpTask.groupKey);
     assertTrue(actualDumpTask.isBeta);
     assertNull(actualDumpTask.tag);
     assertEquals(1L, actualDumpTask.lastModified);
-    assertEquals("aaaaa", actualDumpTask.handleIp);
+    assertEquals("foo", actualDumpTask.handleIp);
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    DumpTask actualDumpTask = new DumpTask("aaaaa", 1L, "aaaaa");
+    DumpTask actualDumpTask = new DumpTask("foo", 1L, "foo");
 
     // Assert
     assertEquals(1000L, actualDumpTask.getTaskInterval());
-    assertEquals("aaaaa", actualDumpTask.groupKey);
+    assertEquals("foo", actualDumpTask.groupKey);
     assertFalse(actualDumpTask.isBeta);
     assertNull(actualDumpTask.tag);
     assertEquals(1L, actualDumpTask.lastModified);
-    assertEquals("aaaaa", actualDumpTask.handleIp);
+    assertEquals("foo", actualDumpTask.handleIp);
   }
 }
 

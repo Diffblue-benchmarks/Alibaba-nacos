@@ -7,7 +7,7 @@ public class ClientRecordDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new ClientRecord("aaaaa")).ip);
+    assertEquals("foo", (new ClientRecord("foo")).ip);
   }
 }
 

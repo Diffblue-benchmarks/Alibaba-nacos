@@ -19,10 +19,10 @@ public class CredentialsDiffblueTest {
     Credentials credentials = new Credentials();
 
     // Act
-    credentials.setTenantId("aaaaa");
+    credentials.setTenantId("123");
 
     // Assert
-    assertEquals("aaaaa", credentials.getTenantId());
+    assertEquals("123", credentials.getTenantId());
   }
 
   @Test
@@ -56,10 +56,10 @@ public class CredentialsDiffblueTest {
     Credentials credentials = new Credentials();
 
     // Act
-    credentials.setAccessKey("aaaaa");
+    credentials.setAccessKey("foo");
 
     // Assert
-    assertEquals("aaaaa", credentials.getAccessKey());
+    assertEquals("foo", credentials.getAccessKey());
   }
 
   @Test
@@ -83,23 +83,23 @@ public class CredentialsDiffblueTest {
     Credentials credentials = new Credentials();
 
     // Act
-    credentials.setSecretKey("aaaaa");
+    credentials.setSecretKey("foo");
 
     // Assert
-    assertEquals("aaaaa", credentials.getSecretKey());
+    assertEquals("foo", credentials.getSecretKey());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    Credentials actualCredentials = new Credentials("aaaaa", "aaaaa", "aaaaa");
+    Credentials actualCredentials = new Credentials("foo", "foo", "123");
 
     // Assert
     String actualSecretKey = actualCredentials.getSecretKey();
     String actualTenantId = actualCredentials.getTenantId();
-    assertEquals("aaaaa", actualSecretKey);
-    assertEquals("aaaaa", actualCredentials.getAccessKey());
-    assertEquals("aaaaa", actualTenantId);
+    assertEquals("foo", actualSecretKey);
+    assertEquals("foo", actualCredentials.getAccessKey());
+    assertEquals("123", actualTenantId);
   }
 }
 

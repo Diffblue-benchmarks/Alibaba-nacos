@@ -28,10 +28,10 @@ public class RoleInfoDiffblueTest {
     RoleInfo roleInfo = new RoleInfo();
 
     // Act
-    roleInfo.setUsername("aaaaa");
+    roleInfo.setUsername("username");
 
     // Assert
-    assertEquals("aaaaa", roleInfo.getUsername());
+    assertEquals("username", roleInfo.getUsername());
   }
 
   @Test
@@ -46,10 +46,10 @@ public class RoleInfoDiffblueTest {
     RoleInfo roleInfo = new RoleInfo();
 
     // Act
-    roleInfo.setRole("aaaaa");
+    roleInfo.setRole("foo");
 
     // Assert
-    assertEquals("aaaaa", roleInfo.getRole());
+    assertEquals("foo", roleInfo.getRole());
   }
 }
 

@@ -13,7 +13,7 @@ public class CredentialServiceDiffblueTest {
   @Test
   public void freeInstanceTest() {
     // Arrange, Act and Assert
-    assertNull(CredentialService.freeInstance("project.name"));
+    assertNull(CredentialService.freeInstance("name"));
   }
 }
 

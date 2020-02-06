@@ -9,7 +9,7 @@ public class ConfigInfoWrapperDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfoWrapper()).equals("aaaaa"));
+    assertFalse((new ConfigInfoWrapper()).equals("foo"));
   }
 
   @Test

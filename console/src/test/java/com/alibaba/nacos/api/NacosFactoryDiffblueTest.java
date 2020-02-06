@@ -37,19 +37,19 @@ public class NacosFactoryDiffblueTest {
   public void createMaintainServiceTest() throws NacosException {
     // Arrange, Act and Assert
     assertTrue(NacosFactory
-        .createMaintainService("aaaaa") instanceof com.alibaba.nacos.client.naming.NacosNamingMaintainService);
+        .createMaintainService("foo") instanceof com.alibaba.nacos.client.naming.NacosNamingMaintainService);
   }
 
   @Test
   public void createConfigServiceTest() throws NacosException {
     // Arrange, Act and Assert
-    assertEquals("UP", NacosFactory.createConfigService("aaaaa").getServerStatus());
+    assertEquals("UP", NacosFactory.createConfigService("foo").getServerStatus());
   }
 
   @Test
   public void createNamingServiceTest() throws NacosException {
     // Arrange, Act and Assert
-    assertTrue(NacosFactory.createNamingService("aaaaa") instanceof com.alibaba.nacos.client.naming.NacosNamingService);
+    assertTrue(NacosFactory.createNamingService("foo") instanceof com.alibaba.nacos.client.naming.NacosNamingService);
   }
 }
 

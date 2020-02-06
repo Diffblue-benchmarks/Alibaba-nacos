@@ -14,10 +14,10 @@ public class HistoryContextDiffblueTest {
     HistoryContext historyContext = new HistoryContext();
 
     // Act
-    historyContext.setAppName("aaaaa");
+    historyContext.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", historyContext.getAppName());
+    assertEquals("name", historyContext.getAppName());
   }
 
   @Test
@@ -38,10 +38,10 @@ public class HistoryContextDiffblueTest {
     HistoryContext historyContext = new HistoryContext();
 
     // Act
-    historyContext.setGroup("aaaaa");
+    historyContext.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", historyContext.getGroup());
+    assertEquals("foo", historyContext.getGroup());
   }
 
   @Test
@@ -51,27 +51,49 @@ public class HistoryContextDiffblueTest {
   }
 
   @Test
-  public void constructorTest2() {
-    // Arrange
-    Page<ConfigHistoryInfo> page = new Page<ConfigHistoryInfo>();
-
-    // Act
-    HistoryContext actualHistoryContext = new HistoryContext("aaaaa", "aaaaa", "aaaaa", 1, "aaaaa", page);
+  public void constructorTest3() {
+    // Arrange and Act
+    HistoryContext actualHistoryContext = new HistoryContext("123", "123", "foo", 1, "foo",
+        new Page<ConfigHistoryInfo>());
 
     // Assert
+    Page<ConfigHistoryInfo> expectedConfigs = actualHistoryContext.configs;
     String actualDataId = actualHistoryContext.getDataId();
     String actualStatusMsg = actualHistoryContext.getStatusMsg();
     String actualGroup = actualHistoryContext.getGroup();
     boolean actualIsSuccessResult = actualHistoryContext.isSuccess();
     Page<ConfigHistoryInfo> actualConfigs = actualHistoryContext.getConfigs();
     String actualServerId = actualHistoryContext.getServerId();
-    assertEquals("aaaaa", actualDataId);
+    assertEquals("123", actualDataId);
     assertEquals(1, actualHistoryContext.getStatusCode());
-    assertEquals("aaaaa", actualServerId);
-    assertSame(page, actualConfigs);
-    assertEquals("aaaaa", actualStatusMsg);
+    assertEquals("123", actualServerId);
+    assertSame(expectedConfigs, actualConfigs);
+    assertEquals("foo", actualStatusMsg);
     assertFalse(actualIsSuccessResult);
-    assertEquals("aaaaa", actualGroup);
+    assertEquals("foo", actualGroup);
+  }
+
+  @Test
+  public void constructorTest2() {
+    // Arrange and Act
+    HistoryContext actualHistoryContext = new HistoryContext("123", "123", "foo", 200, "foo",
+        new Page<ConfigHistoryInfo>());
+
+    // Assert
+    Page<ConfigHistoryInfo> expectedConfigs = actualHistoryContext.configs;
+    String actualDataId = actualHistoryContext.getDataId();
+    String actualStatusMsg = actualHistoryContext.getStatusMsg();
+    String actualGroup = actualHistoryContext.getGroup();
+    boolean actualIsSuccessResult = actualHistoryContext.isSuccess();
+    Page<ConfigHistoryInfo> actualConfigs = actualHistoryContext.getConfigs();
+    String actualServerId = actualHistoryContext.getServerId();
+    assertEquals("123", actualDataId);
+    assertEquals(200, actualHistoryContext.getStatusCode());
+    assertEquals("123", actualServerId);
+    assertSame(expectedConfigs, actualConfigs);
+    assertEquals("foo", actualStatusMsg);
+    assertTrue(actualIsSuccessResult);
+    assertEquals("foo", actualGroup);
   }
 
   @Test
@@ -86,10 +108,10 @@ public class HistoryContextDiffblueTest {
     HistoryContext historyContext = new HistoryContext();
 
     // Act
-    historyContext.setServerId("aaaaa");
+    historyContext.setServerId("123");
 
     // Assert
-    assertEquals("aaaaa", historyContext.getServerId());
+    assertEquals("123", historyContext.getServerId());
   }
 
   @Test
@@ -104,10 +126,10 @@ public class HistoryContextDiffblueTest {
     HistoryContext historyContext = new HistoryContext();
 
     // Act
-    historyContext.setStatusMsg("aaaaa");
+    historyContext.setStatusMsg("foo");
 
     // Assert
-    assertEquals("aaaaa", historyContext.getStatusMsg());
+    assertEquals("foo", historyContext.getStatusMsg());
   }
 
   @Test
@@ -116,10 +138,10 @@ public class HistoryContextDiffblueTest {
     HistoryContext historyContext = new HistoryContext();
 
     // Act
-    historyContext.setTenant("aaaaa");
+    historyContext.setTenant("foo");
 
     // Assert
-    assertEquals("aaaaa", historyContext.getTenant());
+    assertEquals("foo", historyContext.getTenant());
   }
 
   @Test
@@ -128,10 +150,10 @@ public class HistoryContextDiffblueTest {
     HistoryContext historyContext = new HistoryContext();
 
     // Act
-    historyContext.setDataId("aaaaa");
+    historyContext.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", historyContext.getDataId());
+    assertEquals("123", historyContext.getDataId());
   }
 
   @Test

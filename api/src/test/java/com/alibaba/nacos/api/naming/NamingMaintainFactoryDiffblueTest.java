@@ -19,7 +19,7 @@ public class NamingMaintainFactoryDiffblueTest {
   public void createMaintainServiceTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
-    NamingMaintainFactory.createMaintainService("aaaaa");
+    NamingMaintainFactory.createMaintainService("foo");
   }
 }
 

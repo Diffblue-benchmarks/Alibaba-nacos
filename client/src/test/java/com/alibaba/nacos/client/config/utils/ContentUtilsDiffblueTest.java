@@ -17,19 +17,19 @@ public class ContentUtilsDiffblueTest {
   @Test
   public void truncateContentTest() {
     // Arrange, Act and Assert
-    assertEquals("", ContentUtils.truncateContent(""));
+    assertEquals("foo", ContentUtils.truncateContent("foo"));
   }
   @Test
   public void getContentIdentityTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    ContentUtils.getContentIdentity("");
+    ContentUtils.getContentIdentity("foo");
   }
   @Test
   public void getContentTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    ContentUtils.getContent("");
+    ContentUtils.getContent("foo");
   }
 }
 

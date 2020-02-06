@@ -27,10 +27,10 @@ public class PairDiffblueTest {
     Pair pair = new Pair();
 
     // Act
-    pair.setValue("");
+    pair.setValue("value");
 
     // Assert
-    assertEquals("", pair.getValue());
+    assertEquals("value", pair.getValue());
   }
 
   @Test
@@ -39,10 +39,10 @@ public class PairDiffblueTest {
     Pair pair = new Pair();
 
     // Act
-    pair.setKey("");
+    pair.setKey("foo");
 
     // Assert
-    assertEquals("", pair.getKey());
+    assertEquals("foo", pair.getKey());
   }
 
   @Test
@@ -54,12 +54,12 @@ public class PairDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    Pair actualPair = new Pair("", "");
+    Pair actualPair = new Pair("foo", "value");
 
     // Assert
     String actualKey = actualPair.getKey();
-    assertEquals("", actualKey);
-    assertEquals("", actualPair.getValue());
+    assertEquals("foo", actualKey);
+    assertEquals("value", actualPair.getValue());
   }
 }
 

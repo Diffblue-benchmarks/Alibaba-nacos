@@ -12,19 +12,19 @@ public class ResourceUtilsDiffblueTest {
   public void getResourceAsPropertiesTest() throws IOException {
     // Arrange, Act and Assert
     thrown.expect(IOException.class);
-    ResourceUtils.getResourceAsProperties("classpath:");
+    ResourceUtils.getResourceAsProperties("foo");
   }
   @Test
   public void getResourceAsStreamTest() throws IOException {
     // Arrange, Act and Assert
     thrown.expect(IOException.class);
-    ResourceUtils.getResourceAsStream("classpath:");
+    ResourceUtils.getResourceAsStream("foo");
   }
   @Test
   public void getResourceAsReaderTest() throws IOException {
     // Arrange, Act and Assert
     thrown.expect(IOException.class);
-    ResourceUtils.getResourceAsReader("classpath:", "classpath:");
+    ResourceUtils.getResourceAsReader("foo", "UTF-8");
   }
 }
 

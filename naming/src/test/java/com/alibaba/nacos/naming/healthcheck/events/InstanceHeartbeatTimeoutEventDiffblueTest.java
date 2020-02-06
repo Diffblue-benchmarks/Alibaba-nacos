@@ -9,7 +9,7 @@ public class InstanceHeartbeatTimeoutEventDiffblueTest {
   public void setInstanceTest() {
     // Arrange
     Instance instance = new Instance();
-    InstanceHeartbeatTimeoutEvent instanceHeartbeatTimeoutEvent = new InstanceHeartbeatTimeoutEvent("aaaaa", instance);
+    InstanceHeartbeatTimeoutEvent instanceHeartbeatTimeoutEvent = new InstanceHeartbeatTimeoutEvent("foo", instance);
 
     // Act
     instanceHeartbeatTimeoutEvent.setInstance(instance);
@@ -24,7 +24,7 @@ public class InstanceHeartbeatTimeoutEventDiffblueTest {
     Instance instance = new Instance();
 
     // Act and Assert
-    assertSame(instance, (new InstanceHeartbeatTimeoutEvent("aaaaa", instance)).getInstance());
+    assertSame(instance, (new InstanceHeartbeatTimeoutEvent("foo", instance)).getInstance());
   }
 
   @Test
@@ -33,7 +33,7 @@ public class InstanceHeartbeatTimeoutEventDiffblueTest {
     Instance instance = new Instance();
 
     // Act and Assert
-    assertSame(instance, (new InstanceHeartbeatTimeoutEvent("aaaaa", instance)).getInstance());
+    assertSame(instance, (new InstanceHeartbeatTimeoutEvent("foo", instance)).getInstance());
   }
 }
 

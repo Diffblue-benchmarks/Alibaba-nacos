@@ -16,10 +16,10 @@ public class NacosExceptionDiffblueTest {
     NacosException nacosException = new NacosException();
 
     // Act
-    nacosException.setErrMsg("aaaaa");
+    nacosException.setErrMsg("foo");
 
     // Assert
-    assertEquals("aaaaa", nacosException.getErrMsg());
+    assertEquals("foo", nacosException.getErrMsg());
   }
 
   @Test
@@ -44,11 +44,11 @@ public class NacosExceptionDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    NacosException actualNacosException = new NacosException(1, "aaaaa");
+    NacosException actualNacosException = new NacosException(1, "foo");
 
     // Assert
     int actualErrCode = actualNacosException.getErrCode();
-    assertEquals("aaaaa", actualNacosException.getErrMsg());
+    assertEquals("foo", actualNacosException.getErrMsg());
     assertEquals(1, actualErrCode);
   }
 

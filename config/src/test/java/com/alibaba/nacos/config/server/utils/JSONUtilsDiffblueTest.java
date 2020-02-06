@@ -9,7 +9,7 @@ public class JSONUtilsDiffblueTest {
   @Test
   public void serializeObjectTest() throws IOException {
     // Arrange, Act and Assert
-    assertEquals("\"aaaaa\"", JSONUtils.serializeObject("aaaaa"));
+    assertEquals("\"foo\"", JSONUtils.serializeObject("foo"));
   }
 
   @Test

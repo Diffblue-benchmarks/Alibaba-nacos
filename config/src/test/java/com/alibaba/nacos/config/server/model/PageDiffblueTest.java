@@ -13,10 +13,10 @@ public class PageDiffblueTest {
     Page<Object> page = new Page<Object>();
 
     // Act
-    page.setPageNumber(1);
+    page.setPageNumber(10);
 
     // Assert
-    assertEquals(1, page.getPageNumber());
+    assertEquals(10, page.getPageNumber());
   }
 
   @Test
@@ -49,10 +49,10 @@ public class PageDiffblueTest {
     Page<Object> page = new Page<Object>();
 
     // Act
-    page.setTotalCount(1);
+    page.setTotalCount(3);
 
     // Assert
-    assertEquals(1, page.getTotalCount());
+    assertEquals(3, page.getTotalCount());
   }
 
   @Test

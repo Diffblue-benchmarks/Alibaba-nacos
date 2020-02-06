@@ -11,10 +11,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setAppName("aaaaa");
+    configHistoryInfo.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getAppName());
+    assertEquals("name", configHistoryInfo.getAppName());
   }
 
   @Test
@@ -23,10 +23,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setOpType("aaaaa");
+    configHistoryInfo.setOpType("foo");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getOpType());
+    assertEquals("foo", configHistoryInfo.getOpType());
   }
 
   @Test
@@ -35,10 +35,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setGroup("aaaaa");
+    configHistoryInfo.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getGroup());
+    assertEquals("foo", configHistoryInfo.getGroup());
   }
 
   @Test
@@ -47,10 +47,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setLastId(1L);
+    configHistoryInfo.setLastId(123L);
 
     // Assert
-    assertEquals(1L, configHistoryInfo.getLastId());
+    assertEquals(123L, configHistoryInfo.getLastId());
   }
 
   @Test
@@ -59,10 +59,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setContent("aaaaa");
+    configHistoryInfo.setContent("foo");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getContent());
+    assertEquals("foo", configHistoryInfo.getContent());
   }
 
   @Test
@@ -89,10 +89,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setSrcUser("aaaaa");
+    configHistoryInfo.setSrcUser("foo");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getSrcUser());
+    assertEquals("foo", configHistoryInfo.getSrcUser());
   }
 
   @Test
@@ -125,10 +125,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setTenant("aaaaa");
+    configHistoryInfo.setTenant("foo");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getTenant());
+    assertEquals("foo", configHistoryInfo.getTenant());
   }
 
   @Test
@@ -137,10 +137,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setDataId("aaaaa");
+    configHistoryInfo.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getDataId());
+    assertEquals("123", configHistoryInfo.getDataId());
   }
 
   @Test
@@ -155,10 +155,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setSrcIp("aaaaa");
+    configHistoryInfo.setSrcIp("foo");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getSrcIp());
+    assertEquals("foo", configHistoryInfo.getSrcIp());
   }
 
   @Test
@@ -167,10 +167,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setId(1L);
+    configHistoryInfo.setId(123L);
 
     // Assert
-    assertEquals(1L, configHistoryInfo.getId());
+    assertEquals(123L, configHistoryInfo.getId());
   }
 
   @Test
@@ -185,10 +185,10 @@ public class ConfigHistoryInfoDiffblueTest {
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setMd5("aaaaa");
+    configHistoryInfo.setMd5("foo");
 
     // Assert
-    assertEquals("aaaaa", configHistoryInfo.getMd5());
+    assertEquals("foo", configHistoryInfo.getMd5());
   }
 
   @Test

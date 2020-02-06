@@ -9,7 +9,7 @@ public class ConfigInfo4BetaDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfo4Beta()).equals("aaaaa"));
+    assertFalse((new ConfigInfo4Beta()).equals("foo"));
   }
 
   @Test
@@ -18,10 +18,10 @@ public class ConfigInfo4BetaDiffblueTest {
     ConfigInfo4Beta configInfo4Beta = new ConfigInfo4Beta();
 
     // Act
-    configInfo4Beta.setBetaIps("aaaaa");
+    configInfo4Beta.setBetaIps("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfo4Beta.getBetaIps());
+    assertEquals("foo", configInfo4Beta.getBetaIps());
   }
 
   @Test
@@ -67,7 +67,7 @@ public class ConfigInfo4BetaDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfo4Beta actualConfigInfo4Beta = new ConfigInfo4Beta("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    ConfigInfo4Beta actualConfigInfo4Beta = new ConfigInfo4Beta("123", "foo", "name", "foo", "foo");
 
     // Assert
     String actualDataId = actualConfigInfo4Beta.getDataId();
@@ -75,12 +75,12 @@ public class ConfigInfo4BetaDiffblueTest {
     String actualMd5 = actualConfigInfo4Beta.getMd5();
     String actualGroup = actualConfigInfo4Beta.getGroup();
     String actualAppName = actualConfigInfo4Beta.getAppName();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfo4Beta.getBetaIps());
-    assertEquals("aaaaa", actualAppName);
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualConfigInfo4Beta.getBetaIps());
+    assertEquals("name", actualAppName);
+    assertEquals("foo", actualGroup);
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 }
 

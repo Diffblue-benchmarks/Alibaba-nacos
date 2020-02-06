@@ -12,7 +12,7 @@ public class CacheItemDiffblueTest {
   @Test
   public void setLastModifiedTs4BetaTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
     cacheItem.setLastModifiedTs4Beta(1L);
@@ -24,37 +24,37 @@ public class CacheItemDiffblueTest {
   @Test
   public void setTypeTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
-    cacheItem.setType("");
+    cacheItem.setType("foo");
 
     // Assert
-    assertEquals("", cacheItem.getType());
+    assertEquals("foo", cacheItem.getType());
   }
 
   @Test
   public void setMd54BetaTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
-    cacheItem.setMd54Beta("");
+    cacheItem.setMd54Beta("foo");
 
     // Assert
-    assertEquals("", cacheItem.getMd54Beta());
+    assertEquals("foo", cacheItem.getMd54Beta());
   }
 
   @Test
   public void getMd54BetaTest() {
     // Arrange, Act and Assert
-    assertEquals("", (new CacheItem("")).getMd54Beta());
+    assertEquals("", (new CacheItem("foo")).getMd54Beta());
   }
 
   @Test
   public void setBetaTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
     cacheItem.setBeta(true);
@@ -66,13 +66,13 @@ public class CacheItemDiffblueTest {
   @Test
   public void isBetaTest() {
     // Arrange, Act and Assert
-    assertFalse((new CacheItem("")).isBeta());
+    assertFalse((new CacheItem("foo")).isBeta());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    CacheItem actualCacheItem = new CacheItem("");
+    CacheItem actualCacheItem = new CacheItem("foo");
 
     // Assert
     SimpleReadWriteLock expectedRwLock = actualCacheItem.rwLock;
@@ -82,7 +82,7 @@ public class CacheItemDiffblueTest {
     boolean actualIsBetaResult = actualCacheItem.isBeta();
     assertEquals("", actualCacheItem.getMd54Beta());
     assertFalse(actualIsBetaResult);
-    assertEquals("", actualGroupKey);
+    assertEquals("foo", actualGroupKey);
     assertSame(expectedRwLock, actualRwLock);
     assertEquals("", actualMd5);
   }
@@ -90,13 +90,13 @@ public class CacheItemDiffblueTest {
   @Test
   public void getLastModifiedTs4BetaTest() {
     // Arrange, Act and Assert
-    assertEquals(0L, (new CacheItem("")).getLastModifiedTs4Beta());
+    assertEquals(0L, (new CacheItem("foo")).getLastModifiedTs4Beta());
   }
 
   @Test
   public void getRwLockTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act and Assert
     assertSame(cacheItem.rwLock, cacheItem.getRwLock());
@@ -105,25 +105,25 @@ public class CacheItemDiffblueTest {
   @Test
   public void getMd5Test() {
     // Arrange, Act and Assert
-    assertEquals("", (new CacheItem("")).getMd5());
+    assertEquals("", (new CacheItem("foo")).getMd5());
   }
 
   @Test
   public void getTypeTest() {
     // Arrange, Act and Assert
-    assertNull((new CacheItem("")).getType());
+    assertNull((new CacheItem("foo")).getType());
   }
 
   @Test
   public void getTagMd5Test() {
     // Arrange, Act and Assert
-    assertNull((new CacheItem("")).getTagMd5());
+    assertNull((new CacheItem("foo")).getTagMd5());
   }
 
   @Test
   public void setTagLastModifiedTsTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
     cacheItem.setTagLastModifiedTs(null);
@@ -135,13 +135,13 @@ public class CacheItemDiffblueTest {
   @Test
   public void getTagLastModifiedTsTest() {
     // Arrange, Act and Assert
-    assertNull((new CacheItem("")).getTagLastModifiedTs());
+    assertNull((new CacheItem("foo")).getTagLastModifiedTs());
   }
 
   @Test
   public void setTagMd5Test() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
     cacheItem.setTagMd5(null);
@@ -153,7 +153,7 @@ public class CacheItemDiffblueTest {
   @Test
   public void setLastModifiedTsTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
     cacheItem.setLastModifiedTs(1L);
@@ -165,7 +165,7 @@ public class CacheItemDiffblueTest {
   @Test
   public void setRwLockTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
     SimpleReadWriteLock simpleReadWriteLock = new SimpleReadWriteLock();
 
     // Act
@@ -178,31 +178,31 @@ public class CacheItemDiffblueTest {
   @Test
   public void getIps4BetaTest() {
     // Arrange, Act and Assert
-    assertNull((new CacheItem("")).getIps4Beta());
+    assertNull((new CacheItem("foo")).getIps4Beta());
   }
 
   @Test
   public void getGroupKeyTest() {
     // Arrange, Act and Assert
-    assertEquals("", (new CacheItem("")).getGroupKey());
+    assertEquals("foo", (new CacheItem("foo")).getGroupKey());
   }
 
   @Test
   public void setMd5Test() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
-    cacheItem.setMd5("");
+    cacheItem.setMd5("foo");
 
     // Assert
-    assertEquals("", cacheItem.getMd5());
+    assertEquals("foo", cacheItem.getMd5());
   }
 
   @Test
   public void setIps4BetaTest() {
     // Arrange
-    CacheItem cacheItem = new CacheItem("");
+    CacheItem cacheItem = new CacheItem("foo");
 
     // Act
     cacheItem.setIps4Beta(null);
@@ -214,7 +214,7 @@ public class CacheItemDiffblueTest {
   @Test
   public void getLastModifiedTsTest() {
     // Arrange, Act and Assert
-    assertEquals(0L, (new CacheItem("")).getLastModifiedTs());
+    assertEquals(0L, (new CacheItem("foo")).getLastModifiedTs());
   }
 }
 

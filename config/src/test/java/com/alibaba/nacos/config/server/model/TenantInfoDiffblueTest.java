@@ -17,10 +17,10 @@ public class TenantInfoDiffblueTest {
     TenantInfo tenantInfo = new TenantInfo();
 
     // Act
-    tenantInfo.setTenantId("aaaaa");
+    tenantInfo.setTenantId("123");
 
     // Assert
-    assertEquals("aaaaa", tenantInfo.getTenantId());
+    assertEquals("123", tenantInfo.getTenantId());
   }
 
   @Test
@@ -48,10 +48,10 @@ public class TenantInfoDiffblueTest {
     TenantInfo tenantInfo = new TenantInfo();
 
     // Act
-    tenantInfo.setTenantName("aaaaa");
+    tenantInfo.setTenantName("name");
 
     // Assert
-    assertEquals("aaaaa", tenantInfo.getTenantName());
+    assertEquals("name", tenantInfo.getTenantName());
   }
 
   @Test
@@ -66,10 +66,10 @@ public class TenantInfoDiffblueTest {
     TenantInfo tenantInfo = new TenantInfo();
 
     // Act
-    tenantInfo.setTenantDesc("aaaaa");
+    tenantInfo.setTenantDesc("foo");
 
     // Assert
-    assertEquals("aaaaa", tenantInfo.getTenantDesc());
+    assertEquals("foo", tenantInfo.getTenantDesc());
   }
 }
 

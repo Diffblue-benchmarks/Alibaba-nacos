@@ -10,7 +10,7 @@ public class NamingEventDiffblueTest {
   @Test
   public void setInstancesTest() {
     // Arrange
-    NamingEvent namingEvent = new NamingEvent("aaaaa", null);
+    NamingEvent namingEvent = new NamingEvent("name", null);
 
     // Act
     namingEvent.setInstances(null);
@@ -22,86 +22,86 @@ public class NamingEventDiffblueTest {
   @Test
   public void setServiceNameTest() {
     // Arrange
-    NamingEvent namingEvent = new NamingEvent("aaaaa", null);
+    NamingEvent namingEvent = new NamingEvent("name", null);
 
     // Act
-    namingEvent.setServiceName("aaaaa");
+    namingEvent.setServiceName("name");
 
     // Assert
-    assertEquals("aaaaa", namingEvent.getServiceName());
+    assertEquals("name", namingEvent.getServiceName());
   }
 
   @Test
   public void getServiceNameTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new NamingEvent("aaaaa", null)).getServiceName());
+    assertEquals("name", (new NamingEvent("name", null)).getServiceName());
   }
 
   @Test
   public void setGroupNameTest() {
     // Arrange
-    NamingEvent namingEvent = new NamingEvent("aaaaa", null);
+    NamingEvent namingEvent = new NamingEvent("name", null);
 
     // Act
-    namingEvent.setGroupName("aaaaa");
+    namingEvent.setGroupName("name");
 
     // Assert
-    assertEquals("aaaaa", namingEvent.getGroupName());
+    assertEquals("name", namingEvent.getGroupName());
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    NamingEvent actualNamingEvent = new NamingEvent("aaaaa", null);
+    NamingEvent actualNamingEvent = new NamingEvent("name", null);
 
     // Assert
     List<Instance> actualInstances = actualNamingEvent.getInstances();
-    assertEquals("aaaaa", actualNamingEvent.getServiceName());
+    assertEquals("name", actualNamingEvent.getServiceName());
     assertNull(actualInstances);
   }
 
   @Test
   public void setClustersTest() {
     // Arrange
-    NamingEvent namingEvent = new NamingEvent("aaaaa", null);
+    NamingEvent namingEvent = new NamingEvent("name", null);
 
     // Act
-    namingEvent.setClusters("aaaaa");
+    namingEvent.setClusters("foo");
 
     // Assert
-    assertEquals("aaaaa", namingEvent.getClusters());
+    assertEquals("foo", namingEvent.getClusters());
   }
 
   @Test
   public void getClustersTest() {
     // Arrange, Act and Assert
-    assertNull((new NamingEvent("aaaaa", null)).getClusters());
+    assertNull((new NamingEvent("name", null)).getClusters());
   }
 
   @Test
   public void getInstancesTest() {
     // Arrange, Act and Assert
-    assertNull((new NamingEvent("aaaaa", null)).getInstances());
+    assertNull((new NamingEvent("name", null)).getInstances());
   }
 
   @Test
   public void getGroupNameTest() {
     // Arrange, Act and Assert
-    assertNull((new NamingEvent("aaaaa", null)).getGroupName());
+    assertNull((new NamingEvent("name", null)).getGroupName());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    NamingEvent actualNamingEvent = new NamingEvent("aaaaa", "aaaaa", "aaaaa", null);
+    NamingEvent actualNamingEvent = new NamingEvent("name", "name", "foo", null);
 
     // Assert
     String actualGroupName = actualNamingEvent.getGroupName();
     List<Instance> actualInstances = actualNamingEvent.getInstances();
     String actualClusters = actualNamingEvent.getClusters();
-    assertEquals("aaaaa", actualGroupName);
-    assertEquals("aaaaa", actualNamingEvent.getServiceName());
-    assertEquals("aaaaa", actualClusters);
+    assertEquals("name", actualGroupName);
+    assertEquals("name", actualNamingEvent.getServiceName());
+    assertEquals("foo", actualClusters);
     assertNull(actualInstances);
   }
 }

@@ -14,7 +14,7 @@ public class PersistServiceDiffblueTest {
   @Test
   public void equalsTest3() {
     // Arrange, Act and Assert
-    assertFalse((new PersistService.ConfigInfoWrapper()).equals("aaaaa"));
+    assertFalse((new PersistService.ConfigInfoWrapper()).equals("foo"));
   }
 
   @Test
@@ -72,7 +72,7 @@ public class PersistServiceDiffblueTest {
   @Test
   public void equalsTest2() {
     // Arrange, Act and Assert
-    assertFalse((new PersistService.ConfigInfoTagWrapper()).equals("aaaaa"));
+    assertFalse((new PersistService.ConfigInfoTagWrapper()).equals("foo"));
   }
 
   @Test
@@ -132,7 +132,7 @@ public class PersistServiceDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new PersistService.ConfigInfoBetaWrapper()).equals("aaaaa"));
+    assertFalse((new PersistService.ConfigInfoBetaWrapper()).equals("foo"));
   }
 
   @Test
@@ -193,45 +193,45 @@ public class PersistServiceDiffblueTest {
   public void findTenantByKpTest2() {
     // Arrange, Act and Assert
     thrown.expect(RuntimeException.class);
-    (new PersistService()).findTenantByKp("%", "%");
+    (new PersistService()).findTenantByKp("foo", "123");
   }
 
   @Test
   public void findSingleConfigInfoAggrTest() {
     // Arrange, Act and Assert
     thrown.expect(RuntimeException.class);
-    (new PersistService()).findSingleConfigInfoAggr("%", "%", "%", "%");
+    (new PersistService()).findSingleConfigInfoAggr("123", "foo", "foo", "123");
   }
 
   @Test
   public void isExistTableTest() {
     // Arrange, Act and Assert
-    assertFalse((new PersistService()).isExistTable("%"));
+    assertFalse((new PersistService()).isExistTable("name"));
   }
 
   @Test
   public void findConfigInfoAggrTest() {
     // Arrange, Act and Assert
     thrown.expect(RuntimeException.class);
-    (new PersistService()).findConfigInfoAggr("%", "%", "%");
+    (new PersistService()).findConfigInfoAggr("123", "foo", "foo");
   }
 
   @Test
   public void findConfigInfoByBatchTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new PersistService()).findConfigInfoByBatch(null, "%", "%", 1).size());
+    assertEquals(0, (new PersistService()).findConfigInfoByBatch(null, "foo", "foo", 1).size());
   }
 
   @Test
   public void aggrConfigInfoCountInTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new PersistService()).aggrConfigInfoCountIn("%", "%", "%", null));
+    assertEquals(0, (new PersistService()).aggrConfigInfoCountIn("123", "foo", "foo", null));
   }
 
   @Test
   public void removeConfigInfoByIdsTest() {
     // Arrange, Act and Assert
-    assertNull((new PersistService()).removeConfigInfoByIds(null, "%", "%"));
+    assertNull((new PersistService()).removeConfigInfoByIds(null, "foo", "foo"));
   }
 
   @Test
@@ -250,7 +250,7 @@ public class PersistServiceDiffblueTest {
   @Test
   public void aggrConfigInfoCountNotInTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new PersistService()).aggrConfigInfoCountNotIn("%", "%", "%", null));
+    assertEquals(0, (new PersistService()).aggrConfigInfoCountNotIn("123", "foo", "foo", null));
   }
 
   @Test
@@ -267,14 +267,14 @@ public class PersistServiceDiffblueTest {
   public void findConfigInfosByIdsTest() {
     // Arrange, Act and Assert
     thrown.expect(NumberFormatException.class);
-    (new PersistService()).findConfigInfosByIds("%");
+    (new PersistService()).findConfigInfosByIds("foo");
   }
 
   @Test
   public void findTenantByKpTest() {
     // Arrange, Act and Assert
     thrown.expect(RuntimeException.class);
-    (new PersistService()).findTenantByKp("%");
+    (new PersistService()).findTenantByKp("foo");
   }
 
   @Test

@@ -7,7 +7,7 @@ public class AccessExceptionDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new AccessException("aaaaa")).getErrMsg());
+    assertEquals("foo", (new AccessException("foo")).getErrMsg());
   }
 
   @Test

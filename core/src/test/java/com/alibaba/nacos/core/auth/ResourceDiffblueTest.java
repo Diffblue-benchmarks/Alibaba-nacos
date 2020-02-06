@@ -13,29 +13,29 @@ public class ResourceDiffblueTest {
   public void parseNameTest() {
     // Arrange, Act and Assert
     thrown.expect(StringIndexOutOfBoundsException.class);
-    (new Resource("aaaaa")).parseName();
+    (new Resource("foo")).parseName();
   }
 
   @Test
   public void constructorTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Resource("aaaaa")).getKey());
+    assertEquals("foo", (new Resource("foo")).getKey());
   }
 
   @Test
   public void toStringTest() {
     // Arrange
-    Resource resource = new Resource("aaaaa");
+    Resource resource = new Resource("foo");
 
     // Act and Assert
-    assertEquals("{\"key\":\"aaaaa\"}", resource.toString());
-    assertEquals("{\"key\":\"aaaaa\"}", resource.toString());
+    assertEquals("{\"key\":\"foo\"}", resource.toString());
+    assertEquals("{\"key\":\"foo\"}", resource.toString());
   }
 
   @Test
   public void getKeyTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new Resource("aaaaa")).getKey());
+    assertEquals("foo", (new Resource("foo")).getKey());
   }
 }
 

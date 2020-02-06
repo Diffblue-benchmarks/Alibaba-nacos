@@ -14,19 +14,19 @@ public class ResultBuilderDiffblueTest {
   @Test
   public void buildSuccessResultTest4() {
     // Arrange and Act
-    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult("aaaaa");
+    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult("foo");
 
     // Assert
     int actualCode = actualBuildSuccessResultResult.getCode();
     String actualMessage = actualBuildSuccessResultResult.getMessage();
     assertEquals(200, actualCode);
     assertNull(actualBuildSuccessResultResult.getData());
-    assertEquals("aaaaa", actualMessage);
+    assertEquals("foo", actualMessage);
   }
   @Test
   public void buildSuccessResultTest3() {
     // Arrange and Act
-    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult((Object) "aaaaa");
+    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult((Object) "foo");
 
     // Assert
     int actualCode = actualBuildSuccessResultResult.getCode();
@@ -50,20 +50,20 @@ public class ResultBuilderDiffblueTest {
   @Test
   public void buildSuccessResultTest() {
     // Arrange and Act
-    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult("aaaaa", "aaaaa");
+    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult("foo", "foo");
 
     // Assert
     int actualCode = actualBuildSuccessResultResult.getCode();
     String actualMessage = actualBuildSuccessResultResult.getMessage();
     assertEquals(200, actualCode);
     assertTrue(actualBuildSuccessResultResult.getData() instanceof String);
-    assertEquals("aaaaa", actualMessage);
+    assertEquals("foo", actualMessage);
   }
   @Test
   public void buildResultTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    ResultBuilder.<Object>buildResult(null, "aaaaa");
+    ResultBuilder.<Object>buildResult(null, "foo");
   }
 }
 

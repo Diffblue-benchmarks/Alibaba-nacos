@@ -12,10 +12,10 @@ public class EntityDiffblueTest {
     Entity entity = new Entity();
 
     // Act
-    entity.setType("aaaaa");
+    entity.setType("foo");
 
     // Assert
-    assertEquals("aaaaa", entity.getType());
+    assertEquals("foo", entity.getType());
   }
 
   @Test
@@ -36,10 +36,10 @@ public class EntityDiffblueTest {
     Entity entity = new Entity();
 
     // Act
-    entity.setName("aaaaa");
+    entity.setName("name");
 
     // Assert
-    assertEquals("aaaaa", entity.getName());
+    assertEquals("name", entity.getName());
   }
 
   @Test

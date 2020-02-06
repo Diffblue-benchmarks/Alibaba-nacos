@@ -7,7 +7,7 @@ public class DataSyncerDiffblueTest {
   @Test
   public void buildKeyTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa@@@@aaaaa", (new DataSyncer()).buildKey("aaaaa", "aaaaa"));
+    assertEquals("foo@@@@foo", (new DataSyncer()).buildKey("foo", "foo"));
   }
 }
 

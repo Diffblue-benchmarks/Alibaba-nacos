@@ -15,7 +15,7 @@ public class PaginationHelperDiffblueTest {
 
     // Act and Assert
     thrown.expect(IllegalStateException.class);
-    paginationHelper.updateLimit(new JdbcTemplate(), "", new Object[]{"", "", ""});
+    paginationHelper.updateLimit(new JdbcTemplate(), "foo", new Object[]{"foo", "foo", "foo"});
   }
 }
 

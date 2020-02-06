@@ -9,7 +9,7 @@ public class DistroMapperDiffblueTest {
   @Test
   public void mapSrvTest() {
     // Arrange, Act and Assert
-    assertEquals("10.42.2.68:0", (new DistroMapper()).mapSrv("aaaaa"));
+    assertEquals("10.42.2.68:0", (new DistroMapper()).mapSrv("name"));
   }
 
   @Test
@@ -29,7 +29,7 @@ public class DistroMapperDiffblueTest {
   @Test
   public void distroHashTest() {
     // Arrange, Act and Assert
-    assertEquals(92567585, (new DistroMapper()).distroHash("aaaaa"));
+    assertEquals(3373707, (new DistroMapper()).distroHash("name"));
   }
 }
 

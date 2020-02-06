@@ -9,7 +9,7 @@ public class ConfigInfoExDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfoEx()).equals("aaaaa"));
+    assertFalse((new ConfigInfoEx()).equals("foo"));
   }
 
   @Test
@@ -82,16 +82,16 @@ public class ConfigInfoExDiffblueTest {
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    ConfigInfoEx actualConfigInfoEx = new ConfigInfoEx("aaaaa", "aaaaa", "aaaaa");
+    ConfigInfoEx actualConfigInfoEx = new ConfigInfoEx("123", "foo", "foo");
 
     // Assert
     String actualDataId = actualConfigInfoEx.getDataId();
     String actualContent = actualConfigInfoEx.getContent();
     String actualMd5 = actualConfigInfoEx.getMd5();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfoEx.getGroup());
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualConfigInfoEx.getGroup());
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 
   @Test
@@ -100,16 +100,16 @@ public class ConfigInfoExDiffblueTest {
     ConfigInfoEx configInfoEx = new ConfigInfoEx();
 
     // Act
-    configInfoEx.setMessage("aaaaa");
+    configInfoEx.setMessage("message");
 
     // Assert
-    assertEquals("aaaaa", configInfoEx.getMessage());
+    assertEquals("message", configInfoEx.getMessage());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfoEx actualConfigInfoEx = new ConfigInfoEx("aaaaa", "aaaaa", "aaaaa", 1, "aaaaa");
+    ConfigInfoEx actualConfigInfoEx = new ConfigInfoEx("123", "foo", "foo", 1, "message");
 
     // Assert
     String actualDataId = actualConfigInfoEx.getDataId();
@@ -117,12 +117,12 @@ public class ConfigInfoExDiffblueTest {
     String actualMessage = actualConfigInfoEx.getMessage();
     String actualMd5 = actualConfigInfoEx.getMd5();
     String actualGroup = actualConfigInfoEx.getGroup();
-    assertEquals("aaaaa", actualDataId);
+    assertEquals("123", actualDataId);
     assertEquals(1, actualConfigInfoEx.getStatus());
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualMessage);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("foo", actualGroup);
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("message", actualMessage);
+    assertEquals("foo", actualContent);
   }
 }
 

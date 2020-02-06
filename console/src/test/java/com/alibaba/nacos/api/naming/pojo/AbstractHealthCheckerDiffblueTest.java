@@ -9,7 +9,7 @@ public class AbstractHealthCheckerDiffblueTest {
   @Test
   public void equalsTest3() {
     // Arrange, Act and Assert
-    assertFalse((new AbstractHealthChecker.Tcp()).equals("TCP"));
+    assertFalse((new AbstractHealthChecker.Tcp()).equals("foo"));
   }
 
   @Test
@@ -45,7 +45,7 @@ public class AbstractHealthCheckerDiffblueTest {
   @Test
   public void equalsTest2() {
     // Arrange, Act and Assert
-    assertFalse((new AbstractHealthChecker.Mysql()).equals("MYSQL"));
+    assertFalse((new AbstractHealthChecker.Mysql()).equals("foo"));
   }
 
   @Test
@@ -75,10 +75,10 @@ public class AbstractHealthCheckerDiffblueTest {
     AbstractHealthChecker.Mysql mysql = new AbstractHealthChecker.Mysql();
 
     // Act
-    mysql.setPwd("MYSQL");
+    mysql.setPwd("foo");
 
     // Assert
-    assertEquals("MYSQL", mysql.getPwd());
+    assertEquals("foo", mysql.getPwd());
   }
 
   @Test
@@ -105,10 +105,10 @@ public class AbstractHealthCheckerDiffblueTest {
     AbstractHealthChecker.Mysql mysql = new AbstractHealthChecker.Mysql();
 
     // Act
-    mysql.setUser("MYSQL");
+    mysql.setUser("foo");
 
     // Assert
-    assertEquals("MYSQL", mysql.getUser());
+    assertEquals("foo", mysql.getUser());
   }
 
   @Test
@@ -123,16 +123,16 @@ public class AbstractHealthCheckerDiffblueTest {
     AbstractHealthChecker.Mysql mysql = new AbstractHealthChecker.Mysql();
 
     // Act
-    mysql.setCmd("MYSQL");
+    mysql.setCmd("foo");
 
     // Assert
-    assertEquals("MYSQL", mysql.getCmd());
+    assertEquals("foo", mysql.getCmd());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new AbstractHealthChecker.Http()).equals(""));
+    assertFalse((new AbstractHealthChecker.Http()).equals("foo"));
   }
 
   @Test
@@ -141,10 +141,10 @@ public class AbstractHealthCheckerDiffblueTest {
     AbstractHealthChecker.Http http = new AbstractHealthChecker.Http();
 
     // Act
-    http.setPath("");
+    http.setPath("foo");
 
     // Assert
-    assertEquals("", http.getPath());
+    assertEquals("foo", http.getPath());
   }
 
   @Test
@@ -225,10 +225,10 @@ public class AbstractHealthCheckerDiffblueTest {
     AbstractHealthChecker.Http http = new AbstractHealthChecker.Http();
 
     // Act
-    http.setHeaders("");
+    http.setHeaders("foo");
 
     // Assert
-    assertEquals("", http.getHeaders());
+    assertEquals("foo", http.getHeaders());
   }
 }
 

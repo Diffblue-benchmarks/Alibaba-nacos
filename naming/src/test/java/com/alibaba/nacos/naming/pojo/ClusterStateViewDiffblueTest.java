@@ -6,6 +6,42 @@ import org.junit.Test;
 
 public class ClusterStateViewDiffblueTest {
   @Test
+  public void getClusterTermTest() {
+    // Arrange, Act and Assert
+    assertEquals(0L, (new ClusterStateView()).getClusterTerm());
+  }
+
+  @Test
+  public void getNodeStateTest() {
+    // Arrange, Act and Assert
+    assertNull((new ClusterStateView()).getNodeState());
+  }
+
+  @Test
+  public void getLeaderDueMsTest() {
+    // Arrange, Act and Assert
+    assertEquals(0L, (new ClusterStateView()).getLeaderDueMs());
+  }
+
+  @Test
+  public void setLeaderDueMsTest() {
+    // Arrange
+    ClusterStateView clusterStateView = new ClusterStateView();
+
+    // Act
+    clusterStateView.setLeaderDueMs(1L);
+
+    // Assert
+    assertEquals(1L, clusterStateView.getLeaderDueMs());
+  }
+
+  @Test
+  public void getNodeIpTest() {
+    // Arrange, Act and Assert
+    assertNull((new ClusterStateView()).getNodeIp());
+  }
+
+  @Test
   public void setClusterTermTest() {
     // Arrange
     ClusterStateView clusterStateView = new ClusterStateView();
@@ -23,10 +59,28 @@ public class ClusterStateViewDiffblueTest {
     ClusterStateView clusterStateView = new ClusterStateView();
 
     // Act
-    clusterStateView.setNodeIp("aaaaa");
+    clusterStateView.setNodeIp("foo");
 
     // Assert
-    assertEquals("aaaaa", clusterStateView.getNodeIp());
+    assertEquals("foo", clusterStateView.getNodeIp());
+  }
+
+  @Test
+  public void setHeartbeatDueMsTest() {
+    // Arrange
+    ClusterStateView clusterStateView = new ClusterStateView();
+
+    // Act
+    clusterStateView.setHeartbeatDueMs(1L);
+
+    // Assert
+    assertEquals(1L, clusterStateView.getHeartbeatDueMs());
+  }
+
+  @Test
+  public void getVoteForTest() {
+    // Arrange, Act and Assert
+    assertNull((new ClusterStateView()).getVoteFor());
   }
 
   @Test
@@ -51,6 +105,24 @@ public class ClusterStateViewDiffblueTest {
   }
 
   @Test
+  public void getHeartbeatDueMsTest() {
+    // Arrange, Act and Assert
+    assertEquals(0L, (new ClusterStateView()).getHeartbeatDueMs());
+  }
+
+  @Test
+  public void setVoteForTest() {
+    // Arrange
+    ClusterStateView clusterStateView = new ClusterStateView();
+
+    // Act
+    clusterStateView.setVoteFor("foo");
+
+    // Assert
+    assertEquals("foo", clusterStateView.getVoteFor());
+  }
+
+  @Test
   public void toStringTest() {
     // Arrange
     ClusterStateView clusterStateView = new ClusterStateView();
@@ -66,10 +138,10 @@ public class ClusterStateViewDiffblueTest {
     ClusterStateView clusterStateView = new ClusterStateView();
 
     // Act
-    clusterStateView.setNodeState("aaaaa");
+    clusterStateView.setNodeState("foo");
 
     // Assert
-    assertEquals("aaaaa", clusterStateView.getNodeState());
+    assertEquals("foo", clusterStateView.getNodeState());
   }
 }
 

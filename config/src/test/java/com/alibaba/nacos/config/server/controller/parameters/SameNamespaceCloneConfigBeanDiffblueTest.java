@@ -11,10 +11,10 @@ public class SameNamespaceCloneConfigBeanDiffblueTest {
     SameNamespaceCloneConfigBean sameNamespaceCloneConfigBean = new SameNamespaceCloneConfigBean();
 
     // Act
-    sameNamespaceCloneConfigBean.setGroup("aaaaa");
+    sameNamespaceCloneConfigBean.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", sameNamespaceCloneConfigBean.getGroup());
+    assertEquals("foo", sameNamespaceCloneConfigBean.getGroup());
   }
 
   @Test
@@ -23,10 +23,10 @@ public class SameNamespaceCloneConfigBeanDiffblueTest {
     SameNamespaceCloneConfigBean sameNamespaceCloneConfigBean = new SameNamespaceCloneConfigBean();
 
     // Act
-    sameNamespaceCloneConfigBean.setDataId("aaaaa");
+    sameNamespaceCloneConfigBean.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", sameNamespaceCloneConfigBean.getDataId());
+    assertEquals("123", sameNamespaceCloneConfigBean.getDataId());
   }
 
   @Test
@@ -35,10 +35,10 @@ public class SameNamespaceCloneConfigBeanDiffblueTest {
     SameNamespaceCloneConfigBean sameNamespaceCloneConfigBean = new SameNamespaceCloneConfigBean();
 
     // Act
-    sameNamespaceCloneConfigBean.setCfgId(null);
+    sameNamespaceCloneConfigBean.setCfgId(Long.valueOf(123L));
 
     // Assert
-    assertNull(sameNamespaceCloneConfigBean.getCfgId());
+    assertEquals(Long.valueOf(123L), sameNamespaceCloneConfigBean.getCfgId());
   }
 
   @Test

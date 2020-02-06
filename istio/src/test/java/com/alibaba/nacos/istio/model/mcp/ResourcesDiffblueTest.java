@@ -2,10 +2,14 @@ package com.alibaba.nacos.istio.model.mcp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.LazyStringArrayList;
+import com.google.protobuf.ProtocolStringList;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,25 +24,40 @@ public class ResourcesDiffblueTest {
   }
   @Test
   public void newInstanceTest() {
-    // Arrange, Act and Assert
-    boolean actualIsInitializedResult = ((Resources) Resources.getDefaultInstance().newInstance(null)).isInitialized();
-    int actualRemovedResourcesCount = ((Resources) Resources.getDefaultInstance().newInstance(null))
-        .getRemovedResourcesCount();
-    String actualNonce = ((Resources) Resources.getDefaultInstance().newInstance(null)).getNonce();
-    String actualSystemVersionInfo = ((Resources) Resources.getDefaultInstance().newInstance(null))
-        .getSystemVersionInfo();
-    String actualCollection = ((Resources) Resources.getDefaultInstance().newInstance(null)).getCollection();
-    assertEquals(0, ((Resources) Resources.getDefaultInstance().newInstance(null)).getResourcesCount());
+    // Arrange and Act
+    Object actualNewInstanceResult = Resources.getDefaultInstance().newInstance(null);
+
+    // Assert
+    String actualToStringResult = actualNewInstanceResult.toString();
+    int actualSerializedSize = ((Resources) actualNewInstanceResult).getSerializedSize();
+    boolean actualIsInitializedResult = ((Resources) actualNewInstanceResult).isInitialized();
+    int actualRemovedResourcesCount = ((Resources) actualNewInstanceResult).getRemovedResourcesCount();
+    String actualNonce = ((Resources) actualNewInstanceResult).getNonce();
+    String actualSystemVersionInfo = ((Resources) actualNewInstanceResult).getSystemVersionInfo();
+    String actualCollection = ((Resources) actualNewInstanceResult).getCollection();
+    assertEquals("", actualToStringResult);
+    assertEquals(0, ((Resources) actualNewInstanceResult).getResourcesCount());
     assertEquals("", actualCollection);
     assertEquals("", actualSystemVersionInfo);
     assertEquals("", actualNonce);
     assertEquals(0, actualRemovedResourcesCount);
+    assertEquals(0, actualSerializedSize);
     assertTrue(actualIsInitializedResult);
   }
   @Test
   public void getResourcesListTest() {
     // Arrange, Act and Assert
     assertEquals(0, Resources.getDefaultInstance().getResourcesList().size());
+  }
+  @Test
+  public void parseFromTest2() throws IOException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    Resources.parseFrom(new ByteArrayInputStream(byteArray));
   }
   @Test
   public void getRemovedResourcesCountTest() {
@@ -52,14 +71,27 @@ public class ResourcesDiffblueTest {
   }
   @Test
   public void parseFromTest() throws InvalidProtocolBufferException {
-    // Arrange, Act and Assert
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
     thrown.expect(InvalidProtocolBufferException.class);
-    Resources.parseFrom(new byte[24]);
+    Resources.parseFrom(byteArray);
   }
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse(Resources.getDefaultInstance().equals(""));
+    assertFalse(Resources.getDefaultInstance().equals("foo"));
+  }
+  @Test
+  public void getRemovedResourcesListTest() {
+    // Arrange and Act
+    ProtocolStringList actualRemovedResourcesList = Resources.getDefaultInstance().getRemovedResourcesList();
+
+    // Assert
+    assertSame(((LazyStringArrayList) actualRemovedResourcesList).EMPTY, actualRemovedResourcesList);
+    assertEquals(0, actualRemovedResourcesList.size());
   }
   @Test
   public void getIncrementalTest() {
@@ -72,9 +104,11 @@ public class ResourcesDiffblueTest {
     Resources.Builder actualNewBuilderResult = Resources.newBuilder();
 
     // Assert
+    String actualToStringResult = actualNewBuilderResult.toString();
     int actualRemovedResourcesCount = actualNewBuilderResult.getRemovedResourcesCount();
     String actualNonce = actualNewBuilderResult.getNonce();
     String actualSystemVersionInfo = actualNewBuilderResult.getSystemVersionInfo();
+    assertEquals("", actualToStringResult);
     assertEquals("", actualNewBuilderResult.getCollection());
     assertEquals("", actualSystemVersionInfo);
     assertEquals("", actualNonce);
@@ -97,9 +131,11 @@ public class ResourcesDiffblueTest {
     Resources.Builder actualToBuilderResult = Resources.getDefaultInstance().toBuilder();
 
     // Assert
+    String actualToStringResult = actualToBuilderResult.toString();
     int actualRemovedResourcesCount = actualToBuilderResult.getRemovedResourcesCount();
     String actualNonce = actualToBuilderResult.getNonce();
     String actualSystemVersionInfo = actualToBuilderResult.getSystemVersionInfo();
+    assertEquals("", actualToStringResult);
     assertEquals("", actualToBuilderResult.getCollection());
     assertEquals("", actualSystemVersionInfo);
     assertEquals("", actualNonce);
@@ -111,9 +147,11 @@ public class ResourcesDiffblueTest {
     Resources.Builder actualNewBuilderForTypeResult = Resources.getDefaultInstance().newBuilderForType();
 
     // Assert
+    String actualToStringResult = actualNewBuilderForTypeResult.toString();
     int actualRemovedResourcesCount = actualNewBuilderForTypeResult.getRemovedResourcesCount();
     String actualNonce = actualNewBuilderForTypeResult.getNonce();
     String actualSystemVersionInfo = actualNewBuilderForTypeResult.getSystemVersionInfo();
+    assertEquals("", actualToStringResult);
     assertEquals("", actualNewBuilderForTypeResult.getCollection());
     assertEquals("", actualSystemVersionInfo);
     assertEquals("", actualNonce);
@@ -130,9 +168,11 @@ public class ResourcesDiffblueTest {
     Resources.Builder actualNewBuilderResult = Resources.newBuilder(Resources.getDefaultInstance());
 
     // Assert
+    String actualToStringResult = actualNewBuilderResult.toString();
     int actualRemovedResourcesCount = actualNewBuilderResult.getRemovedResourcesCount();
     String actualNonce = actualNewBuilderResult.getNonce();
     String actualSystemVersionInfo = actualNewBuilderResult.getSystemVersionInfo();
+    assertEquals("", actualToStringResult);
     assertEquals("", actualNewBuilderResult.getCollection());
     assertEquals("", actualSystemVersionInfo);
     assertEquals("", actualNonce);
@@ -144,11 +184,6 @@ public class ResourcesDiffblueTest {
     assertEquals("", Resources.getDefaultInstance().getSystemVersionInfo());
   }
   @Test
-  public void getNonceTest() {
-    // Arrange, Act and Assert
-    assertEquals("", Resources.getDefaultInstance().getNonce());
-  }
-  @Test
   public void getRemovedResourcesBytesTest() {
     // Arrange, Act and Assert
     thrown.expect(IndexOutOfBoundsException.class);
@@ -156,21 +191,13 @@ public class ResourcesDiffblueTest {
   }
   @Test
   public void parseDelimitedFromTest() throws IOException {
-    // Arrange and Act
-    Resources actualParseDelimitedFromResult = Resources.parseDelimitedFrom(new ByteArrayInputStream(new byte[24]));
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-    // Assert
-    boolean actualIsInitializedResult = actualParseDelimitedFromResult.isInitialized();
-    int actualRemovedResourcesCount = actualParseDelimitedFromResult.getRemovedResourcesCount();
-    String actualNonce = actualParseDelimitedFromResult.getNonce();
-    String actualSystemVersionInfo = actualParseDelimitedFromResult.getSystemVersionInfo();
-    String actualCollection = actualParseDelimitedFromResult.getCollection();
-    assertEquals(0, actualParseDelimitedFromResult.getResourcesCount());
-    assertEquals("", actualCollection);
-    assertEquals("", actualSystemVersionInfo);
-    assertEquals("", actualNonce);
-    assertEquals(0, actualRemovedResourcesCount);
-    assertTrue(actualIsInitializedResult);
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    Resources.parseDelimitedFrom(new ByteArrayInputStream(byteArray));
   }
   @Test
   public void getResourcesOrBuilderTest() {

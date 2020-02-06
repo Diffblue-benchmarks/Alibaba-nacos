@@ -11,7 +11,7 @@ public class NamingResourceParserDiffblueTest {
   public void parseNameTest() {
     // Arrange, Act and Assert
     thrown.expect(ClassCastException.class);
-    (new NamingResourceParser()).parseName(":");
+    (new NamingResourceParser()).parseName("foo");
   }
 }
 

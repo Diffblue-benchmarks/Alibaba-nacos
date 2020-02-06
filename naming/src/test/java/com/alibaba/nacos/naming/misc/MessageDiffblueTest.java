@@ -11,10 +11,10 @@ public class MessageDiffblueTest {
     Message message = new Message();
 
     // Act
-    message.setData("aaaaa");
+    message.setData("foo");
 
     // Assert
-    assertEquals("aaaaa", message.getData());
+    assertEquals("foo", message.getData());
   }
 
   @Test

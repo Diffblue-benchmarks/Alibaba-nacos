@@ -22,7 +22,7 @@ public class TaskDispatcherDiffblueTest {
   public void addTaskTest() {
     // Arrange, Act and Assert
     thrown.expect(IndexOutOfBoundsException.class);
-    (new TaskDispatcher()).addTask("aaaaa");
+    (new TaskDispatcher()).addTask("foo");
   }
 }
 

@@ -22,10 +22,10 @@ public class UserDiffblueTest {
     User user = new User();
 
     // Act
-    user.setUsername("aaaaa");
+    user.setUsername("username");
 
     // Assert
-    assertEquals("aaaaa", user.getUsername());
+    assertEquals("username", user.getUsername());
   }
 
   @Test
@@ -40,10 +40,10 @@ public class UserDiffblueTest {
     User user = new User();
 
     // Act
-    user.setPassword("aaaaa");
+    user.setPassword("Password123");
 
     // Assert
-    assertEquals("aaaaa", user.getPassword());
+    assertEquals("Password123", user.getPassword());
   }
 
   @Test

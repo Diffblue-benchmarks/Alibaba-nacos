@@ -8,7 +8,7 @@ public class SingletonRepositoryDiffblueTest {
   @Test
   public void getSingletonTest2() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", SingletonRepository.DataIdGroupIdCache.getSingleton("aaaaa"));
+    assertEquals("foo", SingletonRepository.DataIdGroupIdCache.getSingleton("foo"));
   }
 
   @Test
@@ -29,7 +29,7 @@ public class SingletonRepositoryDiffblueTest {
     SingletonRepository<Object> singletonRepository = new SingletonRepository<Object>();
 
     // Act and Assert
-    assertEquals("aaaaa", singletonRepository.getSingleton("aaaaa"));
+    assertEquals("foo", singletonRepository.getSingleton("foo"));
     assertEquals(1, singletonRepository.size());
   }
 
@@ -39,7 +39,7 @@ public class SingletonRepositoryDiffblueTest {
     SingletonRepository<Object> singletonRepository = new SingletonRepository<Object>();
 
     // Act
-    singletonRepository.remove("aaaaa");
+    singletonRepository.remove("foo");
 
     // Assert
     assertEquals(0, singletonRepository.size());

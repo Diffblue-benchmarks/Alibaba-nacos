@@ -13,21 +13,19 @@ public class LocalConfigInfoProcessorDiffblueTest {
   public void cleanEnvSnapshotTest() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
-    LocalConfigInfoProcessor.cleanEnvSnapshot("LOCAL_SNAPSHOT_PATH:{}");
+    LocalConfigInfoProcessor.cleanEnvSnapshot("name");
   }
 
   @Test
   public void getSnapshotTest() {
     // Arrange, Act and Assert
-    assertNull(LocalConfigInfoProcessor.getSnapshot("LOCAL_SNAPSHOT_PATH:{}", "LOCAL_SNAPSHOT_PATH:{}",
-        "LOCAL_SNAPSHOT_PATH:{}", "LOCAL_SNAPSHOT_PATH:{}"));
+    assertNull(LocalConfigInfoProcessor.getSnapshot("name", "123", "foo", "foo"));
   }
 
   @Test
   public void getFailoverTest() {
     // Arrange, Act and Assert
-    assertNull(LocalConfigInfoProcessor.getFailover("LOCAL_SNAPSHOT_PATH:{}", "LOCAL_SNAPSHOT_PATH:{}",
-        "LOCAL_SNAPSHOT_PATH:{}", "LOCAL_SNAPSHOT_PATH:{}"));
+    assertNull(LocalConfigInfoProcessor.getFailover("name", "123", "foo", "foo"));
   }
 }
 

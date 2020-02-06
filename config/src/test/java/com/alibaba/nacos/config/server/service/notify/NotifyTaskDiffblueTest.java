@@ -7,55 +7,55 @@ public class NotifyTaskDiffblueTest {
   @Test
   public void setTenantTest() {
     // Arrange
-    NotifyTask notifyTask = new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L);
+    NotifyTask notifyTask = new NotifyTask("123", "foo", "foo", 1L);
 
     // Act
-    notifyTask.setTenant("aaaaa");
+    notifyTask.setTenant("foo");
 
     // Assert
-    assertEquals("aaaaa", notifyTask.getTenant());
+    assertEquals("foo", notifyTask.getTenant());
   }
 
   @Test
   public void setGroupTest() {
     // Arrange
-    NotifyTask notifyTask = new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L);
+    NotifyTask notifyTask = new NotifyTask("123", "foo", "foo", 1L);
 
     // Act
-    notifyTask.setGroup("aaaaa");
+    notifyTask.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", notifyTask.getGroup());
+    assertEquals("foo", notifyTask.getGroup());
   }
 
   @Test
   public void setDataIdTest() {
     // Arrange
-    NotifyTask notifyTask = new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L);
+    NotifyTask notifyTask = new NotifyTask("123", "foo", "foo", 1L);
 
     // Act
-    notifyTask.setDataId("aaaaa");
+    notifyTask.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", notifyTask.getDataId());
+    assertEquals("123", notifyTask.getDataId());
   }
 
   @Test
   public void setFailCountTest() {
     // Arrange
-    NotifyTask notifyTask = new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L);
+    NotifyTask notifyTask = new NotifyTask("123", "foo", "foo", 1L);
 
     // Act
-    notifyTask.setFailCount(1);
+    notifyTask.setFailCount(3);
 
     // Assert
-    assertEquals(1, notifyTask.getFailCount());
+    assertEquals(3, notifyTask.getFailCount());
   }
 
   @Test
   public void setLastModifiedTest() {
     // Arrange
-    NotifyTask notifyTask = new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L);
+    NotifyTask notifyTask = new NotifyTask("123", "foo", "foo", 1L);
 
     // Act
     notifyTask.setLastModified(1L);
@@ -67,48 +67,48 @@ public class NotifyTaskDiffblueTest {
   @Test
   public void getLastModifiedTest() {
     // Arrange, Act and Assert
-    assertEquals(1L, (new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L)).getLastModified());
+    assertEquals(1L, (new NotifyTask("123", "foo", "foo", 1L)).getLastModified());
   }
 
   @Test
   public void getTenantTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L)).getTenant());
+    assertEquals("foo", (new NotifyTask("123", "foo", "foo", 1L)).getTenant());
   }
 
   @Test
   public void getFailCountTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L)).getFailCount());
+    assertEquals(0, (new NotifyTask("123", "foo", "foo", 1L)).getFailCount());
   }
 
   @Test
   public void getGroupTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L)).getGroup());
+    assertEquals("foo", (new NotifyTask("123", "foo", "foo", 1L)).getGroup());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    NotifyTask actualNotifyTask = new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L);
+    NotifyTask actualNotifyTask = new NotifyTask("123", "foo", "foo", 1L);
 
     // Assert
     String actualDataId = actualNotifyTask.getDataId();
     long actualTaskInterval = actualNotifyTask.getTaskInterval();
     String actualGroup = actualNotifyTask.getGroup();
     String actualTenant = actualNotifyTask.getTenant();
-    assertEquals("aaaaa", actualDataId);
+    assertEquals("123", actualDataId);
     assertEquals(1L, actualNotifyTask.getLastModified());
-    assertEquals("aaaaa", actualTenant);
-    assertEquals("aaaaa", actualGroup);
+    assertEquals("foo", actualTenant);
+    assertEquals("foo", actualGroup);
     assertEquals(3000L, actualTaskInterval);
   }
 
   @Test
   public void getDataIdTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new NotifyTask("aaaaa", "aaaaa", "aaaaa", 1L)).getDataId());
+    assertEquals("123", (new NotifyTask("123", "foo", "foo", 1L)).getDataId());
   }
 }
 

@@ -9,7 +9,7 @@ public class OpsControllerDiffblueTest {
   @Test
   public void setLogLevelTest() {
     // Arrange, Act and Assert
-    assertEquals("200", (new OpsController(new PersistService(), null)).setLogLevel("aaaaa", "aaaaa"));
+    assertEquals("200", (new OpsController(new PersistService(), null)).setLogLevel("name", "foo"));
   }
 
   @Test
@@ -18,7 +18,7 @@ public class OpsControllerDiffblueTest {
     PersistService persistService = new PersistService();
 
     // Act and Assert
-    assertSame((new OpsController(persistService, null)).persistService, persistService);
+    assertSame(persistService, (new OpsController(persistService, null)).persistService);
   }
 }
 

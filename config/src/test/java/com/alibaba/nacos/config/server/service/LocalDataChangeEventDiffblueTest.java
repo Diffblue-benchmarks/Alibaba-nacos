@@ -10,23 +10,23 @@ public class LocalDataChangeEventDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    LocalDataChangeEvent actualLocalDataChangeEvent = new LocalDataChangeEvent("aaaaa", true, null, "aaaaa");
+    LocalDataChangeEvent actualLocalDataChangeEvent = new LocalDataChangeEvent("foo", true, null, "foo");
 
     // Assert
     assertNull(actualLocalDataChangeEvent.betaIps);
-    assertEquals("aaaaa", actualLocalDataChangeEvent.groupKey);
+    assertEquals("foo", actualLocalDataChangeEvent.groupKey);
     assertTrue(actualLocalDataChangeEvent.isBeta);
-    assertEquals("aaaaa", actualLocalDataChangeEvent.tag);
+    assertEquals("foo", actualLocalDataChangeEvent.tag);
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    LocalDataChangeEvent actualLocalDataChangeEvent = new LocalDataChangeEvent("aaaaa", true, null);
+    LocalDataChangeEvent actualLocalDataChangeEvent = new LocalDataChangeEvent("foo", true, null);
 
     // Assert
     assertNull(actualLocalDataChangeEvent.betaIps);
-    assertEquals("aaaaa", actualLocalDataChangeEvent.groupKey);
+    assertEquals("foo", actualLocalDataChangeEvent.groupKey);
     assertTrue(actualLocalDataChangeEvent.isBeta);
     assertNull(actualLocalDataChangeEvent.tag);
   }
@@ -34,11 +34,11 @@ public class LocalDataChangeEventDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    LocalDataChangeEvent actualLocalDataChangeEvent = new LocalDataChangeEvent("aaaaa");
+    LocalDataChangeEvent actualLocalDataChangeEvent = new LocalDataChangeEvent("foo");
 
     // Assert
     assertNull(actualLocalDataChangeEvent.betaIps);
-    assertEquals("aaaaa", actualLocalDataChangeEvent.groupKey);
+    assertEquals("foo", actualLocalDataChangeEvent.groupKey);
     assertFalse(actualLocalDataChangeEvent.isBeta);
     assertNull(actualLocalDataChangeEvent.tag);
   }

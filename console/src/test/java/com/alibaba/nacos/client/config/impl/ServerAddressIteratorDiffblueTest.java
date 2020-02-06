@@ -8,11 +8,11 @@ public class ServerAddressIteratorDiffblueTest {
   public void constructorTest() {
     // Arrange and Act
     ServerAddressIterator.RandomizedServerAddress actualRandomizedServerAddress = new ServerAddressIterator.RandomizedServerAddress(
-        "aaaaa");
+        "127.0.0.1");
 
     // Assert
     assertEquals(0, actualRandomizedServerAddress.priority);
-    assertEquals("aaaaa", actualRandomizedServerAddress.serverIp);
+    assertEquals("127.0.0.1", actualRandomizedServerAddress.serverIp);
   }
 }
 

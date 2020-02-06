@@ -13,7 +13,7 @@ public class DataStoreDiffblueTest {
     DataStore dataStore = new DataStore();
 
     // Act and Assert
-    assertNull(dataStore.remove("aaaaa"));
+    assertNull(dataStore.remove("foo"));
     assertEquals(0, dataStore.getInstanceCount());
   }
 
@@ -47,7 +47,7 @@ public class DataStoreDiffblueTest {
     DataStore dataStore = new DataStore();
 
     // Act
-    dataStore.put("aaaaa", new Datum());
+    dataStore.put("foo", new Datum());
 
     // Assert
     assertEquals(0, dataStore.getInstanceCount());
@@ -56,13 +56,13 @@ public class DataStoreDiffblueTest {
   @Test
   public void getTest() {
     // Arrange, Act and Assert
-    assertNull((new DataStore()).get("aaaaa"));
+    assertNull((new DataStore()).get("foo"));
   }
 
   @Test
   public void containsTest() {
     // Arrange, Act and Assert
-    assertFalse((new DataStore()).contains("aaaaa"));
+    assertFalse((new DataStore()).contains("foo"));
   }
 }
 

@@ -20,7 +20,7 @@ public class MergeTaskProcessorDiffblueTest {
 
     // Act and Assert
     thrown.expect(ClassCastException.class);
-    mergeTaskProcessor.process("remove", new DumpTask("remove", 1L, "remove"));
+    mergeTaskProcessor.process("foo", new DumpTask("foo", 1L, "foo"));
   }
 
   @Test

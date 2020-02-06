@@ -10,18 +10,22 @@ import org.junit.rules.ExpectedException;
 public class ConfigFactoryDiffblueTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
-
   @Test
-  public void createConfigServiceTest2() throws NacosException {
+  public void createConfigServiceTest3() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
     ConfigFactory.createConfigService((Properties) null);
   }
-
+  @Test
+  public void createConfigServiceTest2() throws NacosException {
+    // Arrange, Act and Assert
+    assertEquals("UP", ConfigFactory.createConfigService("foo").getServerStatus());
+  }
   @Test
   public void createConfigServiceTest() throws NacosException {
     // Arrange, Act and Assert
-    assertEquals("UP", ConfigFactory.createConfigService("aaaaa").getServerStatus());
+    thrown.expect(NacosException.class);
+    ConfigFactory.createConfigService("");
   }
 }
 

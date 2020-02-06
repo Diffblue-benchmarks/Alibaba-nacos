@@ -8,12 +8,12 @@ public class ManagerListenerWrapDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    ManagerListenerWrap actualManagerListenerWrap = new ManagerListenerWrap(null, "aaaaa", "aaaaa");
+    ManagerListenerWrap actualManagerListenerWrap = new ManagerListenerWrap(null, "foo", "foo");
 
     // Assert
-    assertEquals("aaaaa", actualManagerListenerWrap.lastContent);
+    assertEquals("foo", actualManagerListenerWrap.lastContent);
     assertNull(actualManagerListenerWrap.listener);
-    assertEquals("aaaaa", actualManagerListenerWrap.lastCallMd5);
+    assertEquals("foo", actualManagerListenerWrap.lastCallMd5);
   }
 
   @Test
@@ -30,12 +30,12 @@ public class ManagerListenerWrapDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ManagerListenerWrap actualManagerListenerWrap = new ManagerListenerWrap(null, "aaaaa");
+    ManagerListenerWrap actualManagerListenerWrap = new ManagerListenerWrap(null, "foo");
 
     // Assert
     assertNull(actualManagerListenerWrap.lastContent);
     assertNull(actualManagerListenerWrap.listener);
-    assertEquals("aaaaa", actualManagerListenerWrap.lastCallMd5);
+    assertEquals("foo", actualManagerListenerWrap.lastCallMd5);
   }
 }
 

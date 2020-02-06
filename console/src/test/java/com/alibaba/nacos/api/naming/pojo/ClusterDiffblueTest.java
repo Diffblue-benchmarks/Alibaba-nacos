@@ -36,16 +36,16 @@ public class ClusterDiffblueTest {
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setDefaultPort(1);
+    cluster.setDefaultPort(8080);
 
     // Assert
-    assertEquals(1, cluster.getDefaultPort());
+    assertEquals(8080, cluster.getDefaultPort());
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    Cluster actualCluster = new Cluster("aaaaa");
+    Cluster actualCluster = new Cluster("name");
 
     // Assert
     String actualName = actualCluster.getName();
@@ -53,7 +53,7 @@ public class ClusterDiffblueTest {
     int actualDefaultPort = actualCluster.getDefaultPort();
     boolean actualIsUseIPPort4CheckResult = actualCluster.isUseIPPort4Check();
     AbstractHealthChecker healthChecker = actualCluster.getHealthChecker();
-    assertEquals("aaaaa", actualName);
+    assertEquals("name", actualName);
     assertTrue(healthChecker instanceof AbstractHealthChecker.Tcp);
     assertTrue(actualIsUseIPPort4CheckResult);
     assertEquals(80, actualDefaultCheckPort);
@@ -85,10 +85,10 @@ public class ClusterDiffblueTest {
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setServiceName("aaaaa");
+    cluster.setServiceName("name");
 
     // Assert
-    assertEquals("aaaaa", cluster.getServiceName());
+    assertEquals("name", cluster.getServiceName());
   }
 
   @Test
@@ -97,10 +97,10 @@ public class ClusterDiffblueTest {
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setName("aaaaa");
+    cluster.setName("name");
 
     // Assert
-    assertEquals("aaaaa", cluster.getName());
+    assertEquals("name", cluster.getName());
   }
 
   @Test
@@ -144,10 +144,10 @@ public class ClusterDiffblueTest {
     Cluster cluster = new Cluster();
 
     // Act
-    cluster.setDefaultCheckPort(1);
+    cluster.setDefaultCheckPort(8080);
 
     // Assert
-    assertEquals(1, cluster.getDefaultCheckPort());
+    assertEquals(8080, cluster.getDefaultCheckPort());
   }
 
   @Test

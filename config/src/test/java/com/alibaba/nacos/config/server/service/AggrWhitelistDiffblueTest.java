@@ -7,7 +7,7 @@ public class AggrWhitelistDiffblueTest {
   @Test
   public void isAggrDataIdTest() {
     // Arrange, Act and Assert
-    assertFalse(AggrWhitelist.isAggrDataId("aaaaa"));
+    assertFalse(AggrWhitelist.isAggrDataId("123"));
   }
 }
 

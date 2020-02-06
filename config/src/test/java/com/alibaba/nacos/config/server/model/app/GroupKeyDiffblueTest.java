@@ -8,65 +8,65 @@ public class GroupKeyDiffblueTest {
   @Test
   public void setGroupTest() {
     // Arrange
-    GroupKey groupKey = new GroupKey("aaaaa");
+    GroupKey groupKey = new GroupKey("foo");
 
     // Act
-    groupKey.setGroup("aaaaa");
+    groupKey.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", groupKey.getGroup());
+    assertEquals("foo", groupKey.getGroup());
   }
 
   @Test
   public void setDataIdTest() {
     // Arrange
-    GroupKey groupKey = new GroupKey("aaaaa");
+    GroupKey groupKey = new GroupKey("foo");
 
     // Act
-    groupKey.setDataId("aaaaa");
+    groupKey.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", groupKey.getDataId());
+    assertEquals("123", groupKey.getDataId());
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    GroupKey actualGroupKey = new GroupKey("aaaaa");
+    GroupKey actualGroupKey = new GroupKey("foo");
 
     // Assert
     String actualDataId = actualGroupKey.getDataId();
     assertNull(actualDataId);
-    assertEquals("aaaaa", actualGroupKey.getGroup());
+    assertEquals("foo", actualGroupKey.getGroup());
   }
 
   @Test
   public void getGroupTest() {
     // Arrange, Act and Assert
-    assertEquals("aaaaa", (new GroupKey("aaaaa")).getGroup());
+    assertEquals("foo", (new GroupKey("foo")).getGroup());
   }
 
   @Test
   public void toStringTest() {
     // Arrange, Act and Assert
-    assertEquals("null+aaaaa", (new GroupKey("aaaaa")).toString());
+    assertEquals("null+foo", (new GroupKey("foo")).toString());
   }
 
   @Test
   public void getDataIdTest() {
     // Arrange, Act and Assert
-    assertNull((new GroupKey("aaaaa")).getDataId());
+    assertNull((new GroupKey("foo")).getDataId());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    GroupKey actualGroupKey = new GroupKey("aaaaa", "aaaaa");
+    GroupKey actualGroupKey = new GroupKey("123", "foo");
 
     // Assert
     String actualDataId = actualGroupKey.getDataId();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualGroupKey.getGroup());
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualGroupKey.getGroup());
   }
 }
 

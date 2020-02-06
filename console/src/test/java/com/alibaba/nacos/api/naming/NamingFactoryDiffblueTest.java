@@ -21,8 +21,7 @@ public class NamingFactoryDiffblueTest {
   @Test
   public void createNamingServiceTest() throws NacosException {
     // Arrange, Act and Assert
-    assertTrue(
-        NamingFactory.createNamingService("aaaaa") instanceof com.alibaba.nacos.client.naming.NacosNamingService);
+    assertTrue(NamingFactory.createNamingService("foo") instanceof com.alibaba.nacos.client.naming.NacosNamingService);
   }
 }
 

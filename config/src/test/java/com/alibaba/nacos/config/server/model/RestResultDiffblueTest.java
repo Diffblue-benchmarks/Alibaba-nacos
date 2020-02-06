@@ -12,7 +12,7 @@ public class RestResultDiffblueTest {
     RestResult<Object> restResult = new RestResult<Object>();
 
     // Act
-    restResult.setData("aaaaa");
+    restResult.setData("foo");
 
     // Assert
     assertTrue(restResult.getData() instanceof String);
@@ -21,7 +21,7 @@ public class RestResultDiffblueTest {
   @Test
   public void constructorTest4() {
     // Arrange and Act
-    RestResult<Object> actualRestResult = new RestResult<Object>(1, (Object) "aaaaa");
+    RestResult<Object> actualRestResult = new RestResult<Object>(1, (Object) "foo");
 
     // Assert
     int actualCode = actualRestResult.getCode();
@@ -32,14 +32,14 @@ public class RestResultDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    RestResult<Object> actualRestResult = new RestResult<Object>(1, "aaaaa", "aaaaa");
+    RestResult<Object> actualRestResult = new RestResult<Object>(1, "message", "foo");
 
     // Assert
     int actualCode = actualRestResult.getCode();
     String actualMessage = actualRestResult.getMessage();
     assertEquals(1, actualCode);
     assertTrue(actualRestResult.getData() instanceof String);
-    assertEquals("aaaaa", actualMessage);
+    assertEquals("message", actualMessage);
   }
 
   @Test
@@ -82,12 +82,12 @@ public class RestResultDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    RestResult<Object> actualRestResult = new RestResult<Object>(1, "aaaaa");
+    RestResult<Object> actualRestResult = new RestResult<Object>(1, "message");
 
     // Assert
     int actualCode = actualRestResult.getCode();
     assertEquals(1, actualCode);
-    assertEquals("aaaaa", actualRestResult.getMessage());
+    assertEquals("message", actualRestResult.getMessage());
   }
 
   @Test
@@ -102,10 +102,10 @@ public class RestResultDiffblueTest {
     RestResult<Object> restResult = new RestResult<Object>();
 
     // Act
-    restResult.setMessage("aaaaa");
+    restResult.setMessage("message");
 
     // Assert
-    assertEquals("aaaaa", restResult.getMessage());
+    assertEquals("message", restResult.getMessage());
   }
 }
 

@@ -7,7 +7,7 @@ public class DefaultResourceParserDiffblueTest {
   @Test
   public void parseNameTest() {
     // Arrange, Act and Assert
-    assertEquals("", (new DefaultResourceParser()).parseName("aaaaa"));
+    assertEquals("", (new DefaultResourceParser()).parseName("foo"));
   }
 }
 

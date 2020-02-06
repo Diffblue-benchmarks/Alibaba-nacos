@@ -19,7 +19,7 @@ public class ControllerMethodsCacheDiffblueTest {
   @Test
   public void getMethodTest() {
     // Arrange, Act and Assert
-    assertNull((new ControllerMethodsCache()).getMethod("aaaaa", "aaaaa"));
+    assertNull((new ControllerMethodsCache()).getMethod("foo", "foo"));
   }
 
   @Test

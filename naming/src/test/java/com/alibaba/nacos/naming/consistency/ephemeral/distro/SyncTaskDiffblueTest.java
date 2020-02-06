@@ -17,10 +17,10 @@ public class SyncTaskDiffblueTest {
     SyncTask syncTask = new SyncTask();
 
     // Act
-    syncTask.setTargetServer("aaaaa");
+    syncTask.setTargetServer("foo");
 
     // Assert
-    assertEquals("aaaaa", syncTask.getTargetServer());
+    assertEquals("foo", syncTask.getTargetServer());
   }
 
   @Test
@@ -86,10 +86,10 @@ public class SyncTaskDiffblueTest {
     SyncTask syncTask = new SyncTask();
 
     // Act
-    syncTask.setRetryCount(1);
+    syncTask.setRetryCount(3);
 
     // Assert
-    assertEquals(1, syncTask.getRetryCount());
+    assertEquals(3, syncTask.getRetryCount());
   }
 }
 

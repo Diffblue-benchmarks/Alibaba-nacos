@@ -7,7 +7,7 @@ public class LimiterDiffblueTest {
   @Test
   public void isLimitTest() {
     // Arrange, Act and Assert
-    assertFalse(Limiter.isLimit("aaaaa"));
+    assertFalse(Limiter.isLimit("foo"));
   }
 }
 

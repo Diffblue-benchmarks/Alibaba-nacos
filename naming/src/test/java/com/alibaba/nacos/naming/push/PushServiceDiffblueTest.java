@@ -11,7 +11,7 @@ public class PushServiceDiffblueTest {
   @Test
   public void constructorTest5() {
     // Arrange
-    PushService.Receiver.AckEntry ackEntry = new PushService.Receiver.AckEntry("aaaaa", null);
+    PushService.Receiver.AckEntry ackEntry = new PushService.Receiver.AckEntry("foo", null);
 
     // Act and Assert
     assertSame(ackEntry, (new PushService.Retransmitter(ackEntry)).ackEntry);
@@ -31,7 +31,7 @@ public class PushServiceDiffblueTest {
   @Test
   public void increaseRetryTimeTest() {
     // Arrange
-    PushService.Receiver.AckEntry ackEntry = new PushService.Receiver.AckEntry("aaaaa", null);
+    PushService.Receiver.AckEntry ackEntry = new PushService.Receiver.AckEntry("foo", null);
 
     // Act
     ackEntry.increaseRetryTime();
@@ -43,25 +43,25 @@ public class PushServiceDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    PushService.Receiver.AckEntry actualAckEntry = new PushService.Receiver.AckEntry("aaaaa", null);
+    PushService.Receiver.AckEntry actualAckEntry = new PushService.Receiver.AckEntry("foo", null);
 
     // Assert
     assertEquals(0, actualAckEntry.getRetryTimes());
     assertNull(actualAckEntry.origin);
-    assertEquals("aaaaa", actualAckEntry.key);
+    assertEquals("foo", actualAckEntry.key);
   }
 
   @Test
   public void getRetryTimesTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new PushService.Receiver.AckEntry("aaaaa", null)).getRetryTimes());
+    assertEquals(0, (new PushService.Receiver.AckEntry("foo", null)).getRetryTimes());
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    PushService.PushClient actualPushClient = (new PushService()).new PushClient("aaaaa", "aaaaa", "aaaaa", "aaaaa",
-        null, null, "aaaaa", "aaaaa");
+    PushService.PushClient actualPushClient = (new PushService()).new PushClient("123", "name", "foo", "foo", null,
+        null, "foo", "foo");
 
     // Assert
     String actualNamespaceId = actualPushClient.getNamespaceId();
@@ -71,13 +71,13 @@ public class PushServiceDiffblueTest {
     DataSource actualDataSource = actualPushClient.getDataSource();
     String actualAgent = actualPushClient.getAgent();
     String actualServiceName = actualPushClient.getServiceName();
-    assertEquals("aaaaa", actualNamespaceId);
-    assertEquals("aaaaa", actualPushClient.getApp());
-    assertEquals("aaaaa", actualServiceName);
-    assertEquals("aaaaa", actualAgent);
+    assertEquals("123", actualNamespaceId);
+    assertEquals("foo", actualPushClient.getApp());
+    assertEquals("name", actualServiceName);
+    assertEquals("foo", actualAgent);
     assertNull(actualDataSource);
-    assertEquals("aaaaa", actualTenant);
-    assertEquals("aaaaa", actualClusters);
+    assertEquals("foo", actualTenant);
+    assertEquals("foo", actualClusters);
     assertNull(actualSocketAddr);
   }
 
@@ -102,16 +102,13 @@ public class PushServiceDiffblueTest {
   @Test
   public void getPushCacheKeyTest() {
     // Arrange, Act and Assert
-    assertEquals("com.alibaba.nacos.naming.push.receiver@@@@com.alibaba" + ".nacos.naming.push.receiver",
-        PushService.getPushCacheKey("com.alibaba.nacos.naming.push.receiver", "com.alibaba.nacos.naming.push.receiver",
-            "com.alibaba.nacos.naming.push.receiver"));
+    assertEquals("name@@@@foo", PushService.getPushCacheKey("name", "foo", "foo"));
   }
 
   @Test
   public void getClientsFuzzyTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new PushService())
-        .getClientsFuzzy("com.alibaba.nacos.naming.push.receiver", "com.alibaba.nacos.naming.push.receiver").size());
+    assertEquals(0, (new PushService()).getClientsFuzzy("name", "123").size());
   }
 
   @Test
@@ -139,8 +136,7 @@ public class PushServiceDiffblueTest {
   @Test
   public void getClientsTest() {
     // Arrange, Act and Assert
-    assertNull((new PushService()).getClients("com.alibaba.nacos.naming.push.receiver",
-        "com.alibaba.nacos.naming.push.receiver"));
+    assertNull((new PushService()).getClients("name", "123"));
   }
 }
 

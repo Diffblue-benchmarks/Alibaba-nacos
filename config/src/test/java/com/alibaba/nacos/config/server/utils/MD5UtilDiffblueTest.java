@@ -3,20 +3,21 @@ package com.alibaba.nacos.config.server.utils;
 import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import org.junit.Rule;
+import java.util.Arrays;
+import java.util.Map;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class MD5UtilDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
   @Test
   public void toStringTest() throws IOException {
-    // Arrange, Act and Assert
-    thrown.expect(UnsupportedEncodingException.class);
-    MD5Util.toString(new ByteArrayInputStream(new byte[24]), "");
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
+    assertEquals(
+        "\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001",
+        MD5Util.toString(new ByteArrayInputStream(byteArray), "UTF-8"));
   }
 
   @Test
@@ -27,8 +28,15 @@ public class MD5UtilDiffblueTest {
 
   @Test
   public void getClientMd5MapTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, MD5Util.getClientMd5Map("").size());
+    // Arrange
+    Map<String, String> clientMd5Map = MD5Util.getClientMd5Map("foo");
+
+    // Act
+    Map<String, String> actualClientMd5Map = MD5Util.getClientMd5Map("");
+
+    // Assert
+    assertEquals(0, clientMd5Map.size());
+    assertEquals(0, actualClientMd5Map.size());
   }
 }
 

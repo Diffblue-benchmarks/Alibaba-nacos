@@ -14,7 +14,7 @@ public class RaftConsistencyServiceImplDiffblueTest {
   public void removeTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
-    (new RaftConsistencyServiceImpl()).remove("aaaaa");
+    (new RaftConsistencyServiceImpl()).remove("foo");
   }
   @Test
   public void onRemoveTest() throws NacosException {
@@ -43,7 +43,7 @@ public class RaftConsistencyServiceImplDiffblueTest {
 
     // Act and Assert
     thrown.expect(NacosException.class);
-    raftConsistencyServiceImpl.put("aaaaa", new Instances());
+    raftConsistencyServiceImpl.put("foo", new Instances());
   }
 }
 

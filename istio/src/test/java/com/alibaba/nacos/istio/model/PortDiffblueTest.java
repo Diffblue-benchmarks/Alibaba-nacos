@@ -1,11 +1,11 @@
 package com.alibaba.nacos.istio.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,37 +16,41 @@ public class PortDiffblueTest {
 
   @Test
   public void newInstanceTest() {
-    // Arrange, Act and Assert
-    String actualName = ((Port) Port.getDefaultInstance().newInstance(null)).getName();
-    boolean actualIsInitializedResult = ((Port) Port.getDefaultInstance().newInstance(null)).isInitialized();
+    // Arrange and Act
+    Object actualNewInstanceResult = Port.getDefaultInstance().newInstance(null);
+
+    // Assert
+    String actualName = ((Port) actualNewInstanceResult).getName();
+    String actualToStringResult = actualNewInstanceResult.toString();
+    int actualSerializedSize = ((Port) actualNewInstanceResult).getSerializedSize();
+    boolean actualIsInitializedResult = ((Port) actualNewInstanceResult).isInitialized();
     assertEquals("", actualName);
-    assertEquals("", ((Port) Port.getDefaultInstance().newInstance(null)).getProtocol());
+    assertEquals("", ((Port) actualNewInstanceResult).getProtocol());
     assertTrue(actualIsInitializedResult);
+    assertEquals("", actualToStringResult);
+    assertEquals(0, actualSerializedSize);
   }
 
   @Test
-  public void getProtocolTest() {
-    // Arrange, Act and Assert
-    assertEquals("", Port.getDefaultInstance().getProtocol());
-  }
+  public void parseFromTest2() throws IOException {
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-  @Test
-  public void isInitializedTest() {
-    // Arrange, Act and Assert
-    assertTrue(Port.getDefaultInstance().isInitialized());
-  }
-
-  @Test
-  public void equalsTest() {
-    // Arrange, Act and Assert
-    assertFalse(Port.getDefaultInstance().equals(""));
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    Port.parseFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
   public void parseFromTest() throws InvalidProtocolBufferException {
-    // Arrange, Act and Assert
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
+
+    // Act and Assert
     thrown.expect(InvalidProtocolBufferException.class);
-    Port.parseFrom(new byte[24]);
+    Port.parseFrom(byteArray);
   }
 
   @Test
@@ -56,8 +60,10 @@ public class PortDiffblueTest {
 
     // Assert
     String actualName = actualNewBuilderResult.getName();
+    String actualToStringResult = actualNewBuilderResult.toString();
     assertEquals("", actualName);
     assertEquals("", actualNewBuilderResult.getProtocol());
+    assertEquals("", actualToStringResult);
   }
 
   @Test
@@ -67,14 +73,10 @@ public class PortDiffblueTest {
 
     // Assert
     String actualName = actualToBuilderResult.getName();
+    String actualToStringResult = actualToBuilderResult.toString();
     assertEquals("", actualName);
     assertEquals("", actualToBuilderResult.getProtocol());
-  }
-
-  @Test
-  public void getNumberTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, Port.getDefaultInstance().getNumber());
+    assertEquals("", actualToStringResult);
   }
 
   @Test
@@ -84,21 +86,21 @@ public class PortDiffblueTest {
 
     // Assert
     String actualName = actualNewBuilderForTypeResult.getName();
+    String actualToStringResult = actualNewBuilderForTypeResult.toString();
     assertEquals("", actualName);
     assertEquals("", actualNewBuilderForTypeResult.getProtocol());
+    assertEquals("", actualToStringResult);
   }
 
   @Test
   public void parseDelimitedFromTest() throws IOException {
-    // Arrange and Act
-    Port actualParseDelimitedFromResult = Port.parseDelimitedFrom(new ByteArrayInputStream(new byte[24]));
+    // Arrange
+    byte[] byteArray = new byte[24];
+    Arrays.fill(byteArray, (byte) 1);
 
-    // Assert
-    String actualName = actualParseDelimitedFromResult.getName();
-    boolean actualIsInitializedResult = actualParseDelimitedFromResult.isInitialized();
-    assertEquals("", actualName);
-    assertEquals("", actualParseDelimitedFromResult.getProtocol());
-    assertTrue(actualIsInitializedResult);
+    // Act and Assert
+    thrown.expect(InvalidProtocolBufferException.class);
+    Port.parseDelimitedFrom(new ByteArrayInputStream(byteArray));
   }
 
   @Test
@@ -108,8 +110,10 @@ public class PortDiffblueTest {
 
     // Assert
     String actualName = actualNewBuilderResult.getName();
+    String actualToStringResult = actualNewBuilderResult.toString();
     assertEquals("", actualName);
     assertEquals("", actualNewBuilderResult.getProtocol());
+    assertEquals("", actualToStringResult);
   }
 
   @Test

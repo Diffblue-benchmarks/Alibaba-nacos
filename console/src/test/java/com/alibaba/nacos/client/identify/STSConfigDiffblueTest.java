@@ -55,10 +55,10 @@ public class STSConfigDiffblueTest {
     STSConfig instance = STSConfig.getInstance();
 
     // Act
-    instance.setRamRoleName("cache.security.credentials");
+    instance.setRamRoleName("name");
 
     // Assert
-    assertEquals("cache.security.credentials", instance.getRamRoleName());
+    assertEquals("name", instance.getRamRoleName());
   }
 
   @Test
@@ -79,7 +79,7 @@ public class STSConfigDiffblueTest {
     STSConfig instance = STSConfig.getInstance();
 
     // Act
-    instance.setSecurityCredentials("cache.security.credentials");
+    instance.setSecurityCredentials("foo");
 
     // Assert
     assertTrue(instance.isSTSOn());

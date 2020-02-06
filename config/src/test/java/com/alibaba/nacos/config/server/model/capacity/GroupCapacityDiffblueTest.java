@@ -12,10 +12,10 @@ public class GroupCapacityDiffblueTest {
     GroupCapacity groupCapacity = new GroupCapacity();
 
     // Act
-    groupCapacity.setGroup("aaaaa");
+    groupCapacity.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", groupCapacity.getGroup());
+    assertEquals("foo", groupCapacity.getGroup());
   }
 
   @Test

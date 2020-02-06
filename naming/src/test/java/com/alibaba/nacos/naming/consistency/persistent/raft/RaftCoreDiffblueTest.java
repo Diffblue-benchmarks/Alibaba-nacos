@@ -18,7 +18,7 @@ public class RaftCoreDiffblueTest {
     RaftCore.Notifier notifier = (new RaftCore()).new Notifier();
 
     // Act
-    notifier.addTask("com.alibaba.nacos.naming.domains.meta.", ApplyAction.CHANGE);
+    notifier.addTask("foo", ApplyAction.CHANGE);
 
     // Assert
     assertEquals(1, notifier.getTaskSize());
@@ -62,13 +62,17 @@ public class RaftCoreDiffblueTest {
   @Test
   public void getDatumTest() {
     // Arrange, Act and Assert
-    assertNull((new RaftCore()).getDatum(","));
+    assertNull((new RaftCore()).getDatum("foo"));
   }
 
   @Test
   public void buildURLTest() {
-    // Arrange, Act and Assert
-    assertEquals("http://,:0/nacos,", RaftCore.buildURL(",", ","));
+    // Arrange
+    String actualBuildURLResult = RaftCore.buildURL("127.0.0.1", "foo");
+
+    // Act and Assert
+    assertEquals("http://127.0.0.1:0/nacosfoo", actualBuildURLResult);
+    assertEquals("http://:/nacosfoo", RaftCore.buildURL(":", "foo"));
   }
 
   @Test

@@ -13,11 +13,11 @@ public class LongPollingServiceDiffblueTest {
   @Test
   public void constructorTest4() {
     // Arrange and Act
-    LongPollingService.DataChangeTask actualDataChangeTask = (new LongPollingService()).new DataChangeTask("aaaaa",
-        true, null);
+    LongPollingService.DataChangeTask actualDataChangeTask = (new LongPollingService()).new DataChangeTask("foo", true,
+        null);
 
     // Assert
-    assertEquals("aaaaa", actualDataChangeTask.groupKey);
+    assertEquals("foo", actualDataChangeTask.groupKey);
     assertNull(actualDataChangeTask.tag);
     assertTrue(actualDataChangeTask.isBeta);
     assertNull(actualDataChangeTask.betaIps);
@@ -26,12 +26,12 @@ public class LongPollingServiceDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    LongPollingService.DataChangeTask actualDataChangeTask = (new LongPollingService()).new DataChangeTask("aaaaa",
-        true, null, "aaaaa");
+    LongPollingService.DataChangeTask actualDataChangeTask = (new LongPollingService()).new DataChangeTask("foo", true,
+        null, "foo");
 
     // Assert
-    assertEquals("aaaaa", actualDataChangeTask.groupKey);
-    assertEquals("aaaaa", actualDataChangeTask.tag);
+    assertEquals("foo", actualDataChangeTask.groupKey);
+    assertEquals("foo", actualDataChangeTask.tag);
     assertTrue(actualDataChangeTask.isBeta);
     assertNull(actualDataChangeTask.betaIps);
   }
@@ -39,10 +39,10 @@ public class LongPollingServiceDiffblueTest {
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    LongPollingService.DataChangeTask actualDataChangeTask = (new LongPollingService()).new DataChangeTask("aaaaa");
+    LongPollingService.DataChangeTask actualDataChangeTask = (new LongPollingService()).new DataChangeTask("foo");
 
     // Assert
-    assertEquals("aaaaa", actualDataChangeTask.groupKey);
+    assertEquals("foo", actualDataChangeTask.groupKey);
     assertNull(actualDataChangeTask.tag);
     assertFalse(actualDataChangeTask.isBeta);
     assertNull(actualDataChangeTask.betaIps);
@@ -57,7 +57,7 @@ public class LongPollingServiceDiffblueTest {
   @Test
   public void isClientLongPollingTest() {
     // Arrange, Act and Assert
-    assertFalse((new LongPollingService()).isClientLongPolling("Long-Pulling-Timeout"));
+    assertFalse((new LongPollingService()).isClientLongPolling("foo"));
   }
 
   @Test
@@ -69,7 +69,7 @@ public class LongPollingServiceDiffblueTest {
   @Test
   public void getClientSubConfigInfoTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new LongPollingService()).getClientSubConfigInfo("Long-Pulling-Timeout").size());
+    assertEquals(0, (new LongPollingService()).getClientSubConfigInfo("foo").size());
   }
 
   @Test

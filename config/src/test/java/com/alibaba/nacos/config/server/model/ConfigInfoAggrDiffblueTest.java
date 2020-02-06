@@ -12,10 +12,10 @@ public class ConfigInfoAggrDiffblueTest {
     ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
 
     // Act
-    configInfoAggr.setAppName("aaaaa");
+    configInfoAggr.setAppName("name");
 
     // Assert
-    assertEquals("aaaaa", configInfoAggr.getAppName());
+    assertEquals("name", configInfoAggr.getAppName());
   }
 
   @Test
@@ -24,10 +24,10 @@ public class ConfigInfoAggrDiffblueTest {
     ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
 
     // Act
-    configInfoAggr.setGroup("aaaaa");
+    configInfoAggr.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoAggr.getGroup());
+    assertEquals("foo", configInfoAggr.getGroup());
   }
 
   @Test
@@ -36,10 +36,10 @@ public class ConfigInfoAggrDiffblueTest {
     ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
 
     // Act
-    configInfoAggr.setContent("aaaaa");
+    configInfoAggr.setContent("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoAggr.getContent());
+    assertEquals("foo", configInfoAggr.getContent());
   }
 
   @Test
@@ -54,10 +54,10 @@ public class ConfigInfoAggrDiffblueTest {
     ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
 
     // Act
-    configInfoAggr.setDatumId("aaaaa");
+    configInfoAggr.setDatumId("123");
 
     // Assert
-    assertEquals("aaaaa", configInfoAggr.getDatumId());
+    assertEquals("123", configInfoAggr.getDatumId());
   }
 
   @Test
@@ -81,16 +81,16 @@ public class ConfigInfoAggrDiffblueTest {
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    ConfigInfoAggr actualConfigInfoAggr = new ConfigInfoAggr("aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    ConfigInfoAggr actualConfigInfoAggr = new ConfigInfoAggr("123", "foo", "123", "foo");
 
     // Assert
     String actualDataId = actualConfigInfoAggr.getDataId();
     String actualContent = actualConfigInfoAggr.getContent();
     String actualGroup = actualConfigInfoAggr.getGroup();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfoAggr.getDatumId());
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("123", actualConfigInfoAggr.getDatumId());
+    assertEquals("foo", actualGroup);
+    assertEquals("foo", actualContent);
   }
 
   @Test
@@ -99,16 +99,16 @@ public class ConfigInfoAggrDiffblueTest {
     ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
 
     // Act
-    configInfoAggr.setTenant("aaaaa");
+    configInfoAggr.setTenant("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoAggr.getTenant());
+    assertEquals("foo", configInfoAggr.getTenant());
   }
 
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfoAggr()).equals("aaaaa"));
+    assertFalse((new ConfigInfoAggr()).equals("foo"));
   }
 
   @Test
@@ -117,10 +117,10 @@ public class ConfigInfoAggrDiffblueTest {
     ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
 
     // Act
-    configInfoAggr.setDataId("aaaaa");
+    configInfoAggr.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", configInfoAggr.getDataId());
+    assertEquals("123", configInfoAggr.getDataId());
   }
 
   @Test
@@ -153,10 +153,10 @@ public class ConfigInfoAggrDiffblueTest {
     ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
 
     // Act
-    configInfoAggr.setId(1L);
+    configInfoAggr.setId(123L);
 
     // Assert
-    assertEquals(1L, configInfoAggr.getId());
+    assertEquals(123L, configInfoAggr.getId());
   }
 
   @Test
@@ -192,18 +192,18 @@ public class ConfigInfoAggrDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfoAggr actualConfigInfoAggr = new ConfigInfoAggr("aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa");
+    ConfigInfoAggr actualConfigInfoAggr = new ConfigInfoAggr("123", "foo", "123", "name", "foo");
 
     // Assert
     String actualDataId = actualConfigInfoAggr.getDataId();
     String actualContent = actualConfigInfoAggr.getContent();
     String actualGroup = actualConfigInfoAggr.getGroup();
     String actualDatumId = actualConfigInfoAggr.getDatumId();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfoAggr.getAppName());
-    assertEquals("aaaaa", actualDatumId);
-    assertEquals("aaaaa", actualGroup);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("name", actualConfigInfoAggr.getAppName());
+    assertEquals("123", actualDatumId);
+    assertEquals("foo", actualGroup);
+    assertEquals("foo", actualContent);
   }
 }
 

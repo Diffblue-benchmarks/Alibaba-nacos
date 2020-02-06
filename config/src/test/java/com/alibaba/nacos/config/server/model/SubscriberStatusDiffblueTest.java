@@ -11,25 +11,26 @@ public class SubscriberStatusDiffblueTest {
     SubscriberStatus subscriberStatus = new SubscriberStatus();
 
     // Act
-    subscriberStatus.setLastTime(null);
+    subscriberStatus.setLastTime(Long.valueOf(1L));
 
     // Assert
-    assertNull(subscriberStatus.getLastTime());
+    assertEquals(Long.valueOf(1L), subscriberStatus.getLastTime());
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    SubscriberStatus actualSubscriberStatus = new SubscriberStatus("aaaaa", null, "aaaaa", null);
+    SubscriberStatus actualSubscriberStatus = new SubscriberStatus("foo", Boolean.valueOf(true), "foo",
+        Long.valueOf(1L));
 
     // Assert
     String actualMd5 = actualSubscriberStatus.getMd5();
     String actualGroupKey = actualSubscriberStatus.getGroupKey();
     Boolean actualStatus = actualSubscriberStatus.getStatus();
-    assertEquals("aaaaa", actualMd5);
-    assertNull(actualSubscriberStatus.getLastTime());
-    assertNull(actualStatus);
-    assertEquals("aaaaa", actualGroupKey);
+    assertEquals("foo", actualMd5);
+    assertEquals(Long.valueOf(1L), actualSubscriberStatus.getLastTime());
+    assertEquals(Boolean.valueOf(true), actualStatus);
+    assertEquals("foo", actualGroupKey);
   }
 
   @Test
@@ -44,10 +45,10 @@ public class SubscriberStatusDiffblueTest {
     SubscriberStatus subscriberStatus = new SubscriberStatus();
 
     // Act
-    subscriberStatus.setServerIp("aaaaa");
+    subscriberStatus.setServerIp("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriberStatus.getServerIp());
+    assertEquals("foo", subscriberStatus.getServerIp());
   }
 
   @Test
@@ -68,10 +69,10 @@ public class SubscriberStatusDiffblueTest {
     SubscriberStatus subscriberStatus = new SubscriberStatus();
 
     // Act
-    subscriberStatus.setStatus(null);
+    subscriberStatus.setStatus(Boolean.valueOf(true));
 
     // Assert
-    assertNull(subscriberStatus.getStatus());
+    assertEquals(Boolean.valueOf(true), subscriberStatus.getStatus());
   }
 
   @Test
@@ -109,10 +110,10 @@ public class SubscriberStatusDiffblueTest {
     SubscriberStatus subscriberStatus = new SubscriberStatus();
 
     // Act
-    subscriberStatus.setMd5("aaaaa");
+    subscriberStatus.setMd5("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriberStatus.getMd5());
+    assertEquals("foo", subscriberStatus.getMd5());
   }
 
   @Test
@@ -121,10 +122,10 @@ public class SubscriberStatusDiffblueTest {
     SubscriberStatus subscriberStatus = new SubscriberStatus();
 
     // Act
-    subscriberStatus.setGroupKey("aaaaa");
+    subscriberStatus.setGroupKey("foo");
 
     // Assert
-    assertEquals("aaaaa", subscriberStatus.getGroupKey());
+    assertEquals("foo", subscriberStatus.getGroupKey());
   }
 }
 

@@ -10,56 +10,56 @@ public class ConfigDataChangeEventDiffblueTest {
   @Test
   public void constructorTest4() {
     // Arrange and Act
-    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent(true, "", "", 1L);
+    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent(true, "123", "foo", 1L);
 
     // Assert
-    assertEquals("", actualConfigDataChangeEvent.dataId);
+    assertEquals("123", actualConfigDataChangeEvent.dataId);
     assertNull(actualConfigDataChangeEvent.tag);
     assertTrue(actualConfigDataChangeEvent.isBeta);
     assertEquals(1L, actualConfigDataChangeEvent.lastModifiedTs);
-    assertEquals("", actualConfigDataChangeEvent.group);
+    assertEquals("foo", actualConfigDataChangeEvent.group);
     assertEquals("", actualConfigDataChangeEvent.tenant);
   }
 
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent(true, "", "", "", 1L);
+    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent(true, "123", "foo", "foo", 1L);
 
     // Assert
-    assertEquals("", actualConfigDataChangeEvent.dataId);
+    assertEquals("123", actualConfigDataChangeEvent.dataId);
     assertNull(actualConfigDataChangeEvent.tag);
     assertTrue(actualConfigDataChangeEvent.isBeta);
     assertEquals(1L, actualConfigDataChangeEvent.lastModifiedTs);
-    assertEquals("", actualConfigDataChangeEvent.group);
-    assertEquals("", actualConfigDataChangeEvent.tenant);
+    assertEquals("foo", actualConfigDataChangeEvent.group);
+    assertEquals("foo", actualConfigDataChangeEvent.tenant);
   }
 
   @Test
   public void constructorTest2() {
     // Arrange and Act
-    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent(true, "", "", "", "", 1L);
+    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent(true, "123", "foo", "foo", "foo", 1L);
 
     // Assert
-    assertEquals("", actualConfigDataChangeEvent.dataId);
-    assertEquals("", actualConfigDataChangeEvent.tag);
+    assertEquals("123", actualConfigDataChangeEvent.dataId);
+    assertEquals("foo", actualConfigDataChangeEvent.tag);
     assertTrue(actualConfigDataChangeEvent.isBeta);
     assertEquals(1L, actualConfigDataChangeEvent.lastModifiedTs);
-    assertEquals("", actualConfigDataChangeEvent.group);
-    assertEquals("", actualConfigDataChangeEvent.tenant);
+    assertEquals("foo", actualConfigDataChangeEvent.group);
+    assertEquals("foo", actualConfigDataChangeEvent.tenant);
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent("", "", 1L);
+    ConfigDataChangeEvent actualConfigDataChangeEvent = new ConfigDataChangeEvent("123", "foo", 1L);
 
     // Assert
-    assertEquals("", actualConfigDataChangeEvent.dataId);
+    assertEquals("123", actualConfigDataChangeEvent.dataId);
     assertNull(actualConfigDataChangeEvent.tag);
     assertFalse(actualConfigDataChangeEvent.isBeta);
     assertEquals(1L, actualConfigDataChangeEvent.lastModifiedTs);
-    assertEquals("", actualConfigDataChangeEvent.group);
+    assertEquals("foo", actualConfigDataChangeEvent.group);
     assertEquals("", actualConfigDataChangeEvent.tenant);
   }
 }

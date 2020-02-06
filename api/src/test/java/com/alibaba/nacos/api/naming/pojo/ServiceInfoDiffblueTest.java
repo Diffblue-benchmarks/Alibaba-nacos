@@ -10,49 +10,49 @@ public class ServiceInfoDiffblueTest {
   @Test
   public void getChecksumTest() {
     // Arrange, Act and Assert
-    assertEquals("", ServiceInfo.fromKey("").getChecksum());
+    assertEquals("", ServiceInfo.fromKey("foo").getChecksum());
   }
 
   @Test
   public void setChecksumTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
-    fromKeyResult.setChecksum("");
+    fromKeyResult.setChecksum("foo");
 
     // Assert
-    assertEquals("", fromKeyResult.getChecksum());
+    assertEquals("foo", fromKeyResult.getChecksum());
   }
 
   @Test
   public void validateTest() {
     // Arrange, Act and Assert
-    assertTrue(ServiceInfo.fromKey("").validate());
+    assertTrue(ServiceInfo.fromKey("foo").validate());
   }
 
   @Test
   public void ipCountTest() {
     // Arrange, Act and Assert
-    assertEquals(0, ServiceInfo.fromKey("").ipCount());
+    assertEquals(0, ServiceInfo.fromKey("foo").ipCount());
   }
 
   @Test
   public void setJsonFromServerTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
-    fromKeyResult.setJsonFromServer("");
+    fromKeyResult.setJsonFromServer("foo");
 
     // Assert
-    assertEquals("", fromKeyResult.getJsonFromServer());
+    assertEquals("foo", fromKeyResult.getJsonFromServer());
   }
 
   @Test
   public void constructorTest3() {
     // Arrange and Act
-    ServiceInfo actualServiceInfo = new ServiceInfo("");
+    ServiceInfo actualServiceInfo = new ServiceInfo("foo");
 
     // Assert
     String actualName = actualServiceInfo.getName();
@@ -67,37 +67,37 @@ public class ServiceInfoDiffblueTest {
     assertEquals("", actualJsonFromServer);
     assertEquals(1000L, actualCacheMillis);
     assertFalse(actualIsAllIPsResult);
-    assertEquals("", actualName);
+    assertEquals("foo", actualName);
   }
 
   @Test
   public void getLastRefTimeTest() {
     // Arrange, Act and Assert
-    assertEquals(0L, ServiceInfo.fromKey("").getLastRefTime());
+    assertEquals(0L, ServiceInfo.fromKey("foo").getLastRefTime());
   }
 
   @Test
   public void getJsonFromServerTest() {
     // Arrange, Act and Assert
-    assertEquals("", ServiceInfo.fromKey("").getJsonFromServer());
+    assertEquals("", ServiceInfo.fromKey("foo").getJsonFromServer());
   }
 
   @Test
   public void setClustersTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
-    fromKeyResult.setClusters("");
+    fromKeyResult.setClusters("foo");
 
     // Assert
-    assertEquals("", fromKeyResult.getClusters());
+    assertEquals("foo", fromKeyResult.getClusters());
   }
 
   @Test
   public void setHostsTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
     fromKeyResult.setHosts(null);
@@ -109,37 +109,37 @@ public class ServiceInfoDiffblueTest {
   @Test
   public void expiredTest() {
     // Arrange, Act and Assert
-    assertTrue(ServiceInfo.fromKey("").expired());
+    assertTrue(ServiceInfo.fromKey("foo").expired());
   }
 
   @Test
   public void isAllIPsTest() {
     // Arrange, Act and Assert
-    assertFalse(ServiceInfo.fromKey("").isAllIPs());
+    assertFalse(ServiceInfo.fromKey("foo").isAllIPs());
   }
 
   @Test
   public void setGroupNameTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
-    fromKeyResult.setGroupName("");
+    fromKeyResult.setGroupName("name");
 
     // Assert
-    assertEquals("", fromKeyResult.getGroupName());
+    assertEquals("name", fromKeyResult.getGroupName());
   }
 
   @Test
   public void setNameTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
-    fromKeyResult.setName("");
+    fromKeyResult.setName("name");
 
     // Assert
-    assertEquals("", fromKeyResult.getName());
+    assertEquals("name", fromKeyResult.getName());
   }
 
   @Test
@@ -164,13 +164,13 @@ public class ServiceInfoDiffblueTest {
   @Test
   public void toStringTest() {
     // Arrange, Act and Assert
-    assertNull(ServiceInfo.fromKey("").toString());
+    assertNull(ServiceInfo.fromKey("foo").toString());
   }
 
   @Test
   public void setAllIPsTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
     fromKeyResult.setAllIPs(true);
@@ -182,19 +182,19 @@ public class ServiceInfoDiffblueTest {
   @Test
   public void isValidTest() {
     // Arrange, Act and Assert
-    assertTrue(ServiceInfo.fromKey("").isValid());
+    assertTrue(ServiceInfo.fromKey("foo").isValid());
   }
 
   @Test
   public void getHostsTest() {
     // Arrange, Act and Assert
-    assertEquals(0, ServiceInfo.fromKey("").getHosts().size());
+    assertEquals(0, ServiceInfo.fromKey("foo").getHosts().size());
   }
 
   @Test
   public void setLastRefTimeTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
     fromKeyResult.setLastRefTime(1L);
@@ -206,25 +206,25 @@ public class ServiceInfoDiffblueTest {
   @Test
   public void getKeyTest2() {
     // Arrange, Act and Assert
-    assertNull(ServiceInfo.fromKey("").getKey());
+    assertNull(ServiceInfo.fromKey("foo").getKey());
   }
 
   @Test
   public void getCacheMillisTest() {
     // Arrange, Act and Assert
-    assertEquals(1000L, ServiceInfo.fromKey("").getCacheMillis());
+    assertEquals(1000L, ServiceInfo.fromKey("foo").getCacheMillis());
   }
 
   @Test
   public void getGroupNameTest() {
     // Arrange, Act and Assert
-    assertNull(ServiceInfo.fromKey("").getGroupName());
+    assertNull(ServiceInfo.fromKey("foo").getGroupName());
   }
 
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ServiceInfo actualServiceInfo = new ServiceInfo("", "");
+    ServiceInfo actualServiceInfo = new ServiceInfo("name", "foo");
 
     // Assert
     String actualName = actualServiceInfo.getName();
@@ -240,14 +240,14 @@ public class ServiceInfoDiffblueTest {
     assertEquals("", actualJsonFromServer);
     assertEquals(1000L, actualCacheMillis);
     assertFalse(actualIsAllIPsResult);
-    assertEquals("", actualClusters);
-    assertEquals("", actualName);
+    assertEquals("foo", actualClusters);
+    assertEquals("name", actualName);
   }
 
   @Test
   public void setCacheMillisTest() {
     // Arrange
-    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("foo");
 
     // Act
     fromKeyResult.setCacheMillis(1L);
@@ -259,7 +259,7 @@ public class ServiceInfoDiffblueTest {
   @Test
   public void fromKeyTest() {
     // Arrange and Act
-    ServiceInfo actualFromKeyResult = ServiceInfo.fromKey("");
+    ServiceInfo actualFromKeyResult = ServiceInfo.fromKey("foo");
 
     // Assert
     boolean actualIsAllIPsResult = actualFromKeyResult.isAllIPs();
@@ -277,20 +277,24 @@ public class ServiceInfoDiffblueTest {
 
   @Test
   public void getKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("", ServiceInfo.getKey("", ""));
+    // Arrange
+    String actualKey = ServiceInfo.getKey("name", "foo");
+
+    // Act and Assert
+    assertEquals("name@@foo", actualKey);
+    assertEquals("name", ServiceInfo.getKey("name", ""));
   }
 
   @Test
   public void getClustersTest() {
     // Arrange, Act and Assert
-    assertNull(ServiceInfo.fromKey("").getClusters());
+    assertNull(ServiceInfo.fromKey("foo").getClusters());
   }
 
   @Test
   public void getNameTest() {
     // Arrange, Act and Assert
-    assertNull(ServiceInfo.fromKey("").getName());
+    assertNull(ServiceInfo.fromKey("foo").getName());
   }
 }
 

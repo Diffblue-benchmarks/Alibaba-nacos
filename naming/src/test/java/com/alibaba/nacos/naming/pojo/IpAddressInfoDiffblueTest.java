@@ -74,10 +74,10 @@ public class IpAddressInfoDiffblueTest {
     IpAddressInfo ipAddressInfo = new IpAddressInfo();
 
     // Act
-    ipAddressInfo.setPort(null);
+    ipAddressInfo.setPort(Integer.valueOf(8080));
 
     // Assert
-    assertNull(ipAddressInfo.getPort());
+    assertEquals(Integer.valueOf(8080), ipAddressInfo.getPort());
   }
 
   @Test
@@ -117,10 +117,10 @@ public class IpAddressInfoDiffblueTest {
     IpAddressInfo ipAddressInfo = new IpAddressInfo();
 
     // Act
-    ipAddressInfo.setWeight(null);
+    ipAddressInfo.setWeight(Double.valueOf(10.0));
 
     // Assert
-    assertNull(ipAddressInfo.getWeight());
+    assertEquals(Double.valueOf(10.0), ipAddressInfo.getWeight());
   }
 
   @Test
@@ -129,10 +129,10 @@ public class IpAddressInfoDiffblueTest {
     IpAddressInfo ipAddressInfo = new IpAddressInfo();
 
     // Act
-    ipAddressInfo.setIp("aaaaa");
+    ipAddressInfo.setIp("127.0.0.1");
 
     // Assert
-    assertEquals("aaaaa", ipAddressInfo.getIp());
+    assertEquals("127.0.0.1", ipAddressInfo.getIp());
   }
 }
 

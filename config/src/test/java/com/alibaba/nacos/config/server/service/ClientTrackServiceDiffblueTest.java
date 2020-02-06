@@ -11,19 +11,19 @@ public class ClientTrackServiceDiffblueTest {
   @Test
   public void listSubscriberByGroupTest() {
     // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.listSubscriberByGroup("aaaaa").size());
+    assertEquals(0, ClientTrackService.listSubscriberByGroup("foo").size());
   }
 
   @Test
   public void isClientUptodateTest() {
     // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.isClientUptodate("aaaaa").size());
+    assertEquals(0, ClientTrackService.isClientUptodate("127.0.0.1").size());
   }
 
   @Test
   public void listSubStatusTest() {
     // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.listSubStatus("aaaaa").size());
+    assertEquals(0, ClientTrackService.listSubStatus("127.0.0.1").size());
   }
 
   @Test
@@ -40,7 +40,7 @@ public class ClientTrackServiceDiffblueTest {
   @Test
   public void listSubsByGroupTest() {
     // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.listSubsByGroup("aaaaa").size());
+    assertEquals(0, ClientTrackService.listSubsByGroup("foo").size());
   }
 
   @Test

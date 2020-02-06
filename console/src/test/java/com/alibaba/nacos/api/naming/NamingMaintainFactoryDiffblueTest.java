@@ -22,7 +22,7 @@ public class NamingMaintainFactoryDiffblueTest {
   public void createMaintainServiceTest() throws NacosException {
     // Arrange, Act and Assert
     assertTrue(NamingMaintainFactory
-        .createMaintainService("aaaaa") instanceof com.alibaba.nacos.client.naming.NacosNamingMaintainService);
+        .createMaintainService("foo") instanceof com.alibaba.nacos.client.naming.NacosNamingMaintainService);
   }
 }
 

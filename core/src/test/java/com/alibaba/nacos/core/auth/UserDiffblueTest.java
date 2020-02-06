@@ -17,10 +17,10 @@ public class UserDiffblueTest {
     User user = new User();
 
     // Act
-    user.setUserName("aaaaa");
+    user.setUserName("username");
 
     // Assert
-    assertEquals("aaaaa", user.getUserName());
+    assertEquals("username", user.getUserName());
   }
 
   @Test

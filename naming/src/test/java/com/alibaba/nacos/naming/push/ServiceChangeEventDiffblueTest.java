@@ -11,16 +11,7 @@ public class ServiceChangeEventDiffblueTest {
     Service service = new Service();
 
     // Act and Assert
-    assertSame(service, (new ServiceChangeEvent("aaaaa", service)).getService());
-  }
-
-  @Test
-  public void getServiceTest() {
-    // Arrange
-    Service service = new Service();
-
-    // Act and Assert
-    assertSame(service, (new ServiceChangeEvent("aaaaa", service)).getService());
+    assertSame(service, (new ServiceChangeEvent("foo", service)).getService());
   }
 }
 

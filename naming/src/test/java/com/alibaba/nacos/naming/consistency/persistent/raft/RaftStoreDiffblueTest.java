@@ -7,7 +7,7 @@ public class RaftStoreDiffblueTest {
   @Test
   public void loadTest() throws Exception {
     // Arrange, Act and Assert
-    assertNull((new RaftStore()).load(""));
+    assertNull((new RaftStore()).load("foo"));
   }
 }
 

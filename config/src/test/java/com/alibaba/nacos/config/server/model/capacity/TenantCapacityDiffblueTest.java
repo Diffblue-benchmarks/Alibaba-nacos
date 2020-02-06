@@ -12,10 +12,10 @@ public class TenantCapacityDiffblueTest {
     TenantCapacity tenantCapacity = new TenantCapacity();
 
     // Act
-    tenantCapacity.setTenant("aaaaa");
+    tenantCapacity.setTenant("foo");
 
     // Assert
-    assertEquals("aaaaa", tenantCapacity.getTenant());
+    assertEquals("foo", tenantCapacity.getTenant());
   }
 
   @Test

@@ -30,7 +30,7 @@ public class RestPageResultDiffblueTest {
     RestPageResult<Object> restPageResult = new RestPageResult<Object>();
 
     // Act
-    restPageResult.setData("aaaaa");
+    restPageResult.setData("foo");
 
     // Assert
     assertTrue(restPageResult.getData() instanceof String);
@@ -66,10 +66,10 @@ public class RestPageResultDiffblueTest {
     RestPageResult<Object> restPageResult = new RestPageResult<Object>();
 
     // Act
-    restPageResult.setPageSize(1);
+    restPageResult.setPageSize(3);
 
     // Assert
-    assertEquals(1, restPageResult.getPageSize());
+    assertEquals(3, restPageResult.getPageSize());
   }
 
   @Test
@@ -133,10 +133,10 @@ public class RestPageResultDiffblueTest {
     RestPageResult<Object> restPageResult = new RestPageResult<Object>();
 
     // Act
-    restPageResult.setMessage("aaaaa");
+    restPageResult.setMessage("message");
 
     // Assert
-    assertEquals("aaaaa", restPageResult.getMessage());
+    assertEquals("message", restPageResult.getMessage());
   }
 }
 

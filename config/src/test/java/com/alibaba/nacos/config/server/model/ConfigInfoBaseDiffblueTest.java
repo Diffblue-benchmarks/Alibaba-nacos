@@ -12,10 +12,10 @@ public class ConfigInfoBaseDiffblueTest {
     ConfigInfoBase configInfoBase = new ConfigInfoBase();
 
     // Act
-    configInfoBase.setGroup("aaaaa");
+    configInfoBase.setGroup("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoBase.getGroup());
+    assertEquals("foo", configInfoBase.getGroup());
   }
 
   @Test
@@ -33,10 +33,10 @@ public class ConfigInfoBaseDiffblueTest {
     ConfigInfoBase configInfoBase = new ConfigInfoBase();
 
     // Act
-    configInfoBase.setContent("aaaaa");
+    configInfoBase.setContent("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoBase.getContent());
+    assertEquals("foo", configInfoBase.getContent());
   }
 
   @Test
@@ -66,7 +66,7 @@ public class ConfigInfoBaseDiffblueTest {
   @Test
   public void equalsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ConfigInfoBase()).equals("aaaaa"));
+    assertFalse((new ConfigInfoBase()).equals("foo"));
   }
 
   @Test
@@ -75,10 +75,10 @@ public class ConfigInfoBaseDiffblueTest {
     ConfigInfoBase configInfoBase = new ConfigInfoBase();
 
     // Act
-    configInfoBase.setDataId("aaaaa");
+    configInfoBase.setDataId("123");
 
     // Assert
-    assertEquals("aaaaa", configInfoBase.getDataId());
+    assertEquals("123", configInfoBase.getDataId());
   }
 
   @Test
@@ -99,10 +99,10 @@ public class ConfigInfoBaseDiffblueTest {
     ConfigInfoBase configInfoBase = new ConfigInfoBase();
 
     // Act
-    configInfoBase.setId(1L);
+    configInfoBase.setId(123L);
 
     // Assert
-    assertEquals(1L, configInfoBase.getId());
+    assertEquals(123L, configInfoBase.getId());
   }
 
   @Test
@@ -131,10 +131,10 @@ public class ConfigInfoBaseDiffblueTest {
     ConfigInfoBase configInfoBase = new ConfigInfoBase();
 
     // Act
-    configInfoBase.setMd5("aaaaa");
+    configInfoBase.setMd5("foo");
 
     // Assert
-    assertEquals("aaaaa", configInfoBase.getMd5());
+    assertEquals("foo", configInfoBase.getMd5());
   }
 
   @Test
@@ -147,16 +147,16 @@ public class ConfigInfoBaseDiffblueTest {
   @Test
   public void constructorTest() {
     // Arrange and Act
-    ConfigInfoBase actualConfigInfoBase = new ConfigInfoBase("aaaaa", "aaaaa", "aaaaa");
+    ConfigInfoBase actualConfigInfoBase = new ConfigInfoBase("123", "foo", "foo");
 
     // Assert
     String actualDataId = actualConfigInfoBase.getDataId();
     String actualContent = actualConfigInfoBase.getContent();
     String actualMd5 = actualConfigInfoBase.getMd5();
-    assertEquals("aaaaa", actualDataId);
-    assertEquals("aaaaa", actualConfigInfoBase.getGroup());
-    assertEquals("594f803b380a41396ed63dca39503542", actualMd5);
-    assertEquals("aaaaa", actualContent);
+    assertEquals("123", actualDataId);
+    assertEquals("foo", actualConfigInfoBase.getGroup());
+    assertEquals("acbd18db4cc2f85cedef654fccc4a4d8", actualMd5);
+    assertEquals("foo", actualContent);
   }
 }
 

@@ -11,7 +11,7 @@ public class ConfigResourceParserDiffblueTest {
   public void parseNameTest() {
     // Arrange, Act and Assert
     thrown.expect(ClassCastException.class);
-    (new ConfigResourceParser()).parseName(":");
+    (new ConfigResourceParser()).parseName("foo");
   }
 }
 

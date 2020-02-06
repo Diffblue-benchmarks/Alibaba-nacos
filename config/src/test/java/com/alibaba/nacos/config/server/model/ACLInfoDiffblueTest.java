@@ -1,5 +1,6 @@
 package com.alibaba.nacos.config.server.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
@@ -28,10 +29,10 @@ public class ACLInfoDiffblueTest {
     ACLInfo aclInfo = new ACLInfo();
 
     // Act
-    aclInfo.setIsOpen(null);
+    aclInfo.setIsOpen(Boolean.valueOf(true));
 
     // Assert
-    assertNull(aclInfo.getIsOpen());
+    assertEquals(Boolean.valueOf(true), aclInfo.getIsOpen());
   }
 
   @Test

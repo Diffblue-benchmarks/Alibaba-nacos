@@ -57,7 +57,7 @@ public class ServerListManagerDiffblueTest {
   @Test
   public void containsTest() {
     // Arrange, Act and Assert
-    assertFalse((new ServerListManager()).contains("#"));
+    assertFalse((new ServerListManager()).contains("foo"));
   }
 }
 

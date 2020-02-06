@@ -10,7 +10,7 @@ public class MakeLeaderEventDiffblueTest {
     RaftPeer raftPeer = new RaftPeer();
 
     // Act and Assert
-    assertSame(raftPeer, (new MakeLeaderEvent("aaaaa", raftPeer)).getRaftPeer());
+    assertSame(raftPeer, (new MakeLeaderEvent("foo", raftPeer)).getRaftPeer());
   }
 }
 
