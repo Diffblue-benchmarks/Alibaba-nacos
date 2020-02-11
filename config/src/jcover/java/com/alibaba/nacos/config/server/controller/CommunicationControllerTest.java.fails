@@ -1,0 +1,91 @@
+package com.alibaba.nacos.config.server.controller;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.config.server.service.LongPollingService;
+import com.alibaba.nacos.config.server.service.dump.DumpService;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.controller.CommunicationController
+ *
+ * @author Diffblue JCover
+ */
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = CommunicationController.class)
+public class CommunicationControllerTest {
+
+    @MockBean(name = "")
+    private DumpService ;
+
+    @MockBean(name = "")
+    private LongPollingService ;
+
+    @Autowired
+    private CommunicationController controller;
+
+    @Test(timeout=10000)
+    public void getSubClientConfig1() throws Exception {
+        when(x2.getCollectSubscribleInfo(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any()))
+            .thenReturn(new com.alibaba.nacos.config.server.model.SampleResult());
+        MockMvcBuilders.standaloneSetup(controller).build().perform(
+            MockMvcRequestBuilders.get("/v1/cs/communication/configWatchers", new Object[] { })
+                .param("dataId", "something")
+                .param("group", "")
+                .param("tenant", "foo"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"lisentersGroupkeyStatus\":null}"));
+    }
+
+    @Test(timeout=10000)
+    public void getSubClientConfig2() throws Exception {
+        when(x2.getCollectSubscribleInfo(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any()))
+            .thenReturn(new com.alibaba.nacos.config.server.model.SampleResult());
+        MockMvcBuilders.standaloneSetup(controller).build().perform(
+            MockMvcRequestBuilders.get("/v1/cs/communication/configWatchers", new Object[] { })
+                .param("dataId", "something")
+                .param("group", "bar")
+                .param("tenant", "foo"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"lisentersGroupkeyStatus\":null}"));
+    }
+
+    @Test(timeout=10000)
+    public void getSubClientConfigByIp() throws Exception {
+        when(x2.getCollectSubscribleInfoByIp(Mockito.<String>any()))
+            .thenReturn(new com.alibaba.nacos.config.server.model.SampleResult());
+        MockMvcBuilders.standaloneSetup(controller).build().perform(
+            MockMvcRequestBuilders.get("/v1/cs/communication/watcherConfigs", new Object[] { })
+                .param("ip", "foo"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"lisentersGroupkeyStatus\":null}"));
+    }
+
+    @Test(timeout=10000)
+    public void notifyConfigInfo() throws Exception {
+        MockMvcBuilders.standaloneSetup(controller).build().perform(
+            MockMvcRequestBuilders.get("/v1/cs/communication/dataChange", new Object[] { })
+                .param("dataId", "something")
+                .param("group", "bar")
+                .param("tenant", "isBeta")
+                .param("tag", "foo"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("true"));
+    }
+}

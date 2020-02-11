@@ -1,0 +1,94 @@
+package com.alibaba.nacos.address.component;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.address.component.AddressServerGeneratorManager
+ *
+ * @author Diffblue JCover
+ */
+
+public class AddressServerGeneratorManagerTest {
+
+    @Test(timeout=10000)
+    public void generateInstancesByIps() {
+        assertTrue(new AddressServerGeneratorManager().generateInstancesByIps("/bin/bash", "/bin/bash", "/bin/bash", new String[] { }).isEmpty());
+        assertTrue(new AddressServerGeneratorManager().generateInstancesByIps("/bin/bash", "/bin/bash", "/bin/bash", null).isEmpty());
+    }
+
+    @Test(timeout=10000)
+    public void generateInstancesByIpsClusterNameIsEmpty() {
+        String[] ipArray = new String[] { "280 Broadway" };
+        assertTrue(new AddressServerGeneratorManager().generateInstancesByIps("/bin/bash", "/bin/bash", "", ipArray).isEmpty());
+    }
+
+    @Test(timeout=10000)
+    public void generateInstancesByIpsServiceNameIsBar() {
+        String[] ipArray = new String[] { "280 Broadway" };
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).size(), is(1));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getApp(), is("/bin/bash"));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getCheckRT(), is(-1L));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getDatumKey(), is("280 Broadway:8848:unknown:/bin/bash"));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getDefaultKey(), is("280 Broadway:8848:unknown"));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getFailCount().getAndDecrement(), is(0));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getFailCount().getAndIncrement(), is(-1));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getLastBeat(), is(1_581_386_132_973L));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getOKCount().getAndDecrement(), is(0));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getOKCount().getAndIncrement(), is(-1));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getTenant(), is("public"));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).isMarked(), is(false));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).isMockValid(), is(false));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getClusterName(), is("/bin/bash"));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getInstanceHeartBeatInterval(), is(5_000L));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getInstanceHeartBeatTimeOut(), is(15_000L));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getInstanceId(), is(nullValue()));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getIp(), is("280 Broadway"));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getIpDeleteTimeout(), is(30_000L));
+        // reference, but not known
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getPort(), is(8_848));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getServiceName(), is("bar"));
+        assertEquals(1.0, new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).getWeight(), 0);
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).isEnabled(), is(true));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).isEphemeral(), is(false));
+        assertThat(new AddressServerGeneratorManager().generateInstancesByIps("bar", "/bin/bash", "/bin/bash", ipArray).get(0).isHealthy(), is(true));
+    }
+
+    @Test(timeout=10000)
+    public void generateInstancesByIpsServiceNameIsEmpty() {
+        String[] ipArray = new String[] { "280 Broadway" };
+        assertTrue(new AddressServerGeneratorManager().generateInstancesByIps("", "/bin/bash", "/bin/bash", ipArray).isEmpty());
+    }
+
+    @Test(timeout=10000)
+    public void generateIpAndPort() {
+        assertArrayEquals(new String[] { "280 Broadway", "8848" }, new AddressServerGeneratorManager().generateIpAndPort("280 Broadway"));
+        assertArrayEquals(new String[] { "", "" }, new AddressServerGeneratorManager().generateIpAndPort(":"));
+    }
+
+    @Test(timeout=10000)
+    public void generateNacosServiceName() {
+        assertThat(new AddressServerGeneratorManager().generateNacosServiceName("DEFAULT_GROUP"), is("DEFAULT_GROUP"));
+        assertThat(new AddressServerGeneratorManager().generateNacosServiceName("bar"), is("DEFAULT_GROUP@@bar"));
+    }
+
+    @Test(timeout=10000)
+    public void generateProductName() {
+        assertThat(new AddressServerGeneratorManager().generateProductName("bar"), is("nacos.as.bar"));
+        assertThat(new AddressServerGeneratorManager().generateProductName(""), is("nacos.as.default"));
+        assertThat(new AddressServerGeneratorManager().generateProductName("nacos"), is("nacos.as.default"));
+    }
+
+    @Test(timeout=10000)
+    public void generateResponseIpsInstanceListIsEmptyReturnsEmpty() {
+        assertThat(new AddressServerGeneratorManager().generateResponseIps(new ArrayList<com.alibaba.nacos.naming.core.Instance>()), is(""));
+    }
+}

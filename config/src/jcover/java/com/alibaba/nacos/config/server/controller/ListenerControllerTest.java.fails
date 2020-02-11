@@ -1,0 +1,50 @@
+package com.alibaba.nacos.config.server.controller;
+
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.config.server.service.ConfigSubService;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.controller.ListenerController
+ *
+ * @author Diffblue JCover
+ */
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = ListenerController.class)
+public class ListenerControllerTest {
+
+    @MockBean(name = "")
+    private ConfigSubService ;
+
+    @Autowired
+    private ListenerController controller;
+
+    @Test(timeout=10000)
+    public void getAllSubClientConfigByIp() throws Exception {
+        when(x1.getCollectSampleResultByIp(Mockito.<String>any(), anyInt()))
+            .thenReturn(new com.alibaba.nacos.config.server.model.SampleResult());
+        MockMvcBuilders.standaloneSetup(controller).build().perform(
+            MockMvcRequestBuilders.get("/v1/cs/listener/", new Object[] { })
+                .param("ip", "bar")
+                .param("all", Boolean.toString(false))
+                .param("tenant", "foo")
+                .param("sampleTime", Integer.toString(1)))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"collectStatus\":200,\"lisentersGroupkeyStatus\":null}"));
+    }
+}

@@ -1,0 +1,552 @@
+package com.alibaba.nacos.naming.web;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.HashMap;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.SessionTrackingMode;
+import javax.servlet.http.HttpServletRequest;
+
+import org.hamcrest.collection.ArrayMatching;
+import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.web.OverrideParameterRequestWrapper
+ *
+ * @author Diffblue JCover
+ */
+
+public class OverrideParameterRequestWrapperTest {
+
+    @Test(timeout=10000)
+    public void addParameterNameIsBarAndValueIsName() throws java.io.IOException, javax.servlet.ServletException {
+        OverrideParameterRequestWrapper overrideParameterRequestWrapper = new OverrideParameterRequestWrapper(new MockHttpServletRequest());
+        overrideParameterRequestWrapper.addParameter("bar", "name");
+        assertThat(overrideParameterRequestWrapper.getParameterMap().get("bar"), ArrayMatching.arrayContaining("name"));
+    }
+
+    @Test(timeout=10000)
+    public void buildRequest() throws java.io.IOException, javax.servlet.ServletException {
+        HttpServletRequest request = new MockHttpServletRequest();
+        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request);
+        assertThat(result.getParameterMap().isEmpty(), is(true));
+        assertThat(result.getAuthType(), is(nullValue()));
+        assertThat(result.getContextPath(), is(""));
+        assertThat(result.getCookies(), is(nullValue()));
+        assertThat(result.getHeaderNames().hasMoreElements(), is(false));
+        assertThat(result.getHttpServletMapping().getMappingMatch(), is(nullValue()));
+        assertThat(result.getHttpServletMapping().getMatchValue(), is(""));
+        assertThat(result.getHttpServletMapping().getPattern(), is(""));
+        assertThat(result.getHttpServletMapping().getServletName(), is(""));
+        assertThat(result.getMethod(), is(""));
+        assertThat(result.getParts(), empty());
+        assertThat(result.getPathInfo(), is(nullValue()));
+        assertThat(result.getPathTranslated(), is(nullValue()));
+        assertThat(result.getQueryString(), is(nullValue()));
+        assertThat(result.getRemoteUser(), is(nullValue()));
+        assertThat(result.getRequestURI(), is(""));
+        // pojo StringBuffer
+        assertThat(result.getRequestedSessionId(), is(nullValue()));
+        assertThat(result.getServletPath(), is(""));
+        assertThat(result.getSession().getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getCreationTime(), is(1_581_386_052_196L));
+        assertThat(result.getSession().getId(), is("1"));
+        assertThat(result.getSession().getLastAccessedTime(), is(1_581_386_052_196L));
+        assertThat(result.getSession().getMaxInactiveInterval(), is(0));
+        assertThat(result.getSession().getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getSession().getServletContext().getContextPath(), is(""));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.getSession().getValueNames(), ArrayMatching.arrayContaining());
+        assertThat(result.getSession().isNew(), is(true));
+        assertThat(result.getTrailerFields().isEmpty(), is(true));
+        assertThat(result.getUserPrincipal(), is(nullValue()));
+        assertThat(result.isRequestedSessionIdFromCookie(), is(true));
+        assertThat(result.isRequestedSessionIdFromURL(), is(false));
+        assertThat(result.isRequestedSessionIdFromUrl(), is(false));
+        assertThat(result.isRequestedSessionIdValid(), is(true));
+        assertThat(result.isTrailerFieldsReady(), is(false));
+        assertThat(result.getAsyncContext(), is(nullValue()));
+        assertThat(result.getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getCharacterEncoding(), is(nullValue()));
+        assertThat(result.getContentLength(), is(-1));
+        assertThat(result.getContentLengthLong(), is(-1L));
+        assertThat(result.getContentType(), is(nullValue()));
+        assertThat(result.getDispatcherType(), is(DispatcherType.REQUEST));
+        assertThat(result.getInputStream().isFinished(), is(false));
+        assertThat(result.getInputStream().isReady(), is(true));
+        assertThat(result.getLocalAddr(), is("127.0.0.1"));
+        assertThat(result.getLocalName(), is("localhost"));
+        assertThat(result.getLocalPort(), is(80));
+        assertThat(result.getLocale().getDisplayName(), is("English"));
+        assertThat(result.getLocales().hasMoreElements(), is(true));
+        assertThat(result.getParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getProtocol(), is("HTTP/1.1"));
+        assertThat(result.getRemoteAddr(), is("127.0.0.1"));
+        assertThat(result.getRemoteHost(), is("localhost"));
+        assertThat(result.getRemotePort(), is(80));
+        assertThat((HttpServletRequest)result.getRequest(), sameInstance(request));
+        assertThat(result.getScheme(), is("http"));
+        assertThat(result.getServerName(), is("localhost"));
+        assertThat(result.getServerPort(), is(80));
+        assertThat(result.getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getServletContext().getContextPath(), is(""));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.isAsyncStarted(), is(false));
+        assertThat(result.isAsyncSupported(), is(false));
+        assertThat(result.isSecure(), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void buildRequestAppendParametersIsEmpty() throws java.io.IOException, javax.servlet.ServletException {
+        HttpServletRequest request = new MockHttpServletRequest();
+        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request, new HashMap<String, String[]>());
+        assertThat(result.getParameterMap().isEmpty(), is(true));
+        assertThat(result.getAuthType(), is(nullValue()));
+        assertThat(result.getContextPath(), is(""));
+        assertThat(result.getCookies(), is(nullValue()));
+        assertThat(result.getHeaderNames().hasMoreElements(), is(false));
+        assertThat(result.getHttpServletMapping().getMappingMatch(), is(nullValue()));
+        assertThat(result.getHttpServletMapping().getMatchValue(), is(""));
+        assertThat(result.getHttpServletMapping().getPattern(), is(""));
+        assertThat(result.getHttpServletMapping().getServletName(), is(""));
+        assertThat(result.getMethod(), is(""));
+        assertThat(result.getParts(), empty());
+        assertThat(result.getPathInfo(), is(nullValue()));
+        assertThat(result.getPathTranslated(), is(nullValue()));
+        assertThat(result.getQueryString(), is(nullValue()));
+        assertThat(result.getRemoteUser(), is(nullValue()));
+        assertThat(result.getRequestURI(), is(""));
+        // pojo StringBuffer
+        assertThat(result.getRequestedSessionId(), is(nullValue()));
+        assertThat(result.getServletPath(), is(""));
+        assertThat(result.getSession().getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getCreationTime(), is(1_581_386_052_255L));
+        assertThat(result.getSession().getId(), is("3"));
+        assertThat(result.getSession().getLastAccessedTime(), is(1_581_386_052_255L));
+        assertThat(result.getSession().getMaxInactiveInterval(), is(0));
+        assertThat(result.getSession().getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getSession().getServletContext().getContextPath(), is(""));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.getSession().getValueNames(), ArrayMatching.arrayContaining());
+        assertThat(result.getSession().isNew(), is(true));
+        assertThat(result.getTrailerFields().isEmpty(), is(true));
+        assertThat(result.getUserPrincipal(), is(nullValue()));
+        assertThat(result.isRequestedSessionIdFromCookie(), is(true));
+        assertThat(result.isRequestedSessionIdFromURL(), is(false));
+        assertThat(result.isRequestedSessionIdFromUrl(), is(false));
+        assertThat(result.isRequestedSessionIdValid(), is(true));
+        assertThat(result.isTrailerFieldsReady(), is(false));
+        assertThat(result.getAsyncContext(), is(nullValue()));
+        assertThat(result.getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getCharacterEncoding(), is(nullValue()));
+        assertThat(result.getContentLength(), is(-1));
+        assertThat(result.getContentLengthLong(), is(-1L));
+        assertThat(result.getContentType(), is(nullValue()));
+        assertThat(result.getDispatcherType(), is(DispatcherType.REQUEST));
+        assertThat(result.getInputStream().isFinished(), is(false));
+        assertThat(result.getInputStream().isReady(), is(true));
+        assertThat(result.getLocalAddr(), is("127.0.0.1"));
+        assertThat(result.getLocalName(), is("localhost"));
+        assertThat(result.getLocalPort(), is(80));
+        assertThat(result.getLocale().getDisplayName(), is("English"));
+        assertThat(result.getLocales().hasMoreElements(), is(true));
+        assertThat(result.getParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getProtocol(), is("HTTP/1.1"));
+        assertThat(result.getRemoteAddr(), is("127.0.0.1"));
+        assertThat(result.getRemoteHost(), is("localhost"));
+        assertThat(result.getRemotePort(), is(80));
+        assertThat((HttpServletRequest)result.getRequest(), sameInstance(request));
+        assertThat(result.getScheme(), is("http"));
+        assertThat(result.getServerName(), is("localhost"));
+        assertThat(result.getServerPort(), is(80));
+        assertThat(result.getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getServletContext().getContextPath(), is(""));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.isAsyncStarted(), is(false));
+        assertThat(result.isAsyncSupported(), is(false));
+        assertThat(result.isSecure(), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void buildRequestNameIsBarAndValueIsName() throws java.io.IOException, javax.servlet.ServletException {
+        HttpServletRequest request = new MockHttpServletRequest();
+        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request, "bar", "name");
+        assertThat(result.getParameterMap().get("bar"), ArrayMatching.arrayContaining("name"));
+        assertThat(result.getAuthType(), is(nullValue()));
+        assertThat(result.getContextPath(), is(""));
+        assertThat(result.getCookies(), is(nullValue()));
+        assertThat(result.getHeaderNames().hasMoreElements(), is(false));
+        assertThat(result.getHttpServletMapping().getMappingMatch(), is(nullValue()));
+        assertThat(result.getHttpServletMapping().getMatchValue(), is(""));
+        assertThat(result.getHttpServletMapping().getPattern(), is(""));
+        assertThat(result.getHttpServletMapping().getServletName(), is(""));
+        assertThat(result.getMethod(), is(""));
+        assertThat(result.getParts(), empty());
+        assertThat(result.getPathInfo(), is(nullValue()));
+        assertThat(result.getPathTranslated(), is(nullValue()));
+        assertThat(result.getQueryString(), is(nullValue()));
+        assertThat(result.getRemoteUser(), is(nullValue()));
+        assertThat(result.getRequestURI(), is(""));
+        // pojo StringBuffer
+        assertThat(result.getRequestedSessionId(), is(nullValue()));
+        assertThat(result.getServletPath(), is(""));
+        assertThat(result.getSession().getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getCreationTime(), is(1_581_386_054_030L));
+        assertThat(result.getSession().getId(), is("86"));
+        assertThat(result.getSession().getLastAccessedTime(), is(1_581_386_054_030L));
+        assertThat(result.getSession().getMaxInactiveInterval(), is(0));
+        assertThat(result.getSession().getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getSession().getServletContext().getContextPath(), is(""));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.getSession().getValueNames(), ArrayMatching.arrayContaining());
+        assertThat(result.getSession().isNew(), is(true));
+        assertThat(result.getTrailerFields().isEmpty(), is(true));
+        assertThat(result.getUserPrincipal(), is(nullValue()));
+        assertThat(result.isRequestedSessionIdFromCookie(), is(true));
+        assertThat(result.isRequestedSessionIdFromURL(), is(false));
+        assertThat(result.isRequestedSessionIdFromUrl(), is(false));
+        assertThat(result.isRequestedSessionIdValid(), is(true));
+        assertThat(result.isTrailerFieldsReady(), is(false));
+        assertThat(result.getAsyncContext(), is(nullValue()));
+        assertThat(result.getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getCharacterEncoding(), is(nullValue()));
+        assertThat(result.getContentLength(), is(-1));
+        assertThat(result.getContentLengthLong(), is(-1L));
+        assertThat(result.getContentType(), is(nullValue()));
+        assertThat(result.getDispatcherType(), is(DispatcherType.REQUEST));
+        assertThat(result.getInputStream().isFinished(), is(false));
+        assertThat(result.getInputStream().isReady(), is(true));
+        assertThat(result.getLocalAddr(), is("127.0.0.1"));
+        assertThat(result.getLocalName(), is("localhost"));
+        assertThat(result.getLocalPort(), is(80));
+        assertThat(result.getLocale().getDisplayName(), is("English"));
+        assertThat(result.getLocales().hasMoreElements(), is(true));
+        assertThat(result.getParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getProtocol(), is("HTTP/1.1"));
+        assertThat(result.getRemoteAddr(), is("127.0.0.1"));
+        assertThat(result.getRemoteHost(), is("localhost"));
+        assertThat(result.getRemotePort(), is(80));
+        assertThat((HttpServletRequest)result.getRequest(), sameInstance(request));
+        assertThat(result.getScheme(), is("http"));
+        assertThat(result.getServerName(), is("localhost"));
+        assertThat(result.getServerPort(), is(80));
+        assertThat(result.getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getServletContext().getContextPath(), is(""));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.isAsyncStarted(), is(false));
+        assertThat(result.isAsyncSupported(), is(false));
+        assertThat(result.isSecure(), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void buildRequestNameIsNameAndValueIsNull() throws java.io.IOException, javax.servlet.ServletException {
+        HttpServletRequest request = new MockHttpServletRequest();
+        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request, "name", null);
+        assertThat(result.getParameterMap().isEmpty(), is(true));
+        assertThat(result.getAuthType(), is(nullValue()));
+        assertThat(result.getContextPath(), is(""));
+        assertThat(result.getCookies(), is(nullValue()));
+        assertThat(result.getHeaderNames().hasMoreElements(), is(false));
+        assertThat(result.getHttpServletMapping().getMappingMatch(), is(nullValue()));
+        assertThat(result.getHttpServletMapping().getMatchValue(), is(""));
+        assertThat(result.getHttpServletMapping().getPattern(), is(""));
+        assertThat(result.getHttpServletMapping().getServletName(), is(""));
+        assertThat(result.getMethod(), is(""));
+        assertThat(result.getParts(), empty());
+        assertThat(result.getPathInfo(), is(nullValue()));
+        assertThat(result.getPathTranslated(), is(nullValue()));
+        assertThat(result.getQueryString(), is(nullValue()));
+        assertThat(result.getRemoteUser(), is(nullValue()));
+        assertThat(result.getRequestURI(), is(""));
+        // pojo StringBuffer
+        assertThat(result.getRequestedSessionId(), is(nullValue()));
+        assertThat(result.getServletPath(), is(""));
+        assertThat(result.getSession().getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getCreationTime(), is(1_581_386_054_082L));
+        assertThat(result.getSession().getId(), is("88"));
+        assertThat(result.getSession().getLastAccessedTime(), is(1_581_386_054_082L));
+        assertThat(result.getSession().getMaxInactiveInterval(), is(0));
+        assertThat(result.getSession().getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getSession().getServletContext().getContextPath(), is(""));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getDefaultSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getEffectiveSessionTrackingModes(), hasItem(/* pojo SessionTrackingMode */));
+        assertThat(result.getSession().getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getSession().getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getSession().getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getSession().getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getSession().getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getSession().getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.getSession().getValueNames(), ArrayMatching.arrayContaining());
+        assertThat(result.getSession().isNew(), is(true));
+        assertThat(result.getTrailerFields().isEmpty(), is(true));
+        assertThat(result.getUserPrincipal(), is(nullValue()));
+        assertThat(result.isRequestedSessionIdFromCookie(), is(true));
+        assertThat(result.isRequestedSessionIdFromURL(), is(false));
+        assertThat(result.isRequestedSessionIdFromUrl(), is(false));
+        assertThat(result.isRequestedSessionIdValid(), is(true));
+        assertThat(result.isTrailerFieldsReady(), is(false));
+        assertThat(result.getAsyncContext(), is(nullValue()));
+        assertThat(result.getAttributeNames().hasMoreElements(), is(false));
+        assertThat(result.getCharacterEncoding(), is(nullValue()));
+        assertThat(result.getContentLength(), is(-1));
+        assertThat(result.getContentLengthLong(), is(-1L));
+        assertThat(result.getContentType(), is(nullValue()));
+        assertThat(result.getDispatcherType(), is(DispatcherType.REQUEST));
+        assertThat(result.getInputStream().isFinished(), is(false));
+        assertThat(result.getInputStream().isReady(), is(true));
+        assertThat(result.getLocalAddr(), is("127.0.0.1"));
+        assertThat(result.getLocalName(), is("localhost"));
+        assertThat(result.getLocalPort(), is(80));
+        assertThat(result.getLocale().getDisplayName(), is("English"));
+        assertThat(result.getLocales().hasMoreElements(), is(true));
+        assertThat(result.getParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getProtocol(), is("HTTP/1.1"));
+        assertThat(result.getRemoteAddr(), is("127.0.0.1"));
+        assertThat(result.getRemoteHost(), is("localhost"));
+        assertThat(result.getRemotePort(), is(80));
+        assertThat((HttpServletRequest)result.getRequest(), sameInstance(request));
+        assertThat(result.getScheme(), is("http"));
+        assertThat(result.getServerName(), is("localhost"));
+        assertThat(result.getServerPort(), is(80));
+        assertThat(result.getServletContext().getAttributeNames().hasMoreElements(), is(true));
+        // pojo ClassLoader
+        assertThat(result.getServletContext().getContextPath(), is(""));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getDefaultSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getEffectiveMajorVersion(), is(3));
+        assertThat(result.getServletContext().getEffectiveMinorVersion(), is(1));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.COOKIE));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.URL));
+        assertThat(result.getServletContext().getEffectiveSessionTrackingModes(), hasItem(SessionTrackingMode.SSL));
+        assertThat(result.getServletContext().getFilterRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getInitParameterNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getMajorVersion(), is(3));
+        assertThat(result.getServletContext().getMinorVersion(), is(1));
+        assertThat(result.getServletContext().getRequestCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getResponseCharacterEncoding(), is(nullValue()));
+        assertThat(result.getServletContext().getServerInfo(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletContextName(), is("MockServletContext"));
+        assertThat(result.getServletContext().getServletNames().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getServletRegistrations().isEmpty(), is(true));
+        assertThat(result.getServletContext().getServlets().hasMoreElements(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
+        assertThat(result.getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
+        assertThat(result.getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
+        assertThat(result.getServletContext().getSessionCookieConfig().isSecure(), is(false));
+        assertThat(result.getServletContext().getSessionTimeout(), is(0));
+        assertThat(result.isAsyncStarted(), is(false));
+        assertThat(result.isAsyncSupported(), is(false));
+        assertThat(result.isSecure(), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void changeSessionId() throws java.io.IOException, javax.servlet.ServletException {
+        OverrideParameterRequestWrapper overrideParameterRequestWrapper = new OverrideParameterRequestWrapper(new MockHttpServletRequest());
+        assertThat(overrideParameterRequestWrapper.changeSessionId(), is("11"));
+        assertThat(overrideParameterRequestWrapper.getSession().getId(), is("11"));
+    }
+
+    @Test(timeout=10000)
+    public void getParameter() throws java.io.IOException, javax.servlet.ServletException {
+        assertThat(OverrideParameterRequestWrapper.buildRequest(new MockHttpServletRequest(), "name", "bar").getParameter("name"), is("bar"));
+        assertThat(new OverrideParameterRequestWrapper(new MockHttpServletRequest()).getParameter("name"), is(nullValue()));
+    }
+
+    @Test(timeout=10000)
+    public void getParameterValuesNameIsNameReturnsNull() throws java.io.IOException, javax.servlet.ServletException {
+        assertThat(new OverrideParameterRequestWrapper(new MockHttpServletRequest()).getParameterValues("name"), is(nullValue()));
+    }
+}

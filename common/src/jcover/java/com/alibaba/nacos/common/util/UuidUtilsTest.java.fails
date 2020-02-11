@@ -1,0 +1,20 @@
+package com.alibaba.nacos.common.util;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.common.util.UuidUtils
+ *
+ * @author Diffblue JCover
+ */
+
+public class UuidUtilsTest {
+
+    @Test(timeout=10000)
+    public void generateUuid() {
+        assertThat(UuidUtils.generateUuid(), is("2a9c02cf-2577-4137-b285-c0f4e2baf1f6"));
+    }
+}

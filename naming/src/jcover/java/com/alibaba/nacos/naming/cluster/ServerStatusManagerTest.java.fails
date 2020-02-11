@@ -1,0 +1,40 @@
+package com.alibaba.nacos.naming.cluster;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.cluster.ServerStatusManager
+ *
+ * @author Diffblue JCover
+ */
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = ServerStatusManager.class)
+public class ServerStatusManagerTest {
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private ServerStatusManager service;
+
+    @Test(timeout=10000)
+    public void getServerStatusReturnsSTARTING() {
+        assertThat(service.getServerStatus(), is(ServerStatus.STARTING));
+    }
+
+    @Test(timeout=10000)
+    public void init() {
+        service.init();
+    }
+}

@@ -1,0 +1,153 @@
+package com.alibaba.nacos.naming.core;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.core.Instance
+ *
+ * @author Diffblue JCover
+ */
+
+public class InstanceTest {
+
+    @Test(timeout=10000)
+    public void compareTo() {
+        assertThat(new Instance("OX13QD", 1).compareTo(new Instance()), is(-31));
+        assertThat(new Instance().compareTo(new Instance()), is(0));
+    }
+
+    @Test(timeout=10000)
+    public void equalsObjIsFooReturnsFalse() {
+        assertThat(new Instance().equals("foo"), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void fromString() {
+        assertThat(Instance.fromString("OX13QD"), is(nullValue()));
+        assertThat(Instance.fromString("_"), is(nullValue()));
+    }
+
+    @Test(timeout=10000)
+    public void generateInstanceId() {
+        assertThat(new Instance().generateInstanceId(), is("null#0#null#null"));
+    }
+
+    @Test(timeout=10000)
+    public void getCheckRTReturnsMinusOne() {
+        assertThat(new Instance().getCheckRT(), is(-1L));
+    }
+
+    @Test(timeout=10000)
+    public void getDefaultKey() {
+        assertThat(new Instance().getDefaultKey(), is("null:unknown"));
+        assertThat(new Instance("OX13QD", 1).getDefaultKey(), is("OX13QD:1:unknown"));
+    }
+
+    @Test(timeout=10000)
+    public void getFailCount() {
+        Instance instance = new Instance();
+        AtomicInteger result = instance.getFailCount();
+        assertThat(result.getAndDecrement(), is(0));
+        assertThat(result.getAndIncrement(), is(-1));
+        assertThat(instance.getFailCount(), sameInstance(result));
+    }
+
+    @Test(timeout=10000)
+    public void getLastBeat() {
+        assertThat(new Instance().getLastBeat(), is(1_581_384_983_377L));
+    }
+
+    @Test(timeout=10000)
+    public void getOKCount() {
+        Instance instance = new Instance();
+        AtomicInteger result = instance.getOKCount();
+        assertThat(result.getAndDecrement(), is(0));
+        assertThat(result.getAndIncrement(), is(-1));
+        assertThat(instance.getOKCount(), sameInstance(result));
+    }
+
+    @Test(timeout=10000)
+    public void isMarkedReturnsFalse() {
+        assertThat(new Instance().isMarked(), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void isMockValidReturnsFalse() {
+        assertThat(new Instance().isMockValid(), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void markChecking() {
+        assertThat(new Instance().markChecking(), is(true));
+        assertThat(new Instance("OX13QD", 1).markChecking(), is(true));
+        assertThat(new Instance("OX13QD", 1, "/bin/bash", "OX13QD", "OX13QD").markChecking(), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void setApp() {
+        Instance instance = new Instance();
+        instance.setApp("OX13QD");
+        assertThat(instance.getApp(), is("OX13QD"));
+    }
+
+    @Test(timeout=10000)
+    public void setBeingCheckedToFalse() {
+        new Instance().setBeingChecked(false);
+    }
+
+    @Test(timeout=10000)
+    public void setCheckRTToOne() {
+        Instance instance = new Instance();
+        instance.setCheckRT(1L);
+        assertThat(instance.getCheckRT(), is(1L));
+    }
+
+    @Test(timeout=10000)
+    public void setLastBeatToOne() {
+        Instance instance = new Instance();
+        instance.setLastBeat(1L);
+        assertThat(instance.getLastBeat(), is(1L));
+    }
+
+    @Test(timeout=10000)
+    public void setMarkedToFalse() {
+        new Instance().setMarked(false);
+    }
+
+    @Test(timeout=10000)
+    public void setMockValidToFalse() {
+        new Instance().setMockValid(false);
+    }
+
+    @Test(timeout=10000)
+    public void setTenant() {
+        Instance instance = new Instance();
+        instance.setTenant("OX13QD");
+        assertThat(instance.getTenant(), is("OX13QD"));
+    }
+
+    @Test(timeout=10000)
+    public void toIPAddr() {
+        assertThat(new Instance().toIPAddr(), is("null:0"));
+    }
+
+    @Test(timeout=10000)
+    public void toJSON() {
+        assertThat(new Instance().toJSON(), is("{\"enabled\":true,\"ephemeral\":true,\"healthy\":true,\"instanceHeartBeatInterval\":5000,\"instanceHeartBeatTimeOut\":15000,\"ipDeleteTimeout\":30000,\"lastBeat\":1581384983442,\"marked\":false,\"metadata\":{},\"port\":0,\"weight\":1.0}"));
+    }
+
+    @Test(timeout=10000)
+    public void validate() {
+        assertThat(new Instance("OX13QD", 1).validate(), is(true));
+        assertThat(new Instance("OX13QD", 1, ".").validate(), is(true));
+        assertThat(new Instance("OX13QD", 1, ".", "OX13QD", "OX13QD").validate(), is(true));
+        assertThat(new Instance(".", 1).validate(), is(false));
+    }
+}

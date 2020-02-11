@@ -1,0 +1,70 @@
+package com.alibaba.nacos.client.naming.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.utils.ThreadLocalRandom
+ *
+ * @author Diffblue JCover
+ */
+
+public class ThreadLocalRandomTest {
+
+    @Test(timeout=10000)
+    public void current() {
+        // pojo ThreadLocalRandom
+    }
+
+    @Test(timeout=10000)
+    public void doubles() {
+        double[] array = new ThreadLocalRandom().doubles().limit(1).toArray();
+        assertArrayEquals(new double[] { 0x1.78f2412d38667p-1 /* 0.736223 */ }, array, 0);
+        double[] array = ThreadLocalRandom.current().doubles().limit(1).toArray();
+        assertArrayEquals(new double[] { 0x1.769d139cbcfdap-2 /* 0.365834 */ }, array, 0);
+    }
+
+    @Test(timeout=10000)
+    public void getInitialSeedUniquifier() {
+        assertThat(ThreadLocalRandom.getInitialSeedUniquifier(), is(6_135_265_342_080_610_136L));
+    }
+
+    @Test(timeout=10000)
+    public void next() {
+        assertThat(new ThreadLocalRandom().next(1), is(1));
+        assertThat(new ThreadLocalRandom().next(0), is(0));
+    }
+
+    @Test(timeout=10000)
+    public void nextDouble() {
+        assertTrue(Double.isNaN(new ThreadLocalRandom().nextDouble(Double.NaN, 1.0)));
+        assertEquals(0x1.c9bdb1a2c8f2ep-2 /* 0.447013 */, new ThreadLocalRandom().nextDouble(1.0), 0);
+    }
+
+    @Test(timeout=10000)
+    public void nextInt() {
+        assertThat(new ThreadLocalRandom().nextInt(0, 1), is(0));
+        assertThat(new ThreadLocalRandom().nextInt(1, 2), is(1));
+    }
+
+    @Test(timeout=10000)
+    public void nextLong() {
+        assertThat(new ThreadLocalRandom().nextLong(25_214_903_917L), is(11_387_974_551L));
+        assertThat(new ThreadLocalRandom().nextLong(0L, 1L), is(0L));
+        assertThat(new ThreadLocalRandom().nextLong(1L, 2L), is(1L));
+        assertThat(new ThreadLocalRandom().nextLong(2_147_483_647L), is(856_586_962L));
+        assertThat(new ThreadLocalRandom().nextLong(2_147_483_648L), is(933_028_838L));
+        assertThat(new ThreadLocalRandom().nextLong(1L), is(0L));
+        assertThat(new ThreadLocalRandom().nextLong(2L), is(1L));
+    }
+
+    @Test(timeout=10000)
+    public void setInitialSeedUniquifierInitialSeedUniquifierIsOne() {
+        ThreadLocalRandom.setInitialSeedUniquifier(1L);
+    }
+}

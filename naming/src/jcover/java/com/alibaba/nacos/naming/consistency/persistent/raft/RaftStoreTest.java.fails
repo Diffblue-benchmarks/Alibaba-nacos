@@ -1,0 +1,31 @@
+package com.alibaba.nacos.naming.consistency.persistent.raft;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.persistent.raft.RaftStore
+ *
+ * @author Diffblue JCover
+ */
+
+public class RaftStoreTest {
+
+    @Test(timeout=10000)
+    public void loadKeyIsFooReturnsNull() throws Exception {
+        assertThat(new RaftStore().load("foo"), is(nullValue()));
+    }
+
+    @Test(timeout=10000)
+    public void loadMeta() throws Exception {
+        assertThat(new RaftStore().loadMeta().getProperty("term"), is("600"));
+    }
+
+    @Test(timeout=10000)
+    public void updateTermTermIsOne() throws Exception {
+        new RaftStore().updateTerm(1L);
+    }
+}

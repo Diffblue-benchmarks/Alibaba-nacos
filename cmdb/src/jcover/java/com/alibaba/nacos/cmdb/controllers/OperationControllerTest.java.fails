@@ -1,0 +1,29 @@
+package com.alibaba.nacos.cmdb.controllers;
+
+import com.alibaba.nacos.cmdb.memory.CmdbProvider;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.cmdb.controllers.OperationController
+ *
+ * @author Diffblue JCover
+ */
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = OperationController.class)
+public class OperationControllerTest {
+
+    @MockBean(name = "cmdbProvider")
+    private CmdbProvider cmdbProvider;
+
+    @Autowired
+    private OperationController controller;
+}
