@@ -84,17 +84,16 @@ public class SubscriberDiffblueTest {
 
     // Assert
     String actualNamespaceId = actualSubscriber.getNamespaceId();
-    String actualToStringResult = actualSubscriber.toString();
     String actualIp = actualSubscriber.getIp();
+    String actualAgent = actualSubscriber.getAgent();
     String actualApp = actualSubscriber.getApp();
     String actualServiceName = actualSubscriber.getServiceName();
     assertEquals("123", actualNamespaceId);
     assertEquals("foo", actualSubscriber.getAddrStr());
     assertEquals("foo", actualServiceName);
     assertEquals("foo", actualApp);
+    assertEquals("foo", actualAgent);
     assertEquals("127.0.0.1", actualIp);
-    assertEquals("Subscriber{addrStr='foo', agent='foo', app='foo'," + " ip='127.0.0.1', namespaceId='123', serviceName"
-        + "='foo'}", actualToStringResult);
   }
 
   @Test(timeout=10000)
@@ -106,7 +105,8 @@ public class SubscriberDiffblueTest {
     subscriber.setServiceName("foo");
 
     // Assert
-    assertEquals("foo", subscriber.getServiceName());
+    assertEquals("Subscriber{addrStr='foo', agent='foo', app='foo'," + " ip='127.0.0.1', namespaceId='123', serviceName"
+        + "='foo'}", subscriber.toString());
   }
 
   @Test(timeout=10000)

@@ -20,7 +20,6 @@ public class ClientBeatCheckTaskDiffblueTest {
     new ClientBeatCheckTask(service);
 
     // Assert
-    String actualServiceString = service.getServiceString();
     String actualNamespaceId = service.getNamespaceId();
     String actualName = service.getName();
     String actualToStringResult = service.toString();
@@ -35,11 +34,8 @@ public class ClientBeatCheckTaskDiffblueTest {
     Map<String, String> metadata = service.getMetadata();
     String actualAppName = service.getAppName();
     float actualProtectThreshold = service.getProtectThreshold();
-    long actualIpDeleteTimeout = service.getIpDeleteTimeout();
-    assertEquals("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[]," + "\"protectThreshold\":0.0,\"clusters\":[]}",
-        actualServiceString);
-    assertEquals("28db44891d718c6872a04bc11ec58ab0", service.getChecksum());
-    assertEquals(30000L, actualIpDeleteTimeout);
+    assertNull(actualNamespaceId);
+    assertEquals(30000L, service.getIpDeleteTimeout());
     assertEquals(0.0f, actualProtectThreshold, 0.0f);
     assertNull(actualAppName);
     assertTrue(metadata instanceof java.util.HashMap);
@@ -50,14 +46,13 @@ public class ClientBeatCheckTaskDiffblueTest {
     assertTrue(selector instanceof com.alibaba.nacos.naming.selector.NoneSelector);
     assertEquals(Boolean.valueOf(true), actualEnabled);
     assertTrue(owners instanceof java.util.ArrayList);
-    assertNull(actualNamespaceId);
+    assertNull(actualName);
     assertEquals(0, owners.size());
     assertEquals(Boolean.valueOf(false), actualResetWeight);
     assertTrue(clusterMap instanceof java.util.HashMap);
     assertEquals("Service{name='null', protectThreshold=0.0, appName='null'," + " groupName='null', metadata={}}",
         actualToStringResult);
     assertEquals(0, clusterMap.size());
-    assertNull(actualName);
   }
 
   @Test(timeout=10000)

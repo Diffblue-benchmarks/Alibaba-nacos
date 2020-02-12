@@ -51,6 +51,29 @@ public class HistoryContextDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void constructorTest3() {
+    // Arrange and Act
+    HistoryContext actualHistoryContext = new HistoryContext("123", "123", "foo", 200, "foo",
+        new Page<ConfigHistoryInfo>());
+
+    // Assert
+    Page<ConfigHistoryInfo> expectedConfigs = actualHistoryContext.configs;
+    String actualDataId = actualHistoryContext.getDataId();
+    String actualStatusMsg = actualHistoryContext.getStatusMsg();
+    String actualGroup = actualHistoryContext.getGroup();
+    boolean actualIsSuccessResult = actualHistoryContext.isSuccess();
+    Page<ConfigHistoryInfo> actualConfigs = actualHistoryContext.getConfigs();
+    String actualServerId = actualHistoryContext.getServerId();
+    assertEquals("123", actualDataId);
+    assertEquals(200, actualHistoryContext.getStatusCode());
+    assertEquals("123", actualServerId);
+    assertSame(expectedConfigs, actualConfigs);
+    assertEquals("foo", actualStatusMsg);
+    assertTrue(actualIsSuccessResult);
+    assertEquals("foo", actualGroup);
+  }
+
+  @Test(timeout=10000)
   public void constructorTest2() {
     // Arrange
     Page<ConfigHistoryInfo> page = new Page<ConfigHistoryInfo>();

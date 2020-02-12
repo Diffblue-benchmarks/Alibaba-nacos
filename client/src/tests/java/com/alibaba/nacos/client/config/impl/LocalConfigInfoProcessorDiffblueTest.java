@@ -18,14 +18,22 @@ public class LocalConfigInfoProcessorDiffblueTest {
 
   @Test(timeout=10000)
   public void getSnapshotTest() {
-    // Arrange, Act and Assert
-    assertNull(LocalConfigInfoProcessor.getSnapshot("name", "123", "foo", "foo"));
+    // Arrange
+    String actualSnapshot = LocalConfigInfoProcessor.getSnapshot("name", "123", "foo", "foo");
+
+    // Act and Assert
+    assertNull(actualSnapshot);
+    assertNull(LocalConfigInfoProcessor.getSnapshot("name", "123", "foo", ""));
   }
 
   @Test(timeout=10000)
   public void getFailoverTest() {
-    // Arrange, Act and Assert
-    assertNull(LocalConfigInfoProcessor.getFailover("name", "123", "foo", "foo"));
+    // Arrange
+    String actualFailover = LocalConfigInfoProcessor.getFailover("name", "123", "foo", "foo");
+
+    // Act and Assert
+    assertNull(actualFailover);
+    assertNull(LocalConfigInfoProcessor.getFailover("name", "123", "foo", ""));
   }
 }
 

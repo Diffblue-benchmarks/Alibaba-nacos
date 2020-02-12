@@ -2,7 +2,6 @@ package com.alibaba.nacos.naming.consistency.persistent.raft;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import com.alibaba.nacos.naming.consistency.ApplyAction;
 import org.junit.Test;
 
@@ -76,13 +75,12 @@ public class RaftCoreDiffblueTest {
   public void setPeerSetTest() {
     // Arrange
     RaftCore raftCore = new RaftCore();
-    RaftPeerSet raftPeerSet = new RaftPeerSet();
 
     // Act
-    raftCore.setPeerSet(raftPeerSet);
+    raftCore.setPeerSet(new RaftPeerSet());
 
     // Assert
-    assertSame(raftPeerSet, raftCore.getPeerSet());
+    assertNull(raftCore.getLeader());
   }
 
   @Test(timeout=10000)

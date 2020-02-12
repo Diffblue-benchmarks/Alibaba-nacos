@@ -64,7 +64,6 @@ public class InstanceDiffblueTest {
     Instance actualInstance = new Instance("127.0.0.1", 8080, "name");
 
     // Assert
-    long actualInstanceHeartBeatInterval = actualInstance.getInstanceHeartBeatInterval();
     boolean actualIsMockValidResult = actualInstance.isMockValid();
     double actualWeight = actualInstance.getWeight();
     String actualIp = actualInstance.getIp();
@@ -73,8 +72,9 @@ public class InstanceDiffblueTest {
     int actualPort = actualInstance.getPort();
     boolean actualIsHealthyResult = actualInstance.isHealthy();
     boolean actualIsMarkedResult = actualInstance.isMarked();
-    assertEquals(5000L, actualInstanceHeartBeatInterval);
-    assertTrue(actualInstance.isEnabled());
+    boolean actualIsEnabledResult = actualInstance.isEnabled();
+    assertEquals(30000L, actualInstance.getIpDeleteTimeout());
+    assertTrue(actualIsEnabledResult);
     assertFalse(actualIsMarkedResult);
     assertTrue(actualIsHealthyResult);
     assertEquals(8080, actualPort);
@@ -122,12 +122,6 @@ public class InstanceDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void getDefaultKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("null:unknown", (new Instance()).getDefaultKey());
-  }
-
-  @Test(timeout=10000)
   public void getTenantTest() {
     // Arrange, Act and Assert
     assertNull((new Instance()).getTenant());
@@ -139,14 +133,14 @@ public class InstanceDiffblueTest {
     Instance actualInstance = new Instance();
 
     // Assert
-    long actualInstanceHeartBeatInterval = actualInstance.getInstanceHeartBeatInterval();
     boolean actualIsMockValidResult = actualInstance.isMockValid();
     double actualWeight = actualInstance.getWeight();
     boolean actualIsEphemeralResult = actualInstance.isEphemeral();
     boolean actualIsHealthyResult = actualInstance.isHealthy();
     boolean actualIsMarkedResult = actualInstance.isMarked();
-    assertEquals(5000L, actualInstanceHeartBeatInterval);
-    assertTrue(actualInstance.isEnabled());
+    boolean actualIsEnabledResult = actualInstance.isEnabled();
+    assertEquals(30000L, actualInstance.getIpDeleteTimeout());
+    assertTrue(actualIsEnabledResult);
     assertFalse(actualIsMarkedResult);
     assertTrue(actualIsHealthyResult);
     assertTrue(actualIsEphemeralResult);
@@ -164,18 +158,6 @@ public class InstanceDiffblueTest {
   public void toStringTest() {
     // Arrange, Act and Assert
     assertEquals("null:unknown:null_1.0_true_false_null", (new Instance()).toString());
-  }
-
-  @Test(timeout=10000)
-  public void setAppTest() {
-    // Arrange
-    Instance instance = new Instance();
-
-    // Act
-    instance.setApp("foo");
-
-    // Assert
-    assertEquals("foo", instance.getApp());
   }
 
   @Test(timeout=10000)
@@ -203,16 +185,34 @@ public class InstanceDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void fromJSONTest() {
+  public void fromJSONTest3() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    Instance.fromJSON("_");
+  }
+
+  @Test(timeout=10000)
+  public void fromJSONTest2() {
     // Arrange, Act and Assert
     thrown.expect(IllegalArgumentException.class);
     Instance.fromJSON("foo");
   }
 
   @Test(timeout=10000)
-  public void fromStringTest() {
+  public void fromJSONTest() {
     // Arrange, Act and Assert
-    assertNull(Instance.fromString("foo"));
+    thrown.expect(IllegalArgumentException.class);
+    Instance.fromJSON("");
+  }
+
+  @Test(timeout=10000)
+  public void fromStringTest() {
+    // Arrange
+    Instance actualFromStringResult = Instance.fromString("foo");
+
+    // Act and Assert
+    assertNull(actualFromStringResult);
+    assertNull(Instance.fromString("_"));
   }
 
   @Test(timeout=10000)
@@ -250,12 +250,6 @@ public class InstanceDiffblueTest {
   public void isMockValidTest() {
     // Arrange, Act and Assert
     assertFalse((new Instance()).isMockValid());
-  }
-
-  @Test(timeout=10000)
-  public void getDatumKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("null:unknown:null", (new Instance()).getDatumKey());
   }
 
   @Test(timeout=10000)

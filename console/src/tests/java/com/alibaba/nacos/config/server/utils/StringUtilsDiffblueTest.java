@@ -9,20 +9,32 @@ import org.junit.Test;
 public class StringUtilsDiffblueTest {
   @Test(timeout=10000)
   public void isEmptyTest() {
-    // Arrange, Act and Assert
-    assertFalse(StringUtils.isEmpty("foo"));
+    // Arrange
+    boolean actualIsEmptyResult = StringUtils.isEmpty("foo");
+
+    // Act and Assert
+    assertFalse(actualIsEmptyResult);
+    assertTrue(StringUtils.isEmpty(""));
   }
 
   @Test(timeout=10000)
   public void substringBetweenTest() {
-    // Arrange, Act and Assert
-    assertNull(StringUtils.substringBetween("foo", "foo", "foo"));
+    // Arrange
+    String actualSubstringBetweenResult = StringUtils.substringBetween("foo", "foo", "foo");
+
+    // Act and Assert
+    assertNull(actualSubstringBetweenResult);
+    assertNull(StringUtils.substringBetween("", "foo", "foo"));
   }
 
   @Test(timeout=10000)
   public void defaultIfEmptyTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", StringUtils.defaultIfEmpty("foo", "foo"));
+    // Arrange
+    String actualDefaultIfEmptyResult = StringUtils.defaultIfEmpty("foo", "foo");
+
+    // Act and Assert
+    assertEquals("foo", actualDefaultIfEmptyResult);
+    assertEquals("foo", StringUtils.defaultIfEmpty("", "foo"));
   }
 
   @Test(timeout=10000)
@@ -33,14 +45,22 @@ public class StringUtilsDiffblueTest {
 
   @Test(timeout=10000)
   public void isNotEmptyTest() {
-    // Arrange, Act and Assert
-    assertTrue(StringUtils.isNotEmpty("foo"));
+    // Arrange
+    boolean actualIsNotEmptyResult = StringUtils.isNotEmpty("foo");
+
+    // Act and Assert
+    assertTrue(actualIsNotEmptyResult);
+    assertFalse(StringUtils.isNotEmpty(""));
   }
 
   @Test(timeout=10000)
   public void isBlankTest() {
-    // Arrange, Act and Assert
-    assertFalse(StringUtils.isBlank("foo"));
+    // Arrange
+    boolean actualIsBlankResult = StringUtils.isBlank("foo");
+
+    // Act and Assert
+    assertFalse(actualIsBlankResult);
+    assertTrue(StringUtils.isBlank(""));
   }
 }
 

@@ -2,6 +2,7 @@ package com.alibaba.nacos.naming.misc;
 
 import static org.junit.Assert.assertEquals;
 import com.alibaba.nacos.naming.exception.NacosException;
+import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -11,10 +12,30 @@ public class UtilsAndCommonsDiffblueTest {
   public ExpectedException thrown = ExpectedException.none();
 
   @Test(timeout=10000)
+  public void parseMetadataTest2() throws NacosException {
+    // Arrange
+    Map<String, String> parseMetadataResult = UtilsAndCommons.parseMetadata(",");
+
+    // Act
+    Map<String, String> actualParseMetadataResult = UtilsAndCommons.parseMetadata("");
+
+    // Assert
+    assertEquals(0, parseMetadataResult.size());
+    assertEquals(0, actualParseMetadataResult.size());
+  }
+
+  @Test(timeout=10000)
   public void parseMetadataTest() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
     UtilsAndCommons.parseMetadata("foo");
+  }
+
+  @Test(timeout=10000)
+  public void shakeUpTest2() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    UtilsAndCommons.shakeUp("foo", -1);
   }
 
   @Test(timeout=10000)

@@ -6,8 +6,12 @@ import org.junit.Test;
 public class HealthCheckTypeDiffblueTest {
   @Test(timeout=10000)
   public void ofHealthCheckerClassTest() {
-    // Arrange, Act and Assert
-    assertNull(HealthCheckType.ofHealthCheckerClass("foo"));
+    // Arrange
+    Class actualOfHealthCheckerClassResult = HealthCheckType.ofHealthCheckerClass("foo");
+
+    // Act and Assert
+    assertNull(actualOfHealthCheckerClassResult);
+    assertNull(HealthCheckType.ofHealthCheckerClass(""));
   }
 }
 

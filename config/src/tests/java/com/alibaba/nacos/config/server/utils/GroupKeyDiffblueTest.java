@@ -1,9 +1,14 @@
 package com.alibaba.nacos.config.server.utils;
 
 import static org.junit.Assert.assertEquals;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class GroupKeyDiffblueTest {
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
+
   @Test(timeout=10000)
   public void getKeyTest2() {
     // Arrange, Act and Assert
@@ -11,9 +16,16 @@ public class GroupKeyDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void parseKeyTest() {
+  public void parseKeyTest2() {
     // Arrange, Act and Assert
     assertEquals(3, GroupKey.parseKey("foo").length);
+  }
+
+  @Test(timeout=10000)
+  public void parseKeyTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    GroupKey.parseKey("");
   }
 
   @Test(timeout=10000)

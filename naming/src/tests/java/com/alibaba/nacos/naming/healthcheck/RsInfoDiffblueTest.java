@@ -181,12 +181,6 @@ public class RsInfoDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void getIpTest() {
-    // Arrange, Act and Assert
-    assertNull((new RsInfo()).getIp());
-  }
-
-  @Test(timeout=10000)
   public void getClusterTest() {
     // Arrange, Act and Assert
     assertNull((new RsInfo()).getCluster());

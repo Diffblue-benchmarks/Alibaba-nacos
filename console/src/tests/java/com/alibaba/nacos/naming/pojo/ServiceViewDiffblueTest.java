@@ -12,18 +12,6 @@ public class ServiceViewDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setIpCountTest() {
-    // Arrange
-    ServiceView serviceView = new ServiceView();
-
-    // Act
-    serviceView.setIpCount(3);
-
-    // Assert
-    assertEquals(3, serviceView.getIpCount());
-  }
-
-  @Test(timeout=10000)
   public void setClusterCountTest() {
     // Arrange
     ServiceView serviceView = new ServiceView();

@@ -15,6 +15,16 @@ public class HttpClientDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void requestTest2() {
+    // Arrange and Act
+    HttpClient.HttpResult actualRequestResult = HttpClient.request("", null, null, "", "foo");
+
+    // Assert
+    assertEquals(500, actualRequestResult.code);
+    assertEquals("java.net.MalformedURLException: no protocol: ", actualRequestResult.content);
+  }
+
+  @Test(timeout=10000)
   public void requestTest() {
     // Arrange and Act
     HttpClient.HttpResult actualRequestResult = HttpClient.request("https://www.diffblue.com", null, null,
@@ -23,6 +33,16 @@ public class HttpClientDiffblueTest {
     // Assert
     assertEquals(500, actualRequestResult.code);
     assertEquals("java.net.ProtocolException: Invalid HTTP" + " method: foo", actualRequestResult.content);
+  }
+
+  @Test(timeout=10000)
+  public void httpGetTest() {
+    // Arrange and Act
+    HttpClient.HttpResult actualHttpGetResult = HttpClient.httpGet("GET", null, null, "GET");
+
+    // Assert
+    assertEquals(500, actualHttpGetResult.code);
+    assertEquals("java.net.MalformedURLException: no protocol: GET", actualHttpGetResult.content);
   }
 
   @Test(timeout=10000)

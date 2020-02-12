@@ -9,6 +9,12 @@ public class RaftProxyDiffblueTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
   @Test(timeout=10000)
+  public void proxyGETTest2() throws Exception {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalStateException.class);
+    (new RaftProxy()).proxyGET(":", "foo", null);
+  }
+  @Test(timeout=10000)
   public void proxyGETTest() throws Exception {
     // Arrange, Act and Assert
     thrown.expect(IllegalStateException.class);

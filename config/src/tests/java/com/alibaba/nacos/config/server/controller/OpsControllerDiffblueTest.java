@@ -11,7 +11,7 @@ public class OpsControllerDiffblueTest {
     PersistService persistService = new PersistService();
 
     // Act and Assert
-    assertSame((new OpsController(persistService, null)).persistService, persistService);
+    assertSame(persistService, (new OpsController(persistService, null)).persistService);
   }
 }
 

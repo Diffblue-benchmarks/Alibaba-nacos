@@ -69,6 +69,16 @@ public class HttpClientDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void httpDeleteTest() {
+    // Arrange and Act
+    HttpClient.HttpResult actualHttpDeleteResult = HttpClient.httpDelete("UTF-8", null, null);
+
+    // Assert
+    assertEquals(500, actualHttpDeleteResult.code);
+    assertEquals("java.net.MalformedURLException: no protocol: UTF-8", actualHttpDeleteResult.content);
+  }
+
+  @Test(timeout=10000)
   public void httpPostTest2() {
     // Arrange and Act
     HttpClient.HttpResult actualHttpPostResult = HttpClient.httpPost("https://www.diffblue.com", null, null);
@@ -76,6 +86,16 @@ public class HttpClientDiffblueTest {
     // Assert
     assertEquals(500, actualHttpPostResult.code);
     assertEquals("java.lang.NullPointerException", actualHttpPostResult.content);
+  }
+
+  @Test(timeout=10000)
+  public void requestTest2() {
+    // Arrange and Act
+    HttpClient.HttpResult actualRequestResult = HttpClient.request("", null, null, 10, 10, "", "foo");
+
+    // Assert
+    assertEquals(500, actualRequestResult.code);
+    assertEquals("java.net.MalformedURLException: no protocol: ", actualRequestResult.content);
   }
 
   @Test(timeout=10000)

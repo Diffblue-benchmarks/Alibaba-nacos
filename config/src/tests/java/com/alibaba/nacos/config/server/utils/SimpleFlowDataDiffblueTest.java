@@ -21,6 +21,36 @@ public class SimpleFlowDataDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void constructorTest4() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new SimpleFlowData(1, 1)).getCurrentCount());
+  }
+
+  @Test(timeout=10000)
+  public void constructorTest3() {
+    // Arrange and Act
+    SimpleFlowData actualSimpleFlowData = new SimpleFlowData(1, 2147483647);
+
+    // Assert
+    int actualCurrentCount = actualSimpleFlowData.getCurrentCount();
+    assertEquals("0", actualSimpleFlowData.getSlotInfo());
+    assertEquals(0, actualCurrentCount);
+  }
+
+  @Test(timeout=10000)
+  public void constructorTest2() {
+    // Arrange and Act
+    SimpleFlowData actualSimpleFlowData = new SimpleFlowData(3, 2147483647);
+
+    // Assert
+    int actualSlotCount = actualSimpleFlowData.getSlotCount();
+    int actualCurrentCount = actualSimpleFlowData.getCurrentCount();
+    assertEquals(3, actualSlotCount);
+    assertEquals("0 0 0", actualSimpleFlowData.getSlotInfo());
+    assertEquals(0, actualCurrentCount);
+  }
+
+  @Test(timeout=10000)
   public void constructorTest() {
     // Arrange and Act
     SimpleFlowData actualSimpleFlowData = new SimpleFlowData(3, 42);
@@ -76,9 +106,15 @@ public class SimpleFlowDataDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void getCountTest() {
+  public void getCountTest2() {
     // Arrange, Act and Assert
     assertEquals(0, (new SimpleFlowData(3, 42)).getCount(3));
+  }
+
+  @Test(timeout=10000)
+  public void getCountTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new SimpleFlowData(3, 42)).getCount(0));
   }
 }
 

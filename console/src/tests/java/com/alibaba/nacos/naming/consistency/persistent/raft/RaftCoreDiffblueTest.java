@@ -2,7 +2,6 @@ package com.alibaba.nacos.naming.consistency.persistent.raft;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.alibaba.nacos.naming.consistency.ApplyAction;
 import org.junit.Test;
 
 public class RaftCoreDiffblueTest {
@@ -10,18 +9,6 @@ public class RaftCoreDiffblueTest {
   public void constructorTest2() {
     // Arrange, Act and Assert
     assertEquals(0, ((new RaftCore()).new Notifier()).getTaskSize());
-  }
-
-  @Test(timeout=10000)
-  public void addTaskTest() {
-    // Arrange
-    RaftCore.Notifier notifier = (new RaftCore()).new Notifier();
-
-    // Act
-    notifier.addTask("foo", ApplyAction.CHANGE);
-
-    // Assert
-    assertEquals(1, notifier.getTaskSize());
   }
 
   @Test(timeout=10000)

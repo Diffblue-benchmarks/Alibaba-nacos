@@ -31,13 +31,8 @@ public class NamespaceDiffblueTest {
 
   @Test(timeout=10000)
   public void constructorTest3() {
-    // Arrange and Act
-    Namespace actualNamespace = new Namespace("foo", "name");
-
-    // Assert
-    String actualNamespace1 = actualNamespace.getNamespace();
-    assertEquals("foo", actualNamespace1);
-    assertEquals("name", actualNamespace.getNamespaceShowName());
+    // Arrange, Act and Assert
+    assertEquals("foo", (new Namespace("foo", "name")).getNamespace());
   }
 
   @Test(timeout=10000)
@@ -120,18 +115,6 @@ public class NamespaceDiffblueTest {
   public void getNamespaceShowNameTest() {
     // Arrange, Act and Assert
     assertNull((new Namespace()).getNamespaceShowName());
-  }
-
-  @Test(timeout=10000)
-  public void setQuotaTest() {
-    // Arrange
-    Namespace namespace = new Namespace();
-
-    // Act
-    namespace.setQuota(1);
-
-    // Assert
-    assertEquals(1, namespace.getQuota());
   }
 
   @Test(timeout=10000)

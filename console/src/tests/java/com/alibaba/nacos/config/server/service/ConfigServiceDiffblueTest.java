@@ -21,8 +21,17 @@ public class ConfigServiceDiffblueTest {
 
   @Test(timeout=10000)
   public void dumpBetaTest() {
-    // Arrange, Act and Assert
-    assertTrue(ConfigService.dumpBeta("123", "foo", "foo", "foo", 1L, "foo"));
+    // Arrange
+    boolean actualDumpBetaResult = ConfigService.dumpBeta("123", "foo", "foo", "foo", 1L, "foo");
+    boolean actualDumpBetaResult1 = ConfigService.dumpBeta("", "foo", "foo", "foo", 1L, "foo");
+    boolean actualDumpBetaResult2 = ConfigService.dumpBeta("123", "foo", "foo", "acbd18db4cc2f85cedef654fccc4a4d8", 1L,
+        "foo");
+
+    // Act and Assert
+    assertTrue(actualDumpBetaResult);
+    assertFalse(actualDumpBetaResult1);
+    assertTrue(actualDumpBetaResult2);
+    assertTrue(ConfigService.dumpBeta("123", "foo", "foo", "foo", 0L, "foo"));
   }
 
   @Test(timeout=10000)
@@ -57,7 +66,16 @@ public class ConfigServiceDiffblueTest {
 
   @Test(timeout=10000)
   public void dumpChangeTest() {
-    // Arrange, Act and Assert
+    // Arrange
+    boolean actualDumpChangeResult = ConfigService.dumpChange("123", "foo", "foo", "foo", 1L);
+    boolean actualDumpChangeResult1 = ConfigService.dumpChange("[dump-ignore] ignore to save cache file."
+        + " groupKey={}, md5={}, lastModifiedOld={}," + " lastModifiedNew={}", "foo", "foo", "foo", 1L);
+    boolean actualDumpChangeResult2 = ConfigService.dumpChange("", "foo", "foo", "foo", 1L);
+
+    // Act and Assert
+    assertTrue(actualDumpChangeResult);
+    assertTrue(actualDumpChangeResult1);
+    assertFalse(actualDumpChangeResult2);
     assertTrue(ConfigService.dumpChange("123", "foo", "foo", "foo", 1L));
   }
 
@@ -99,14 +117,31 @@ public class ConfigServiceDiffblueTest {
 
   @Test(timeout=10000)
   public void dumpTagTest() {
-    // Arrange, Act and Assert
-    assertTrue(ConfigService.dumpTag("123", "foo", "foo", "foo", "foo", 1L));
+    // Arrange
+    boolean actualDumpTagResult = ConfigService.dumpTag("123", "foo", "foo", "foo", "foo", 1L);
+    boolean actualDumpTagResult1 = ConfigService.dumpTag("123", "foo", "foo", "", "foo", 1L);
+    boolean actualDumpTagResult2 = ConfigService.dumpTag("123", "foo", "foo", "acbd18db4cc2f85cedef654fccc4a4d8", "foo",
+        1L);
+
+    // Act and Assert
+    assertTrue(actualDumpTagResult);
+    assertFalse(actualDumpTagResult1);
+    assertTrue(actualDumpTagResult2);
+    assertTrue(ConfigService.dumpTag("123", "foo", "foo", "foo", "foo", 0L));
   }
 
   @Test(timeout=10000)
   public void dumpTest() {
-    // Arrange, Act and Assert
-    assertTrue(ConfigService.dump("123", "foo", "foo", "foo", 1L));
+    // Arrange
+    boolean actualDumpResult = ConfigService.dump("123", "foo", "foo", "foo", 1L);
+    boolean actualDumpResult1 = ConfigService.dump("", "foo", "foo", "foo", 1L);
+    boolean actualDumpResult2 = ConfigService.dump("123", "foo", "foo", "acbd18db4cc2f85cedef654fccc4a4d8", 1L);
+
+    // Act and Assert
+    assertTrue(actualDumpResult);
+    assertFalse(actualDumpResult1);
+    assertTrue(actualDumpResult2);
+    assertTrue(ConfigService.dump("123", "foo", "foo", "foo", 0L));
   }
 
   @Test(timeout=10000)

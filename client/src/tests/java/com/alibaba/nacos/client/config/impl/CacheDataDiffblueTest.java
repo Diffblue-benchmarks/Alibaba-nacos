@@ -84,6 +84,20 @@ public class CacheDataDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void setUseLocalConfigInfoTest2() {
+    // Arrange
+    CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");
+
+    // Act
+    cacheData.setUseLocalConfigInfo(false);
+
+    // Assert
+    long actualLocalConfigInfoVersion = cacheData.getLocalConfigInfoVersion();
+    assertEquals(-1L, actualLocalConfigInfoVersion);
+    assertFalse(cacheData.isUseLocalConfigInfo());
+  }
+
+  @Test(timeout=10000)
   public void setUseLocalConfigInfoTest() {
     // Arrange
     CacheData cacheData = new CacheData(new ConfigFilterChainManager(), "name", "123", "foo");

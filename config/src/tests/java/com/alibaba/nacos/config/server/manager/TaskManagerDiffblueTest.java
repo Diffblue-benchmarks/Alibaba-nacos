@@ -21,6 +21,19 @@ public class TaskManagerDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void constructorTest3() {
+    // Arrange and Act
+    TaskManager actualTaskManager = new TaskManager("");
+
+    // Assert
+    String actualTaskInfos = actualTaskManager.getTaskInfos();
+    TaskProcessor actualDefaultTaskProcessor = actualTaskManager.getDefaultTaskProcessor();
+    assertEquals("", actualTaskInfos);
+    assertEquals(0, actualTaskManager.size());
+    assertNull(actualDefaultTaskProcessor);
+  }
+
+  @Test(timeout=10000)
   public void constructorTest2() {
     // Arrange and Act
     TaskManager actualTaskManager = new TaskManager("name");
@@ -58,6 +71,18 @@ public class TaskManagerDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void removeTaskTest2() {
+    // Arrange
+    TaskManager taskManager = new TaskManager();
+
+    // Act
+    taskManager.removeTask("");
+
+    // Assert
+    assertEquals(0, taskManager.size());
+  }
+
+  @Test(timeout=10000)
   public void removeTaskTest() {
     // Arrange
     TaskManager taskManager = new TaskManager();
@@ -80,6 +105,12 @@ public class TaskManagerDiffblueTest {
     assertEquals("", actualTaskInfos);
     assertEquals(0, actualTaskManager.size());
     assertNull(actualDefaultTaskProcessor);
+  }
+
+  @Test(timeout=10000)
+  public void awaitTest2() throws InterruptedException {
+    // Arrange, Act and Assert
+    assertFalse((new TaskManager()).await(-9223372036854775808L, TimeUnit.NANOSECONDS));
   }
 
   @Test(timeout=10000)

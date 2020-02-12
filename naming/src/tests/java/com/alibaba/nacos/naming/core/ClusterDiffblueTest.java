@@ -57,7 +57,7 @@ public class ClusterDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void constructorTest2() {
+  public void constructorTest3() {
     // Arrange and Act
     Cluster actualCluster = new Cluster("name", new Service());
 
@@ -83,6 +83,13 @@ public class ClusterDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void constructorTest2() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    new Cluster("", new Service());
+  }
+
+  @Test(timeout=10000)
   public void constructorTest() {
     // Arrange and Act
     Cluster actualCluster = new Cluster();
@@ -105,7 +112,7 @@ public class ClusterDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setDefIPPortTest() {
+  public void setDefIPPortTest2() {
     // Arrange
     Cluster cluster = new Cluster();
 
@@ -117,9 +124,22 @@ public class ClusterDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void allIPsTest2() {
+  public void setDefIPPortTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    (new Cluster()).setDefIPPort(0);
+  }
+
+  @Test(timeout=10000)
+  public void allIPsTest3() {
     // Arrange, Act and Assert
     assertEquals(0, (new Cluster()).allIPs(true).size());
+  }
+
+  @Test(timeout=10000)
+  public void allIPsTest2() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new Cluster()).allIPs(false).size());
   }
 
   @Test(timeout=10000)
@@ -181,18 +201,6 @@ public class ClusterDiffblueTest {
   public void hashCodeTest() {
     // Arrange, Act and Assert
     assertEquals(23273, (new Cluster()).hashCode());
-  }
-
-  @Test(timeout=10000)
-  public void setServiceTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
-
-    // Act
-    cluster.setService(new Service());
-
-    // Assert
-    assertNull(cluster.getServiceName());
   }
 }
 

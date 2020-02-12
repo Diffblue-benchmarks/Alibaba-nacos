@@ -14,7 +14,7 @@ public class ServerListManagerDiffblueTest {
   public ExpectedException thrown = ExpectedException.none();
 
   @Test(timeout=10000)
-  public void constructorTest5() {
+  public void constructorTest8() {
     // Arrange, Act and Assert
     assertEquals("https://www.diffblue.com",
         ((new ServerListManager()).new GetServerListTask("https://www.diffblue.com")).url);
@@ -53,7 +53,7 @@ public class ServerListManagerDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void constructorTest4() throws NacosException {
+  public void constructorTest7() throws NacosException {
     // Arrange and Act
     ServerListManager actualServerListManager = new ServerListManager("foo");
 
@@ -74,7 +74,14 @@ public class ServerListManagerDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void constructorTest3() {
+  public void constructorTest6() throws NacosException {
+    // Arrange, Act and Assert
+    thrown.expect(NacosException.class);
+    new ServerListManager("");
+  }
+
+  @Test(timeout=10000)
+  public void constructorTest5() {
     // Arrange and Act
     ServerListManager actualServerListManager = new ServerListManager("localhost", 8080);
 
@@ -119,7 +126,14 @@ public class ServerListManagerDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void constructorTest2() throws NacosException {
+  public void constructorTest4() throws NacosException {
+    // Arrange, Act and Assert
+    thrown.expect(NacosException.class);
+    new ServerListManager("", "foo");
+  }
+
+  @Test(timeout=10000)
+  public void constructorTest3() throws NacosException {
     // Arrange and Act
     ServerListManager actualServerListManager = new ServerListManager("foo", "foo");
 
@@ -137,6 +151,27 @@ public class ServerListManagerDiffblueTest {
     assertEquals("[]", actualUrlString);
     assertEquals("foo", actualTenant);
     assertEquals("foo-foo", actualName);
+  }
+
+  @Test(timeout=10000)
+  public void constructorTest2() throws NacosException {
+    // Arrange and Act
+    ServerListManager actualServerListManager = new ServerListManager("foo", "");
+
+    // Assert
+    String actualNamespace = actualServerListManager.getNamespace();
+    String actualName = actualServerListManager.getName();
+    String actualTenant = actualServerListManager.getTenant();
+    String actualUrlString = actualServerListManager.getUrlString();
+    assertEquals("", actualNamespace);
+    assertEquals("8848", actualServerListManager.serverPort);
+    assertFalse(actualServerListManager.isFixed);
+    assertEquals("http://foo:8080/nacos/serverlist", actualServerListManager.addressServerUrl);
+    assertFalse(actualServerListManager.isStarted);
+    assertEquals("nacos", actualServerListManager.getContentPath());
+    assertEquals("[]", actualUrlString);
+    assertEquals("", actualTenant);
+    assertEquals("foo", actualName);
   }
 
   @Test(timeout=10000)

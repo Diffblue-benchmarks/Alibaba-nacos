@@ -18,7 +18,7 @@ public class NotifyTaskProcessorDiffblueTest {
     ServerListService serverListService = new ServerListService();
 
     // Act and Assert
-    assertSame((new NotifyTaskProcessor(serverListService)).serverListService, serverListService);
+    assertSame(serverListService, (new NotifyTaskProcessor(serverListService)).serverListService);
   }
 }
 

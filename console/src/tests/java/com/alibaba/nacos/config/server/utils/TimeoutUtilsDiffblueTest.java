@@ -36,9 +36,15 @@ public class TimeoutUtilsDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void isTimeoutTest() {
+  public void isTimeoutTest2() {
     // Arrange, Act and Assert
     assertFalse((new TimeoutUtils(1L, 42L)).isTimeout());
+  }
+
+  @Test(timeout=10000)
+  public void isTimeoutTest() {
+    // Arrange, Act and Assert
+    assertTrue((new TimeoutUtils(-1L, 42L)).isTimeout());
   }
 }
 

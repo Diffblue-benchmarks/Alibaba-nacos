@@ -9,6 +9,12 @@ public class ContentUtilsDiffblueTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
   @Test(timeout=10000)
+  public void verifyIncrementPubContentTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalArgumentException.class);
+    ContentUtils.verifyIncrementPubContent("");
+  }
+  @Test(timeout=10000)
   public void truncateContentTest() {
     // Arrange, Act and Assert
     assertEquals("foo", ContentUtils.truncateContent("foo"));

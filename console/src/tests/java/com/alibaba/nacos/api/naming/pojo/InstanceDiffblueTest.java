@@ -34,7 +34,7 @@ public class InstanceDiffblueTest {
     instance.addMetadata("foo", "value");
 
     // Assert
-    assertEquals(30000L, instance.getIpDeleteTimeout());
+    assertEquals(15000L, instance.getInstanceHeartBeatTimeOut());
   }
 
   @Test(timeout=10000)
@@ -89,12 +89,6 @@ public class InstanceDiffblueTest {
   public void getPortTest() {
     // Arrange, Act and Assert
     assertEquals(0, (new Instance()).getPort());
-  }
-
-  @Test(timeout=10000)
-  public void isEphemeralTest() {
-    // Arrange, Act and Assert
-    assertTrue((new Instance()).isEphemeral());
   }
 
   @Test(timeout=10000)

@@ -12,7 +12,9 @@ public class InstancesDiffblueTest {
 
     // Act and Assert
     assertEquals("d41d8cd98f00b204e9800998ecf8427e", instances.getChecksum());
+    String actualCachedChecksum = instances.getCachedChecksum();
     assertEquals("d41d8cd98f00b204e9800998ecf8427e", instances.getChecksum());
+    assertEquals("d41d8cd98f00b204e9800998ecf8427e", actualCachedChecksum);
   }
 
   @Test(timeout=10000)

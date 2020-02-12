@@ -12,6 +12,7 @@ public class NamespaceAllInfoDiffblueTest {
 
     // Assert
     String actualNamespace = actualNamespaceAllInfo.getNamespace();
+    int actualType = actualNamespaceAllInfo.getType();
     String actualNamespaceDesc = actualNamespaceAllInfo.getNamespaceDesc();
     String actualNamespaceShowName = actualNamespaceAllInfo.getNamespaceShowName();
     int actualConfigCount = actualNamespaceAllInfo.getConfigCount();
@@ -20,6 +21,7 @@ public class NamespaceAllInfoDiffblueTest {
     assertEquals(3, actualConfigCount);
     assertEquals("name", actualNamespaceShowName);
     assertEquals("foo", actualNamespaceDesc);
+    assertEquals(1, actualType);
   }
 
   @Test(timeout=10000)

@@ -5,9 +5,15 @@ import org.junit.Test;
 
 public class SimpleFlowDataDiffblueTest {
   @Test(timeout=10000)
-  public void getSlotInfoTest() {
+  public void getSlotInfoTest2() {
     // Arrange, Act and Assert
     assertEquals("0 0 0", (new SimpleFlowData(3, 42)).getSlotInfo());
+  }
+
+  @Test(timeout=10000)
+  public void getSlotInfoTest() {
+    // Arrange, Act and Assert
+    assertEquals("0 0 0", (new SimpleFlowData(3, 3)).getSlotInfo());
   }
 
   @Test(timeout=10000)
@@ -18,6 +24,30 @@ public class SimpleFlowDataDiffblueTest {
     // Act and Assert
     assertEquals(1, simpleFlowData.incrementAndGet());
     assertEquals(1, simpleFlowData.getCurrentCount());
+  }
+
+  @Test(timeout=10000)
+  public void constructorTest3() {
+    // Arrange and Act
+    SimpleFlowData actualSimpleFlowData = new SimpleFlowData(1, 2);
+
+    // Assert
+    int actualSlotCount = actualSimpleFlowData.getSlotCount();
+    assertEquals(1, actualSlotCount);
+    assertEquals(0, actualSimpleFlowData.getCurrentCount());
+  }
+
+  @Test(timeout=10000)
+  public void constructorTest2() {
+    // Arrange and Act
+    SimpleFlowData actualSimpleFlowData = new SimpleFlowData(3, 2);
+
+    // Assert
+    int actualSlotCount = actualSimpleFlowData.getSlotCount();
+    int actualCurrentCount = actualSimpleFlowData.getCurrentCount();
+    assertEquals(3, actualSlotCount);
+    assertEquals("0 0 0", actualSimpleFlowData.getSlotInfo());
+    assertEquals(0, actualCurrentCount);
   }
 
   @Test(timeout=10000)
@@ -55,9 +85,7 @@ public class SimpleFlowDataDiffblueTest {
 
     // Assert
     int actualCurrentCount = simpleFlowData.getCurrentCount();
-    int actualAverageCount = simpleFlowData.getAverageCount();
-    assertEquals("0 0 0", simpleFlowData.getSlotInfo());
-    assertEquals(0, actualAverageCount);
+    assertEquals(0, simpleFlowData.getAverageCount());
     assertEquals(0, actualCurrentCount);
   }
 

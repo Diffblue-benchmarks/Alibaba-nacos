@@ -54,8 +54,12 @@ public class NamingProxyDiffblueTest {
 
   @Test(timeout=10000)
   public void reqAPITest2() throws Exception {
-    // Arrange, Act and Assert
-    assertEquals("", NamingProxy.reqAPI("foo", null, "foo", true));
+    // Arrange
+    String actualReqAPIResult = NamingProxy.reqAPI("foo", null, "foo", true);
+
+    // Act and Assert
+    assertEquals("", actualReqAPIResult);
+    assertEquals("", NamingProxy.reqAPI("foo", null, "Nacos-Server:1.0.1", true));
   }
 
   @Test(timeout=10000)

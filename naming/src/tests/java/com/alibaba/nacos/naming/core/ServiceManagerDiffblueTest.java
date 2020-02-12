@@ -84,7 +84,7 @@ public class ServiceManagerDiffblueTest {
   @Test(timeout=10000)
   public void constructorTest() {
     // Arrange, Act and Assert
-    assertEquals(0, (new ServiceManager()).getServiceCount());
+    assertEquals(0, (new ServiceManager()).getResponsibleServiceCount());
   }
 
   @Test(timeout=10000)
@@ -110,7 +110,7 @@ public class ServiceManagerDiffblueTest {
 
     // Assert
     assertEquals("public", service.getNamespaceId());
-    assertEquals(0, serviceManager.getServiceCount());
+    assertEquals(0, serviceManager.getInstanceCount());
   }
 
   @Test(timeout=10000)

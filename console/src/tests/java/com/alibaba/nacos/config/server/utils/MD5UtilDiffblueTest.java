@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 import org.junit.Test;
 
 public class MD5UtilDiffblueTest {
@@ -27,8 +28,15 @@ public class MD5UtilDiffblueTest {
 
   @Test(timeout=10000)
   public void getClientMd5MapTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, MD5Util.getClientMd5Map("foo").size());
+    // Arrange
+    Map<String, String> clientMd5Map = MD5Util.getClientMd5Map("foo");
+
+    // Act
+    Map<String, String> actualClientMd5Map = MD5Util.getClientMd5Map("");
+
+    // Assert
+    assertEquals(0, clientMd5Map.size());
+    assertEquals(0, actualClientMd5Map.size());
   }
 }
 

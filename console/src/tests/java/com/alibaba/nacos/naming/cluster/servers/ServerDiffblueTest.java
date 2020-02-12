@@ -130,7 +130,7 @@ public class ServerDiffblueTest {
     server.setServePort(8080);
 
     // Assert
-    assertEquals("null:8080", server.getKey());
+    assertEquals(8080, server.getServePort());
   }
 
   @Test(timeout=10000)
@@ -181,7 +181,7 @@ public class ServerDiffblueTest {
     server.setIp("127.0.0.1");
 
     // Assert
-    assertEquals("127.0.0.1", server.getIp());
+    assertEquals("127.0.0.1:0", server.getKey());
   }
 
   @Test(timeout=10000)

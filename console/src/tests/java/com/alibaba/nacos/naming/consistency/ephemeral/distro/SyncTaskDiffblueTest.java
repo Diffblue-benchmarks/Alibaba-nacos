@@ -24,6 +24,18 @@ public class SyncTaskDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void setKeysTest() {
+    // Arrange
+    SyncTask syncTask = new SyncTask();
+
+    // Act
+    syncTask.setKeys(null);
+
+    // Assert
+    assertNull(syncTask.getKeys());
+  }
+
+  @Test(timeout=10000)
   public void getTargetServerTest() {
     // Arrange, Act and Assert
     assertNull((new SyncTask()).getTargetServer());
@@ -66,6 +78,18 @@ public class SyncTaskDiffblueTest {
 
     // Assert
     assertEquals(1L, syncTask.getLastExecuteTime());
+  }
+
+  @Test(timeout=10000)
+  public void setRetryCountTest() {
+    // Arrange
+    SyncTask syncTask = new SyncTask();
+
+    // Act
+    syncTask.setRetryCount(3);
+
+    // Assert
+    assertEquals(3, syncTask.getRetryCount());
   }
 }
 

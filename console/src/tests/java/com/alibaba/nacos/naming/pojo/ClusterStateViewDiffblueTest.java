@@ -24,18 +24,6 @@ public class ClusterStateViewDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setLeaderDueMsTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
-
-    // Act
-    clusterStateView.setLeaderDueMs(1L);
-
-    // Assert
-    assertEquals(1L, clusterStateView.getLeaderDueMs());
-  }
-
-  @Test(timeout=10000)
   public void getNodeIpTest() {
     // Arrange, Act and Assert
     assertNull((new ClusterStateView()).getNodeIp());

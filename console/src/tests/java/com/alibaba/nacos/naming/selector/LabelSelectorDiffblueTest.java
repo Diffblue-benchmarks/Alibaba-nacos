@@ -23,10 +23,23 @@ public class LabelSelectorDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void parseExpressionTest2() throws NacosException {
+  public void parseExpressionTest4() throws NacosException {
+    // Arrange, Act and Assert
+    assertEquals(0, LabelSelector.ExpressionInterpreter.parseExpression("").size());
+  }
+
+  @Test(timeout=10000)
+  public void parseExpressionTest3() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(NacosException.class);
     LabelSelector.ExpressionInterpreter.parseExpression("foo");
+  }
+
+  @Test(timeout=10000)
+  public void parseExpressionTest2() throws NacosException {
+    // Arrange, Act and Assert
+    thrown.expect(ArrayIndexOutOfBoundsException.class);
+    LabelSelector.ExpressionInterpreter.parseExpression("CONSUMER.label.");
   }
 
   @Test(timeout=10000)

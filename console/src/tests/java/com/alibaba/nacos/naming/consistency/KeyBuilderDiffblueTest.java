@@ -19,8 +19,12 @@ public class KeyBuilderDiffblueTest {
 
   @Test(timeout=10000)
   public void matchServiceMetaKeyTest2() {
-    // Arrange, Act and Assert
-    assertFalse(KeyBuilder.matchServiceMetaKey("foo", "123", "name"));
+    // Arrange
+    boolean actualMatchServiceMetaKeyResult = KeyBuilder.matchServiceMetaKey("foo", "123", "name");
+
+    // Act and Assert
+    assertFalse(actualMatchServiceMetaKeyResult);
+    assertFalse(KeyBuilder.matchServiceMetaKey("com.alibaba.nacos.naming.domains.meta.", "123", "name"));
   }
 
   @Test(timeout=10000)
@@ -31,15 +35,22 @@ public class KeyBuilderDiffblueTest {
 
   @Test(timeout=10000)
   public void matchPersistentKeyTest() {
-    // Arrange, Act and Assert
-    assertTrue(KeyBuilder.matchPersistentKey("foo"));
+    // Arrange
+    boolean actualMatchPersistentKeyResult = KeyBuilder.matchPersistentKey("foo");
+
+    // Act and Assert
+    assertTrue(actualMatchPersistentKeyResult);
+    assertFalse(KeyBuilder.matchPersistentKey("com.alibaba.nacos.naming.iplist.ephemeral."));
   }
 
   @Test(timeout=10000)
   public void buildInstanceListKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("com.alibaba.nacos.naming.iplist.ephemeral" + ".123##name",
-        KeyBuilder.buildInstanceListKey("123", "name", true));
+    // Arrange
+    String actualBuildInstanceListKeyResult = KeyBuilder.buildInstanceListKey("123", "name", true);
+
+    // Act and Assert
+    assertEquals("com.alibaba.nacos.naming.iplist.ephemeral" + ".123##name", actualBuildInstanceListKeyResult);
+    assertEquals("com.alibaba.nacos.naming.iplist.123##name", KeyBuilder.buildInstanceListKey("123", "name", false));
   }
 
   @Test(timeout=10000)
@@ -56,8 +67,12 @@ public class KeyBuilderDiffblueTest {
 
   @Test(timeout=10000)
   public void matchInstanceListKeyTest2() {
-    // Arrange, Act and Assert
-    assertFalse(KeyBuilder.matchInstanceListKey("foo"));
+    // Arrange
+    boolean actualMatchInstanceListKeyResult = KeyBuilder.matchInstanceListKey("foo");
+
+    // Act and Assert
+    assertFalse(actualMatchInstanceListKeyResult);
+    assertTrue(KeyBuilder.matchInstanceListKey("com.alibaba.nacos.naming.iplist."));
   }
 
   @Test(timeout=10000)
@@ -76,8 +91,19 @@ public class KeyBuilderDiffblueTest {
 
   @Test(timeout=10000)
   public void matchServiceMetaKeyTest() {
+    // Arrange
+    boolean actualMatchServiceMetaKeyResult = KeyBuilder.matchServiceMetaKey("foo");
+
+    // Act and Assert
+    assertFalse(actualMatchServiceMetaKeyResult);
+    assertTrue(KeyBuilder.matchServiceMetaKey("com.alibaba.nacos.naming.domains.meta."));
+  }
+
+  @Test(timeout=10000)
+  public void getNamespaceTest2() {
     // Arrange, Act and Assert
-    assertFalse(KeyBuilder.matchServiceMetaKey("foo"));
+    thrown.expect(StringIndexOutOfBoundsException.class);
+    KeyBuilder.getNamespace("meta.");
   }
 
   @Test(timeout=10000)
@@ -95,8 +121,12 @@ public class KeyBuilderDiffblueTest {
 
   @Test(timeout=10000)
   public void matchInstanceListKeyTest() {
-    // Arrange, Act and Assert
-    assertFalse(KeyBuilder.matchInstanceListKey("foo", "123", "name"));
+    // Arrange
+    boolean actualMatchInstanceListKeyResult = KeyBuilder.matchInstanceListKey("foo", "123", "name");
+
+    // Act and Assert
+    assertFalse(actualMatchInstanceListKeyResult);
+    assertFalse(KeyBuilder.matchInstanceListKey("com.alibaba.nacos.naming.iplist.", "123", "name"));
   }
 
   @Test(timeout=10000)

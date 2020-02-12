@@ -7,7 +7,7 @@
 //  @Test(timeout=10000)
 //  public void getCurrentTimeStrTest() {
 //    // Arrange, Act and Assert
-//    assertEquals("2020-02-10 23:45:38", TimeUtils.getCurrentTimeStr());  <-- expected:<2020-02-1[0 23:45:3]8> but was:<2020-02-1[1 00:13:5]8>
+//    assertEquals("2020-02-11 00:27:43", TimeUtils.getCurrentTimeStr());  <-- expected:<2020-02-11 0[0:27:43]> but was:<2020-02-11 0[1:04:01]>
 //  }
 //}
 //

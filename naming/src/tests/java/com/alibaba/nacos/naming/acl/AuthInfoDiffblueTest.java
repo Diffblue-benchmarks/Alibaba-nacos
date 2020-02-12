@@ -25,8 +25,12 @@ public class AuthInfoDiffblueTest {
 
   @Test(timeout=10000)
   public void fromStringTest() {
-    // Arrange, Act and Assert
-    assertNull(AuthInfo.fromString("foo", "UTF-8"));
+    // Arrange
+    AuthInfo actualFromStringResult = AuthInfo.fromString("foo", "UTF-8");
+
+    // Act and Assert
+    assertNull(actualFromStringResult);
+    assertNull(AuthInfo.fromString(",", "UTF-8"));
   }
 
   @Test(timeout=10000)

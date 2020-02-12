@@ -61,6 +61,12 @@ public class RsInfoDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void getPortTest() {
+    // Arrange, Act and Assert
+    assertEquals(0, (new RsInfo()).getPort());
+  }
+
+  @Test(timeout=10000)
   public void isEphemeralTest() {
     // Arrange, Act and Assert
     assertTrue((new RsInfo()).isEphemeral());
@@ -70,6 +76,18 @@ public class RsInfoDiffblueTest {
   public void getMemTest() {
     // Arrange, Act and Assert
     assertEquals(0.0, (new RsInfo()).getMem(), 0.0);
+  }
+
+  @Test(timeout=10000)
+  public void setLoadTest() {
+    // Arrange
+    RsInfo rsInfo = new RsInfo();
+
+    // Act
+    rsInfo.setLoad(10.0);
+
+    // Assert
+    assertEquals(10.0, rsInfo.getLoad(), 0.0);
   }
 
   @Test(timeout=10000)
@@ -112,6 +130,12 @@ public class RsInfoDiffblueTest {
 
     // Assert
     assertEquals("127.0.0.1", rsInfo.getIp());
+  }
+
+  @Test(timeout=10000)
+  public void getServiceNameTest() {
+    // Arrange, Act and Assert
+    assertNull((new RsInfo()).getServiceName());
   }
 
   @Test(timeout=10000)
@@ -220,6 +244,18 @@ public class RsInfoDiffblueTest {
 
     // Assert
     assertEquals("foo", rsInfo.getCluster());
+  }
+
+  @Test(timeout=10000)
+  public void setAkTest() {
+    // Arrange
+    RsInfo rsInfo = new RsInfo();
+
+    // Act
+    rsInfo.setAk("foo");
+
+    // Assert
+    assertEquals("foo", rsInfo.getAk());
   }
 }
 

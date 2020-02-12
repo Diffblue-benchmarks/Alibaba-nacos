@@ -30,15 +30,11 @@ public class GlobalConfigDiffblueTest {
     GlobalConfig actualGlobalConfig = new GlobalConfig();
 
     // Assert
-    int actualBatchSyncKeyCount = actualGlobalConfig.getBatchSyncKeyCount();
-    boolean actualIsExpireInstanceResult = actualGlobalConfig.isExpireInstance();
     boolean actualIsDataWarmupResult = actualGlobalConfig.isDataWarmup();
     int actualTaskDispatchPeriod = actualGlobalConfig.getTaskDispatchPeriod();
-    assertEquals(1000, actualBatchSyncKeyCount);
     assertEquals(5000L, actualGlobalConfig.getSyncRetryDelay());
     assertEquals(2000, actualTaskDispatchPeriod);
     assertFalse(actualIsDataWarmupResult);
-    assertTrue(actualIsExpireInstanceResult);
   }
 
   @Test(timeout=10000)

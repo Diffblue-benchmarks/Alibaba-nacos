@@ -53,6 +53,18 @@ public class NotifyTaskDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void setLastModifiedTest() {
+    // Arrange
+    NotifyTask notifyTask = new NotifyTask("123", "foo", "foo", 1L);
+
+    // Act
+    notifyTask.setLastModified(1L);
+
+    // Assert
+    assertEquals(1L, notifyTask.getLastModified());
+  }
+
+  @Test(timeout=10000)
   public void getLastModifiedTest() {
     // Arrange, Act and Assert
     assertEquals(1L, (new NotifyTask("123", "foo", "foo", 1L)).getLastModified());
@@ -84,10 +96,12 @@ public class NotifyTaskDiffblueTest {
     // Assert
     String actualDataId = actualNotifyTask.getDataId();
     long actualTaskInterval = actualNotifyTask.getTaskInterval();
+    String actualGroup = actualNotifyTask.getGroup();
     String actualTenant = actualNotifyTask.getTenant();
     assertEquals("123", actualDataId);
     assertEquals(1L, actualNotifyTask.getLastModified());
     assertEquals("foo", actualTenant);
+    assertEquals("foo", actualGroup);
     assertEquals(3000L, actualTaskInterval);
   }
 

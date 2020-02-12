@@ -277,8 +277,12 @@ public class ServiceInfoDiffblueTest {
 
   @Test(timeout=10000)
   public void getKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("name@@foo", ServiceInfo.getKey("name", "foo"));
+    // Arrange
+    String actualKey = ServiceInfo.getKey("name", "foo");
+
+    // Act and Assert
+    assertEquals("name@@foo", actualKey);
+    assertEquals("name", ServiceInfo.getKey("name", ""));
   }
 
   @Test(timeout=10000)

@@ -56,12 +56,10 @@ public class NamingConfigDiffblueTest {
     String actualToStringResult = actualTrafficReviseFilterRegistrationResult.toString();
     int actualOrder = actualTrafficReviseFilterRegistrationResult.getOrder();
     boolean actualIsAsyncSupportedResult = actualTrafficReviseFilterRegistrationResult.isAsyncSupported();
-    boolean actualIsEnabledResult = actualTrafficReviseFilterRegistrationResult.isEnabled();
     Filter filter = actualTrafficReviseFilterRegistrationResult.getFilter();
     assertEquals("trafficReviseFilter urls=[/v1/ns/*]", actualToStringResult);
     assertFalse(actualTrafficReviseFilterRegistrationResult.isMatchAfter());
     assertTrue(filter instanceof TrafficReviseFilter);
-    assertTrue(actualIsEnabledResult);
     assertTrue(actualIsAsyncSupportedResult);
     assertEquals(1, actualOrder);
   }

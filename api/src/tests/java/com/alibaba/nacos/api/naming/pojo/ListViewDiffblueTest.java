@@ -7,18 +7,6 @@ import org.junit.Test;
 
 public class ListViewDiffblueTest {
   @Test(timeout=10000)
-  public void setDataTest() {
-    // Arrange
-    ListView<Object> listView = new ListView<Object>();
-
-    // Act
-    listView.setData(null);
-
-    // Assert
-    assertNull(listView.getData());
-  }
-
-  @Test(timeout=10000)
   public void getCountTest() {
     // Arrange, Act and Assert
     assertEquals(0, (new ListView<Object>()).getCount());

@@ -5,38 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import java.util.List;
 import org.junit.Test;
 
 public class SwitchDomainDiffblueTest {
   @Test(timeout=10000)
-  public void setMinTest3() {
-    // Arrange
-    SwitchDomain.TcpHealthParams tcpHealthParams = new SwitchDomain.TcpHealthParams();
-
-    // Act
-    tcpHealthParams.setMin(1);
-
-    // Assert
-    assertEquals(1, tcpHealthParams.getMin());
-  }
-
-  @Test(timeout=10000)
   public void getMinTest3() {
     // Arrange, Act and Assert
     assertEquals(1000, (new SwitchDomain.TcpHealthParams()).getMin());
-  }
-
-  @Test(timeout=10000)
-  public void setMaxTest3() {
-    // Arrange
-    SwitchDomain.TcpHealthParams tcpHealthParams = new SwitchDomain.TcpHealthParams();
-
-    // Act
-    tcpHealthParams.setMax(3);
-
-    // Assert
-    assertEquals(3, tcpHealthParams.getMax());
   }
 
   @Test(timeout=10000)
@@ -69,9 +44,7 @@ public class SwitchDomainDiffblueTest {
     SwitchDomain.TcpHealthParams actualTcpHealthParams = new SwitchDomain.TcpHealthParams();
 
     // Assert
-    int actualMax = actualTcpHealthParams.getMax();
     float actualFactor = actualTcpHealthParams.getFactor();
-    assertEquals(5000, actualMax);
     assertEquals(1000, actualTcpHealthParams.getMin());
     assertEquals(0.75f, actualFactor, 0.0f);
   }
@@ -223,21 +196,21 @@ public class SwitchDomainDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void isPushEnabledTest() {
-    // Arrange, Act and Assert
-    assertTrue((new SwitchDomain()).isPushEnabled());
-  }
-
-  @Test(timeout=10000)
-  public void setEnableStandaloneTest() {
+  public void setCheckTimesTest() {
     // Arrange
     SwitchDomain switchDomain = new SwitchDomain();
 
     // Act
-    switchDomain.setEnableStandalone(true);
+    switchDomain.setCheckTimes(1);
 
     // Assert
-    assertTrue(switchDomain.isEnableStandalone());
+    assertEquals(1, switchDomain.getCheckTimes());
+  }
+
+  @Test(timeout=10000)
+  public void isPushEnabledTest() {
+    // Arrange, Act and Assert
+    assertTrue((new SwitchDomain()).isPushEnabled());
   }
 
   @Test(timeout=10000)
@@ -415,19 +388,6 @@ public class SwitchDomainDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setMysqlHealthParamsTest() {
-    // Arrange
-    SwitchDomain switchDomain = new SwitchDomain();
-    SwitchDomain.MysqlHealthParams mysqlHealthParams = new SwitchDomain.MysqlHealthParams();
-
-    // Act
-    switchDomain.setMysqlHealthParams(mysqlHealthParams);
-
-    // Assert
-    assertSame(mysqlHealthParams, switchDomain.getMysqlHealthParams());
-  }
-
-  @Test(timeout=10000)
   public void getPushPythonVersionTest() {
     // Arrange, Act and Assert
     assertEquals("0.4.3", (new SwitchDomain()).getPushPythonVersion());
@@ -455,6 +415,18 @@ public class SwitchDomainDiffblueTest {
   public void isHealthCheckEnabledTest() {
     // Arrange, Act and Assert
     assertTrue((new SwitchDomain()).isHealthCheckEnabled("name"));
+  }
+
+  @Test(timeout=10000)
+  public void setPushEnabledTest() {
+    // Arrange
+    SwitchDomain switchDomain = new SwitchDomain();
+
+    // Act
+    switchDomain.setPushEnabled(true);
+
+    // Assert
+    assertTrue(switchDomain.isPushEnabled());
   }
 
   @Test(timeout=10000)
@@ -548,18 +520,6 @@ public class SwitchDomainDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setPushCVersionTest() {
-    // Arrange
-    SwitchDomain switchDomain = new SwitchDomain();
-
-    // Act
-    switchDomain.setPushCVersion("foo");
-
-    // Assert
-    assertEquals("foo", switchDomain.getPushCVersion());
-  }
-
-  @Test(timeout=10000)
   public void setEnableAuthenticationTest() {
     // Arrange
     SwitchDomain switchDomain = new SwitchDomain();
@@ -587,6 +547,18 @@ public class SwitchDomainDiffblueTest {
   public void getAdWeightMapTest() {
     // Arrange, Act and Assert
     assertEquals(0, (new SwitchDomain()).getAdWeightMap().size());
+  }
+
+  @Test(timeout=10000)
+  public void setDistroThresholdTest() {
+    // Arrange
+    SwitchDomain switchDomain = new SwitchDomain();
+
+    // Act
+    switchDomain.setDistroThreshold(10.0f);
+
+    // Assert
+    assertEquals(10.0f, switchDomain.getDistroThreshold(), 0.0f);
   }
 
   @Test(timeout=10000)
@@ -635,15 +607,7 @@ public class SwitchDomainDiffblueTest {
     switchDomain.setDistroEnabled(true);
 
     // Assert
-    SwitchDomain.MysqlHealthParams mysqlHealthParams = switchDomain.getMysqlHealthParams();
-    boolean actualIsDistroEnabledResult = switchDomain.isDistroEnabled();
-    List<String> actualMasters = switchDomain.getMasters();
-    long actualClientBeatInterval = switchDomain.getClientBeatInterval();
-    assertEquals("0.1.0", switchDomain.getPushGoVersion());
-    assertEquals(5000L, actualClientBeatInterval);
-    assertNull(actualMasters);
-    assertTrue(actualIsDistroEnabledResult);
-    assertEquals(3000, mysqlHealthParams.getMax());
+    assertTrue(switchDomain.isDistroEnabled());
   }
 
   @Test(timeout=10000)
@@ -745,18 +709,6 @@ public class SwitchDomainDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setClientBeatIntervalTest() {
-    // Arrange
-    SwitchDomain switchDomain = new SwitchDomain();
-
-    // Act
-    switchDomain.setClientBeatInterval(42L);
-
-    // Assert
-    assertEquals(42L, switchDomain.getClientBeatInterval());
-  }
-
-  @Test(timeout=10000)
   public void setPushJavaVersionTest() {
     // Arrange
     SwitchDomain switchDomain = new SwitchDomain();
@@ -781,19 +733,6 @@ public class SwitchDomainDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setTcpHealthParamsTest() {
-    // Arrange
-    SwitchDomain switchDomain = new SwitchDomain();
-    SwitchDomain.TcpHealthParams tcpHealthParams = new SwitchDomain.TcpHealthParams();
-
-    // Act
-    switchDomain.setTcpHealthParams(tcpHealthParams);
-
-    // Assert
-    assertSame(tcpHealthParams, switchDomain.getTcpHealthParams());
-  }
-
-  @Test(timeout=10000)
   public void isDefaultInstanceEphemeralTest() {
     // Arrange, Act and Assert
     assertTrue((new SwitchDomain()).isDefaultInstanceEphemeral());
@@ -803,6 +742,18 @@ public class SwitchDomainDiffblueTest {
   public void isEnableStandaloneTest() {
     // Arrange, Act and Assert
     assertTrue((new SwitchDomain()).isEnableStandalone());
+  }
+
+  @Test(timeout=10000)
+  public void setDistroServerExpiredMillisTest() {
+    // Arrange
+    SwitchDomain switchDomain = new SwitchDomain();
+
+    // Act
+    switchDomain.setDistroServerExpiredMillis(1L);
+
+    // Assert
+    assertEquals(1L, switchDomain.getDistroServerExpiredMillis());
   }
 
   @Test(timeout=10000)

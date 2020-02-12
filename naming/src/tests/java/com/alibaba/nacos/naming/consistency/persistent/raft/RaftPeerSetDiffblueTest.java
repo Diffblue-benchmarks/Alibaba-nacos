@@ -4,9 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class RaftPeerSetDiffblueTest {
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
+
   @Test(timeout=10000)
   public void updateTest() {
     // Arrange
@@ -52,6 +57,19 @@ public class RaftPeerSetDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void allServersWithoutMySelfTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalStateException.class);
+    (new RaftPeerSet()).allServersWithoutMySelf();
+  }
+
+  @Test(timeout=10000)
+  public void isLeaderTest() {
+    // Arrange, Act and Assert
+    assertFalse((new RaftPeerSet()).isLeader("127.0.0.1"));
+  }
+
+  @Test(timeout=10000)
   public void setTermTest() {
     // Arrange
     RaftPeerSet raftPeerSet = new RaftPeerSet();
@@ -61,6 +79,13 @@ public class RaftPeerSetDiffblueTest {
 
     // Assert
     assertEquals(1L, raftPeerSet.getTerm());
+  }
+
+  @Test(timeout=10000)
+  public void localTest() {
+    // Arrange, Act and Assert
+    thrown.expect(IllegalStateException.class);
+    (new RaftPeerSet()).local();
   }
 
   @Test(timeout=10000)
@@ -86,16 +111,36 @@ public class RaftPeerSetDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void resetTest() {
+    // Arrange
+    RaftPeerSet raftPeerSet = new RaftPeerSet();
+
+    // Act
+    raftPeerSet.reset();
+
+    // Assert
+    assertNull(raftPeerSet.getLeader());
+  }
+
+  @Test(timeout=10000)
+  public void getLeaderTest() {
+    // Arrange, Act and Assert
+    assertNull((new RaftPeerSet()).getLeader());
+  }
+
+  @Test(timeout=10000)
   public void constructorTest() {
     // Arrange and Act
     RaftPeerSet actualRaftPeerSet = new RaftPeerSet();
 
     // Assert
     boolean actualIsReadyResult = actualRaftPeerSet.isReady();
+    RaftPeer actualLeader = actualRaftPeerSet.getLeader();
     long actualTerm = actualRaftPeerSet.getTerm();
     assertFalse(actualIsReadyResult);
     assertEquals(0, actualRaftPeerSet.size());
     assertEquals(0L, actualTerm);
+    assertNull(actualLeader);
   }
 
   @Test(timeout=10000)

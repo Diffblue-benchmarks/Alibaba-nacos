@@ -61,6 +61,12 @@ public class NacosNamingServiceDiffblueTest {
   }
 
   @Test(timeout=10000)
+  public void getServerStatusTest() {
+    // Arrange, Act and Assert
+    assertEquals("DOWN", (new NacosNamingService("")).getServerStatus());
+  }
+
+  @Test(timeout=10000)
   public void selectOneHealthyInstanceTest7() throws NacosException {
     // Arrange, Act and Assert
     thrown.expect(IllegalStateException.class);

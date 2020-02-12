@@ -3,7 +3,6 @@ package com.alibaba.nacos.config.server.utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
@@ -107,16 +106,6 @@ public class ZipUtilsDiffblueTest {
   public void getZipItemListTest() {
     // Arrange, Act and Assert
     assertNull((new ZipUtils.UnZipResult(null, new ZipUtils.ZipItem("name", "foo"))).getZipItemList());
-  }
-
-  @Test(timeout=10000)
-  public void unzipTest() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act and Assert
-    assertNull(ZipUtils.unzip(byteArray).getMetaDataItem());
   }
 }
 

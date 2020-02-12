@@ -276,18 +276,6 @@ public class SwitchDomainDiffblueTest {
   }
 
   @Test(timeout=10000)
-  public void setDefaultCacheMillisTest() {
-    // Arrange
-    SwitchDomain switchDomain = new SwitchDomain();
-
-    // Act
-    switchDomain.setDefaultCacheMillis(1L);
-
-    // Assert
-    assertEquals(1L, switchDomain.getDefaultCacheMillis());
-  }
-
-  @Test(timeout=10000)
   public void getClientBeatIntervalTest() {
     // Arrange, Act and Assert
     assertEquals(5000L, (new SwitchDomain()).getClientBeatInterval());
@@ -309,18 +297,6 @@ public class SwitchDomainDiffblueTest {
   public void getMastersTest() {
     // Arrange, Act and Assert
     assertNull((new SwitchDomain()).getMasters());
-  }
-
-  @Test(timeout=10000)
-  public void setSendBeatOnlyTest() {
-    // Arrange
-    SwitchDomain switchDomain = new SwitchDomain();
-
-    // Act
-    switchDomain.setSendBeatOnly(true);
-
-    // Assert
-    assertTrue(switchDomain.isSendBeatOnly());
   }
 
   @Test(timeout=10000)
@@ -677,6 +653,18 @@ public class SwitchDomainDiffblueTest {
   public void getHealthCheckWhiteListTest() {
     // Arrange, Act and Assert
     assertEquals(0, (new SwitchDomain()).getHealthCheckWhiteList().size());
+  }
+
+  @Test(timeout=10000)
+  public void setDefaultPushCacheMillisTest() {
+    // Arrange
+    SwitchDomain switchDomain = new SwitchDomain();
+
+    // Act
+    switchDomain.setDefaultPushCacheMillis(1L);
+
+    // Assert
+    assertEquals(1L, switchDomain.getDefaultPushCacheMillis());
   }
 
   @Test(timeout=10000)

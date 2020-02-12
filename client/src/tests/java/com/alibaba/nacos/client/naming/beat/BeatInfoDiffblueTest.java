@@ -203,5 +203,11 @@ public class BeatInfoDiffblueTest {
     // Assert
     assertEquals("127.0.0.1", beatInfo.getIp());
   }
+
+  @Test(timeout=10000)
+  public void isScheduledTest() {
+    // Arrange, Act and Assert
+    assertFalse((new BeatInfo()).isScheduled());
+  }
 }
 

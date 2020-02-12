@@ -22,17 +22,5 @@ public class HealthCheckStatusDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(-1L, (new HealthCheckStatus()).checkRT);
   }
-
-  @Test(timeout=10000)
-  public void resetTest() {
-    // Arrange
-    Instance instance = new Instance();
-
-    // Act
-    HealthCheckStatus.reset(instance);
-
-    // Assert
-    assertEquals(-1L, instance.getCheckRT());
-  }
 }
 

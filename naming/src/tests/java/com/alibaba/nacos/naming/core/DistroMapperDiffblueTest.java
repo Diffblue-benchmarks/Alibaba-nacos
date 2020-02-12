@@ -7,6 +7,12 @@ import org.junit.Test;
 
 public class DistroMapperDiffblueTest {
   @Test(timeout=10000)
+  public void mapSrvTest() {
+    // Arrange, Act and Assert
+    assertEquals("10.128.0.37:0", (new DistroMapper()).mapSrv("name"));
+  }
+
+  @Test(timeout=10000)
   public void constructorTest() {
     // Arrange, Act and Assert
     List<String> healthyList = (new DistroMapper()).getHealthyList();
