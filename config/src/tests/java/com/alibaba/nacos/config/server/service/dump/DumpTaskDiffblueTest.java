@@ -1,52 +1,29 @@
 package com.alibaba.nacos.config.server.service.dump;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.config.server.manager.AbstractTask;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.dump.DumpTask
+ *
+ * @author Diffblue JCover
+ */
+
 public class DumpTaskDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest3() {
-    // Arrange and Act
-    DumpTask actualDumpTask = new DumpTask("foo", "foo", 1L, "foo", true);
 
-    // Assert
-    assertEquals(1000L, actualDumpTask.getTaskInterval());
-    assertEquals("foo", actualDumpTask.groupKey);
-    assertTrue(actualDumpTask.isBeta);
-    assertEquals("foo", actualDumpTask.tag);
-    assertEquals(1L, actualDumpTask.lastModified);
-    assertEquals("foo", actualDumpTask.handleIp);
-  }
+    @Test(timeout=10000)
+    public void merge() {
+        AbstractTask task = mock(AbstractTask.class);
+        new DumpTask("foo", 1L, "foo").merge(task);
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    DumpTask actualDumpTask = new DumpTask("foo", 1L, "foo", true);
-
-    // Assert
-    assertEquals(1000L, actualDumpTask.getTaskInterval());
-    assertEquals("foo", actualDumpTask.groupKey);
-    assertTrue(actualDumpTask.isBeta);
-    assertNull(actualDumpTask.tag);
-    assertEquals(1L, actualDumpTask.lastModified);
-    assertEquals("foo", actualDumpTask.handleIp);
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    DumpTask actualDumpTask = new DumpTask("foo", 1L, "foo");
-
-    // Assert
-    assertEquals(1000L, actualDumpTask.getTaskInterval());
-    assertEquals("foo", actualDumpTask.groupKey);
-    assertFalse(actualDumpTask.isBeta);
-    assertNull(actualDumpTask.tag);
-    assertEquals(1L, actualDumpTask.lastModified);
-    assertEquals("foo", actualDumpTask.handleIp);
-  }
+    @Test(timeout=10000)
+    public void shouldProcessReturnsTrue() {
+        assertThat(new DumpTask("foo", 1L, "foo").shouldProcess(), is(true));
+    }
 }
-

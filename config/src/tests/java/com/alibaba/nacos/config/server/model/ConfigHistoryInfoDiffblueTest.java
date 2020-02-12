@@ -1,212 +1,182 @@
 package com.alibaba.nacos.config.server.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
+import java.sql.Timestamp;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.ConfigHistoryInfo
+ *
+ * @author Diffblue JCover
+ */
+
 public class ConfigHistoryInfoDiffblueTest {
-  @Test(timeout=10000)
-  public void setAppNameTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
-    // Act
-    configHistoryInfo.setAppName("name");
+    @Test(timeout=10000)
+    public void getAppNameReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getAppName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", configHistoryInfo.getAppName());
-  }
+    @Test(timeout=10000)
+    public void getContentReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getContent(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setOpTypeTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+    @Test(timeout=10000)
+    public void getDataIdReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getDataId(), is(nullValue()));
+    }
 
-    // Act
-    configHistoryInfo.setOpType("foo");
+    @Test(timeout=10000)
+    public void getGroupReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getGroup(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", configHistoryInfo.getOpType());
-  }
+    @Test(timeout=10000)
+    public void getIdReturnsZero() {
+        assertThat(new ConfigHistoryInfo().getId(), is(0L));
+    }
 
-  @Test(timeout=10000)
-  public void setGroupTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+    @Test(timeout=10000)
+    public void getLastIdReturnsMinusOne() {
+        assertThat(new ConfigHistoryInfo().getLastId(), is(-1L));
+    }
 
-    // Act
-    configHistoryInfo.setGroup("foo");
+    @Test(timeout=10000)
+    public void getMd5ReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getMd5(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", configHistoryInfo.getGroup());
-  }
+    @Test(timeout=10000)
+    public void getOpTypeReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getOpType(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setLastIdTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+    @Test(timeout=10000)
+    public void getSrcIpReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getSrcIp(), is(nullValue()));
+    }
 
-    // Act
-    configHistoryInfo.setLastId(123L);
+    @Test(timeout=10000)
+    public void getSrcUserReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getSrcUser(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals(123L, configHistoryInfo.getLastId());
-  }
+    @Test(timeout=10000)
+    public void getTenantReturnsNull() {
+        assertThat(new ConfigHistoryInfo().getTenant(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setContentTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+    @Test(timeout=10000)
+    public void setAppName() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setAppName("/bin/bash");
+        assertThat(configHistoryInfo.getAppName(), is("/bin/bash"));
+    }
 
-    // Act
-    configHistoryInfo.setContent("foo");
+    @Test(timeout=10000)
+    public void setContentToFoo() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setContent("foo");
+        assertThat(configHistoryInfo.getContent(), is("foo"));
+    }
 
-    // Assert
-    assertEquals("foo", configHistoryInfo.getContent());
-  }
+    @Test(timeout=10000)
+    public void setCreatedTime() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setCreatedTime(new Timestamp(1, 1, 1, 1, 1, 1, 1));
+        assertThat(configHistoryInfo.getCreatedTime().getNanos(), is(0));
+        assertThat(configHistoryInfo.getCreatedTime().getTime(), is(-2_174_770_739_000L));
+        assertThat(configHistoryInfo.getCreatedTime().getDate(), is(1));
+        assertThat(configHistoryInfo.getCreatedTime().getDay(), is(5));
+        assertThat(configHistoryInfo.getCreatedTime().getHours(), is(1));
+        assertThat(configHistoryInfo.getCreatedTime().getMinutes(), is(1));
+        assertThat(configHistoryInfo.getCreatedTime().getMonth(), is(1));
+        assertThat(configHistoryInfo.getCreatedTime().getSeconds(), is(1));
+        assertThat(configHistoryInfo.getCreatedTime().getTimezoneOffset(), is(0));
+        assertThat(configHistoryInfo.getCreatedTime().getYear(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void getLastIdTest() {
-    // Arrange, Act and Assert
-    assertEquals(-1L, (new ConfigHistoryInfo()).getLastId());
-  }
+    @Test(timeout=10000)
+    public void setDataIdToSomething() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setDataId("something");
+        assertThat(configHistoryInfo.getDataId(), is("something"));
+    }
 
-  @Test(timeout=10000)
-  public void getAppNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getAppName());
-  }
+    @Test(timeout=10000)
+    public void setGroupToFoo() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setGroup("foo");
+        assertThat(configHistoryInfo.getGroup(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getSrcUserTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getSrcUser());
-  }
+    @Test(timeout=10000)
+    public void setIdToOne() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setId(1L);
+        assertThat(configHistoryInfo.getId(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void setSrcUserTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+    @Test(timeout=10000)
+    public void setLastIdToOne() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setLastId(1L);
+        assertThat(configHistoryInfo.getLastId(), is(1L));
+    }
 
-    // Act
-    configHistoryInfo.setSrcUser("foo");
+    @Test(timeout=10000)
+    public void setLastModifiedTime() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setLastModifiedTime(new Timestamp(1, 1, 1, 1, 1, 1, 1));
+        assertThat(configHistoryInfo.getLastModifiedTime().getNanos(), is(0));
+        assertThat(configHistoryInfo.getLastModifiedTime().getTime(), is(-2_174_770_739_000L));
+        assertThat(configHistoryInfo.getLastModifiedTime().getDate(), is(1));
+        assertThat(configHistoryInfo.getLastModifiedTime().getDay(), is(5));
+        assertThat(configHistoryInfo.getLastModifiedTime().getHours(), is(1));
+        assertThat(configHistoryInfo.getLastModifiedTime().getMinutes(), is(1));
+        assertThat(configHistoryInfo.getLastModifiedTime().getMonth(), is(1));
+        assertThat(configHistoryInfo.getLastModifiedTime().getSeconds(), is(1));
+        assertThat(configHistoryInfo.getLastModifiedTime().getTimezoneOffset(), is(0));
+        assertThat(configHistoryInfo.getLastModifiedTime().getYear(), is(1));
+    }
 
-    // Assert
-    assertEquals("foo", configHistoryInfo.getSrcUser());
-  }
+    @Test(timeout=10000)
+    public void setMd5ToFoo() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setMd5("foo");
+        assertThat(configHistoryInfo.getMd5(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getContentTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getContent());
-  }
+    @Test(timeout=10000)
+    public void setOpTypeToGif() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setOpType("gif");
+        assertThat(configHistoryInfo.getOpType(), is("gif"));
+    }
 
-  @Test(timeout=10000)
-  public void getIdTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new ConfigHistoryInfo()).getId());
-  }
+    @Test(timeout=10000)
+    public void setSrcIpToFoo() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setSrcIp("foo");
+        assertThat(configHistoryInfo.getSrcIp(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getDataIdTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getDataId());
-  }
+    @Test(timeout=10000)
+    public void setSrcUserToFoo() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setSrcUser("foo");
+        assertThat(configHistoryInfo.getSrcUser(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getSrcIpTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getSrcIp());
-  }
-
-  @Test(timeout=10000)
-  public void setTenantTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
-
-    // Act
-    configHistoryInfo.setTenant("foo");
-
-    // Assert
-    assertEquals("foo", configHistoryInfo.getTenant());
-  }
-
-  @Test(timeout=10000)
-  public void setDataIdTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
-
-    // Act
-    configHistoryInfo.setDataId("123");
-
-    // Assert
-    assertEquals("123", configHistoryInfo.getDataId());
-  }
-
-  @Test(timeout=10000)
-  public void getTenantTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getTenant());
-  }
-
-  @Test(timeout=10000)
-  public void setSrcIpTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
-
-    // Act
-    configHistoryInfo.setSrcIp("foo");
-
-    // Assert
-    assertEquals("foo", configHistoryInfo.getSrcIp());
-  }
-
-  @Test(timeout=10000)
-  public void setIdTest() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
-
-    // Act
-    configHistoryInfo.setId(123L);
-
-    // Assert
-    assertEquals(123L, configHistoryInfo.getId());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertEquals(-1L, (new ConfigHistoryInfo()).getLastId());
-  }
-
-  @Test(timeout=10000)
-  public void setMd5Test() {
-    // Arrange
-    ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
-
-    // Act
-    configHistoryInfo.setMd5("foo");
-
-    // Assert
-    assertEquals("foo", configHistoryInfo.getMd5());
-  }
-
-  @Test(timeout=10000)
-  public void getOpTypeTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getOpType());
-  }
-
-  @Test(timeout=10000)
-  public void getMd5Test() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getMd5());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigHistoryInfo()).getGroup());
-  }
+    @Test(timeout=10000)
+    public void setTenantToFoo() {
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setTenant("foo");
+        assertThat(configHistoryInfo.getTenant(), is("foo"));
+    }
 }
-

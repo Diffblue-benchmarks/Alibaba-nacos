@@ -1,95 +1,82 @@
 package com.alibaba.nacos.config.server.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
+import java.sql.Timestamp;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.SubInfo
+ *
+ * @author Diffblue JCover
+ */
+
 public class SubInfoDiffblueTest {
-  @Test(timeout=10000)
-  public void setAppNameTest() {
-    // Arrange
-    SubInfo subInfo = new SubInfo();
 
-    // Act
-    subInfo.setAppName("name");
+    @Test(timeout=10000)
+    public void getAppNameReturnsNull() {
+        assertThat(new SubInfo().getAppName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", subInfo.getAppName());
-  }
+    @Test(timeout=10000)
+    public void getDataIdReturnsNull() {
+        assertThat(new SubInfo().getDataId(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setGroupTest() {
-    // Arrange
-    SubInfo subInfo = new SubInfo();
+    @Test(timeout=10000)
+    public void getGroupReturnsNull() {
+        assertThat(new SubInfo().getGroup(), is(nullValue()));
+    }
 
-    // Act
-    subInfo.setGroup("foo");
+    @Test(timeout=10000)
+    public void getLocalIpReturnsNull() {
+        assertThat(new SubInfo().getLocalIp(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", subInfo.getGroup());
-  }
+    @Test(timeout=10000)
+    public void setAppName() {
+        SubInfo subInfo = new SubInfo();
+        subInfo.setAppName("/bin/bash");
+        assertThat(subInfo.getAppName(), is("/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void setDataIdTest() {
-    // Arrange
-    SubInfo subInfo = new SubInfo();
+    @Test(timeout=10000)
+    public void setDataIdToSomething() {
+        SubInfo subInfo = new SubInfo();
+        subInfo.setDataId("something");
+        assertThat(subInfo.getDataId(), is("something"));
+    }
 
-    // Act
-    subInfo.setDataId("123");
+    @Test(timeout=10000)
+    public void setDate() {
+        SubInfo subInfo = new SubInfo();
+        subInfo.setDate(new Timestamp(1, 1, 1, 1, 1, 1, 1));
+        assertThat(subInfo.getDate().getNanos(), is(0));
+        assertThat(subInfo.getDate().getTime(), is(-2_174_770_739_000L));
+        assertThat(subInfo.getDate().getDate(), is(1));
+        assertThat(subInfo.getDate().getDay(), is(5));
+        assertThat(subInfo.getDate().getHours(), is(1));
+        assertThat(subInfo.getDate().getMinutes(), is(1));
+        assertThat(subInfo.getDate().getMonth(), is(1));
+        assertThat(subInfo.getDate().getSeconds(), is(1));
+        assertThat(subInfo.getDate().getTimezoneOffset(), is(0));
+        assertThat(subInfo.getDate().getYear(), is(1));
+    }
 
-    // Assert
-    assertEquals("123", subInfo.getDataId());
-  }
+    @Test(timeout=10000)
+    public void setGroupToFoo() {
+        SubInfo subInfo = new SubInfo();
+        subInfo.setGroup("foo");
+        assertThat(subInfo.getGroup(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getAppNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new SubInfo()).getAppName());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupTest() {
-    // Arrange, Act and Assert
-    assertNull((new SubInfo()).getGroup());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    SubInfo actualSubInfo = new SubInfo();
-
-    // Assert
-    String actualDataId = actualSubInfo.getDataId();
-    String actualLocalIp = actualSubInfo.getLocalIp();
-    String actualGroup = actualSubInfo.getGroup();
-    assertNull(actualDataId);
-    assertNull(actualSubInfo.getAppName());
-    assertNull(actualGroup);
-    assertNull(actualLocalIp);
-  }
-
-  @Test(timeout=10000)
-  public void getLocalIpTest() {
-    // Arrange, Act and Assert
-    assertNull((new SubInfo()).getLocalIp());
-  }
-
-  @Test(timeout=10000)
-  public void setLocalIpTest() {
-    // Arrange
-    SubInfo subInfo = new SubInfo();
-
-    // Act
-    subInfo.setLocalIp("foo");
-
-    // Assert
-    assertEquals("foo", subInfo.getLocalIp());
-  }
-
-  @Test(timeout=10000)
-  public void getDataIdTest() {
-    // Arrange, Act and Assert
-    assertNull((new SubInfo()).getDataId());
-  }
+    @Test(timeout=10000)
+    public void setLocalIp() {
+        SubInfo subInfo = new SubInfo();
+        subInfo.setLocalIp("545321456");
+        assertThat(subInfo.getLocalIp(), is("545321456"));
+    }
 }
-

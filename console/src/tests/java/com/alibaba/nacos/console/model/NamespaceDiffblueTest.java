@@ -1,126 +1,80 @@
 package com.alibaba.nacos.console.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.console.model.Namespace
+ *
+ * @author Diffblue JCover
+ */
+
 public class NamespaceDiffblueTest {
-  @Test(timeout=10000)
-  public void getQuotaTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Namespace()).getQuota());
-  }
 
-  @Test(timeout=10000)
-  public void getConfigCountTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Namespace()).getConfigCount());
-  }
+    @Test(timeout=10000)
+    public void getConfigCount() {
+        assertThat(new Namespace().getConfigCount(), is(0));
+        assertThat(new Namespace("foo", "/bin/bash").getConfigCount(), is(0));
+        assertThat(new Namespace("foo", "/bin/bash", 1, 1, 1).getConfigCount(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void setNamespaceShowNameTest() {
-    // Arrange
-    Namespace namespace = new Namespace();
+    @Test(timeout=10000)
+    public void getNamespaceReturnsNull() {
+        assertThat(new Namespace().getNamespace(), is(nullValue()));
+    }
 
-    // Act
-    namespace.setNamespaceShowName("name");
+    @Test(timeout=10000)
+    public void getNamespaceShowNameReturnsNull() {
+        assertThat(new Namespace().getNamespaceShowName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", namespace.getNamespaceShowName());
-  }
+    @Test(timeout=10000)
+    public void getQuota() {
+        assertThat(new Namespace("foo", "/bin/bash", 1, 1, 1).getQuota(), is(1));
+        assertThat(new Namespace().getQuota(), is(0));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest3() {
-    // Arrange, Act and Assert
-    assertEquals("foo", (new Namespace("foo", "name")).getNamespace());
-  }
+    @Test(timeout=10000)
+    public void getType() {
+        assertThat(new Namespace("foo", "/bin/bash", 1, 1, 1).getType(), is(1));
+        assertThat(new Namespace().getType(), is(0));
+    }
 
-  @Test(timeout=10000)
-  public void getNamespaceTest() {
-    // Arrange, Act and Assert
-    assertNull((new Namespace()).getNamespace());
-  }
+    @Test(timeout=10000)
+    public void setConfigCountToOne() {
+        Namespace namespace1 = new Namespace();
+        namespace1.setConfigCount(1);
+        assertThat(namespace1.getConfigCount(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    Namespace actualNamespace = new Namespace("foo", "name", 1, 3, 1);
+    @Test(timeout=10000)
+    public void setNamespaceShowName() {
+        Namespace namespace1 = new Namespace();
+        namespace1.setNamespaceShowName("/bin/bash");
+        assertThat(namespace1.getNamespaceShowName(), is("/bin/bash"));
+    }
 
-    // Assert
-    String actualNamespace1 = actualNamespace.getNamespace();
-    int actualType = actualNamespace.getType();
-    String actualNamespaceShowName = actualNamespace.getNamespaceShowName();
-    int actualConfigCount = actualNamespace.getConfigCount();
-    assertEquals("foo", actualNamespace1);
-    assertEquals(1, actualNamespace.getQuota());
-    assertEquals(3, actualConfigCount);
-    assertEquals("name", actualNamespaceShowName);
-    assertEquals(1, actualType);
-  }
+    @Test(timeout=10000)
+    public void setNamespaceToFoo() {
+        Namespace namespace1 = new Namespace();
+        namespace1.setNamespace("foo");
+        assertThat(namespace1.getNamespace(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void setTypeTest() {
-    // Arrange
-    Namespace namespace = new Namespace();
+    @Test(timeout=10000)
+    public void setQuotaToOne() {
+        Namespace namespace1 = new Namespace();
+        namespace1.setQuota(1);
+        assertThat(namespace1.getQuota(), is(1));
+    }
 
-    // Act
-    namespace.setType(1);
-
-    // Assert
-    assertEquals(1, namespace.getType());
-  }
-
-  @Test(timeout=10000)
-  public void setConfigCountTest() {
-    // Arrange
-    Namespace namespace = new Namespace();
-
-    // Act
-    namespace.setConfigCount(3);
-
-    // Assert
-    assertEquals(3, namespace.getConfigCount());
-  }
-
-  @Test(timeout=10000)
-  public void setNamespaceTest() {
-    // Arrange
-    Namespace namespace = new Namespace();
-
-    // Act
-    namespace.setNamespace("foo");
-
-    // Assert
-    assertEquals("foo", namespace.getNamespace());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Namespace actualNamespace = new Namespace();
-
-    // Assert
-    String actualNamespace1 = actualNamespace.getNamespace();
-    int actualType = actualNamespace.getType();
-    String actualNamespaceShowName = actualNamespace.getNamespaceShowName();
-    int actualConfigCount = actualNamespace.getConfigCount();
-    assertNull(actualNamespace1);
-    assertEquals(0, actualNamespace.getQuota());
-    assertEquals(0, actualConfigCount);
-    assertNull(actualNamespaceShowName);
-    assertEquals(0, actualType);
-  }
-
-  @Test(timeout=10000)
-  public void getNamespaceShowNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Namespace()).getNamespaceShowName());
-  }
-
-  @Test(timeout=10000)
-  public void getTypeTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Namespace()).getType());
-  }
+    @Test(timeout=10000)
+    public void setTypeToOne() {
+        Namespace namespace1 = new Namespace();
+        namespace1.setType(1);
+        assertThat(namespace1.getType(), is(1));
+    }
 }
-

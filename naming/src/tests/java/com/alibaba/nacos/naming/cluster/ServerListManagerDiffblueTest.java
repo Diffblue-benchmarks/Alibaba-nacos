@@ -1,63 +1,87 @@
 package com.alibaba.nacos.naming.cluster;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import com.alibaba.nacos.naming.cluster.servers.Server;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.naming.cluster.servers.ServerChangeListener;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.cluster.ServerListManager
+ *
+ * @author Diffblue JCover
+ */
+
 public class ServerListManagerDiffblueTest {
-  @Test(timeout=10000)
-  public void getHealthyServersTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new ServerListManager()).getHealthyServers().size());
-  }
 
-  @Test(timeout=10000)
-  public void getServersTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new ServerListManager()).getServers().size());
-  }
+    @Test(timeout=10000)
+    public void clean() {
+        new ServerListManager().clean();
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    ServerListManager actualServerListManager = new ServerListManager();
+    @Test(timeout=10000)
+    public void containsSIsSmithReturnsFalse() {
+        assertThat(new ServerListManager().contains("Smith"), is(false));
+    }
 
-    // Assert
-    Map<String, List<Server>> distroConfig = actualServerListManager.getDistroConfig();
-    Set<String> liveSites = actualServerListManager.getLiveSites();
-    List<Server> servers = actualServerListManager.getServers();
-    List<Server> healthyServers = actualServerListManager.getHealthyServers();
-    assertTrue(distroConfig instanceof java.util.concurrent.ConcurrentHashMap);
-    assertTrue(healthyServers instanceof java.util.ArrayList);
-    assertEquals(0, distroConfig.size());
-    assertEquals(0, healthyServers.size());
-    assertTrue(servers instanceof java.util.ArrayList);
-    assertTrue(liveSites instanceof java.util.HashSet);
-    assertEquals(0, servers.size());
-    assertEquals(0, liveSites.size());
-  }
+    @Test(timeout=10000)
+    public void getDistroConfigReturnsEmpty() {
+        ServerListManager serverListManager = new ServerListManager();
+        Map<String, java.util.List<com.alibaba.nacos.naming.cluster.servers.Server>> result = serverListManager.getDistroConfig();
+        assertThat(result.isEmpty(), is(true));
+        assertThat(serverListManager.getDistroConfig(), sameInstance(result));
+    }
 
-  @Test(timeout=10000)
-  public void getLiveSitesTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new ServerListManager()).getLiveSites().size());
-  }
+    @Test(timeout=10000)
+    public void getHealthyServersReturnsEmpty() {
+        ServerListManager serverListManager = new ServerListManager();
+        List<com.alibaba.nacos.naming.cluster.servers.Server> result = serverListManager.getHealthyServers();
+        assertThat(result, empty());
+        assertThat(serverListManager.getHealthyServers(), sameInstance(result));
+    }
 
-  @Test(timeout=10000)
-  public void getDistroConfigTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new ServerListManager()).getDistroConfig().size());
-  }
+    @Test(timeout=10000)
+    public void getLiveSitesReturnsEmpty() {
+        ServerListManager serverListManager = new ServerListManager();
+        Set<String> result = serverListManager.getLiveSites();
+        assertThat(result, empty());
+        assertThat(serverListManager.getLiveSites(), sameInstance(result));
+    }
 
-  @Test(timeout=10000)
-  public void containsTest() {
-    // Arrange, Act and Assert
-    assertFalse((new ServerListManager()).contains("foo"));
-  }
+    @Test(timeout=10000)
+    public void getServersReturnsEmpty() {
+        ServerListManager serverListManager = new ServerListManager();
+        List<com.alibaba.nacos.naming.cluster.servers.Server> result = serverListManager.getServers();
+        assertThat(result, empty());
+        assertThat(serverListManager.getServers(), sameInstance(result));
+    }
+
+    @Test(timeout=10000)
+    public void init() {
+        new ServerListManager().init();
+    }
+
+    @Test(timeout=10000)
+    public void listen() {
+        ServerChangeListener listener = mock(ServerChangeListener.class);
+        new ServerListManager().listen(listener);
+    }
+
+    @Test(timeout=10000)
+    public void onReceiveServerStatus() {
+        new ServerListManager().onReceiveServerStatus("\r\n");
+    }
+
+    @Test(timeout=10000)
+    public void onReceiveServerStatusConfigInfoIsSmith() {
+        new ServerListManager().onReceiveServerStatus("Smith");
+    }
 }
-

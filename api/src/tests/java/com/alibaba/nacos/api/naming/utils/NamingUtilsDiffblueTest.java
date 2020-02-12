@@ -1,44 +1,30 @@
 package com.alibaba.nacos.api.naming.utils;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Rule;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.api.naming.utils.NamingUtils
+ *
+ * @author Diffblue JCover
+ */
 
 public class NamingUtilsDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
-  @Test(timeout=10000)
-  public void getServiceNameTest2() {
-    // Arrange, Act and Assert
-    thrown.expect(ArrayIndexOutOfBoundsException.class);
-    NamingUtils.getServiceName("@@");
-  }
+    @Test(timeout=10000)
+    public void getGroupedName() {
+        assertThat(NamingUtils.getGroupedName("/bin/bash", "/bin/bash"), is("/bin/bash@@/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void getServiceNameTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", NamingUtils.getServiceName("foo"));
-  }
+    @Test(timeout=10000)
+    public void getGroupNameServiceNameWithGroupIsBar() {
+        assertThat(NamingUtils.getGroupName("bar"), is("DEFAULT_GROUP"));
+    }
 
-  @Test(timeout=10000)
-  public void getGroupNameTest2() {
-    // Arrange, Act and Assert
-    assertEquals("DEFAULT_GROUP", NamingUtils.getGroupName("foo"));
-  }
-
-  @Test(timeout=10000)
-  public void getGroupNameTest() {
-    // Arrange, Act and Assert
-    thrown.expect(ArrayIndexOutOfBoundsException.class);
-    NamingUtils.getGroupName("@@");
-  }
-
-  @Test(timeout=10000)
-  public void getGroupedNameTest() {
-    // Arrange, Act and Assert
-    assertEquals("name@@name", NamingUtils.getGroupedName("name", "name"));
-  }
+    @Test(timeout=10000)
+    public void getServiceNameServiceNameWithGroupIsBarReturnsBar() {
+        assertThat(NamingUtils.getServiceName("bar"), is("bar"));
+    }
 }
-

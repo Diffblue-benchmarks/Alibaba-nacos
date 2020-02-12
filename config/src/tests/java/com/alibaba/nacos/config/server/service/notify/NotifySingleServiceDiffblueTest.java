@@ -1,27 +1,28 @@
 package com.alibaba.nacos.config.server.service.notify;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
 import com.alibaba.nacos.config.server.service.ServerListService;
+
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.notify.NotifySingleService
+ *
+ * @author Diffblue JCover
+ */
+
 public class NotifySingleServiceDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange, Act and Assert
-    assertNull((new NotifySingleService.NotifyTaskProcessorWrapper()).serverListService);
-  }
 
-  @Test(timeout=10000)
-  public void getExecutorsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new NotifySingleService(new ServerListService())).getExecutors().size());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new NotifySingleService(new ServerListService())).getExecutors().size());
-  }
+    @Test(timeout=10000)
+    public void getExecutorsReturnsEmpty() {
+        NotifySingleService notifySingleService = new NotifySingleService(new ServerListService());
+        ConcurrentHashMap<String, java.util.concurrent.Executor> result = notifySingleService.getExecutors();
+        assertThat(result.isEmpty(), is(true));
+        assertThat(notifySingleService.getExecutors(), sameInstance(result));
+    }
 }
-

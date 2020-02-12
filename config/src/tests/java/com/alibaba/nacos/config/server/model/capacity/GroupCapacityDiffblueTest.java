@@ -1,52 +1,28 @@
 package com.alibaba.nacos.config.server.model.capacity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import java.sql.Timestamp;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.capacity.GroupCapacity
+ *
+ * @author Diffblue JCover
+ */
+
 public class GroupCapacityDiffblueTest {
-  @Test(timeout=10000)
-  public void setGroupTest() {
-    // Arrange
-    GroupCapacity groupCapacity = new GroupCapacity();
 
-    // Act
-    groupCapacity.setGroup("foo");
+    @Test(timeout=10000)
+    public void getGroupReturnsNull() {
+        assertThat(new GroupCapacity().getGroup(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", groupCapacity.getGroup());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupTest() {
-    // Arrange, Act and Assert
-    assertNull((new GroupCapacity()).getGroup());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    GroupCapacity actualGroupCapacity = new GroupCapacity();
-
-    // Assert
-    Integer actualMaxSize = actualGroupCapacity.getMaxSize();
-    Integer actualUsage = actualGroupCapacity.getUsage();
-    Integer actualQuota = actualGroupCapacity.getQuota();
-    Timestamp actualGmtCreate = actualGroupCapacity.getGmtCreate();
-    String actualGroup = actualGroupCapacity.getGroup();
-    Integer actualMaxAggrSize = actualGroupCapacity.getMaxAggrSize();
-    Long actualId = actualGroupCapacity.getId();
-    Timestamp actualGmtModified = actualGroupCapacity.getGmtModified();
-    assertNull(actualMaxSize);
-    assertNull(actualGroupCapacity.getMaxAggrCount());
-    assertNull(actualGmtModified);
-    assertNull(actualId);
-    assertNull(actualMaxAggrSize);
-    assertNull(actualGroup);
-    assertNull(actualGmtCreate);
-    assertNull(actualQuota);
-    assertNull(actualUsage);
-  }
+    @Test(timeout=10000)
+    public void setGroupToFoo() {
+        GroupCapacity groupCapacity = new GroupCapacity();
+        groupCapacity.setGroup("foo");
+        assertThat(groupCapacity.getGroup(), is("foo"));
+    }
 }
-

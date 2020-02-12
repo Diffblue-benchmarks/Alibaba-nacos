@@ -1,75 +1,52 @@
 package com.alibaba.nacos.config.server.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.TenantInfo
+ *
+ * @author Diffblue JCover
+ */
+
 public class TenantInfoDiffblueTest {
-  @Test(timeout=10000)
-  public void getTenantDescTest() {
-    // Arrange, Act and Assert
-    assertNull((new TenantInfo()).getTenantDesc());
-  }
 
-  @Test(timeout=10000)
-  public void setTenantIdTest() {
-    // Arrange
-    TenantInfo tenantInfo = new TenantInfo();
+    @Test(timeout=10000)
+    public void getTenantDescReturnsNull() {
+        assertThat(new TenantInfo().getTenantDesc(), is(nullValue()));
+    }
 
-    // Act
-    tenantInfo.setTenantId("123");
+    @Test(timeout=10000)
+    public void getTenantIdReturnsNull() {
+        assertThat(new TenantInfo().getTenantId(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("123", tenantInfo.getTenantId());
-  }
+    @Test(timeout=10000)
+    public void getTenantNameReturnsNull() {
+        assertThat(new TenantInfo().getTenantName(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getTenantIdTest() {
-    // Arrange, Act and Assert
-    assertNull((new TenantInfo()).getTenantId());
-  }
+    @Test(timeout=10000)
+    public void setTenantDescToFoo() {
+        TenantInfo tenantInfo = new TenantInfo();
+        tenantInfo.setTenantDesc("foo");
+        assertThat(tenantInfo.getTenantDesc(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    TenantInfo actualTenantInfo = new TenantInfo();
+    @Test(timeout=10000)
+    public void setTenantIdToFoo() {
+        TenantInfo tenantInfo = new TenantInfo();
+        tenantInfo.setTenantId("foo");
+        assertThat(tenantInfo.getTenantId(), is("foo"));
+    }
 
-    // Assert
-    String actualTenantName = actualTenantInfo.getTenantName();
-    String actualTenantId = actualTenantInfo.getTenantId();
-    assertNull(actualTenantName);
-    assertNull(actualTenantInfo.getTenantDesc());
-    assertNull(actualTenantId);
-  }
-
-  @Test(timeout=10000)
-  public void setTenantNameTest() {
-    // Arrange
-    TenantInfo tenantInfo = new TenantInfo();
-
-    // Act
-    tenantInfo.setTenantName("name");
-
-    // Assert
-    assertEquals("name", tenantInfo.getTenantName());
-  }
-
-  @Test(timeout=10000)
-  public void getTenantNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new TenantInfo()).getTenantName());
-  }
-
-  @Test(timeout=10000)
-  public void setTenantDescTest() {
-    // Arrange
-    TenantInfo tenantInfo = new TenantInfo();
-
-    // Act
-    tenantInfo.setTenantDesc("foo");
-
-    // Assert
-    assertEquals("foo", tenantInfo.getTenantDesc());
-  }
+    @Test(timeout=10000)
+    public void setTenantName() {
+        TenantInfo tenantInfo = new TenantInfo();
+        tenantInfo.setTenantName("/bin/bash");
+        assertThat(tenantInfo.getTenantName(), is("/bin/bash"));
+    }
 }
-

@@ -1,95 +1,69 @@
 package com.alibaba.nacos.naming.consistency.ephemeral.distro;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.ephemeral.distro.SyncTask
+ *
+ * @author Diffblue JCover
+ */
+
 public class SyncTaskDiffblueTest {
-  @Test(timeout=10000)
-  public void getKeysTest() {
-    // Arrange, Act and Assert
-    assertNull((new SyncTask()).getKeys());
-  }
 
-  @Test(timeout=10000)
-  public void setTargetServerTest() {
-    // Arrange
-    SyncTask syncTask = new SyncTask();
+    @Test(timeout=10000)
+    public void getKeysReturnsNull() {
+        assertThat(new SyncTask().getKeys(), is(nullValue()));
+    }
 
-    // Act
-    syncTask.setTargetServer("foo");
+    @Test(timeout=10000)
+    public void getLastExecuteTimeReturnsZero() {
+        assertThat(new SyncTask().getLastExecuteTime(), is(0L));
+    }
 
-    // Assert
-    assertEquals("foo", syncTask.getTargetServer());
-  }
+    @Test(timeout=10000)
+    public void getRetryCountReturnsZero() {
+        assertThat(new SyncTask().getRetryCount(), is(0));
+    }
 
-  @Test(timeout=10000)
-  public void setKeysTest() {
-    // Arrange
-    SyncTask syncTask = new SyncTask();
+    @Test(timeout=10000)
+    public void getTargetServerReturnsNull() {
+        assertThat(new SyncTask().getTargetServer(), is(nullValue()));
+    }
 
-    // Act
-    syncTask.setKeys(null);
+    @Test(timeout=10000)
+    public void setKeysToEmpty() {
+        SyncTask syncTask = new SyncTask();
+        List<String> keys = new ArrayList<String>();
+        syncTask.setKeys(keys);
+        assertThat(syncTask.getKeys(), sameInstance(keys));
+    }
 
-    // Assert
-    assertNull(syncTask.getKeys());
-  }
+    @Test(timeout=10000)
+    public void setLastExecuteTimeToOne() {
+        SyncTask syncTask = new SyncTask();
+        syncTask.setLastExecuteTime(1L);
+        assertThat(syncTask.getLastExecuteTime(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void getTargetServerTest() {
-    // Arrange, Act and Assert
-    assertNull((new SyncTask()).getTargetServer());
-  }
+    @Test(timeout=10000)
+    public void setRetryCountToOne() {
+        SyncTask syncTask = new SyncTask();
+        syncTask.setRetryCount(1);
+        assertThat(syncTask.getRetryCount(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void getLastExecuteTimeTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new SyncTask()).getLastExecuteTime());
-  }
-
-  @Test(timeout=10000)
-  public void getRetryCountTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new SyncTask()).getRetryCount());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    SyncTask actualSyncTask = new SyncTask();
-
-    // Assert
-    int actualRetryCount = actualSyncTask.getRetryCount();
-    long actualLastExecuteTime = actualSyncTask.getLastExecuteTime();
-    String actualTargetServer = actualSyncTask.getTargetServer();
-    assertEquals(0, actualRetryCount);
-    assertNull(actualSyncTask.getKeys());
-    assertNull(actualTargetServer);
-    assertEquals(0L, actualLastExecuteTime);
-  }
-
-  @Test(timeout=10000)
-  public void setLastExecuteTimeTest() {
-    // Arrange
-    SyncTask syncTask = new SyncTask();
-
-    // Act
-    syncTask.setLastExecuteTime(1L);
-
-    // Assert
-    assertEquals(1L, syncTask.getLastExecuteTime());
-  }
-
-  @Test(timeout=10000)
-  public void setRetryCountTest() {
-    // Arrange
-    SyncTask syncTask = new SyncTask();
-
-    // Act
-    syncTask.setRetryCount(3);
-
-    // Assert
-    assertEquals(3, syncTask.getRetryCount());
-  }
+    @Test(timeout=10000)
+    public void setTargetServerToFoo() {
+        SyncTask syncTask = new SyncTask();
+        syncTask.setTargetServer("foo");
+        assertThat(syncTask.getTargetServer(), is("foo"));
+    }
 }
-

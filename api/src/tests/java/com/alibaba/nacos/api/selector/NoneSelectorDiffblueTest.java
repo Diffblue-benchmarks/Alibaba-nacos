@@ -1,13 +1,20 @@
 package com.alibaba.nacos.api.selector;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
-public class NoneSelectorDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertEquals("none", (new NoneSelector()).getType());
-  }
-}
+/**
+ * Unit tests for com.alibaba.nacos.api.selector.NoneSelector
+ *
+ * @author Diffblue JCover
+ */
 
+public class NoneSelectorDiffblueTest {
+
+    @Test(timeout=10000)
+    public void getTypeReturnsNone() {
+        assertThat(new NoneSelector().getType(), is("none"));
+    }
+}

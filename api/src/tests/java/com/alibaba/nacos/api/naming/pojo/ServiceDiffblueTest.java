@@ -1,131 +1,93 @@
 package com.alibaba.nacos.api.naming.pojo;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.api.naming.pojo.Service
+ *
+ * @author Diffblue JCover
+ */
+
 public class ServiceDiffblueTest {
-  @Test(timeout=10000)
-  public void setAppNameTest() {
-    // Arrange
-    Service service = new Service();
 
-    // Act
-    service.setAppName("name");
+    @Test(timeout=10000)
+    public void addMetadataKeyIsFooAndValueIsFoo() {
+        Service service = new Service();
+        service.addMetadata("foo", "foo");
+        assertThat(service.getMetadata().get("foo"), is("foo"));
+    }
 
-    // Assert
-    assertEquals("name", service.getAppName());
-  }
+    @Test(timeout=10000)
+    public void getAppNameReturnsNull() {
+        assertThat(new Service().getAppName(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getProtectThresholdTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.0f, (new Service()).getProtectThreshold(), 0.0f);
-  }
+    @Test(timeout=10000)
+    public void getGroupNameReturnsNull() {
+        assertThat(new Service().getGroupName(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getAppNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Service()).getAppName());
-  }
+    @Test(timeout=10000)
+    public void getMetadataReturnsEmpty() {
+        Service service = new Service();
+        Map<String, String> result = service.getMetadata();
+        assertThat(result.isEmpty(), is(true));
+        assertThat(service.getMetadata(), sameInstance(result));
+    }
 
-  @Test(timeout=10000)
-  public void getMetadataTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Service()).getMetadata().size());
-  }
+    @Test(timeout=10000)
+    public void getNameReturnsNull() {
+        assertThat(new Service().getName(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    Service actualService = new Service("name");
+    @Test(timeout=10000)
+    public void getProtectThreshold() {
+        assertEquals(0.0f, new Service().getProtectThreshold(), 0);
+        assertEquals(0.0f, new Service("bar").getProtectThreshold(), 0);
+    }
 
-    // Assert
-    String actualName = actualService.getName();
-    String actualToStringResult = actualService.toString();
-    assertEquals(0.0f, actualService.getProtectThreshold(), 0.0f);
-    assertEquals("Service{name='name', protectThreshold=0.0, appName='null'," + " groupName='null', metadata={}}",
-        actualToStringResult);
-    assertEquals("name", actualName);
-  }
+    @Test(timeout=10000)
+    public void setAppName() {
+        Service service = new Service();
+        service.setAppName("/bin/bash");
+        assertThat(service.getAppName(), is("/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void setProtectThresholdTest() {
-    // Arrange
-    Service service = new Service();
+    @Test(timeout=10000)
+    public void setGroupName() {
+        Service service = new Service();
+        service.setGroupName("/bin/bash");
+        assertThat(service.getGroupName(), is("/bin/bash"));
+    }
 
-    // Act
-    service.setProtectThreshold(10.0f);
+    @Test(timeout=10000)
+    public void setMetadataToEmpty() {
+        Service service = new Service();
+        Map<String, String> metadata = new HashMap<String, String>();
+        service.setMetadata(metadata);
+        assertThat(service.getMetadata(), sameInstance(metadata));
+    }
 
-    // Assert
-    assertEquals(10.0f, service.getProtectThreshold(), 0.0f);
-  }
+    @Test(timeout=10000)
+    public void setName() {
+        Service service = new Service();
+        service.setName("/bin/bash");
+        assertThat(service.getName(), is("/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void setMetadataTest() {
-    // Arrange
-    Service service = new Service();
-
-    // Act
-    service.setMetadata(null);
-
-    // Assert
-    assertNull(service.getMetadata());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Service()).getGroupName());
-  }
-
-  @Test(timeout=10000)
-  public void setGroupNameTest() {
-    // Arrange
-    Service service = new Service();
-
-    // Act
-    service.setGroupName("name");
-
-    // Assert
-    assertEquals("name", service.getGroupName());
-  }
-
-  @Test(timeout=10000)
-  public void setNameTest() {
-    // Arrange
-    Service service = new Service();
-
-    // Act
-    service.setName("name");
-
-    // Assert
-    assertEquals("name", service.getName());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Service actualService = new Service();
-
-    // Assert
-    String actualToStringResult = actualService.toString();
-    assertEquals(0.0f, actualService.getProtectThreshold(), 0.0f);
-    assertEquals("Service{name='null', protectThreshold=0.0, appName='null'," + " groupName='null', metadata={}}",
-        actualToStringResult);
-  }
-
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange, Act and Assert
-    assertEquals("Service{name='null', protectThreshold=0.0, appName='null'," + " groupName='null', metadata={}}",
-        (new Service()).toString());
-  }
-
-  @Test(timeout=10000)
-  public void getNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Service()).getName());
-  }
+    @Test(timeout=10000)
+    public void setProtectThresholdToOne() {
+        Service service = new Service();
+        service.setProtectThreshold(1.0f);
+        assertEquals(1.0f, service.getProtectThreshold(), 0);
+    }
 }
-

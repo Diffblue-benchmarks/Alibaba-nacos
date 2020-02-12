@@ -1,55 +1,40 @@
 package com.alibaba.nacos.config.server.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.User
+ *
+ * @author Diffblue JCover
+ */
+
 public class UserDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    User actualUser = new User();
 
-    // Assert
-    String actualPassword = actualUser.getPassword();
-    assertNull(actualPassword);
-    assertNull(actualUser.getUsername());
-  }
+    @Test(timeout=10000)
+    public void getPasswordReturnsNull() {
+        assertThat(new User().getPassword(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setUsernameTest() {
-    // Arrange
-    User user = new User();
+    @Test(timeout=10000)
+    public void getUsernameReturnsNull() {
+        assertThat(new User().getUsername(), is(nullValue()));
+    }
 
-    // Act
-    user.setUsername("username");
+    @Test(timeout=10000)
+    public void setPasswordToFoo() {
+        User user = new User();
+        user.setPassword("foo");
+        assertThat(user.getPassword(), is("foo"));
+    }
 
-    // Assert
-    assertEquals("username", user.getUsername());
-  }
-
-  @Test(timeout=10000)
-  public void getUsernameTest() {
-    // Arrange, Act and Assert
-    assertNull((new User()).getUsername());
-  }
-
-  @Test(timeout=10000)
-  public void setPasswordTest() {
-    // Arrange
-    User user = new User();
-
-    // Act
-    user.setPassword("Password123");
-
-    // Assert
-    assertEquals("Password123", user.getPassword());
-  }
-
-  @Test(timeout=10000)
-  public void getPasswordTest() {
-    // Arrange, Act and Assert
-    assertNull((new User()).getPassword());
-  }
+    @Test(timeout=10000)
+    public void setUsernameToFoo() {
+        User user = new User();
+        user.setUsername("foo");
+        assertThat(user.getUsername(), is("foo"));
+    }
 }
-

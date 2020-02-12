@@ -1,72 +1,39 @@
 package com.alibaba.nacos.config.server.model.app;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.app.GroupKey
+ *
+ * @author Diffblue JCover
+ */
+
 public class GroupKeyDiffblueTest {
-  @Test(timeout=10000)
-  public void setGroupTest() {
-    // Arrange
-    GroupKey groupKey = new GroupKey("foo");
 
-    // Act
-    groupKey.setGroup("foo");
+    @Test(timeout=10000)
+    public void getDataIdReturnsNull() {
+        assertThat(new GroupKey("foo").getDataId(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", groupKey.getGroup());
-  }
+    @Test(timeout=10000)
+    public void getGroupReturnsFoo() {
+        assertThat(new GroupKey("foo").getGroup(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void setDataIdTest() {
-    // Arrange
-    GroupKey groupKey = new GroupKey("foo");
+    @Test(timeout=10000)
+    public void setDataIdToSomething() {
+        GroupKey groupKey = new GroupKey("foo");
+        groupKey.setDataId("something");
+        assertThat(groupKey.getDataId(), is("something"));
+        assertThat(groupKey.getGroupkeyString(), is("something+foo"));
+    }
 
-    // Act
-    groupKey.setDataId("123");
-
-    // Assert
-    assertEquals("123", groupKey.getDataId());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    GroupKey actualGroupKey = new GroupKey("foo");
-
-    // Assert
-    String actualDataId = actualGroupKey.getDataId();
-    assertNull(actualDataId);
-    assertEquals("foo", actualGroupKey.getGroup());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", (new GroupKey("foo")).getGroup());
-  }
-
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange, Act and Assert
-    assertEquals("null+foo", (new GroupKey("foo")).toString());
-  }
-
-  @Test(timeout=10000)
-  public void getDataIdTest() {
-    // Arrange, Act and Assert
-    assertNull((new GroupKey("foo")).getDataId());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    GroupKey actualGroupKey = new GroupKey("123", "foo");
-
-    // Assert
-    String actualDataId = actualGroupKey.getDataId();
-    assertEquals("123", actualDataId);
-    assertEquals("foo", actualGroupKey.getGroup());
-  }
+    @Test(timeout=10000)
+    public void setGroupToFoo() {
+        new GroupKey("foo").setGroup("foo");
+    }
 }
-

@@ -1,193 +1,122 @@
 package com.alibaba.nacos.naming.cluster.servers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.cluster.servers.Server
+ *
+ * @author Diffblue JCover
+ */
+
 public class ServerDiffblueTest {
-  @Test(timeout=10000)
-  public void setLastRefTimeStrTest() {
-    // Arrange
-    Server server = new Server();
 
-    // Act
-    server.setLastRefTimeStr("foo");
+    @Test(timeout=10000)
+    public void compareTo() {
+        assertThat(new Server().compareTo(new Server()), is(0));
+        assertThat(new Server().compareTo((Server)null), is(1));
+    }
 
-    // Assert
-    assertEquals("foo", server.getLastRefTimeStr());
-  }
+    @Test(timeout=10000)
+    public void getAdWeightReturnsZero() {
+        assertThat(new Server().getAdWeight(), is(0));
+    }
 
-  @Test(timeout=10000)
-  public void getWeightTest() {
-    // Arrange, Act and Assert
-    assertEquals(1, (new Server()).getWeight());
-  }
+    @Test(timeout=10000)
+    public void getIpReturnsNull() {
+        assertThat(new Server().getIp(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setWeightTest() {
-    // Arrange
-    Server server = new Server();
+    @Test(timeout=10000)
+    public void getLastRefTimeReturnsZero() {
+        assertThat(new Server().getLastRefTime(), is(0L));
+    }
 
-    // Act
-    server.setWeight(3);
+    @Test(timeout=10000)
+    public void getLastRefTimeStrReturnsNull() {
+        assertThat(new Server().getLastRefTimeStr(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals(3, server.getWeight());
-  }
+    @Test(timeout=10000)
+    public void getServePortReturnsZero() {
+        assertThat(new Server().getServePort(), is(0));
+    }
 
-  @Test(timeout=10000)
-  public void getSiteTest() {
-    // Arrange, Act and Assert
-    assertEquals("unknown", (new Server()).getSite());
-  }
+    @Test(timeout=10000)
+    public void getSiteReturnsUnknown() {
+        assertThat(new Server().getSite(), is("unknown"));
+    }
 
-  @Test(timeout=10000)
-  public void setAliveTest() {
-    // Arrange
-    Server server = new Server();
+    @Test(timeout=10000)
+    public void getWeightReturnsOne() {
+        assertThat(new Server().getWeight(), is(1));
+    }
 
-    // Act
-    server.setAlive(true);
+    @Test(timeout=10000)
+    public void isAliveReturnsFalse() {
+        assertThat(new Server().isAlive(), is(false));
+    }
 
-    // Assert
-    assertTrue(server.isAlive());
-  }
+    @Test(timeout=10000)
+    public void setAdWeightToOne() {
+        Server server = new Server();
+        server.setAdWeight(1);
+        assertThat(server.getAdWeight(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void getAdWeightTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Server()).getAdWeight());
-  }
+    @Test(timeout=10000)
+    public void setAliveToFalse() {
+        new Server().setAlive(false);
+    }
 
-  @Test(timeout=10000)
-  public void getIpTest() {
-    // Arrange, Act and Assert
-    assertNull((new Server()).getIp());
-  }
+    @Test(timeout=10000)
+    public void setIpToFoo() {
+        Server server = new Server();
+        server.setIp("foo");
+        assertThat(server.getIp(), is("foo"));
+        assertThat(server.getKey(), is("foo:0"));
+    }
 
-  @Test(timeout=10000)
-  public void getLastRefTimeTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new Server()).getLastRefTime());
-  }
+    @Test(timeout=10000)
+    public void setLastRefTimeStrToSmith() {
+        Server server = new Server();
+        server.setLastRefTimeStr("Smith");
+        assertThat(server.getLastRefTimeStr(), is("Smith"));
+    }
 
-  @Test(timeout=10000)
-  public void getServePortTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Server()).getServePort());
-  }
+    @Test(timeout=10000)
+    public void setLastRefTimeToOne() {
+        Server server = new Server();
+        server.setLastRefTime(1L);
+        assertThat(server.getLastRefTime(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void setLastRefTimeTest() {
-    // Arrange
-    Server server = new Server();
+    @Test(timeout=10000)
+    public void setServePortToOne() {
+        Server server = new Server();
+        server.setServePort(1);
+        assertThat(server.getKey(), is("null:1"));
+        assertThat(server.getServePort(), is(1));
+    }
 
-    // Act
-    server.setLastRefTime(1L);
+    @Test(timeout=10000)
+    public void setSiteToFoo() {
+        Server server = new Server();
+        server.setSite("foo");
+        assertThat(server.getSite(), is("foo"));
+    }
 
-    // Assert
-    assertEquals(1L, server.getLastRefTime());
-  }
+    @Test(timeout=10000)
+    public void setWeightToOne() {
+        new Server().setWeight(1);
+    }
 
-  @Test(timeout=10000)
-  public void setAdWeightTest() {
-    // Arrange
-    Server server = new Server();
-
-    // Act
-    server.setAdWeight(3);
-
-    // Assert
-    assertEquals(3, server.getAdWeight());
-  }
-
-  @Test(timeout=10000)
-  public void getKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("null:0", (new Server()).getKey());
-  }
-
-  @Test(timeout=10000)
-  public void setSiteTest() {
-    // Arrange
-    Server server = new Server();
-
-    // Act
-    server.setSite("foo");
-
-    // Assert
-    assertEquals("foo", server.getSite());
-  }
-
-  @Test(timeout=10000)
-  public void setServePortTest() {
-    // Arrange
-    Server server = new Server();
-
-    // Act
-    server.setServePort(8080);
-
-    // Assert
-    assertEquals(8080, server.getServePort());
-  }
-
-  @Test(timeout=10000)
-  public void equalsTest() {
-    // Arrange, Act and Assert
-    assertFalse((new Server()).equals("foo"));
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Server actualServer = new Server();
-
-    // Assert
-    boolean actualIsAliveResult = actualServer.isAlive();
-    long actualLastRefTime = actualServer.getLastRefTime();
-    String actualSite = actualServer.getSite();
-    assertFalse(actualIsAliveResult);
-    assertEquals(1, actualServer.getWeight());
-    assertEquals("unknown", actualSite);
-    assertEquals(0L, actualLastRefTime);
-  }
-
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange
-    Server server = new Server();
-
-    // Act and Assert
-    assertEquals("{\"adWeight\":0,\"alive\":false,\"key\":\"null:0\","
-        + "\"lastRefTime\":0,\"servePort\":0,\"site\":\"unknown" + "\",\"weight\":1}", server.toString());
-    assertEquals("{\"adWeight\":0,\"alive\":false,\"key\":\"null:0\","
-        + "\"lastRefTime\":0,\"servePort\":0,\"site\":\"unknown" + "\",\"weight\":1}", server.toString());
-  }
-
-  @Test(timeout=10000)
-  public void getLastRefTimeStrTest() {
-    // Arrange, Act and Assert
-    assertNull((new Server()).getLastRefTimeStr());
-  }
-
-  @Test(timeout=10000)
-  public void setIpTest() {
-    // Arrange
-    Server server = new Server();
-
-    // Act
-    server.setIp("127.0.0.1");
-
-    // Assert
-    assertEquals("127.0.0.1", server.getIp());
-  }
-
-  @Test(timeout=10000)
-  public void isAliveTest() {
-    // Arrange, Act and Assert
-    assertFalse((new Server()).isAlive());
-  }
+    @Test(timeout=10000)
+    public void testequals() {
+        assertThat(new Server().equals("foo"), is(false));
+        assertThat(new Server().equals(null), is(false));
+    }
 }
-

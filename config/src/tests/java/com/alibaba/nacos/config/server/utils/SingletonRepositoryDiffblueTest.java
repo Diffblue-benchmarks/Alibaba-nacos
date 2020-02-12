@@ -1,54 +1,32 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.SingletonRepository
+ *
+ * @author Diffblue JCover
+ */
+
 public class SingletonRepositoryDiffblueTest {
-  @Test(timeout=10000)
-  public void getSingletonTest2() {
-    // Arrange, Act and Assert
-    assertEquals("foo", SingletonRepository.DataIdGroupIdCache.getSingleton("foo"));
-  }
 
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange, Act and Assert
-    assertSame((new SingletonRepository.DataIdGroupIdCache()).cache, SingletonRepository.DataIdGroupIdCache.cache);
-  }
+    @Test(timeout=10000)
+    public void getSingletonObjIsFoo() {
+        Object obj = "foo";
+        assertThat(new SingletonRepository<Object>().getSingleton(obj), sameInstance(obj));
+    }
 
-  @Test(timeout=10000)
-  public void sizeTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new SingletonRepository<Object>()).size());
-  }
+    @Test(timeout=10000)
+    public void remove() {
+        new SingletonRepository<Object>().remove(new Object());
+    }
 
-  @Test(timeout=10000)
-  public void getSingletonTest() {
-    // Arrange
-    SingletonRepository<Object> singletonRepository = new SingletonRepository<Object>();
-
-    // Act and Assert
-    assertEquals("foo", singletonRepository.getSingleton("foo"));
-    assertEquals(1, singletonRepository.size());
-  }
-
-  @Test(timeout=10000)
-  public void removeTest() {
-    // Arrange
-    SingletonRepository<Object> singletonRepository = new SingletonRepository<Object>();
-
-    // Act
-    singletonRepository.remove("foo");
-
-    // Assert
-    assertEquals(0, singletonRepository.size());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new SingletonRepository<Object>()).size());
-  }
+    @Test(timeout=10000)
+    public void sizeReturnsZero() {
+        assertThat(new SingletonRepository<Object>().size(), is(0));
+    }
 }
-

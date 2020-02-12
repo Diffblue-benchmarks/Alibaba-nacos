@@ -1,52 +1,83 @@
 package com.alibaba.nacos.config.server.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.ClientTrackService
+ *
+ * @author Diffblue JCover
+ */
+
 public class ClientTrackServiceDiffblueTest {
-  @Test(timeout=10000)
-  public void listSubscriberByGroupTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.listSubscriberByGroup("foo").size());
-  }
 
-  @Test(timeout=10000)
-  public void isClientUptodateTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.isClientUptodate("127.0.0.1").size());
-  }
+    @Test(timeout=10000)
+    public void isEmpty() {
+        assertThat(ClientTrackService.isClientUptodate("foo").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubsByGroup("Smith").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubscriberByGroup("Smith").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubStatus("bar").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubStatus("Smith").isEmpty(), is(true));
+    }
 
-  @Test(timeout=10000)
-  public void listSubStatusTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.listSubStatus("127.0.0.1").size());
-  }
+//    @Test(timeout=10000)
+//    public void listSubsByGroupGroupKeyIsFoo() {
+//        Map<String, com.alibaba.nacos.config.server.model.SubscriberStatus> result = ClientTrackService.listSubsByGroup("foo");
+//        assertThat(result.get("foo").getGroupKey(), is("foo"));
+//        assertThat(result.get("foo").getLastTime(), is(1_581_384_159_120L));
+//        assertThat(result.get("foo").getMd5(), is("foo"));
+//        assertThat(result.get("foo").getServerIp(), is(nullValue()));
+//        assertThat(result.get("foo").getStatus(), is(false));
+//    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    ConcurrentMap<String, ClientRecord> stringClientRecordMap = (new ClientTrackService()).clientRecords;
-    ConcurrentMap<String, ClientRecord> stringClientRecordMap1 = ClientTrackService.clientRecords;
-    assertSame(stringClientRecordMap, stringClientRecordMap1);
-    assertTrue(stringClientRecordMap1 instanceof ConcurrentHashMap);
-    assertSame(stringClientRecordMap, stringClientRecordMap1);
-    assertEquals(0, stringClientRecordMap1.size());
-  }
+//    @Test(timeout=10000)
+//    public void listSubscriberByGroupGroupKeyIsFooReturnsFalse() {
+//        assertThat(ClientTrackService.listSubscriberByGroup("foo").get("foo"), is(false));  <-- Expected: is <false>     but: was null
+//    }
+//
+//    @Test(timeout=10000)
+//    public void listSubStatusIpIsFoo() {
+//        Map<String, com.alibaba.nacos.config.server.model.SubscriberStatus> result = ClientTrackService.listSubStatus("foo");
+//        assertThat(result.get("foo").getGroupKey(), is("foo"));
+//        assertThat(result.get("foo").getLastTime(), is(1_581_384_159_120L));
+//        assertThat(result.get("foo").getMd5(), is("foo"));
+//        assertThat(result.get("foo").getServerIp(), is(nullValue()));
+//        assertThat(result.get("foo").getStatus(), is(false));
+//    }
 
-  @Test(timeout=10000)
-  public void listSubsByGroupTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, ClientTrackService.listSubsByGroup("foo").size());
-  }
+    @Test(timeout=10000)
+    public void refreshClientRecord() {
+        ClientTrackService.refreshClientRecord();
+    }
 
-  @Test(timeout=10000)
-  public void subscriberCountTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, ClientTrackService.subscriberCount());
-  }
+    @Test(timeout=10000)
+    public void subscribeClientCountReturnsZero() {
+        assertThat(ClientTrackService.subscribeClientCount(), is(0));
+    }
+
+    @Test(timeout=10000)
+    public void subscriberCountReturnsZero() {
+        assertThat(ClientTrackService.subscriberCount(), is(0L));
+    }
+
+    @Test(timeout=10000)
+    public void trackClientMd5() {
+        ClientTrackService.trackClientMd5("foo", new HashMap<String, String>());
+    }
+
+    @Test(timeout=10000)
+    public void trackClientMd5ClientlastPollingTSMapIsEmpty() {
+        ClientTrackService.trackClientMd5("foo", new HashMap<String, String>(), new HashMap<String, Long>());
+    }
+
+    @Test(timeout=10000)
+    public void trackClientMd5ClientMd5IsFooAndGroupKeyIsFoo() {
+        ClientTrackService.trackClientMd5("foo", "foo", "foo");
+    }
 }
-

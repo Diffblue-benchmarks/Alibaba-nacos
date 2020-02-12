@@ -1,19 +1,25 @@
 package com.alibaba.nacos.naming.boot;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.boot.RunningConfig
+ *
+ * @author Diffblue JCover
+ */
+
 public class RunningConfigDiffblueTest {
-  @Test(timeout=10000)
-  public void getContextPathTest() {
-    // Arrange, Act and Assert
-    assertEquals("/nacos", RunningConfig.getContextPath());
-  }
 
-  @Test(timeout=10000)
-  public void getServerPortTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, RunningConfig.getServerPort());
-  }
+    @Test(timeout=10000)
+    public void getContextPath() {
+        assertThat(RunningConfig.getContextPath(), is("/nacos"));
+    }
+
+    @Test(timeout=10000)
+    public void getServerPortReturnsZero() {
+        assertThat(RunningConfig.getServerPort(), is(0));
+    }
 }
-

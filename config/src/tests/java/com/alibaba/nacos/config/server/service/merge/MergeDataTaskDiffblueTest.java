@@ -1,38 +1,39 @@
 package com.alibaba.nacos.config.server.service.merge;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.config.server.manager.AbstractTask;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.merge.MergeDataTask
+ *
+ * @author Diffblue JCover
+ */
+
 public class MergeDataTaskDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    MergeDataTask actualMergeDataTask = new MergeDataTask("123", "123", "foo", "foo", "foo");
 
-    // Assert
-    long actualTaskInterval = actualMergeDataTask.getTaskInterval();
-    assertEquals("123", actualMergeDataTask.dataId);
-    assertEquals("123", actualMergeDataTask.groupId);
-    assertEquals("foo", actualMergeDataTask.tag);
-    assertEquals("foo", actualMergeDataTask.tenant);
-    assertEquals("foo", actualMergeDataTask.getClientIp());
-    assertEquals(0L, actualTaskInterval);
-  }
+    @Test(timeout=10000)
+    public void getClientIpReturnsSomething() {
+        assertThat(new MergeDataTask("something", "something", "something", "something").getClientIp(), is("something"));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    MergeDataTask actualMergeDataTask = new MergeDataTask("123", "123", "foo", "foo");
+    @Test(timeout=10000)
+    public void getId() {
+        assertThat(new MergeDataTask("something", "something", "something", "something").getId(), is("MergeTask[something, something, something, something]"));
+    }
 
-    // Assert
-    long actualTaskInterval = actualMergeDataTask.getTaskInterval();
-    assertEquals("123", actualMergeDataTask.dataId);
-    assertEquals("123", actualMergeDataTask.groupId);
-    assertNull(actualMergeDataTask.tag);
-    assertEquals("foo", actualMergeDataTask.tenant);
-    assertEquals("foo", actualMergeDataTask.getClientIp());
-    assertEquals(0L, actualTaskInterval);
-  }
+    @Test(timeout=10000)
+    public void merge() {
+        AbstractTask task = mock(AbstractTask.class);
+        new MergeDataTask("something", "something", "something", "something").merge(task);
+    }
+
+    @Test(timeout=10000)
+    public void shouldProcessReturnsTrue() {
+        assertThat(new MergeDataTask("something", "something", "something", "something").shouldProcess(), is(true));
+    }
 }
-

@@ -1,30 +1,45 @@
 package com.alibaba.nacos.client.naming.cache;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
-import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.cache.DiskCache
+ *
+ * @author Diffblue JCover
+ */
+
 public class DiskCacheDiffblueTest {
-  @Test(timeout=10000)
-  public void readTest() {
-    // Arrange
-    Map<String, ServiceInfo> readResult = DiskCache.read("foo");
-    Map<String, ServiceInfo> readResult1 = DiskCache.read("");
 
-    // Act
-    Map<String, ServiceInfo> actualReadResult = DiskCache.read("[NA] failed to read cache file");
+    @Test(timeout=10000)
+    public void getLineSeparator() {
+        assertThat(DiskCache.getLineSeparator(), is("\n"));
+    }
 
-    // Assert
-    assertEquals(0, readResult.size());
-    assertEquals(0, readResult1.size());
-    assertEquals(0, actualReadResult.size());
-  }
+    @Test(timeout=10000)
+    public void isEmpty() {
+        assertThat(DiskCache.read("N failed to read cache file").isEmpty(), is(true));
+        assertThat(DiskCache.read("bar").isEmpty(), is(true));
+        assertThat(DiskCache.read("").isEmpty(), is(true));
+        assertThat(DiskCache.read("foo").isEmpty(), is(true));
+    }
 
-  @Test(timeout=10000)
-  public void getLineSeparatorTest() {
-    // Arrange, Act and Assert
-    assertEquals("\n", DiskCache.getLineSeparator());
-  }
+    @Test(timeout=10000)
+    public void write1() {
+        DiskCache.write(new ServiceInfo(), "foo");
+    }
+
+    @Test(timeout=10000)
+    public void write2() {
+        DiskCache.write(new ServiceInfo(""), "foo");
+    }
+
+    @Test(timeout=10000)
+    public void write3() {
+        DiskCache.write(new ServiceInfo("bar"), "foo");
+    }
 }
-

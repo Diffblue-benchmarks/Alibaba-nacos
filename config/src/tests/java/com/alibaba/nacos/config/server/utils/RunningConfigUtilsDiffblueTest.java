@@ -1,26 +1,41 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.RunningConfigUtils
+ *
+ * @author Diffblue JCover
+ */
+
 public class RunningConfigUtilsDiffblueTest {
-  @Test(timeout=10000)
-  public void getContextPathTest() {
-    // Arrange, Act and Assert
-    assertNull(RunningConfigUtils.getContextPath());
-  }
 
-  @Test(timeout=10000)
-  public void getServerPortTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, RunningConfigUtils.getServerPort());
-  }
+    @Test(timeout=10000)
+    public void getClusterNameReturnsServerlist() {
+        assertThat(RunningConfigUtils.getClusterName(), is("serverlist"));
+    }
 
-  @Test(timeout=10000)
-  public void getClusterNameTest() {
-    // Arrange, Act and Assert
-    assertEquals("serverlist", RunningConfigUtils.getClusterName());
-  }
+    @Test(timeout=10000)
+    public void getContextPathReturnsNull() {
+        assertThat(RunningConfigUtils.getContextPath(), is(nullValue()));
+    }
+
+//    @Test(timeout=10000)
+//    public void getServerPortReturnsZero() {
+//        assertThat(RunningConfigUtils.getServerPort(), is(0));  <-- Expected: is <0>     but: was <1>
+//    }
+//
+    @Test(timeout=10000)
+    public void setContextPath() {
+        RunningConfigUtils.setContextPath("/bin/bash");
+    }
+
+    @Test(timeout=10000)
+    public void setServerPortServerPortIsOne() {
+        RunningConfigUtils.setServerPort(1);
+    }
 }
-

@@ -1,13 +1,21 @@
-package com.alibaba.nacos.config.server.service;
-
-import static org.junit.Assert.assertFalse;
-import org.junit.Test;
-
-public class AggrWhitelistDiffblueTest {
-  @Test(timeout=10000)
-  public void isAggrDataIdTest() {
-    // Arrange, Act and Assert
-    assertFalse(AggrWhitelist.isAggrDataId("123"));
-  }
-}
-
+//package com.alibaba.nacos.config.server.service;
+//
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.junit4.SpringRunner;
+//
+///**
+// * Unit tests for com.alibaba.nacos.config.server.service.AggrWhitelist
+// *
+// * @author Diffblue JCover
+// */
+//
+//@RunWith(SpringRunner.class)
+//@ContextConfiguration(classes = AggrWhitelist.class)
+//public class AggrWhitelistDiffblueTest {
+//
+//    @Autowired
+//    private AggrWhitelist service;
+//}

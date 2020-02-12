@@ -1,13 +1,20 @@
 package com.alibaba.nacos.client.config.impl;
 
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
-public class LimiterDiffblueTest {
-  @Test(timeout=10000)
-  public void isLimitTest() {
-    // Arrange, Act and Assert
-    assertFalse(Limiter.isLimit("foo"));
-  }
-}
+/**
+ * Unit tests for com.alibaba.nacos.client.config.impl.Limiter
+ *
+ * @author Diffblue JCover
+ */
 
+public class LimiterDiffblueTest {
+
+    @Test(timeout=10000)
+    public void isLimitReturnsFalse() {
+        assertThat(Limiter.isLimit(" "), is(false));
+    }
+}

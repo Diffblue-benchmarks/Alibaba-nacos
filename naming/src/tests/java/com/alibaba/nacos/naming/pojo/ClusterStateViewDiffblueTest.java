@@ -1,147 +1,88 @@
 package com.alibaba.nacos.naming.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.pojo.ClusterStateView
+ *
+ * @author Diffblue JCover
+ */
+
 public class ClusterStateViewDiffblueTest {
-  @Test(timeout=10000)
-  public void getClusterTermTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new ClusterStateView()).getClusterTerm());
-  }
 
-  @Test(timeout=10000)
-  public void getNodeStateTest() {
-    // Arrange, Act and Assert
-    assertNull((new ClusterStateView()).getNodeState());
-  }
+    @Test(timeout=10000)
+    public void getClusterTermReturnsZero() {
+        assertThat(new ClusterStateView().getClusterTerm(), is(0L));
+    }
 
-  @Test(timeout=10000)
-  public void getLeaderDueMsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new ClusterStateView()).getLeaderDueMs());
-  }
+    @Test(timeout=10000)
+    public void getHeartbeatDueMsReturnsZero() {
+        assertThat(new ClusterStateView().getHeartbeatDueMs(), is(0L));
+    }
 
-  @Test(timeout=10000)
-  public void setLeaderDueMsTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
+    @Test(timeout=10000)
+    public void getLeaderDueMsReturnsZero() {
+        assertThat(new ClusterStateView().getLeaderDueMs(), is(0L));
+    }
 
-    // Act
-    clusterStateView.setLeaderDueMs(1L);
+    @Test(timeout=10000)
+    public void getNodeIpReturnsNull() {
+        assertThat(new ClusterStateView().getNodeIp(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals(1L, clusterStateView.getLeaderDueMs());
-  }
+    @Test(timeout=10000)
+    public void getNodeStateReturnsNull() {
+        assertThat(new ClusterStateView().getNodeState(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getNodeIpTest() {
-    // Arrange, Act and Assert
-    assertNull((new ClusterStateView()).getNodeIp());
-  }
+    @Test(timeout=10000)
+    public void getVoteForReturnsNull() {
+        assertThat(new ClusterStateView().getVoteFor(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setClusterTermTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
+    @Test(timeout=10000)
+    public void setClusterTermToOne() {
+        ClusterStateView clusterStateView = new ClusterStateView();
+        clusterStateView.setClusterTerm(1L);
+        assertThat(clusterStateView.getClusterTerm(), is(1L));
+    }
 
-    // Act
-    clusterStateView.setClusterTerm(1L);
+    @Test(timeout=10000)
+    public void setHeartbeatDueMsToOne() {
+        ClusterStateView clusterStateView = new ClusterStateView();
+        clusterStateView.setHeartbeatDueMs(1L);
+        assertThat(clusterStateView.getHeartbeatDueMs(), is(1L));
+    }
 
-    // Assert
-    assertEquals(1L, clusterStateView.getClusterTerm());
-  }
+    @Test(timeout=10000)
+    public void setLeaderDueMsToOne() {
+        ClusterStateView clusterStateView = new ClusterStateView();
+        clusterStateView.setLeaderDueMs(1L);
+        assertThat(clusterStateView.getLeaderDueMs(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void setNodeIpTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
+    @Test(timeout=10000)
+    public void setNodeIp() {
+        ClusterStateView clusterStateView = new ClusterStateView();
+        clusterStateView.setNodeIp("OX13QD");
+        assertThat(clusterStateView.getNodeIp(), is("OX13QD"));
+    }
 
-    // Act
-    clusterStateView.setNodeIp("foo");
+    @Test(timeout=10000)
+    public void setNodeState() {
+        ClusterStateView clusterStateView = new ClusterStateView();
+        clusterStateView.setNodeState("New York");
+        assertThat(clusterStateView.getNodeState(), is("New York"));
+    }
 
-    // Assert
-    assertEquals("foo", clusterStateView.getNodeIp());
-  }
-
-  @Test(timeout=10000)
-  public void setHeartbeatDueMsTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
-
-    // Act
-    clusterStateView.setHeartbeatDueMs(1L);
-
-    // Assert
-    assertEquals(1L, clusterStateView.getHeartbeatDueMs());
-  }
-
-  @Test(timeout=10000)
-  public void getVoteForTest() {
-    // Arrange, Act and Assert
-    assertNull((new ClusterStateView()).getVoteFor());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    ClusterStateView actualClusterStateView = new ClusterStateView();
-
-    // Assert
-    String actualToStringResult = actualClusterStateView.toString();
-    long actualHeartbeatDueMs = actualClusterStateView.getHeartbeatDueMs();
-    String actualVoteFor = actualClusterStateView.getVoteFor();
-    long actualLeaderDueMs = actualClusterStateView.getLeaderDueMs();
-    String actualNodeState = actualClusterStateView.getNodeState();
-    String actualNodeIp = actualClusterStateView.getNodeIp();
-    assertEquals("{\"clusterTerm\":0,\"heartbeatDueMs\":0,\"leaderDueMs" + "\":0}", actualToStringResult);
-    assertEquals(0L, actualClusterStateView.getClusterTerm());
-    assertNull(actualNodeIp);
-    assertNull(actualNodeState);
-    assertEquals(0L, actualLeaderDueMs);
-    assertNull(actualVoteFor);
-    assertEquals(0L, actualHeartbeatDueMs);
-  }
-
-  @Test(timeout=10000)
-  public void getHeartbeatDueMsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new ClusterStateView()).getHeartbeatDueMs());
-  }
-
-  @Test(timeout=10000)
-  public void setVoteForTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
-
-    // Act
-    clusterStateView.setVoteFor("foo");
-
-    // Assert
-    assertEquals("foo", clusterStateView.getVoteFor());
-  }
-
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
-
-    // Act and Assert
-    assertEquals("{\"clusterTerm\":0,\"heartbeatDueMs\":0,\"leaderDueMs" + "\":0}", clusterStateView.toString());
-    assertEquals("{\"clusterTerm\":0,\"heartbeatDueMs\":0,\"leaderDueMs" + "\":0}", clusterStateView.toString());
-  }
-
-  @Test(timeout=10000)
-  public void setNodeStateTest() {
-    // Arrange
-    ClusterStateView clusterStateView = new ClusterStateView();
-
-    // Act
-    clusterStateView.setNodeState("foo");
-
-    // Assert
-    assertEquals("foo", clusterStateView.getNodeState());
-  }
+    @Test(timeout=10000)
+    public void setVoteFor() {
+        ClusterStateView clusterStateView = new ClusterStateView();
+        clusterStateView.setVoteFor("New York");
+        assertThat(clusterStateView.getVoteFor(), is("New York"));
+    }
 }
-

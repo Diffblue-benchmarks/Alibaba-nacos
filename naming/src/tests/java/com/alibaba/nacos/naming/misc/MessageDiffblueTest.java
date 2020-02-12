@@ -1,32 +1,28 @@
 package com.alibaba.nacos.naming.misc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.misc.Message
+ *
+ * @author Diffblue JCover
+ */
+
 public class MessageDiffblueTest {
-  @Test(timeout=10000)
-  public void setDataTest() {
-    // Arrange
-    Message message = new Message();
 
-    // Act
-    message.setData("foo");
+    @Test(timeout=10000)
+    public void getDataReturnsNull() {
+        assertThat(new Message().getData(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", message.getData());
-  }
-
-  @Test(timeout=10000)
-  public void getDataTest() {
-    // Arrange, Act and Assert
-    assertNull((new Message()).getData());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertNull((new Message()).getData());
-  }
+    @Test(timeout=10000)
+    public void setDataToSomething() {
+        Message message = new Message();
+        message.setData("something");
+        assertThat(message.getData(), is("something"));
+    }
 }
-

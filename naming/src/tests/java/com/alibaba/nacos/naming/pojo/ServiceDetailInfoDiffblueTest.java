@@ -1,96 +1,70 @@
 package com.alibaba.nacos.naming.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.pojo.ServiceDetailInfo
+ *
+ * @author Diffblue JCover
+ */
+
 public class ServiceDetailInfoDiffblueTest {
-  @Test(timeout=10000)
-  public void setServiceNameTest() {
-    // Arrange
-    ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
 
-    // Act
-    serviceDetailInfo.setServiceName("name");
+    @Test(timeout=10000)
+    public void getClusterMapReturnsNull() {
+        assertThat(new ServiceDetailInfo().getClusterMap(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", serviceDetailInfo.getServiceName());
-  }
+    @Test(timeout=10000)
+    public void getGroupNameReturnsNull() {
+        assertThat(new ServiceDetailInfo().getGroupName(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setClusterMapTest() {
-    // Arrange
-    ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
+    @Test(timeout=10000)
+    public void getMetadataReturnsNull() {
+        assertThat(new ServiceDetailInfo().getMetadata(), is(nullValue()));
+    }
 
-    // Act
-    serviceDetailInfo.setClusterMap(null);
+    @Test(timeout=10000)
+    public void getServiceNameReturnsNull() {
+        assertThat(new ServiceDetailInfo().getServiceName(), is(nullValue()));
+    }
 
-    // Assert
-    assertNull(serviceDetailInfo.getClusterMap());
-  }
+    @Test(timeout=10000)
+    public void setClusterMapToEmpty() {
+        ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
+        Map<String, ClusterInfo> clusterMap = new HashMap<String, ClusterInfo>();
+        serviceDetailInfo.setClusterMap(clusterMap);
+        assertThat(serviceDetailInfo.getClusterMap(), sameInstance(clusterMap));
+    }
 
-  @Test(timeout=10000)
-  public void getServiceNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new ServiceDetailInfo()).getServiceName());
-  }
+    @Test(timeout=10000)
+    public void setGroupName() {
+        ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
+        serviceDetailInfo.setGroupName("/bin/bash");
+        assertThat(serviceDetailInfo.getGroupName(), is("/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void setGroupNameTest() {
-    // Arrange
-    ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
+    @Test(timeout=10000)
+    public void setMetadataToEmpty() {
+        ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
+        Map<String, String> metadata = new HashMap<String, String>();
+        serviceDetailInfo.setMetadata(metadata);
+        assertThat(serviceDetailInfo.getMetadata(), sameInstance(metadata));
+    }
 
-    // Act
-    serviceDetailInfo.setGroupName("name");
-
-    // Assert
-    assertEquals("name", serviceDetailInfo.getGroupName());
-  }
-
-  @Test(timeout=10000)
-  public void getMetadataTest() {
-    // Arrange, Act and Assert
-    assertNull((new ServiceDetailInfo()).getMetadata());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    ServiceDetailInfo actualServiceDetailInfo = new ServiceDetailInfo();
-
-    // Assert
-    String actualGroupName = actualServiceDetailInfo.getGroupName();
-    Map<String, ClusterInfo> actualClusterMap = actualServiceDetailInfo.getClusterMap();
-    Map<String, String> actualMetadata = actualServiceDetailInfo.getMetadata();
-    assertNull(actualGroupName);
-    assertNull(actualServiceDetailInfo.getServiceName());
-    assertNull(actualMetadata);
-    assertNull(actualClusterMap);
-  }
-
-  @Test(timeout=10000)
-  public void setMetadataTest() {
-    // Arrange
-    ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
-
-    // Act
-    serviceDetailInfo.setMetadata(null);
-
-    // Assert
-    assertNull(serviceDetailInfo.getMetadata());
-  }
-
-  @Test(timeout=10000)
-  public void getClusterMapTest() {
-    // Arrange, Act and Assert
-    assertNull((new ServiceDetailInfo()).getClusterMap());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new ServiceDetailInfo()).getGroupName());
-  }
+    @Test(timeout=10000)
+    public void setServiceName() {
+        ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
+        serviceDetailInfo.setServiceName("/bin/bash");
+        assertThat(serviceDetailInfo.getServiceName(), is("/bin/bash"));
+    }
 }
-

@@ -1,173 +1,114 @@
 package com.alibaba.nacos.api.naming.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.api.naming.pojo.Cluster
+ *
+ * @author Diffblue JCover
+ */
+
 public class ClusterDiffblueTest {
-  @Test(timeout=10000)
-  public void getServiceNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Cluster()).getServiceName());
-  }
 
-  @Test(timeout=10000)
-  public void getHealthCheckerTest() {
-    // Arrange, Act and Assert
-    assertTrue((new Cluster()).getHealthChecker() instanceof AbstractHealthChecker.Tcp);
-  }
+    @Test(timeout=10000)
+    public void getDefaultCheckPort() {
+        assertThat(new Cluster().getDefaultCheckPort(), is(80));
+    }
 
-  @Test(timeout=10000)
-  public void isUseIPPort4CheckTest() {
-    // Arrange, Act and Assert
-    assertTrue((new Cluster()).isUseIPPort4Check());
-  }
+    @Test(timeout=10000)
+    public void getDefaultPort() {
+        assertThat(new Cluster().getDefaultPort(), is(80));
+    }
 
-  @Test(timeout=10000)
-  public void getMetadataTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Cluster()).getMetadata().size());
-  }
+    @Test(timeout=10000)
+    public void getHealthChecker() {
+        Cluster cluster = new Cluster();
+        AbstractHealthChecker result = cluster.getHealthChecker();
+        assertThat(result.getType(), is("TCP"));
+        assertThat(cluster.getHealthChecker(), sameInstance(result));
+    }
 
-  @Test(timeout=10000)
-  public void setDefaultPortTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
+    @Test(timeout=10000)
+    public void getMetadataReturnsEmpty() {
+        Cluster cluster = new Cluster();
+        Map<String, String> result = cluster.getMetadata();
+        assertThat(result.isEmpty(), is(true));
+        assertThat(cluster.getMetadata(), sameInstance(result));
+    }
 
-    // Act
-    cluster.setDefaultPort(8080);
+    @Test(timeout=10000)
+    public void getNameReturnsNull() {
+        assertThat(new Cluster().getName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals(8080, cluster.getDefaultPort());
-  }
+    @Test(timeout=10000)
+    public void getServiceNameReturnsNull() {
+        assertThat(new Cluster().getServiceName(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    Cluster actualCluster = new Cluster("name");
+    @Test(timeout=10000)
+    public void isUseIPPort4Check() {
+        assertThat(new Cluster().isUseIPPort4Check(), is(true));
+        assertThat(new Cluster("bar").isUseIPPort4Check(), is(true));
+    }
 
-    // Assert
-    String actualName = actualCluster.getName();
-    int actualDefaultCheckPort = actualCluster.getDefaultCheckPort();
-    int actualDefaultPort = actualCluster.getDefaultPort();
-    boolean actualIsUseIPPort4CheckResult = actualCluster.isUseIPPort4Check();
-    AbstractHealthChecker healthChecker = actualCluster.getHealthChecker();
-    assertEquals("name", actualName);
-    assertTrue(healthChecker instanceof AbstractHealthChecker.Tcp);
-    assertTrue(actualIsUseIPPort4CheckResult);
-    assertEquals(80, actualDefaultCheckPort);
-    assertEquals(80, actualDefaultPort);
-    assertEquals("TCP", healthChecker.getType());
-  }
+    @Test(timeout=10000)
+    public void setDefaultCheckPortToOne() {
+        Cluster cluster = new Cluster();
+        cluster.setDefaultCheckPort(1);
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void setMetadataTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
+    @Test(timeout=10000)
+    public void setDefaultPortToOne() {
+        Cluster cluster = new Cluster();
+        cluster.setDefaultPort(1);
+        assertThat(cluster.getDefaultPort(), is(1));
+    }
 
-    // Act
-    cluster.setMetadata(null);
+    @Test(timeout=10000)
+    public void setHealthChecker() {
+        Cluster cluster = new Cluster();
+        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+    }
 
-    // Assert
-    assertNull(cluster.getMetadata());
-  }
+    @Test(timeout=10000)
+    public void setMetadataToEmpty() {
+        Cluster cluster = new Cluster();
+        Map<String, String> metadata = new HashMap<String, String>();
+        cluster.setMetadata(metadata);
+        assertThat(cluster.getMetadata(), sameInstance(metadata));
+    }
 
-  @Test(timeout=10000)
-  public void getDefaultCheckPortTest() {
-    // Arrange, Act and Assert
-    assertEquals(80, (new Cluster()).getDefaultCheckPort());
-  }
+    @Test(timeout=10000)
+    public void setName() {
+        Cluster cluster = new Cluster();
+        cluster.setName("/bin/bash");
+        assertThat(cluster.getName(), is("/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void setServiceNameTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
+    @Test(timeout=10000)
+    public void setServiceName() {
+        Cluster cluster = new Cluster();
+        cluster.setServiceName("/bin/bash");
+        assertThat(cluster.getServiceName(), is("/bin/bash"));
+    }
 
-    // Act
-    cluster.setServiceName("name");
-
-    // Assert
-    assertEquals("name", cluster.getServiceName());
-  }
-
-  @Test(timeout=10000)
-  public void setNameTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
-
-    // Act
-    cluster.setName("name");
-
-    // Assert
-    assertEquals("name", cluster.getName());
-  }
-
-  @Test(timeout=10000)
-  public void setUseIPPort4CheckTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
-
-    // Act
-    cluster.setUseIPPort4Check(true);
-
-    // Assert
-    assertTrue(cluster.isUseIPPort4Check());
-  }
-
-  @Test(timeout=10000)
-  public void getDefaultPortTest() {
-    // Arrange, Act and Assert
-    assertEquals(80, (new Cluster()).getDefaultPort());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Cluster actualCluster = new Cluster();
-
-    // Assert
-    int actualDefaultCheckPort = actualCluster.getDefaultCheckPort();
-    int actualDefaultPort = actualCluster.getDefaultPort();
-    boolean actualIsUseIPPort4CheckResult = actualCluster.isUseIPPort4Check();
-    AbstractHealthChecker healthChecker = actualCluster.getHealthChecker();
-    assertTrue(healthChecker instanceof AbstractHealthChecker.Tcp);
-    assertTrue(actualIsUseIPPort4CheckResult);
-    assertEquals(80, actualDefaultCheckPort);
-    assertEquals(80, actualDefaultPort);
-    assertEquals("TCP", healthChecker.getType());
-  }
-
-  @Test(timeout=10000)
-  public void setHealthCheckerTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
-    AbstractHealthChecker.Http http = new AbstractHealthChecker.Http();
-
-    // Act
-    cluster.setHealthChecker(http);
-
-    // Assert
-    assertSame(http, cluster.getHealthChecker());
-  }
-
-  @Test(timeout=10000)
-  public void setDefaultCheckPortTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
-
-    // Act
-    cluster.setDefaultCheckPort(8080);
-
-    // Assert
-    assertEquals(8080, cluster.getDefaultCheckPort());
-  }
-
-  @Test(timeout=10000)
-  public void getNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Cluster()).getName());
-  }
+    @Test(timeout=10000)
+    public void setUseIPPort4CheckToFalse() {
+        Cluster cluster = new Cluster();
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
 }
-

@@ -1,43 +1,33 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Rule;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.GroupKey
+ *
+ * @author Diffblue JCover
+ */
 
 public class GroupKeyDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
-  @Test(timeout=10000)
-  public void getKeyTest2() {
-    // Arrange, Act and Assert
-    assertEquals("123+foo+foo", GroupKey.getKey("123", "foo", "foo"));
-  }
+    @Test(timeout=10000)
+    public void getKey() {
+        assertThat(GroupKey.getKey("something", "bar", "foo"), is("something+bar+foo"));
+        assertThat(GroupKey.getKey("something", "foo"), is("something+foo"));
+    }
 
-  @Test(timeout=10000)
-  public void parseKeyTest2() {
-    // Arrange, Act and Assert
-    assertEquals(3, GroupKey.parseKey("foo").length);
-  }
+    @Test(timeout=10000)
+    public void getKeyTenant() {
+        assertThat(GroupKey.getKeyTenant("something", "bar", "foo"), is("something+bar+foo"));
+        assertThat(GroupKey.getKeyTenant("something", "foo", ""), is("something+foo"));
+    }
 
-  @Test(timeout=10000)
-  public void parseKeyTest() {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    GroupKey.parseKey("");
-  }
-
-  @Test(timeout=10000)
-  public void getKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("123+foo", GroupKey.getKey("123", "foo"));
-  }
-
-  @Test(timeout=10000)
-  public void getKeyTenantTest() {
-    // Arrange, Act and Assert
-    assertEquals("123+foo+foo", GroupKey.getKeyTenant("123", "foo", "foo"));
-  }
+    @Test(timeout=10000)
+    public void parseKeyGroupKeyIsFooReturnsNullFooNull() {
+        assertArrayEquals(new String[] { null, "foo", null }, GroupKey.parseKey("foo"));
+    }
 }
-

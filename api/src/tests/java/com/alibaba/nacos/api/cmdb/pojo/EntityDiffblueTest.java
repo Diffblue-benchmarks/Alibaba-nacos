@@ -1,76 +1,57 @@
 package com.alibaba.nacos.api.cmdb.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.api.cmdb.pojo.Entity
+ *
+ * @author Diffblue JCover
+ */
+
 public class EntityDiffblueTest {
-  @Test(timeout=10000)
-  public void setTypeTest() {
-    // Arrange
-    Entity entity = new Entity();
 
-    // Act
-    entity.setType("foo");
+    @Test(timeout=10000)
+    public void getLabelsReturnsNull() {
+        assertThat(new Entity().getLabels(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", entity.getType());
-  }
+    @Test(timeout=10000)
+    public void getNameReturnsNull() {
+        assertThat(new Entity().getName(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setLabelsTest() {
-    // Arrange
-    Entity entity = new Entity();
+    @Test(timeout=10000)
+    public void getTypeReturnsNull() {
+        assertThat(new Entity().getType(), is(nullValue()));
+    }
 
-    // Act
-    entity.setLabels(null);
+    @Test(timeout=10000)
+    public void setLabelsToEmpty() {
+        Entity entity = new Entity();
+        Map<String, String> labels = new HashMap<String, String>();
+        entity.setLabels(labels);
+        assertThat(entity.getLabels(), sameInstance(labels));
+    }
 
-    // Assert
-    assertNull(entity.getLabels());
-  }
+    @Test(timeout=10000)
+    public void setName() {
+        Entity entity = new Entity();
+        entity.setName("/bin/bash");
+        assertThat(entity.getName(), is("/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void setNameTest() {
-    // Arrange
-    Entity entity = new Entity();
-
-    // Act
-    entity.setName("name");
-
-    // Assert
-    assertEquals("name", entity.getName());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Entity actualEntity = new Entity();
-
-    // Assert
-    Map<String, String> actualLabels = actualEntity.getLabels();
-    String actualName = actualEntity.getName();
-    assertNull(actualLabels);
-    assertNull(actualEntity.getType());
-    assertNull(actualName);
-  }
-
-  @Test(timeout=10000)
-  public void getTypeTest() {
-    // Arrange, Act and Assert
-    assertNull((new Entity()).getType());
-  }
-
-  @Test(timeout=10000)
-  public void getNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Entity()).getName());
-  }
-
-  @Test(timeout=10000)
-  public void getLabelsTest() {
-    // Arrange, Act and Assert
-    assertNull((new Entity()).getLabels());
-  }
+    @Test(timeout=10000)
+    public void setTypeToGif() {
+        Entity entity = new Entity();
+        entity.setType("gif");
+        assertThat(entity.getType(), is("gif"));
+    }
 }
-

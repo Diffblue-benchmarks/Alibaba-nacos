@@ -1,13 +1,20 @@
 package com.alibaba.nacos.client.naming.utils;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
-public class SignUtilDiffblueTest {
-  @Test(timeout=10000)
-  public void signTest() throws Exception {
-    // Arrange, Act and Assert
-    assertEquals("sputg0LPIDrWDLp2X2pdKQ6NJiI=", SignUtil.sign("foo", "foo"));
-  }
-}
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.utils.SignUtil
+ *
+ * @author Diffblue JCover
+ */
 
+public class SignUtilDiffblueTest {
+
+    @Test(timeout=10000)
+    public void signDataIsSomethingAndKeyIsFoo() throws Exception {
+        assertThat(SignUtil.sign("something", "foo"), is("KnUAgnazIiUClhgLhvg91JfTBAo="));
+    }
+}

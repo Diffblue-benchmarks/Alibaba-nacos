@@ -1,29 +1,28 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.RegexParser
+ *
+ * @author Diffblue JCover
+ */
+
 public class RegexParserDiffblueTest {
-  @Test(timeout=10000)
-  public void containsWildcardTest() {
-    // Arrange
-    boolean actualContainsWildcardResult = RegexParser.containsWildcard("foo");
 
-    // Act and Assert
-    assertFalse(actualContainsWildcardResult);
-    assertTrue(RegexParser.containsWildcard("?"));
-  }
+    @Test(timeout=10000)
+    public void containsWildcard() {
+        assertThat(RegexParser.containsWildcard("[A-Z]*"), is(true));
+        assertThat(RegexParser.containsWildcard("?"), is(true));
+        assertThat(RegexParser.containsWildcard("bar"), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void regexFormatTest() {
-    // Arrange
-    String actualRegexFormatResult = RegexParser.regexFormat("foo");
-
-    // Act and Assert
-    assertEquals("^foo$", actualRegexFormatResult);
-    assertEquals("^\\^$", RegexParser.regexFormat("^"));
-  }
+    @Test(timeout=10000)
+    public void regexFormat() {
+        assertThat(RegexParser.regexFormat("[A-Z]*"), is("^\\[A\\-Z\\].*$"));
+        assertThat(RegexParser.regexFormat("bar"), is("^bar$"));
+    }
 }
-

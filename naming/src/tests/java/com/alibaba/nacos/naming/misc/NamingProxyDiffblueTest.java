@@ -1,71 +1,37 @@
 package com.alibaba.nacos.naming.misc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import java.io.IOException;
-import java.util.Arrays;
-import org.junit.Rule;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import java.util.HashMap;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.misc.NamingProxy
+ *
+ * @author Diffblue JCover
+ */
 
 public class NamingProxyDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
-  @Test(timeout=10000)
-  public void toUrlTest() {
-    // Arrange, Act and Assert
-    assertEquals("", (new NamingProxy.Request()).toUrl());
-  }
+    @Test(timeout=10000)
+    public void reqAPI() throws Exception {
+        assertThat(NamingProxy.reqAPI("Connection", new HashMap<String, String>(), "foo"), is(""));
+        assertThat(NamingProxy.reqAPI("foo", new HashMap<String, String>(), " msg: "), is(""));
+        assertThat(NamingProxy.reqAPI("foo", new HashMap<String, String>(), " msg: ", false), is(""));
+        assertThat(NamingProxy.reqAPI("Connection", new HashMap<String, String>(), "foo", false), is(""));
+        assertThat(NamingProxy.reqAPI("Connection", new HashMap<String, String>(), "foo", true), is(""));
+    }
 
-  @Test(timeout=10000)
-  public void appendParamTest() {
-    // Arrange
-    NamingProxy.Request request = new NamingProxy.Request();
+    @Test(timeout=10000)
+    public void syncCheckSumsChecksumMapIsEmptyAndServerIsFoo() {
+        NamingProxy.syncCheckSums(new HashMap<String, String>(), "foo");
+    }
 
-    // Act and Assert
-    assertSame(request, request.appendParam("foo", "value"));
-  }
-
-  @Test(timeout=10000)
-  public void syncDataTest() throws Exception {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act and Assert
-    assertFalse(NamingProxy.syncData(byteArray, "foo"));
-  }
-
-  @Test(timeout=10000)
-  public void getAllDataTest() throws Exception {
-    // Arrange, Act and Assert
-    thrown.expect(IOException.class);
-    NamingProxy.getAllData("foo");
-  }
-
-  @Test(timeout=10000)
-  public void getDataTest() throws Exception {
-    // Arrange, Act and Assert
-    thrown.expect(IOException.class);
-    NamingProxy.getData(null, "foo");
-  }
-
-  @Test(timeout=10000)
-  public void reqAPITest2() throws Exception {
-    // Arrange
-    String actualReqAPIResult = NamingProxy.reqAPI("foo", null, "foo", true);
-
-    // Act and Assert
-    assertEquals("", actualReqAPIResult);
-    assertEquals("", NamingProxy.reqAPI("foo", null, "Nacos-Server:1.0.1", true));
-  }
-
-  @Test(timeout=10000)
-  public void reqAPITest() throws Exception {
-    // Arrange, Act and Assert
-    assertEquals("", NamingProxy.reqAPI("foo", null, "foo"));
-  }
+    @Test(timeout=10000)
+    public void syncDataCurServerIsSomethingAndDataIsOneReturnsFalse() throws Exception {
+        byte[] data = new byte[] { 1 };
+        assertThat(NamingProxy.syncData(data, "something"), is(false));
+    }
 }
-

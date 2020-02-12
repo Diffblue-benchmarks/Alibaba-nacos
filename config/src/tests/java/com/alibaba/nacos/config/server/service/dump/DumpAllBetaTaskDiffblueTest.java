@@ -1,18 +1,22 @@
 package com.alibaba.nacos.config.server.service.dump;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.config.server.manager.AbstractTask;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.dump.DumpAllBetaTask
+ *
+ * @author Diffblue JCover
+ */
+
 public class DumpAllBetaTaskDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    DumpAllBetaTask actualDumpAllBetaTask = new DumpAllBetaTask();
 
-    // Assert
-    long actualTaskInterval = actualDumpAllBetaTask.getTaskInterval();
-    assertEquals(0L, actualTaskInterval);
-    assertEquals(0L, actualDumpAllBetaTask.getLastProcessTime());
-  }
+    @Test(timeout=10000)
+    public void merge() {
+        AbstractTask task = mock(AbstractTask.class);
+        new DumpAllBetaTask().merge(task);
+    }
 }
-

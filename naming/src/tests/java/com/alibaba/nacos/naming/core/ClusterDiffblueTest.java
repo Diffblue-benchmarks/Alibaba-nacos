@@ -1,206 +1,170 @@
 package com.alibaba.nacos.naming.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
-import org.junit.Rule;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.core.Cluster
+ *
+ * @author Diffblue JCover
+ */
 
 public class ClusterDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
-  @Test(timeout=10000)
-  public void validateTest() {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    (new Cluster()).validate();
-  }
+    @Test(timeout=10000)
+    public void allIPs() {
+        assertThat(new Cluster().allIPs(), empty());
+        assertThat(new Cluster().allIPs(false), empty());
+        assertThat(new Cluster().allIPs(true), empty());
+    }
 
-  @Test(timeout=10000)
-  public void getHealthCheckTaskTest() {
-    // Arrange, Act and Assert
-    assertNull((new Cluster()).getHealthCheckTask());
-  }
+    @Test(timeout=10000)
+    public void containsReturnsFalse() {
+        assertThat(new Cluster().contains(new Instance("OX13QD", 1)), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void setDefCkportTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
+    @Test(timeout=10000)
+    public void destroy() {
+        new Cluster().destroy();
+    }
 
-    // Act
-    cluster.setDefCkport(8080);
+    @Test(timeout=10000)
+    public void getDefCkport() {
+        assertThat(new Cluster().getDefCkport(), is(80));
+    }
 
-    // Assert
-    assertEquals(8080, cluster.getDefCkport());
-  }
+    @Test(timeout=10000)
+    public void getDefIPPort() {
+        assertThat(new Cluster().getDefIPPort(), is(80));
+    }
 
-  @Test(timeout=10000)
-  public void setServiceNameTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
+    @Test(timeout=10000)
+    public void getHealthCheckTaskReturnsNull() {
+        assertThat(new Cluster().getHealthCheckTask(), is(nullValue()));
+    }
 
-    // Act
-    cluster.setServiceName("name");
+    @Test(timeout=10000)
+    public void getServiceName() {
+        assertThat(new Cluster().getServiceName(), is(nullValue()));
+        assertThat(new Cluster("0", new Service()).getServiceName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", cluster.getServiceName());
-  }
+    @Test(timeout=10000)
+    public void getServiceReturnsNull() {
+        assertThat(new Cluster().getService(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void equalsTest() {
-    // Arrange, Act and Assert
-    assertFalse((new Cluster()).equals("foo"));
-  }
+    @Test(timeout=10000)
+    public void getSitegroupReturnsEmpty() {
+        assertThat(new Cluster().getSitegroup(), is(""));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest3() {
-    // Arrange and Act
-    Cluster actualCluster = new Cluster("name", new Service());
+    @Test(timeout=10000)
+    public void setDefCkportToOne() {
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+    }
 
-    // Assert
-    String actualSitegroup = actualCluster.getSitegroup();
-    String actualName = actualCluster.getName();
-    int actualDefaultCheckPort = actualCluster.getDefaultCheckPort();
-    int actualDefaultPort = actualCluster.getDefaultPort();
-    boolean actualIsUseIPPort4CheckResult = actualCluster.isUseIPPort4Check();
-    AbstractHealthChecker healthChecker = actualCluster.getHealthChecker();
-    int actualDefIPPort = actualCluster.getDefIPPort();
-    String actualServiceName = actualCluster.getServiceName();
-    assertEquals("", actualSitegroup);
-    assertEquals(80, actualCluster.getDefCkport());
-    assertNull(actualServiceName);
-    assertEquals(80, actualDefIPPort);
-    assertTrue(healthChecker instanceof AbstractHealthChecker.Tcp);
-    assertTrue(actualIsUseIPPort4CheckResult);
-    assertEquals(80, actualDefaultCheckPort);
-    assertEquals("name", actualName);
-    assertEquals(80, actualDefaultPort);
-    assertEquals("TCP", healthChecker.getType());
-  }
+    @Test(timeout=10000)
+    public void setDefIPPortToOne() {
+        Cluster cluster = new Cluster();
+        cluster.setDefIPPort(1);
+        assertThat(cluster.getDefIPPort(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    new Cluster("", new Service());
-  }
+    @Test(timeout=10000)
+    public void setService1() {
+        Cluster cluster = new Cluster();
+        Service service2 = new Service();
+        cluster.setService(service2);
+        assertThat(cluster.getService(), sameInstance(service2));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Cluster actualCluster = new Cluster();
+    @Test(timeout=10000)
+    public void setService2() {
+        new Cluster("0", new Service()).setService(new Service());
+    }
 
-    // Assert
-    String actualSitegroup = actualCluster.getSitegroup();
-    int actualDefaultCheckPort = actualCluster.getDefaultCheckPort();
-    int actualDefaultPort = actualCluster.getDefaultPort();
-    boolean actualIsUseIPPort4CheckResult = actualCluster.isUseIPPort4Check();
-    AbstractHealthChecker healthChecker = actualCluster.getHealthChecker();
-    int actualDefIPPort = actualCluster.getDefIPPort();
-    assertEquals("", actualSitegroup);
-    assertEquals(80, actualCluster.getDefCkport());
-    assertEquals(80, actualDefIPPort);
-    assertTrue(healthChecker instanceof AbstractHealthChecker.Tcp);
-    assertTrue(actualIsUseIPPort4CheckResult);
-    assertEquals(80, actualDefaultPort);
-    assertEquals(80, actualDefaultCheckPort);
-    assertEquals("TCP", healthChecker.getType());
-  }
+    @Test(timeout=10000)
+    public void setServiceName() {
+        Cluster cluster = new Cluster();
+        cluster.setServiceName("/bin/bash");
+        assertThat(cluster.getServiceName(), is("/bin/bash"));
+    }
 
-  @Test(timeout=10000)
-  public void setDefIPPortTest2() {
-    // Arrange
-    Cluster cluster = new Cluster();
+    @Test(timeout=10000)
+    public void setSitegroup() {
+        Cluster cluster = new Cluster();
+        cluster.setSitegroup("OX13QD");
+        assertThat(cluster.getSitegroup(), is("OX13QD"));
+    }
 
-    // Act
-    cluster.setDefIPPort(8080);
+    @Test(timeout=10000)
+    public void subtract() {
+        Collection<Instance> a = new LinkedList<Instance>();
+        ((LinkedList<Instance>)a).add(new Instance());
+        Collection<Instance> b = new LinkedList<Instance>();
+        ((LinkedList<Instance>)b).add(new Instance());
+        assertThat(new Cluster().subtract(a, b), empty());
+    }
 
-    // Assert
-    assertEquals(8080, cluster.getDefIPPort());
-  }
+    @Test(timeout=10000)
+    public void subtractAIsEmpty() {
+        Collection<Instance> b = new LinkedList<Instance>();
+        ((LinkedList<Instance>)b).add(new Instance());
+        assertThat(new Cluster().subtract(new LinkedList<Instance>(), b), empty());
+    }
 
-  @Test(timeout=10000)
-  public void setDefIPPortTest() {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    (new Cluster()).setDefIPPort(0);
-  }
+    @Test(timeout=10000)
+    public void subtractAIsEmptyAndBIsEmpty() {
+        assertThat(new Cluster().subtract(new LinkedList<Instance>(), new LinkedList<Instance>()), empty());
+    }
 
-  @Test(timeout=10000)
-  public void allIPsTest3() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Cluster()).allIPs(true).size());
-  }
+    @Test(timeout=10000)
+    public void subtractBIsEmpty() {
+        Collection<Instance> a = new LinkedList<Instance>();
+        Instance instance1 = new Instance();
+        ((LinkedList<Instance>)a).add(instance1);
+        assertThat(new Cluster().subtract(a, new LinkedList<Instance>()), hasSize(1));
+        assertThat(new Cluster().subtract(a, new LinkedList<Instance>()).get(0), sameInstance(instance1));
+    }
 
-  @Test(timeout=10000)
-  public void allIPsTest2() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Cluster()).allIPs(false).size());
-  }
+    @Test(timeout=10000)
+    public void testequals() {
+        assertThat(new Cluster().equals("foo"), is(false));
+        assertThat(new Cluster("0", new Service()).equals("foo"), is(false));
+        assertThat(new Cluster().equals(null), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void getServiceNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new Cluster()).getServiceName());
-  }
+    @Test(timeout=10000)
+    public void update() {
+        new Cluster("0", new Service()).update(new Cluster());
+    }
 
-  @Test(timeout=10000)
-  public void getDefIPPortTest() {
-    // Arrange, Act and Assert
-    assertEquals(80, (new Cluster()).getDefIPPort());
-  }
+    @Test(timeout=10000)
+    public void updatedIPsAIsEmptyAndBIsEmptyReturnsEmpty() {
+        assertThat(new Cluster().updatedIPs(new LinkedList<Instance>(), new LinkedList<Instance>()), empty());
+    }
 
-  @Test(timeout=10000)
-  public void cloneTest() throws CloneNotSupportedException {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    (new Cluster()).clone();
-  }
+    @Test(timeout=10000)
+    public void updateIPsEphemeralIsFalse() {
+        new Cluster().updateIPs(new ArrayList<Instance>(), false);
+    }
 
-  @Test(timeout=10000)
-  public void getServiceTest() {
-    // Arrange, Act and Assert
-    assertNull((new Cluster()).getService());
-  }
-
-  @Test(timeout=10000)
-  public void getSitegroupTest() {
-    // Arrange, Act and Assert
-    assertEquals("", (new Cluster()).getSitegroup());
-  }
-
-  @Test(timeout=10000)
-  public void getDefCkportTest() {
-    // Arrange, Act and Assert
-    assertEquals(80, (new Cluster()).getDefCkport());
-  }
-
-  @Test(timeout=10000)
-  public void allIPsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Cluster()).allIPs().size());
-  }
-
-  @Test(timeout=10000)
-  public void setSitegroupTest() {
-    // Arrange
-    Cluster cluster = new Cluster();
-
-    // Act
-    cluster.setSitegroup("foo");
-
-    // Assert
-    assertEquals("foo", cluster.getSitegroup());
-  }
-
-  @Test(timeout=10000)
-  public void hashCodeTest() {
-    // Arrange, Act and Assert
-    assertEquals(23273, (new Cluster()).hashCode());
-  }
+    @Test(timeout=10000)
+    public void updateIPsEphemeralIsTrue() {
+        new Cluster().updateIPs(new ArrayList<Instance>(), true);
+    }
 }
-

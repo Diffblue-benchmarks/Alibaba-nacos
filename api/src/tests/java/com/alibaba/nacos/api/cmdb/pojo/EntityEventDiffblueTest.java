@@ -1,75 +1,52 @@
 package com.alibaba.nacos.api.cmdb.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.api.cmdb.pojo.EntityEvent
+ *
+ * @author Diffblue JCover
+ */
+
 public class EntityEventDiffblueTest {
-  @Test(timeout=10000)
-  public void setEntityNameTest() {
-    // Arrange
-    EntityEvent entityEvent = new EntityEvent();
 
-    // Act
-    entityEvent.setEntityName("name");
+    @Test(timeout=10000)
+    public void getEntityNameReturnsNull() {
+        assertThat(new EntityEvent().getEntityName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", entityEvent.getEntityName());
-  }
+    @Test(timeout=10000)
+    public void getEntityTypeReturnsNull() {
+        assertThat(new EntityEvent().getEntityType(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setTypeTest() {
-    // Arrange
-    EntityEvent entityEvent = new EntityEvent();
+    @Test(timeout=10000)
+    public void getTypeReturnsNull() {
+        assertThat(new EntityEvent().getType(), is(nullValue()));
+    }
 
-    // Act
-    entityEvent.setType(EntityEventType.ENTITY_ADD_OR_UPDATE);
+    @Test(timeout=10000)
+    public void setEntityName() {
+        EntityEvent entityEvent = new EntityEvent();
+        entityEvent.setEntityName("/bin/bash");
+        assertThat(entityEvent.getEntityName(), is("/bin/bash"));
+    }
 
-    // Assert
-    assertEquals(EntityEventType.ENTITY_ADD_OR_UPDATE, entityEvent.getType());
-  }
+    @Test(timeout=10000)
+    public void setEntityTypeToGif() {
+        EntityEvent entityEvent = new EntityEvent();
+        entityEvent.setEntityType("gif");
+        assertThat(entityEvent.getEntityType(), is("gif"));
+    }
 
-  @Test(timeout=10000)
-  public void setEntityTypeTest() {
-    // Arrange
-    EntityEvent entityEvent = new EntityEvent();
-
-    // Act
-    entityEvent.setEntityType("foo");
-
-    // Assert
-    assertEquals("foo", entityEvent.getEntityType());
-  }
-
-  @Test(timeout=10000)
-  public void getEntityNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new EntityEvent()).getEntityName());
-  }
-
-  @Test(timeout=10000)
-  public void getEntityTypeTest() {
-    // Arrange, Act and Assert
-    assertNull((new EntityEvent()).getEntityType());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    EntityEvent actualEntityEvent = new EntityEvent();
-
-    // Assert
-    EntityEventType actualType = actualEntityEvent.getType();
-    String actualEntityType = actualEntityEvent.getEntityType();
-    assertNull(actualType);
-    assertNull(actualEntityEvent.getEntityName());
-    assertNull(actualEntityType);
-  }
-
-  @Test(timeout=10000)
-  public void getTypeTest() {
-    // Arrange, Act and Assert
-    assertNull((new EntityEvent()).getType());
-  }
+    @Test(timeout=10000)
+    public void setTypeToENTITY_ADD_OR_UPDATE() {
+        EntityEvent entityEvent = new EntityEvent();
+        entityEvent.setType(EntityEventType.ENTITY_ADD_OR_UPDATE);
+        assertThat(entityEvent.getType(), is(EntityEventType.ENTITY_ADD_OR_UPDATE));
+    }
 }
-

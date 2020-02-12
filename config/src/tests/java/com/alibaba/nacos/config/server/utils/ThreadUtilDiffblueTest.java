@@ -1,13 +1,20 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
-public class ThreadUtilDiffblueTest {
-  @Test(timeout=10000)
-  public void getSuitableThreadCountTest() {
-    // Arrange, Act and Assert
-    assertEquals(8, ThreadUtil.getSuitableThreadCount());
-  }
-}
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.ThreadUtil
+ *
+ * @author Diffblue JCover
+ */
 
+public class ThreadUtilDiffblueTest {
+
+    @Test(timeout=10000)
+    public void getSuitableThreadCountReturnsEight() {
+        assertThat(ThreadUtil.getSuitableThreadCount(), is(8));
+    }
+}

@@ -1,202 +1,142 @@
 package com.alibaba.nacos.config.server.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.IsSame.sameInstance;
+
 import com.alibaba.nacos.config.server.utils.SimpleReadWriteLock;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.CacheItem
+ *
+ * @author Diffblue JCover
+ */
+
 public class CacheItemDiffblueTest {
-  @Test(timeout=10000)
-  public void setLastModifiedTs4BetaTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
 
-    // Act
-    cacheItem.setLastModifiedTs4Beta(1L);
+    @Test(timeout=10000)
+    public void getGroupKeyReturnsFoo() {
+        assertThat(new CacheItem("foo").getGroupKey(), is("foo"));
+    }
 
-    // Assert
-    assertEquals(1L, cacheItem.getLastModifiedTs4Beta());
-  }
+    @Test(timeout=10000)
+    public void getIps4BetaReturnsNull() {
+        assertThat(new CacheItem("foo").getIps4Beta(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setMd54BetaTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
+    @Test(timeout=10000)
+    public void getLastModifiedTs4BetaReturnsZero() {
+        assertThat(new CacheItem("foo").getLastModifiedTs4Beta(), is(0L));
+    }
 
-    // Act
-    cacheItem.setMd54Beta("foo");
+    @Test(timeout=10000)
+    public void getLastModifiedTsReturnsZero() {
+        assertThat(new CacheItem("foo").getLastModifiedTs(), is(0L));
+    }
 
-    // Assert
-    assertEquals("foo", cacheItem.getMd54Beta());
-  }
+    @Test(timeout=10000)
+    public void getMd54BetaReturnsEmpty() {
+        assertThat(new CacheItem("foo").getMd54Beta(), is(""));
+    }
 
-  @Test(timeout=10000)
-  public void getMd54BetaTest() {
-    // Arrange, Act and Assert
-    assertEquals("", (new CacheItem("foo")).getMd54Beta());
-  }
+    @Test(timeout=10000)
+    public void getMd5ReturnsEmpty() {
+        assertThat(new CacheItem("foo").getMd5(), is(""));
+    }
 
-  @Test(timeout=10000)
-  public void setBetaTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
+    @Test(timeout=10000)
+    public void getRwLock() {
+        CacheItem cacheItem = new CacheItem("foo");
+        SimpleReadWriteLock result = cacheItem.getRwLock();
+        // pojo SimpleReadWriteLock
+        assertThat(cacheItem.getRwLock(), sameInstance(result));
+    }
 
-    // Act
-    cacheItem.setBeta(true);
+    @Test(timeout=10000)
+    public void getTagLastModifiedTsReturnsNull() {
+        assertThat(new CacheItem("foo").getTagLastModifiedTs(), is(nullValue()));
+    }
 
-    // Assert
-    assertTrue(cacheItem.isBeta());
-  }
+    @Test(timeout=10000)
+    public void getTagMd5ReturnsNull() {
+        assertThat(new CacheItem("foo").getTagMd5(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void isBetaTest() {
-    // Arrange, Act and Assert
-    assertFalse((new CacheItem("foo")).isBeta());
-  }
+    @Test(timeout=10000)
+    public void isBetaReturnsFalse() {
+        assertThat(new CacheItem("foo").isBeta(), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    CacheItem actualCacheItem = new CacheItem("foo");
+    @Test(timeout=10000)
+    public void setBetaToFalse() {
+        new CacheItem("foo").setBeta(false);
+    }
 
-    // Assert
-    SimpleReadWriteLock expectedRwLock = actualCacheItem.rwLock;
-    String actualMd5 = actualCacheItem.getMd5();
-    SimpleReadWriteLock actualRwLock = actualCacheItem.getRwLock();
-    String actualGroupKey = actualCacheItem.getGroupKey();
-    boolean actualIsBetaResult = actualCacheItem.isBeta();
-    assertEquals("", actualCacheItem.getMd54Beta());
-    assertFalse(actualIsBetaResult);
-    assertEquals("foo", actualGroupKey);
-    assertSame(expectedRwLock, actualRwLock);
-    assertEquals("", actualMd5);
-  }
+    @Test(timeout=10000)
+    public void setIps4BetaToEmpty() {
+        CacheItem cacheItem = new CacheItem("foo");
+        List<String> ips4Beta = new ArrayList<String>();
+        cacheItem.setIps4Beta(ips4Beta);
+        assertThat(cacheItem.getIps4Beta(), sameInstance(ips4Beta));
+    }
 
-  @Test(timeout=10000)
-  public void getLastModifiedTs4BetaTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new CacheItem("foo")).getLastModifiedTs4Beta());
-  }
+    @Test(timeout=10000)
+    public void setLastModifiedTs4BetaToOne() {
+        CacheItem cacheItem = new CacheItem("foo");
+        cacheItem.setLastModifiedTs4Beta(1L);
+        assertThat(cacheItem.getLastModifiedTs4Beta(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void getRwLockTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
+    @Test(timeout=10000)
+    public void setLastModifiedTsToOne() {
+        CacheItem cacheItem = new CacheItem("foo");
+        cacheItem.setLastModifiedTs(1L);
+        assertThat(cacheItem.getLastModifiedTs(), is(1L));
+    }
 
-    // Act and Assert
-    assertSame(cacheItem.rwLock, cacheItem.getRwLock());
-  }
+    @Test(timeout=10000)
+    public void setMd54BetaToFoo() {
+        CacheItem cacheItem = new CacheItem("foo");
+        cacheItem.setMd54Beta("foo");
+        assertThat(cacheItem.getMd54Beta(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getMd5Test() {
-    // Arrange, Act and Assert
-    assertEquals("", (new CacheItem("foo")).getMd5());
-  }
+    @Test(timeout=10000)
+    public void setMd5ToFoo() {
+        CacheItem cacheItem = new CacheItem("foo");
+        cacheItem.setMd5("foo");
+        assertThat(cacheItem.getMd5(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getTagMd5Test() {
-    // Arrange, Act and Assert
-    assertNull((new CacheItem("foo")).getTagMd5());
-  }
+    @Test(timeout=10000)
+    public void setRwLock() {
+        CacheItem cacheItem = new CacheItem("foo");
+        SimpleReadWriteLock rwLock = new SimpleReadWriteLock();
+        cacheItem.setRwLock(rwLock);
+        assertThat(cacheItem.getRwLock(), sameInstance(rwLock));
+    }
 
-  @Test(timeout=10000)
-  public void setTagLastModifiedTsTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
+    @Test(timeout=10000)
+    public void setTagLastModifiedTsToEmpty() {
+        CacheItem cacheItem = new CacheItem("foo");
+        Map<String, Long> tagLastModifiedTs = new HashMap<String, Long>();
+        cacheItem.setTagLastModifiedTs(tagLastModifiedTs);
+        assertThat(cacheItem.getTagLastModifiedTs(), sameInstance(tagLastModifiedTs));
+    }
 
-    // Act
-    cacheItem.setTagLastModifiedTs(null);
-
-    // Assert
-    assertNull(cacheItem.getTagLastModifiedTs());
-  }
-
-  @Test(timeout=10000)
-  public void getTagLastModifiedTsTest() {
-    // Arrange, Act and Assert
-    assertNull((new CacheItem("foo")).getTagLastModifiedTs());
-  }
-
-  @Test(timeout=10000)
-  public void setTagMd5Test() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
-
-    // Act
-    cacheItem.setTagMd5(null);
-
-    // Assert
-    assertNull(cacheItem.getTagMd5());
-  }
-
-  @Test(timeout=10000)
-  public void setLastModifiedTsTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
-
-    // Act
-    cacheItem.setLastModifiedTs(1L);
-
-    // Assert
-    assertEquals(1L, cacheItem.getLastModifiedTs());
-  }
-
-  @Test(timeout=10000)
-  public void setRwLockTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
-    SimpleReadWriteLock simpleReadWriteLock = new SimpleReadWriteLock();
-
-    // Act
-    cacheItem.setRwLock(simpleReadWriteLock);
-
-    // Assert
-    assertSame(simpleReadWriteLock, cacheItem.getRwLock());
-  }
-
-  @Test(timeout=10000)
-  public void getIps4BetaTest() {
-    // Arrange, Act and Assert
-    assertNull((new CacheItem("foo")).getIps4Beta());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupKeyTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", (new CacheItem("foo")).getGroupKey());
-  }
-
-  @Test(timeout=10000)
-  public void setMd5Test() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
-
-    // Act
-    cacheItem.setMd5("foo");
-
-    // Assert
-    assertEquals("foo", cacheItem.getMd5());
-  }
-
-  @Test(timeout=10000)
-  public void setIps4BetaTest() {
-    // Arrange
-    CacheItem cacheItem = new CacheItem("foo");
-
-    // Act
-    cacheItem.setIps4Beta(null);
-
-    // Assert
-    assertNull(cacheItem.getIps4Beta());
-  }
-
-  @Test(timeout=10000)
-  public void getLastModifiedTsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new CacheItem("foo")).getLastModifiedTs());
-  }
+    @Test(timeout=10000)
+    public void setTagMd5ToEmpty() {
+        CacheItem cacheItem = new CacheItem("foo");
+        Map<String, String> tagMd5 = new HashMap<String, String>();
+        cacheItem.setTagMd5(tagMd5);
+        assertThat(cacheItem.getTagMd5(), sameInstance(tagMd5));
+    }
 }
-

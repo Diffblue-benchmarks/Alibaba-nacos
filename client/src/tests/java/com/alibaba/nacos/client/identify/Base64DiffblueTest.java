@@ -1,417 +1,83 @@
 package com.alibaba.nacos.client.identify;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import java.util.Arrays;
-import org.junit.Rule;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.identify.Base64
+ *
+ * @author Diffblue JCover
+ */
 
 public class Base64DiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
-  @Test(timeout=10000)
-  public void encodeTest2() {
-    // Arrange
-    Base64 base64 = new Base64();
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
+    @Test(timeout=10000)
+    public void decodeBase64() {
+        assertArrayEquals(new byte[] { }, Base64.decodeBase64(new byte[] { }));
+        assertThat(Base64.decodeBase64(null), is(nullValue()));
+    }
 
-    // Act and Assert
-    thrown.expect(ArrayIndexOutOfBoundsException.class);
-    base64.encode(byteArray, 1, 8192);
-  }
+//    @Test(timeout=10000)
+//    public void decodeBase64() {  <-- method decodeBase64() is already defined in class com.alibaba.nacos.client.identify.Base64Test
+//        byte[] base64Data = new byte[] { 61 };
+//        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+//    }
+//
+    @Test(timeout=10000)
+    public void decodeBase64Base64DataIsMinusOne() {
+        byte[] base64Data = new byte[] { -1 };
+        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+    }
 
-  @Test(timeout=10000)
-  public void encodeTest() {
-    // Arrange
-    byte[] byteArray = new byte[8192];
-    byteArray[0] = 1;
-    byteArray[1] = 1;
-    byteArray[2] = 1;
-    byteArray[3] = 1;
-    byteArray[4] = 1;
-    byteArray[5] = 1;
-    byteArray[6] = 1;
-    byteArray[7] = 1;
-    byteArray[8] = 1;
-    byteArray[9] = 1;
-    byteArray[10] = 1;
-    byteArray[11] = 1;
-    byteArray[12] = 1;
-    byteArray[13] = 1;
-    byteArray[14] = 1;
-    byteArray[15] = 1;
-    byteArray[16] = 1;
-    byteArray[17] = 1;
-    byteArray[18] = 1;
-    byteArray[19] = 1;
-    byteArray[20] = 1;
-    byteArray[21] = 1;
-    byteArray[22] = 1;
-    byteArray[23] = 1;
+    @Test(timeout=10000)
+    public void decodeBase64Base64DataIsOne() {
+        byte[] base64Data = new byte[] { 1 };
+        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+    }
 
-    // Act and Assert
-    thrown.expect(ArrayIndexOutOfBoundsException.class);
-    (new Base64()).encode(byteArray, 1, 8192);
-  }
+    @Test(timeout=10000)
+    public void decodeBase64Base64DataIsZeroOne() {
+        byte[] base64Data = new byte[] { 0, 1 };
+        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+    }
 
-  @Test(timeout=10000)
-  public void encodeBase64Test10() {
-    // Arrange
-    byte[] byteArray = new byte[26];
-    byteArray[0] = 1;
-    byteArray[1] = 1;
-    byteArray[2] = 1;
-    byteArray[3] = 1;
-    byteArray[4] = 1;
-    byteArray[5] = 1;
-    byteArray[6] = 1;
-    byteArray[7] = 1;
-    byteArray[8] = 1;
-    byteArray[9] = 1;
-    byteArray[10] = 1;
-    byteArray[11] = 1;
-    byteArray[12] = 1;
-    byteArray[13] = 1;
-    byteArray[14] = 1;
-    byteArray[15] = 1;
-    byteArray[16] = 1;
-    byteArray[17] = 1;
-    byteArray[18] = 1;
-    byteArray[19] = 1;
-    byteArray[20] = 1;
-    byteArray[21] = 1;
-    byteArray[22] = 1;
-    byteArray[23] = 1;
+    @Test(timeout=10000)
+    public void encodeBase64() {
+        assertArrayEquals(new byte[] { }, Base64.encodeBase64(new byte[] { }));
+        assertThat(Base64.encodeBase64(null), is(nullValue()));
+    }
 
-    // Act
-    byte[] actualEncodeBase64Result = Base64.encodeBase64(byteArray, true, true, 76);
+    @Test(timeout=10000)
+    public void encodeBase64BinaryDataIsMinusOneOne() {
+        byte[] binaryData = new byte[] { -1, 1 };
+        assertArrayEquals(new byte[] { 47, 119, 69, 61 }, Base64.encodeBase64(binaryData));
+    }
 
-    // Assert
-    assertEquals(37, actualEncodeBase64Result.length);
-    assertEquals((byte) 65, actualEncodeBase64Result[0]);
-    assertEquals((byte) 81, actualEncodeBase64Result[1]);
-    assertEquals((byte) 69, actualEncodeBase64Result[2]);
-    assertEquals((byte) 66, actualEncodeBase64Result[3]);
-    assertEquals((byte) 65, actualEncodeBase64Result[4]);
-    assertEquals((byte) 81, actualEncodeBase64Result[5]);
-    assertEquals((byte) 66, actualEncodeBase64Result[31]);
-    assertEquals((byte) 65, actualEncodeBase64Result[32]);
-    assertEquals((byte) 65, actualEncodeBase64Result[33]);
-    assertEquals((byte) 65, actualEncodeBase64Result[34]);
-    assertEquals((byte) 13, actualEncodeBase64Result[35]);
-    assertEquals((byte) 10, actualEncodeBase64Result[36]);
-  }
+    @Test(timeout=10000)
+    public void encodeBase64BinaryDataIsMinusOneOneOne() {
+        byte[] binaryData = new byte[] { -1, 1, 1 };
+        assertArrayEquals(new byte[] { 47, 119, 69, 66 }, Base64.encodeBase64(binaryData));
+    }
 
-  @Test(timeout=10000)
-  public void encodeBase64Test9() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
+    @Test(timeout=10000)
+    public void encodeBase64BinaryDataIsOne() {
+        byte[] binaryData = new byte[] { 1 };
+        assertArrayEquals(new byte[] { 65, 81, 61, 61 }, Base64.encodeBase64(binaryData));
+    }
 
-    // Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    Base64.encodeBase64(byteArray, false, true, 3);
-  }
+    @Test(timeout=10000)
+    public void isInAlphabet1() {
+        byte[] lineSeparator = new byte[] { 1 };
+        assertThat(new Base64(1, lineSeparator, false).isInAlphabet((byte)1), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void encodeBase64Test8() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    Base64.encodeBase64(byteArray, true, true, 3);
-  }
-
-  @Test(timeout=10000)
-  public void encodeBase64Test7() {
-    // Arrange
-    byte[] byteArray = new byte[34];
-    byteArray[0] = 1;
-    byteArray[1] = 1;
-    byteArray[2] = 1;
-    byteArray[3] = 1;
-    byteArray[4] = 1;
-    byteArray[5] = 1;
-    byteArray[6] = 1;
-    byteArray[7] = 1;
-    byteArray[8] = 1;
-    byteArray[9] = 1;
-    byteArray[10] = 1;
-    byteArray[11] = 1;
-    byteArray[12] = 1;
-    byteArray[13] = 1;
-    byteArray[14] = 1;
-    byteArray[15] = 1;
-    byteArray[16] = 1;
-    byteArray[17] = 1;
-    byteArray[18] = 1;
-    byteArray[19] = 1;
-    byteArray[20] = 1;
-    byteArray[21] = 1;
-    byteArray[22] = 1;
-    byteArray[23] = 1;
-
-    // Act
-    byte[] actualEncodeBase64Result = Base64.encodeBase64(byteArray, false, true, 76);
-
-    // Assert
-    assertEquals(46, actualEncodeBase64Result.length);
-    assertEquals((byte) 65, actualEncodeBase64Result[0]);
-    assertEquals((byte) 81, actualEncodeBase64Result[1]);
-    assertEquals((byte) 69, actualEncodeBase64Result[2]);
-    assertEquals((byte) 66, actualEncodeBase64Result[3]);
-    assertEquals((byte) 65, actualEncodeBase64Result[4]);
-    assertEquals((byte) 81, actualEncodeBase64Result[5]);
-    assertEquals((byte) 65, actualEncodeBase64Result[40]);
-    assertEquals((byte) 65, actualEncodeBase64Result[41]);
-    assertEquals((byte) 65, actualEncodeBase64Result[42]);
-    assertEquals((byte) 65, actualEncodeBase64Result[43]);
-    assertEquals((byte) 65, actualEncodeBase64Result[44]);
-    assertEquals((byte) 65, actualEncodeBase64Result[45]);
-  }
-
-  @Test(timeout=10000)
-  public void encodeBase64Test6() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act
-    byte[] actualEncodeBase64Result = Base64.encodeBase64(byteArray, true, true, 76);
-
-    // Assert
-    assertEquals(34, actualEncodeBase64Result.length);
-    assertEquals((byte) 65, actualEncodeBase64Result[0]);
-    assertEquals((byte) 81, actualEncodeBase64Result[1]);
-    assertEquals((byte) 69, actualEncodeBase64Result[2]);
-    assertEquals((byte) 66, actualEncodeBase64Result[3]);
-    assertEquals((byte) 65, actualEncodeBase64Result[4]);
-    assertEquals((byte) 81, actualEncodeBase64Result[5]);
-    assertEquals((byte) 65, actualEncodeBase64Result[28]);
-    assertEquals((byte) 81, actualEncodeBase64Result[29]);
-    assertEquals((byte) 69, actualEncodeBase64Result[30]);
-    assertEquals((byte) 66, actualEncodeBase64Result[31]);
-    assertEquals((byte) 13, actualEncodeBase64Result[32]);
-    assertEquals((byte) 10, actualEncodeBase64Result[33]);
-  }
-
-  @Test(timeout=10000)
-  public void encodeBase64Test5() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    Base64.encodeBase64(byteArray, true, false, 3);
-  }
-
-  @Test(timeout=10000)
-  public void encodeBase64Test4() {
-    // Arrange
-    byte[] byteArray = new byte[34];
-    byteArray[0] = 1;
-    byteArray[1] = 1;
-    byteArray[2] = 1;
-    byteArray[3] = 1;
-    byteArray[4] = 1;
-    byteArray[5] = 1;
-    byteArray[6] = 1;
-    byteArray[7] = 1;
-    byteArray[8] = 1;
-    byteArray[9] = 1;
-    byteArray[10] = 1;
-    byteArray[11] = 1;
-    byteArray[12] = 1;
-    byteArray[13] = 1;
-    byteArray[14] = 1;
-    byteArray[15] = 1;
-    byteArray[16] = 1;
-    byteArray[17] = 1;
-    byteArray[18] = 1;
-    byteArray[19] = 1;
-    byteArray[20] = 1;
-    byteArray[21] = 1;
-    byteArray[22] = 1;
-    byteArray[23] = 1;
-
-    // Act
-    byte[] actualEncodeBase64Result = Base64.encodeBase64(byteArray, true, true, 76);
-
-    // Assert
-    assertEquals(48, actualEncodeBase64Result.length);
-    assertEquals((byte) 65, actualEncodeBase64Result[0]);
-    assertEquals((byte) 81, actualEncodeBase64Result[1]);
-    assertEquals((byte) 69, actualEncodeBase64Result[2]);
-    assertEquals((byte) 66, actualEncodeBase64Result[3]);
-    assertEquals((byte) 65, actualEncodeBase64Result[4]);
-    assertEquals((byte) 81, actualEncodeBase64Result[5]);
-    assertEquals((byte) 65, actualEncodeBase64Result[42]);
-    assertEquals((byte) 65, actualEncodeBase64Result[43]);
-    assertEquals((byte) 65, actualEncodeBase64Result[44]);
-    assertEquals((byte) 65, actualEncodeBase64Result[45]);
-    assertEquals((byte) 13, actualEncodeBase64Result[46]);
-    assertEquals((byte) 10, actualEncodeBase64Result[47]);
-  }
-
-  @Test(timeout=10000)
-  public void decodeTest() {
-    // Arrange
-    Base64 base64 = new Base64();
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act and Assert
-    thrown.expect(ArrayIndexOutOfBoundsException.class);
-    base64.decode(byteArray, 1, 8192);
-  }
-
-  @Test(timeout=10000)
-  public void encodeBase64Test3() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act
-    byte[] actualEncodeBase64Result = Base64.encodeBase64(byteArray);
-
-    // Assert
-    assertEquals(32, actualEncodeBase64Result.length);
-    assertEquals((byte) 65, actualEncodeBase64Result[0]);
-    assertEquals((byte) 81, actualEncodeBase64Result[1]);
-    assertEquals((byte) 69, actualEncodeBase64Result[2]);
-    assertEquals((byte) 66, actualEncodeBase64Result[3]);
-    assertEquals((byte) 65, actualEncodeBase64Result[4]);
-    assertEquals((byte) 81, actualEncodeBase64Result[5]);
-    assertEquals((byte) 69, actualEncodeBase64Result[26]);
-    assertEquals((byte) 66, actualEncodeBase64Result[27]);
-    assertEquals((byte) 65, actualEncodeBase64Result[28]);
-    assertEquals((byte) 81, actualEncodeBase64Result[29]);
-    assertEquals((byte) 69, actualEncodeBase64Result[30]);
-    assertEquals((byte) 66, actualEncodeBase64Result[31]);
-  }
-
-  @Test(timeout=10000)
-  public void encodeBase64Test2() {
-    // Arrange
-    byte[] byteArray = new byte[32];
-    byteArray[0] = 1;
-    byteArray[1] = 1;
-    byteArray[2] = 1;
-    byteArray[3] = 1;
-    byteArray[4] = 1;
-    byteArray[5] = 1;
-    byteArray[6] = 1;
-    byteArray[7] = 1;
-    byteArray[8] = 1;
-    byteArray[9] = 1;
-    byteArray[10] = 1;
-    byteArray[11] = 1;
-    byteArray[12] = 1;
-    byteArray[13] = 1;
-    byteArray[14] = 1;
-    byteArray[15] = 1;
-    byteArray[16] = 1;
-    byteArray[17] = 1;
-    byteArray[18] = 1;
-    byteArray[19] = 1;
-    byteArray[20] = 1;
-    byteArray[21] = 1;
-    byteArray[22] = 1;
-    byteArray[23] = 1;
-
-    // Act
-    byte[] actualEncodeBase64Result = Base64.encodeBase64(byteArray);
-
-    // Assert
-    assertEquals(44, actualEncodeBase64Result.length);
-    assertEquals((byte) 65, actualEncodeBase64Result[0]);
-    assertEquals((byte) 81, actualEncodeBase64Result[1]);
-    assertEquals((byte) 69, actualEncodeBase64Result[2]);
-    assertEquals((byte) 66, actualEncodeBase64Result[3]);
-    assertEquals((byte) 65, actualEncodeBase64Result[4]);
-    assertEquals((byte) 81, actualEncodeBase64Result[5]);
-    assertEquals((byte) 65, actualEncodeBase64Result[38]);
-    assertEquals((byte) 65, actualEncodeBase64Result[39]);
-    assertEquals((byte) 65, actualEncodeBase64Result[40]);
-    assertEquals((byte) 65, actualEncodeBase64Result[41]);
-    assertEquals((byte) 65, actualEncodeBase64Result[42]);
-    assertEquals((byte) 61, actualEncodeBase64Result[43]);
-  }
-
-  @Test(timeout=10000)
-  public void encodeBase64Test() {
-    // Arrange
-    byte[] byteArray = new byte[61];
-    byteArray[0] = 1;
-    byteArray[1] = 1;
-    byteArray[2] = 1;
-    byteArray[3] = 1;
-    byteArray[4] = 1;
-    byteArray[5] = 1;
-    byteArray[6] = 1;
-    byteArray[7] = 1;
-    byteArray[8] = 1;
-    byteArray[9] = 1;
-    byteArray[10] = 1;
-    byteArray[11] = 1;
-    byteArray[12] = 1;
-    byteArray[13] = 1;
-    byteArray[14] = 1;
-    byteArray[15] = 1;
-    byteArray[16] = 1;
-    byteArray[17] = 1;
-    byteArray[18] = 1;
-    byteArray[19] = 1;
-    byteArray[20] = 1;
-    byteArray[21] = 1;
-    byteArray[22] = 1;
-    byteArray[23] = 1;
-
-    // Act
-    byte[] actualEncodeBase64Result = Base64.encodeBase64(byteArray);
-
-    // Assert
-    assertEquals(84, actualEncodeBase64Result.length);
-    assertEquals((byte) 65, actualEncodeBase64Result[0]);
-    assertEquals((byte) 81, actualEncodeBase64Result[1]);
-    assertEquals((byte) 69, actualEncodeBase64Result[2]);
-    assertEquals((byte) 66, actualEncodeBase64Result[3]);
-    assertEquals((byte) 65, actualEncodeBase64Result[4]);
-    assertEquals((byte) 81, actualEncodeBase64Result[5]);
-    assertEquals((byte) 65, actualEncodeBase64Result[78]);
-    assertEquals((byte) 65, actualEncodeBase64Result[79]);
-    assertEquals((byte) 65, actualEncodeBase64Result[80]);
-    assertEquals((byte) 65, actualEncodeBase64Result[81]);
-    assertEquals((byte) 61, actualEncodeBase64Result[82]);
-    assertEquals((byte) 61, actualEncodeBase64Result[83]);
-  }
-
-  @Test(timeout=10000)
-  public void isInAlphabetTest2() {
-    // Arrange, Act and Assert
-    assertFalse((new Base64()).isInAlphabet((byte) 1));
-  }
-
-  @Test(timeout=10000)
-  public void isInAlphabetTest() {
-    // Arrange, Act and Assert
-    assertFalse((new Base64()).isInAlphabet((byte) 127));
-  }
-
-  @Test(timeout=10000)
-  public void decodeBase64Test() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
-
-    // Act and Assert
-    assertEquals(0, Base64.decodeBase64(byteArray).length);
-  }
+    @Test(timeout=10000)
+    public void isInAlphabet2() {
+        assertThat(new Base64().isInAlphabet((byte)1), is(false));
+        assertThat(new Base64().isInAlphabet((byte)-1), is(false));
+    }
 }
-

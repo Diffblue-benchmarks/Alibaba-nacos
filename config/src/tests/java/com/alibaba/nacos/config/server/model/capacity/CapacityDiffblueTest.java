@@ -1,176 +1,142 @@
 package com.alibaba.nacos.config.server.model.capacity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import java.sql.Timestamp;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.capacity.Capacity
+ *
+ * @author Diffblue JCover
+ */
+
 public class CapacityDiffblueTest {
-  @Test(timeout=10000)
-  public void getMaxAggrCountTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getMaxAggrCount());
-  }
 
-  @Test(timeout=10000)
-  public void getIdTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getId());
-  }
+    @Test(timeout=10000)
+    public void getGmtCreateReturnsNull() {
+        assertThat(new Capacity().getGmtCreate(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getMaxAggrSizeTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getMaxAggrSize());
-  }
+    @Test(timeout=10000)
+    public void getGmtModifiedReturnsNull() {
+        assertThat(new Capacity().getGmtModified(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setGmtCreateTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
+    @Test(timeout=10000)
+    public void getIdReturnsNull() {
+        assertThat(new Capacity().getId(), is(nullValue()));
+    }
 
-    // Act
-    capacity.setGmtCreate(null);
+    @Test(timeout=10000)
+    public void getMaxAggrCountReturnsNull() {
+        assertThat(new Capacity().getMaxAggrCount(), is(nullValue()));
+    }
 
-    // Assert
-    assertNull(capacity.getGmtCreate());
-  }
+    @Test(timeout=10000)
+    public void getMaxAggrSizeReturnsNull() {
+        assertThat(new Capacity().getMaxAggrSize(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setMaxAggrSizeTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
+    @Test(timeout=10000)
+    public void getMaxSizeReturnsNull() {
+        assertThat(new Capacity().getMaxSize(), is(nullValue()));
+    }
 
-    // Act
-    capacity.setMaxAggrSize(Integer.valueOf(3));
+    @Test(timeout=10000)
+    public void getQuotaReturnsNull() {
+        assertThat(new Capacity().getQuota(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals(Integer.valueOf(3), capacity.getMaxAggrSize());
-  }
+    @Test(timeout=10000)
+    public void getUsageReturnsNull() {
+        assertThat(new Capacity().getUsage(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setUsageTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
+    @Test(timeout=10000)
+    public void setGmtCreate() {
+        Capacity capacity = new Capacity();
+        capacity.setGmtCreate(new Timestamp(1L));
+        assertThat(capacity.getGmtCreate().getNanos(), is(1_000_000));
+        assertThat(capacity.getGmtCreate().getTime(), is(1L));
+        assertThat(capacity.getGmtCreate().getDate(), is(1));
+        assertThat(capacity.getGmtCreate().getDay(), is(4));
+        assertThat(capacity.getGmtCreate().getHours(), is(0));
+        assertThat(capacity.getGmtCreate().getMinutes(), is(0));
+        assertThat(capacity.getGmtCreate().getMonth(), is(0));
+        assertThat(capacity.getGmtCreate().getSeconds(), is(0));
+        assertThat(capacity.getGmtCreate().getTimezoneOffset(), is(0));
+        assertThat(capacity.getGmtCreate().getYear(), is(70));
+    }
 
-    // Act
-    capacity.setUsage(Integer.valueOf(1));
+    @Test(timeout=10000)
+    public void setGmtCreateToNull() {
+        new Capacity().setGmtCreate(null);
+    }
 
-    // Assert
-    assertEquals(Integer.valueOf(1), capacity.getUsage());
-  }
+    @Test(timeout=10000)
+    public void setGmtModified() {
+        Capacity capacity = new Capacity();
+        capacity.setGmtModified(new Timestamp(1L));
+        assertThat(capacity.getGmtModified().getNanos(), is(1_000_000));
+        assertThat(capacity.getGmtModified().getTime(), is(1L));
+        assertThat(capacity.getGmtModified().getDate(), is(1));
+        assertThat(capacity.getGmtModified().getDay(), is(4));
+        assertThat(capacity.getGmtModified().getHours(), is(0));
+        assertThat(capacity.getGmtModified().getMinutes(), is(0));
+        assertThat(capacity.getGmtModified().getMonth(), is(0));
+        assertThat(capacity.getGmtModified().getSeconds(), is(0));
+        assertThat(capacity.getGmtModified().getTimezoneOffset(), is(0));
+        assertThat(capacity.getGmtModified().getYear(), is(70));
+    }
 
-  @Test(timeout=10000)
-  public void setIdTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
+    @Test(timeout=10000)
+    public void setGmtModifiedToNull() {
+        new Capacity().setGmtModified(null);
+    }
 
-    // Act
-    capacity.setId(Long.valueOf(123L));
+    @Test(timeout=10000)
+    public void setIdToOne() {
+        Capacity capacity = new Capacity();
+        capacity.setId(1L);
+        assertThat(capacity.getId(), is(1L));
+    }
 
-    // Assert
-    assertEquals(Long.valueOf(123L), capacity.getId());
-  }
+    @Test(timeout=10000)
+    public void setMaxAggrCountToOne() {
+        Capacity capacity = new Capacity();
+        capacity.setMaxAggrCount(1);
+        assertThat(capacity.getMaxAggrCount(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void setMaxSizeTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
+    @Test(timeout=10000)
+    public void setMaxAggrSizeToOne() {
+        Capacity capacity = new Capacity();
+        capacity.setMaxAggrSize(1);
+        assertThat(capacity.getMaxAggrSize(), is(1));
+    }
 
-    // Act
-    capacity.setMaxSize(Integer.valueOf(3));
+    @Test(timeout=10000)
+    public void setMaxSizeToOne() {
+        Capacity capacity = new Capacity();
+        capacity.setMaxSize(1);
+        assertThat(capacity.getMaxSize(), is(1));
+    }
 
-    // Assert
-    assertEquals(Integer.valueOf(3), capacity.getMaxSize());
-  }
+    @Test(timeout=10000)
+    public void setQuotaToOne() {
+        Capacity capacity = new Capacity();
+        capacity.setQuota(1);
+        assertThat(capacity.getQuota(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void setMaxAggrCountTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
-
-    // Act
-    capacity.setMaxAggrCount(Integer.valueOf(3));
-
-    // Assert
-    assertEquals(Integer.valueOf(3), capacity.getMaxAggrCount());
-  }
-
-  @Test(timeout=10000)
-  public void getGmtModifiedTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getGmtModified());
-  }
-
-  @Test(timeout=10000)
-  public void setQuotaTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
-
-    // Act
-    capacity.setQuota(Integer.valueOf(1));
-
-    // Assert
-    assertEquals(Integer.valueOf(1), capacity.getQuota());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Capacity actualCapacity = new Capacity();
-
-    // Assert
-    Integer actualMaxSize = actualCapacity.getMaxSize();
-    Integer actualUsage = actualCapacity.getUsage();
-    Integer actualQuota = actualCapacity.getQuota();
-    Timestamp actualGmtCreate = actualCapacity.getGmtCreate();
-    Integer actualMaxAggrSize = actualCapacity.getMaxAggrSize();
-    Long actualId = actualCapacity.getId();
-    Timestamp actualGmtModified = actualCapacity.getGmtModified();
-    assertNull(actualMaxSize);
-    assertNull(actualCapacity.getMaxAggrCount());
-    assertNull(actualGmtModified);
-    assertNull(actualId);
-    assertNull(actualMaxAggrSize);
-    assertNull(actualGmtCreate);
-    assertNull(actualQuota);
-    assertNull(actualUsage);
-  }
-
-  @Test(timeout=10000)
-  public void getGmtCreateTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getGmtCreate());
-  }
-
-  @Test(timeout=10000)
-  public void getQuotaTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getQuota());
-  }
-
-  @Test(timeout=10000)
-  public void getUsageTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getUsage());
-  }
-
-  @Test(timeout=10000)
-  public void setGmtModifiedTest() {
-    // Arrange
-    Capacity capacity = new Capacity();
-
-    // Act
-    capacity.setGmtModified(null);
-
-    // Assert
-    assertNull(capacity.getGmtModified());
-  }
-
-  @Test(timeout=10000)
-  public void getMaxSizeTest() {
-    // Arrange, Act and Assert
-    assertNull((new Capacity()).getMaxSize());
-  }
+    @Test(timeout=10000)
+    public void setUsageToOne() {
+        Capacity capacity = new Capacity();
+        capacity.setUsage(1);
+        assertThat(capacity.getUsage(), is(1));
+    }
 }
-

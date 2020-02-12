@@ -1,13 +1,17 @@
 package com.alibaba.nacos.config.server.service.dump;
 
-import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
-public class DumpAllBetaProcessorDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertNull((new DumpAllBetaProcessor(new DumpService())).persistService);
-  }
-}
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.dump.DumpAllBetaProcessor
+ *
+ * @author Diffblue JCover
+ */
 
+public class DumpAllBetaProcessorDiffblueTest {
+
+    @Test(timeout=10000)
+    public void constructor() {
+        // pojo DumpAllBetaProcessor
+    }
+}

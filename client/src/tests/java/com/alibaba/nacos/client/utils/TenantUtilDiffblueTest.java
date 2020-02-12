@@ -1,20 +1,26 @@
 package com.alibaba.nacos.client.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.client.utils.TenantUtil
+ *
+ * @author Diffblue JCover
+ */
+
 public class TenantUtilDiffblueTest {
-  @Test(timeout=10000)
-  public void getUserTenantForAcmTest() {
-    // Arrange, Act and Assert
-    assertEquals("", TenantUtil.getUserTenantForAcm());
-  }
 
-  @Test(timeout=10000)
-  public void getUserTenantForAnsTest() {
-    // Arrange, Act and Assert
-    assertNull(TenantUtil.getUserTenantForAns());
-  }
+    @Test(timeout=10000)
+    public void getUserTenantForAcmReturnsEmpty() {
+        assertThat(TenantUtil.getUserTenantForAcm(), is(""));
+    }
+
+    @Test(timeout=10000)
+    public void getUserTenantForAnsReturnsNull() {
+        assertThat(TenantUtil.getUserTenantForAns(), is(nullValue()));
+    }
 }
-

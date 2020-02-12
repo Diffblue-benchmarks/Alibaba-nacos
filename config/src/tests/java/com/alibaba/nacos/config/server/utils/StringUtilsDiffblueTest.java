@@ -1,66 +1,60 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.StringUtils
+ *
+ * @author Diffblue JCover
+ */
+
 public class StringUtilsDiffblueTest {
-  @Test(timeout=10000)
-  public void isEmptyTest() {
-    // Arrange
-    boolean actualIsEmptyResult = StringUtils.isEmpty("foo");
 
-    // Act and Assert
-    assertFalse(actualIsEmptyResult);
-    assertTrue(StringUtils.isEmpty(""));
-  }
+    @Test(timeout=10000)
+    public void defaultIfEmpty() {
+        assertThat(StringUtils.defaultIfEmpty("bar", "foo"), is("bar"));
+        assertThat(StringUtils.defaultIfEmpty("", "foo"), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void substringBetweenTest() {
-    // Arrange
-    String actualSubstringBetweenResult = StringUtils.substringBetween("foo", "foo", "foo");
+    @Test(timeout=10000)
+    public void isBlank() {
+        assertThat(StringUtils.isBlank(""), is(true));
+        assertThat(StringUtils.isBlank("foo"), is(false));
+        assertThat(StringUtils.isBlank(null), is(true));
+    }
 
-    // Act and Assert
-    assertNull(actualSubstringBetweenResult);
-    assertEquals("", StringUtils.substringBetween("foo", "", "foo"));
-  }
+    @Test(timeout=10000)
+    public void isEmpty() {
+        assertThat(StringUtils.isEmpty(""), is(true));
+        assertThat(StringUtils.isEmpty("foo"), is(false));
+        assertThat(StringUtils.isEmpty(null), is(true));
+    }
 
-  @Test(timeout=10000)
-  public void defaultIfEmptyTest() {
-    // Arrange
-    String actualDefaultIfEmptyResult = StringUtils.defaultIfEmpty("foo", "foo");
+    @Test(timeout=10000)
+    public void isNotEmpty() {
+        assertThat(StringUtils.isNotEmpty(""), is(false));
+        assertThat(StringUtils.isNotEmpty("foo"), is(true));
+    }
 
-    // Act and Assert
-    assertEquals("foo", actualDefaultIfEmptyResult);
-    assertEquals("foo", StringUtils.defaultIfEmpty("", "foo"));
-  }
+    @Test(timeout=10000)
+    public void substringBetween() {
+        assertThat(StringUtils.substringBetween("foo", "foo", "bar"), is(nullValue()));
+        assertThat(StringUtils.substringBetween("foo", "foo", null), is(nullValue()));
+        assertThat(StringUtils.substringBetween("foo", "", "foo"), is(""));
+        assertThat(StringUtils.substringBetween("foo", null, "foo"), is(nullValue()));
+        assertThat(StringUtils.substringBetween("bar", "foo", "foo"), is(nullValue()));
+        assertThat(StringUtils.substringBetween(null, "foo", "foo"), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void equalsTest() {
-    // Arrange, Act and Assert
-    assertTrue(StringUtils.equals("foo", "foo"));
-  }
-
-  @Test(timeout=10000)
-  public void isNotEmptyTest() {
-    // Arrange
-    boolean actualIsNotEmptyResult = StringUtils.isNotEmpty("foo");
-
-    // Act and Assert
-    assertTrue(actualIsNotEmptyResult);
-    assertFalse(StringUtils.isNotEmpty(""));
-  }
-
-  @Test(timeout=10000)
-  public void isBlankTest() {
-    // Arrange
-    boolean actualIsBlankResult = StringUtils.isBlank("foo");
-
-    // Act and Assert
-    assertFalse(actualIsBlankResult);
-    assertTrue(StringUtils.isBlank(""));
-  }
+    @Test(timeout=10000)
+    public void testequals() {
+        assertThat(StringUtils.equals("bar", "foo"), is(false));
+        assertThat(StringUtils.equals("foo", "foo"), is(true));
+        assertThat(StringUtils.equals(null, null), is(true));
+        assertThat(StringUtils.equals(null, "foo"), is(false));
+    }
 }
-

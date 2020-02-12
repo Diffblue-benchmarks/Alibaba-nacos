@@ -1,13 +1,26 @@
 package com.alibaba.nacos.naming.web;
 
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
-public class FilterBaseDiffblueTest {
-  @Test(timeout=10000)
-  public void getMethodTest() {
-    // Arrange, Act and Assert
-    assertNull((new FilterBase()).getMethod("foo", "foo"));
-  }
-}
+/**
+ * Unit tests for com.alibaba.nacos.naming.web.FilterBase
+ *
+ * @author Diffblue JCover
+ */
 
+public class FilterBaseDiffblueTest {
+
+    @Test(timeout=10000)
+    public void getMethodReturnsNull() {
+        assertThat(new FilterBase().getMethod("/bin/bash", "/bin/bash"), is(nullValue()));
+    }
+
+    @Test(timeout=10000)
+    public void init() {
+        new FilterBase().init();
+    }
+}

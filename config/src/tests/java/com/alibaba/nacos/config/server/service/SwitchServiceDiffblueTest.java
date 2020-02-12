@@ -1,32 +1,21 @@
-package com.alibaba.nacos.config.server.service;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
-
-public class SwitchServiceDiffblueTest {
-  @Test(timeout=10000)
-  public void getSwitchIntegerTest() {
-    // Arrange, Act and Assert
-    assertEquals(42, SwitchService.getSwitchInteger("foo", 42));
-  }
-
-  @Test(timeout=10000)
-  public void getSwitchesTest() {
-    // Arrange, Act and Assert
-    assertEquals("", SwitchService.getSwitches());
-  }
-
-  @Test(timeout=10000)
-  public void getSwitchBooleanTest() {
-    // Arrange, Act and Assert
-    assertTrue(SwitchService.getSwitchBoolean("foo", true));
-  }
-
-  @Test(timeout=10000)
-  public void getSwitchStringTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", SwitchService.getSwitchString("foo", "foo"));
-  }
-}
-
+//package com.alibaba.nacos.config.server.service;
+//
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.junit4.SpringRunner;
+//
+///**
+// * Unit tests for com.alibaba.nacos.config.server.service.SwitchService
+// *
+// * @author Diffblue JCover
+// */
+//
+//@RunWith(SpringRunner.class)
+//@ContextConfiguration(classes = SwitchService.class)
+//public class SwitchServiceDiffblueTest {
+//
+//    @Autowired
+//    private SwitchService service;
+//}

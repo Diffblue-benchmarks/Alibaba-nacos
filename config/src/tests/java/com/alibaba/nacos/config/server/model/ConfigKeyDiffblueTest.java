@@ -1,88 +1,52 @@
 package com.alibaba.nacos.config.server.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.ConfigKey
+ *
+ * @author Diffblue JCover
+ */
+
 public class ConfigKeyDiffblueTest {
-  @Test(timeout=10000)
-  public void setAppNameTest() {
-    // Arrange
-    ConfigKey configKey = new ConfigKey();
 
-    // Act
-    configKey.setAppName("name");
+    @Test(timeout=10000)
+    public void getAppNameReturnsNull() {
+        assertThat(new ConfigKey().getAppName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", configKey.getAppName());
-  }
+    @Test(timeout=10000)
+    public void getDataIdReturnsNull() {
+        assertThat(new ConfigKey().getDataId(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setGroupTest() {
-    // Arrange
-    ConfigKey configKey = new ConfigKey();
+    @Test(timeout=10000)
+    public void getGroupReturnsNull() {
+        assertThat(new ConfigKey().getGroup(), is(nullValue()));
+    }
 
-    // Act
-    configKey.setGroup("foo");
+    @Test(timeout=10000)
+    public void setAppName() {
+        ConfigKey configKey = new ConfigKey();
+        configKey.setAppName("/bin/bash");
+        assertThat(configKey.getAppName(), is("/bin/bash"));
+    }
 
-    // Assert
-    assertEquals("foo", configKey.getGroup());
-  }
+    @Test(timeout=10000)
+    public void setDataIdToSomething() {
+        ConfigKey configKey = new ConfigKey();
+        configKey.setDataId("something");
+        assertThat(configKey.getDataId(), is("something"));
+    }
 
-  @Test(timeout=10000)
-  public void setDataIdTest() {
-    // Arrange
-    ConfigKey configKey = new ConfigKey();
-
-    // Act
-    configKey.setDataId("123");
-
-    // Assert
-    assertEquals("123", configKey.getDataId());
-  }
-
-  @Test(timeout=10000)
-  public void getAppNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigKey()).getAppName());
-  }
-
-  @Test(timeout=10000)
-  public void getGroupTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigKey()).getGroup());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    ConfigKey actualConfigKey = new ConfigKey();
-
-    // Assert
-    String actualDataId = actualConfigKey.getDataId();
-    String actualGroup = actualConfigKey.getGroup();
-    assertNull(actualDataId);
-    assertNull(actualConfigKey.getAppName());
-    assertNull(actualGroup);
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    ConfigKey actualConfigKey = new ConfigKey("name", "123", "foo");
-
-    // Assert
-    String actualDataId = actualConfigKey.getDataId();
-    String actualGroup = actualConfigKey.getGroup();
-    assertEquals("123", actualDataId);
-    assertEquals("name", actualConfigKey.getAppName());
-    assertEquals("foo", actualGroup);
-  }
-
-  @Test(timeout=10000)
-  public void getDataIdTest() {
-    // Arrange, Act and Assert
-    assertNull((new ConfigKey()).getDataId());
-  }
+    @Test(timeout=10000)
+    public void setGroupToFoo() {
+        ConfigKey configKey = new ConfigKey();
+        configKey.setGroup("foo");
+        assertThat(configKey.getGroup(), is("foo"));
+    }
 }
-

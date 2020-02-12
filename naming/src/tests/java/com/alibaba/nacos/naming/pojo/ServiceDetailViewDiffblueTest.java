@@ -1,70 +1,48 @@
 package com.alibaba.nacos.naming.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
 import com.alibaba.nacos.api.naming.pojo.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.pojo.ServiceDetailView
+ *
+ * @author Diffblue JCover
+ */
+
 public class ServiceDetailViewDiffblueTest {
-  @Test(timeout=10000)
-  public void setClustersTest() {
-    // Arrange
-    ServiceDetailView serviceDetailView = new ServiceDetailView();
 
-    // Act
-    serviceDetailView.setClusters(null);
+    @Test(timeout=10000)
+    public void getClustersReturnsNull() {
+        assertThat(new ServiceDetailView().getClusters(), is(nullValue()));
+    }
 
-    // Assert
-    assertNull(serviceDetailView.getClusters());
-  }
+    @Test(timeout=10000)
+    public void getServiceReturnsNull() {
+        assertThat(new ServiceDetailView().getService(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getClustersTest() {
-    // Arrange, Act and Assert
-    assertNull((new ServiceDetailView()).getClusters());
-  }
+    @Test(timeout=10000)
+    public void setClustersToEmpty() {
+        ServiceDetailView serviceDetailView = new ServiceDetailView();
+        List<com.alibaba.nacos.api.naming.pojo.Cluster> clusters = new ArrayList<com.alibaba.nacos.api.naming.pojo.Cluster>();
+        serviceDetailView.setClusters(clusters);
+        assertThat(serviceDetailView.getClusters(), sameInstance(clusters));
+    }
 
-  @Test(timeout=10000)
-  public void getServiceTest() {
-    // Arrange, Act and Assert
-    assertNull((new ServiceDetailView()).getService());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    ServiceDetailView actualServiceDetailView = new ServiceDetailView();
-
-    // Assert
-    String actualToStringResult = actualServiceDetailView.toString();
-    Service actualService = actualServiceDetailView.getService();
-    assertEquals("{}", actualToStringResult);
-    assertNull(actualServiceDetailView.getClusters());
-    assertNull(actualService);
-  }
-
-  @Test(timeout=10000)
-  public void setServiceTest() {
-    // Arrange
-    ServiceDetailView serviceDetailView = new ServiceDetailView();
-    Service service = new Service();
-
-    // Act
-    serviceDetailView.setService(service);
-
-    // Assert
-    assertSame(service, serviceDetailView.getService());
-  }
-
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange
-    ServiceDetailView serviceDetailView = new ServiceDetailView();
-
-    // Act and Assert
-    assertEquals("{}", serviceDetailView.toString());
-    assertEquals("{}", serviceDetailView.toString());
-  }
+    @Test(timeout=10000)
+    public void setService() {
+        ServiceDetailView serviceDetailView = new ServiceDetailView();
+        Service service = new Service();
+        serviceDetailView.setService(service);
+        assertThat(serviceDetailView.getService(), sameInstance(service));
+    }
 }
-

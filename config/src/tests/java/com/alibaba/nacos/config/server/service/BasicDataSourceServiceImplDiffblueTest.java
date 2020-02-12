@@ -1,58 +1,40 @@
-package com.alibaba.nacos.config.server.service;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import java.io.IOException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-public class BasicDataSourceServiceImplDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
-  @Test(timeout=10000)
-  public void getTransactionTemplateTest() {
-    // Arrange, Act and Assert
-    assertNull((new BasicDataSourceServiceImpl()).getTransactionTemplate());
-  }
-
-  @Test(timeout=10000)
-  public void initTest() {
-    // Arrange, Act and Assert
-    thrown.expect(RuntimeException.class);
-    (new BasicDataSourceServiceImpl()).init();
-  }
-
-  @Test(timeout=10000)
-  public void reloadTest() throws IOException {
-    // Arrange, Act and Assert
-    thrown.expect(IOException.class);
-    (new BasicDataSourceServiceImpl()).reload();
-  }
-
-  @Test(timeout=10000)
-  public void defaultIfNullTest() {
-    // Arrange, Act and Assert
-    assertEquals("value", BasicDataSourceServiceImpl.defaultIfNull("value", "foo"));
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    BasicDataSourceServiceImpl actualBasicDataSourceServiceImpl = new BasicDataSourceServiceImpl();
-
-    // Assert
-    JdbcTemplate actualJdbcTemplate = actualBasicDataSourceServiceImpl.getJdbcTemplate();
-    assertNull(actualJdbcTemplate);
-    assertNull(actualBasicDataSourceServiceImpl.getTransactionTemplate());
-  }
-
-  @Test(timeout=10000)
-  public void getJdbcTemplateTest() {
-    // Arrange, Act and Assert
-    assertNull((new BasicDataSourceServiceImpl()).getJdbcTemplate());
-  }
-}
-
+//package com.alibaba.nacos.config.server.service;
+//
+//import static org.hamcrest.MatcherAssert.assertThat;
+//import static org.hamcrest.core.Is.is;
+//import static org.hamcrest.core.IsNull.nullValue;
+//
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.mock.mockito.MockBean;
+//import org.springframework.core.env.Environment;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.junit4.SpringRunner;
+//
+///**
+// * Unit tests for com.alibaba.nacos.config.server.service.BasicDataSourceServiceImpl
+// *
+// * @author Diffblue JCover
+// */
+//
+//@RunWith(SpringRunner.class)
+//@ContextConfiguration(classes = BasicDataSourceServiceImpl.class)
+//public class BasicDataSourceServiceImplDiffblueTest {
+//
+//    @MockBean(name = "env")
+//    private Environment env;
+//
+//    @Autowired
+//    private BasicDataSourceServiceImpl service;
+//
+//    @Test(timeout=10000)
+//    public void getJdbcTemplateReturnsNull() {
+//        assertThat(service.getJdbcTemplate(), is(nullValue()));
+//    }
+//
+//    @Test(timeout=10000)
+//    public void getTransactionTemplateReturnsNull() {
+//        assertThat(service.getTransactionTemplate(), is(nullValue()));
+//    }
+//}

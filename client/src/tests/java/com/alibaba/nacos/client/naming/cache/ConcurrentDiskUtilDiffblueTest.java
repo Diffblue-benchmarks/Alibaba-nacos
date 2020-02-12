@@ -1,19 +1,12 @@
 package com.alibaba.nacos.client.naming.cache;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.cache.ConcurrentDiskUtil
+ *
+ * @author Diffblue JCover
+ */
 
 public class ConcurrentDiskUtilDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-  @Test(timeout=10000)
-  public void getFileContentTest() throws IOException {
-    // Arrange, Act and Assert
-    thrown.expect(FileNotFoundException.class);
-    ConcurrentDiskUtil.getFileContent("foo", "UTF-8");
-  }
 }
-

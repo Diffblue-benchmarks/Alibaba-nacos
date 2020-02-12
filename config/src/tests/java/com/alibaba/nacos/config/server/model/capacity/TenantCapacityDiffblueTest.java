@@ -1,52 +1,28 @@
 package com.alibaba.nacos.config.server.model.capacity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import java.sql.Timestamp;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.model.capacity.TenantCapacity
+ *
+ * @author Diffblue JCover
+ */
+
 public class TenantCapacityDiffblueTest {
-  @Test(timeout=10000)
-  public void setTenantTest() {
-    // Arrange
-    TenantCapacity tenantCapacity = new TenantCapacity();
 
-    // Act
-    tenantCapacity.setTenant("foo");
+    @Test(timeout=10000)
+    public void getTenantReturnsNull() {
+        assertThat(new TenantCapacity().getTenant(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", tenantCapacity.getTenant());
-  }
-
-  @Test(timeout=10000)
-  public void getTenantTest() {
-    // Arrange, Act and Assert
-    assertNull((new TenantCapacity()).getTenant());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    TenantCapacity actualTenantCapacity = new TenantCapacity();
-
-    // Assert
-    Integer actualMaxSize = actualTenantCapacity.getMaxSize();
-    Integer actualUsage = actualTenantCapacity.getUsage();
-    Integer actualQuota = actualTenantCapacity.getQuota();
-    Timestamp actualGmtCreate = actualTenantCapacity.getGmtCreate();
-    String actualTenant = actualTenantCapacity.getTenant();
-    Integer actualMaxAggrSize = actualTenantCapacity.getMaxAggrSize();
-    Long actualId = actualTenantCapacity.getId();
-    Timestamp actualGmtModified = actualTenantCapacity.getGmtModified();
-    assertNull(actualMaxSize);
-    assertNull(actualTenantCapacity.getMaxAggrCount());
-    assertNull(actualGmtModified);
-    assertNull(actualId);
-    assertNull(actualMaxAggrSize);
-    assertNull(actualTenant);
-    assertNull(actualGmtCreate);
-    assertNull(actualQuota);
-    assertNull(actualUsage);
-  }
+    @Test(timeout=10000)
+    public void setTenantToFoo() {
+        TenantCapacity tenantCapacity = new TenantCapacity();
+        tenantCapacity.setTenant("foo");
+        assertThat(tenantCapacity.getTenant(), is("foo"));
+    }
 }
-

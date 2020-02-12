@@ -1,29 +1,26 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Rule;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.ContentUtils
+ *
+ * @author Diffblue JCover
+ */
 
 public class ContentUtilsDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-  @Test(timeout=10000)
-  public void truncateContentTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", ContentUtils.truncateContent("foo"));
-  }
-  @Test(timeout=10000)
-  public void getContentIdentityTest() {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    ContentUtils.getContentIdentity("foo");
-  }
-  @Test(timeout=10000)
-  public void getContentTest() {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    ContentUtils.getContent("foo");
-  }
-}
 
+    @Test(timeout=10000)
+    public void truncateContent() {
+        assertThat(ContentUtils.truncateContent("foo"), is("foo"));
+        assertThat(ContentUtils.truncateContent(null), is(""));
+    }
+
+    @Test(timeout=10000)
+    public void verifyIncrementPubContentContentIsFoo() {
+        ContentUtils.verifyIncrementPubContent("foo");
+    }
+}

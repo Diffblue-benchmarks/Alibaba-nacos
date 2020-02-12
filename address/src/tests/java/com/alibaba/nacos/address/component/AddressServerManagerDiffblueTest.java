@@ -1,61 +1,41 @@
 package com.alibaba.nacos.address.component;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.address.component.AddressServerManager
+ *
+ * @author Diffblue JCover
+ */
+
 public class AddressServerManagerDiffblueTest {
-  @Test(timeout=10000)
-  public void getDefaultClusterNameIfEmptyTest2() {
-    // Arrange, Act and Assert
-    assertEquals("serverlist", (new AddressServerManager()).getDefaultClusterNameIfEmpty("serverlist"));
-  }
 
-  @Test(timeout=10000)
-  public void getDefaultClusterNameIfEmptyTest() {
-    // Arrange, Act and Assert
-    assertEquals("name", (new AddressServerManager()).getDefaultClusterNameIfEmpty("name"));
-  }
+    @Test(timeout=10000)
+    public void getDefaultClusterNameIfEmpty() {
+        assertThat(new AddressServerManager().getDefaultClusterNameIfEmpty("bar"), is("bar"));
+        assertThat(new AddressServerManager().getDefaultClusterNameIfEmpty(""), is("serverlist"));
+        assertThat(new AddressServerManager().getDefaultClusterNameIfEmpty("serverlist"), is("serverlist"));
+    }
 
-  @Test(timeout=10000)
-  public void getRawProductNameTest3() {
-    // Arrange, Act and Assert
-    assertEquals("nacos", (new AddressServerManager()).getRawProductName(""));
-  }
+    @Test(timeout=10000)
+    public void getRawClusterNameNameIsBarReturnsBar() {
+        assertThat(new AddressServerManager().getRawClusterName("bar"), is("bar"));
+    }
 
-  @Test(timeout=10000)
-  public void getRawProductNameTest2() {
-    // Arrange, Act and Assert
-    assertEquals("name", (new AddressServerManager()).getRawProductName("name"));
-  }
+    @Test(timeout=10000)
+    public void getRawProductName() {
+        assertThat(new AddressServerManager().getRawProductName("bar"), is("bar"));
+        assertThat(new AddressServerManager().getRawProductName(""), is("nacos"));
+        assertThat(new AddressServerManager().getRawProductName("nacos"), is("nacos"));
+    }
 
-  @Test(timeout=10000)
-  public void getRawProductNameTest() {
-    // Arrange, Act and Assert
-    assertEquals("nacos", (new AddressServerManager()).getRawProductName("nacos"));
-  }
-
-  @Test(timeout=10000)
-  public void splitIpsTest2() {
-    // Arrange, Act and Assert
-    assertEquals(1, (new AddressServerManager()).splitIps("foo").length);
-  }
-
-  @Test(timeout=10000)
-  public void splitIpsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new AddressServerManager()).splitIps("").length);
-  }
-
-  @Test(timeout=10000)
-  public void getRawClusterNameTest2() {
-    // Arrange, Act and Assert
-    assertEquals("serverlist", (new AddressServerManager()).getRawClusterName("serverlist"));
-  }
-
-  @Test(timeout=10000)
-  public void getRawClusterNameTest() {
-    // Arrange, Act and Assert
-    assertEquals("name", (new AddressServerManager()).getRawClusterName("name"));
-  }
+    @Test(timeout=10000)
+    public void splitIps() {
+        assertArrayEquals(new String[] { "280 Broadway" }, new AddressServerManager().splitIps("280 Broadway"));
+        assertArrayEquals(new String[] { }, new AddressServerManager().splitIps(""));
+    }
 }
-

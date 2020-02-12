@@ -1,232 +1,191 @@
 package com.alibaba.nacos.naming.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import com.alibaba.nacos.naming.selector.NoneSelector;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.naming.healthcheck.RsInfo;
 import com.alibaba.nacos.naming.selector.Selector;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.core.Service
+ *
+ * @author Diffblue JCover
+ */
+
 public class ServiceDiffblueTest {
-  @Test(timeout=10000)
-  public void getChecksumTest() {
-    // Arrange
-    Service service = new Service();
 
-    // Act and Assert
-    assertEquals("28db44891d718c6872a04bc11ec58ab0", service.getChecksum());
-    String actualServiceString = service.getServiceString();
-    assertEquals("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[]," + "\"protectThreshold\":0.0,\"clusters\":[]}",
-        actualServiceString);
-    assertEquals("28db44891d718c6872a04bc11ec58ab0", service.getChecksum());
-  }
+    @Test(timeout=10000)
+    public void addCluster() {
+        Service service1 = new Service();
+        Cluster cluster = new Cluster();
+        service1.addCluster(cluster);
+        assertThat(service1.getClusterMap().get(null), sameInstance(cluster));
+        assertThat(service1.getServiceString(), is("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[],\"protectThreshold\":0.0,\"clusters\":[{\"healthChecker\":{\"type\":\"TCP\"},\"defIPPort\":80,\"defCkport\":80,\"useIPPort4Check\":true,\"sitegroup\":\"\"}]}"));
+    }
 
-  @Test(timeout=10000)
-  public void updateTest() {
-    // Arrange
-    Service service = new Service();
-    Service service1 = new Service();
+    @Test(timeout=10000)
+    public void allIPs1() {
+        List<String> clusters = new ArrayList<String>();
+        ((ArrayList<String>)clusters).add("OX13QD");
+        assertThat(new Service().allIPs(clusters), empty());
+    }
 
-    // Act
-    service.update(service1);
+    @Test(timeout=10000)
+    public void allIPs2() {
+        assertThat(new Service().allIPs(new ArrayList<String>()), empty());
+        assertThat(new Service().allIPs(false), empty());
+    }
 
-    // Assert
-    String actualServiceString = service1.getServiceString();
-    assertEquals("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[]," + "\"protectThreshold\":0.0,\"clusters\":[]}",
-        actualServiceString);
-    String actualToStringResult = service.toString();
-    Selector actualSelector = service.getSelector();
-    assertEquals("28db44891d718c6872a04bc11ec58ab0", service.getChecksum());
-    assertSame(service1.getSelector(), actualSelector);
-    assertEquals("Service{name='null', protectThreshold=0.0, appName='null'," + " groupName='null', metadata={}}",
-        actualToStringResult);
-  }
+    @Test(timeout=10000)
+    public void destroy() throws Exception {
+        new Service("0").destroy();
+    }
 
-  @Test(timeout=10000)
-  public void setLastModifiedMillisTest() {
-    // Arrange
-    Service service = new Service();
+    @Test(timeout=10000)
+    public void getIpDeleteTimeout() {
+        assertThat(new Service().getIpDeleteTimeout(), is(30_000L));
+    }
 
-    // Act
-    service.setLastModifiedMillis(1L);
+    @Test(timeout=10000)
+    public void getLastModifiedMillisReturnsZero() {
+        assertThat(new Service().getLastModifiedMillis(), is(0L));
+    }
 
-    // Assert
-    assertEquals(1L, service.getLastModifiedMillis());
-  }
+    @Test(timeout=10000)
+    public void getServiceString() {
+        assertThat(new Service().getServiceString(), is("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[],\"protectThreshold\":0.0,\"clusters\":[]}"));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Service actualService = new Service("name");
+    @Test(timeout=10000)
+    public void healthyInstanceCountReturnsZero() {
+        assertThat(new Service().healthyInstanceCount(), is(0));
+    }
 
-    // Assert
-    String actualName = actualService.getName();
-    String actualToStringResult = actualService.toString();
-    Boolean actualResetWeight = actualService.getResetWeight();
-    Boolean actualEnabled = actualService.getEnabled();
-    Selector selector = actualService.getSelector();
-    long actualLastModifiedMillis = actualService.getLastModifiedMillis();
-    float actualProtectThreshold = actualService.getProtectThreshold();
-    long actualIpDeleteTimeout = actualService.getIpDeleteTimeout();
-    assertEquals("7e2d77f1eb017eca7c05e0ecc9fcbe81", actualService.getChecksum());
-    assertEquals(30000L, actualIpDeleteTimeout);
-    assertEquals(0.0f, actualProtectThreshold, 0.0f);
-    assertEquals(0L, actualLastModifiedMillis);
-    assertTrue(selector instanceof com.alibaba.nacos.naming.selector.NoneSelector);
-    assertEquals(Boolean.valueOf(true), actualEnabled);
-    assertEquals("name", actualName);
-    assertEquals(Boolean.valueOf(false), actualResetWeight);
-    assertEquals("Service{name='name', protectThreshold=0.0, appName='null'," + " groupName='null', metadata={}}",
-        actualToStringResult);
-    assertEquals("none", selector.getType());
-  }
+    @Test(timeout=10000)
+    public void interestsReturnsFalse() {
+        assertThat(new Service().interests("OX13QD"), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void setClusterMapTest() {
-    // Arrange
-    Service service = new Service();
+    @Test(timeout=10000)
+    public void matchUnlistenKeyReturnsFalse() {
+        assertThat(new Service().matchUnlistenKey("OX13QD"), is(false));
+    }
 
-    // Act
-    service.setClusterMap(null);
+    @Test(timeout=10000)
+    public void meetProtectThreshold() {
+        assertThat(new Service().meetProtectThreshold(), is(false));
+        assertThat(new Service("0").meetProtectThreshold(), is(false));
+    }
 
-    // Assert
-    assertNull(service.getClusterMap());
-  }
+    @Test(timeout=10000)
+    public void onDelete() throws Exception {
+        new Service().onDelete("OX13QD");
+    }
 
-  @Test(timeout=10000)
-  public void getSelectorTest() {
-    // Arrange, Act and Assert
-    assertTrue((new Service()).getSelector() instanceof com.alibaba.nacos.naming.selector.NoneSelector);
-  }
+    @Test(timeout=10000)
+    public void processClientBeat() {
+        new Service().processClientBeat(new RsInfo());
+    }
 
-  @Test(timeout=10000)
-  public void getEnabledTest() {
-    // Arrange, Act and Assert
-    assertEquals(Boolean.valueOf(true), (new Service()).getEnabled());
-  }
+    @Test(timeout=10000)
+    public void recalculateChecksum() {
+        new Service().recalculateChecksum();
+    }
 
-  @Test(timeout=10000)
-  public void getOwnersTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Service()).getOwners().size());
-  }
+    @Test(timeout=10000)
+    public void setClusterMapToEmpty() {
+        Service service1 = new Service();
+        Map<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        service1.setClusterMap(clusterMap);
+        assertThat(service1.getClusterMap(), sameInstance(clusterMap));
+    }
 
-  @Test(timeout=10000)
-  public void getResetWeightTest() {
-    // Arrange, Act and Assert
-    assertEquals(Boolean.valueOf(false), (new Service()).getResetWeight());
-  }
+    @Test(timeout=10000)
+    public void setEnabledToFalse() {
+        Service service = new Service();
+        service.setEnabled(false);
+        assertThat(service.getEnabled(), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void getClusterMapTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Service()).getClusterMap().size());
-  }
+    @Test(timeout=10000)
+    public void setIpDeleteTimeoutToOne() {
+        Service service = new Service();
+        service.setIpDeleteTimeout(1L);
+        assertThat(service.getIpDeleteTimeout(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void srvIPsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Service()).srvIPs(null).size());
-  }
+    @Test(timeout=10000)
+    public void setLastModifiedMillisToOne() {
+        Service service = new Service();
+        service.setLastModifiedMillis(1L);
+        assertThat(service.getLastModifiedMillis(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void healthyInstanceCountTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Service()).healthyInstanceCount());
-  }
+    @Test(timeout=10000)
+    public void setNamespaceId() {
+        Service service = new Service();
+        service.setNamespaceId("OX13QD");
+        assertThat(service.getNamespaceId(), is("OX13QD"));
+    }
 
-  @Test(timeout=10000)
-  public void getNamespaceIdTest() {
-    // Arrange, Act and Assert
-    assertNull((new Service()).getNamespaceId());
-  }
+    @Test(timeout=10000)
+    public void setOwnersToEmpty() {
+        Service service = new Service();
+        List<String> owners = new ArrayList<String>();
+        service.setOwners(owners);
+        assertThat(service.getOwners(), sameInstance(owners));
+    }
 
-  @Test(timeout=10000)
-  public void getServiceStringTest() {
-    // Arrange
-    Service service = new Service();
+    @Test(timeout=10000)
+    public void setResetWeightToFalse() {
+        new Service().setResetWeight(false);
+    }
 
-    // Act and Assert
-    assertEquals("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[]," + "\"protectThreshold\":0.0,\"clusters\":[]}",
-        service.getServiceString());
-    assertEquals("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[]," + "\"protectThreshold\":0.0,\"clusters\":[]}",
-        service.getServiceString());
-  }
+    @Test(timeout=10000)
+    public void setSelector() {
+        Service service = new Service();
+        Selector selector = mock(Selector.class);
+        service.setSelector(selector);
+        assertThat(service.getSelector(), sameInstance(selector));
+    }
 
-  @Test(timeout=10000)
-  public void setIpDeleteTimeoutTest() {
-    // Arrange
-    Service service = new Service();
+    @Test(timeout=10000)
+    public void setToken() {
+        Service service = new Service();
+        service.setToken("OX13QD");
+        assertThat(service.getServiceString(), is("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[],\"protectThreshold\":0.0,\"clusters\":[],\"token\":\"OX13QD\"}"));
+        assertThat(service.getToken(), is("OX13QD"));
+    }
 
-    // Act
-    service.setIpDeleteTimeout(1L);
+    @Test(timeout=10000)
+    public void srvIPs() {
+        List<String> clusters = new ArrayList<String>();
+        ((ArrayList<String>)clusters).add("OX13QD");
+        assertThat(new Service().srvIPs(clusters), empty());
+    }
 
-    // Assert
-    assertEquals(1L, service.getIpDeleteTimeout());
-  }
+    @Test(timeout=10000)
+    public void srvIPsClustersIsEmpty() {
+        assertThat(new Service().srvIPs(new ArrayList<String>()), empty());
+    }
 
-  @Test(timeout=10000)
-  public void getTokenTest() {
-    // Arrange, Act and Assert
-    assertNull((new Service()).getToken());
-  }
+    @Test(timeout=10000)
+    public void toJSON() {
+        assertThat(new Service().toJSON(), is("{\"checksum\":\"28db44891d718c6872a04bc11ec58ab0\",\"clusterMap\":{},\"enabled\":true,\"ipDeleteTimeout\":30000,\"lastModifiedMillis\":0,\"metadata\":{},\"owners\":[],\"protectThreshold\":0.0,\"resetWeight\":false,\"selector\":{\"type\":\"none\"}}"));
+    }
 
-  @Test(timeout=10000)
-  public void toJSONTest() {
-    // Arrange
-    Service service = new Service();
-
-    // Act and Assert
-    assertEquals(
-        "{\"checksum\":\"28db44891d718c6872a04bc11ec58ab0\"," + "\"clusterMap\":{},\"enabled\":true,\"ipDeleteTimeout\""
-            + ":30000,\"lastModifiedMillis\":0,\"metadata\":{},\"owners"
-            + "\":[],\"protectThreshold\":0.0,\"resetWeight\":false," + "\"selector\":{\"type\":\"none\"}}",
-        service.toJSON());
-    String actualServiceString = service.getServiceString();
-    assertEquals("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[]," + "\"protectThreshold\":0.0,\"clusters\":[]}",
-        actualServiceString);
-    assertEquals("28db44891d718c6872a04bc11ec58ab0", service.getChecksum());
-  }
-
-  @Test(timeout=10000)
-  public void allIPsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new Service()).allIPs().size());
-  }
-
-  @Test(timeout=10000)
-  public void setTokenTest() {
-    // Arrange
-    Service service = new Service();
-
-    // Act
-    service.setToken("ABC123");
-
-    // Assert
-    assertEquals("ABC123", service.getToken());
-  }
-
-  @Test(timeout=10000)
-  public void recalculateChecksumTest() {
-    // Arrange
-    Service service = new Service();
-
-    // Act
-    service.recalculateChecksum();
-
-    // Assert
-    String actualServiceString = service.getServiceString();
-    assertEquals("{\"invalidIPCount\":0,\"ipCount\":0,\"owners\":[]," + "\"protectThreshold\":0.0,\"clusters\":[]}",
-        actualServiceString);
-    assertEquals("28db44891d718c6872a04bc11ec58ab0", service.getChecksum());
-  }
-
-  @Test(timeout=10000)
-  public void matchUnlistenKeyTest() {
-    // Arrange, Act and Assert
-    assertFalse((new Service()).matchUnlistenKey("foo"));
-  }
+    @Test(timeout=10000)
+    public void update() {
+        new Service().update(new Service());
+    }
 }
-

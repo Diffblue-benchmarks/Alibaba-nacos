@@ -1,255 +1,178 @@
 package com.alibaba.nacos.naming.healthcheck;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.healthcheck.RsInfo
+ *
+ * @author Diffblue JCover
+ */
+
 public class RsInfoDiffblueTest {
-  @Test(timeout=10000)
-  public void getAkTest() {
-    // Arrange, Act and Assert
-    assertNull((new RsInfo()).getAk());
-  }
 
-  @Test(timeout=10000)
-  public void setMetadataTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
+    @Test(timeout=10000)
+    public void getAkReturnsNull() {
+        assertThat(new RsInfo().getAk(), is(nullValue()));
+    }
 
-    // Act
-    rsInfo.setMetadata(null);
+    @Test(timeout=10000)
+    public void getClusterReturnsNull() {
+        assertThat(new RsInfo().getCluster(), is(nullValue()));
+    }
 
-    // Assert
-    assertNull(rsInfo.getMetadata());
-  }
+    @Test(timeout=10000)
+    public void getCpuReturnsZero() {
+        assertThat(new RsInfo().getCpu(), closeTo(0.0, 0.0));
+    }
 
-  @Test(timeout=10000)
-  public void setRtTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
+    @Test(timeout=10000)
+    public void getIpReturnsNull() {
+        assertThat(new RsInfo().getIp(), is(nullValue()));
+    }
 
-    // Act
-    rsInfo.setRt(10.0);
+    @Test(timeout=10000)
+    public void getLoadReturnsZero() {
+        assertThat(new RsInfo().getLoad(), closeTo(0.0, 0.0));
+    }
 
-    // Assert
-    assertEquals(10.0, rsInfo.getRt(), 0.0);
-  }
+    @Test(timeout=10000)
+    public void getMemReturnsZero() {
+        assertThat(new RsInfo().getMem(), closeTo(0.0, 0.0));
+    }
 
-  @Test(timeout=10000)
-  public void setEphemeralTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
+    @Test(timeout=10000)
+    public void getMetadataReturnsNull() {
+        assertThat(new RsInfo().getMetadata(), is(nullValue()));
+    }
 
-    // Act
-    rsInfo.setEphemeral(true);
+    @Test(timeout=10000)
+    public void getPortReturnsZero() {
+        assertThat(new RsInfo().getPort(), is(0));
+    }
 
-    // Assert
-    assertTrue(rsInfo.isEphemeral());
-  }
+    @Test(timeout=10000)
+    public void getQpsReturnsZero() {
+        assertThat(new RsInfo().getQps(), closeTo(0.0, 0.0));
+    }
 
-  @Test(timeout=10000)
-  public void setServiceNameTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
+    @Test(timeout=10000)
+    public void getRtReturnsZero() {
+        assertThat(new RsInfo().getRt(), closeTo(0.0, 0.0));
+    }
 
-    // Act
-    rsInfo.setServiceName("name");
+    @Test(timeout=10000)
+    public void getServiceNameReturnsNull() {
+        assertThat(new RsInfo().getServiceName(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("name", rsInfo.getServiceName());
-  }
+    @Test(timeout=10000)
+    public void getWeightReturnsZero() {
+        assertThat(new RsInfo().getWeight(), closeTo(0.0, 0.0));
+    }
 
-  @Test(timeout=10000)
-  public void getPortTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new RsInfo()).getPort());
-  }
+    @Test(timeout=10000)
+    public void isEphemeralReturnsTrue() {
+        assertThat(new RsInfo().isEphemeral(), is(true));
+    }
 
-  @Test(timeout=10000)
-  public void isEphemeralTest() {
-    // Arrange, Act and Assert
-    assertTrue((new RsInfo()).isEphemeral());
-  }
+    @Test(timeout=10000)
+    public void setAkToFoo() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setAk("foo");
+        assertThat(rsInfo.getAk(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void getMemTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.0, (new RsInfo()).getMem(), 0.0);
-  }
+    @Test(timeout=10000)
+    public void setClusterToFoo() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setCluster("foo");
+        assertThat(rsInfo.getCluster(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void setLoadTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
+    @Test(timeout=10000)
+    public void setCpuToOne() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setCpu(1.0);
+        assertThat(rsInfo.getCpu(), closeTo(1.0, 0.0));
+    }
 
-    // Act
-    rsInfo.setLoad(10.0);
+    @Test(timeout=10000)
+    public void setEphemeralToFalse() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setEphemeral(false);
+        assertThat(rsInfo.isEphemeral(), is(false));
+    }
 
-    // Assert
-    assertEquals(10.0, rsInfo.getLoad(), 0.0);
-  }
+    @Test(timeout=10000)
+    public void setIpToFoo() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setIp("foo");
+        assertThat(rsInfo.getIp(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertTrue((new RsInfo()).isEphemeral());
-  }
+    @Test(timeout=10000)
+    public void setLoadToOne() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setLoad(1.0);
+        assertThat(rsInfo.getLoad(), closeTo(1.0, 0.0));
+    }
 
-  @Test(timeout=10000)
-  public void getRtTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.0, (new RsInfo()).getRt(), 0.0);
-  }
+    @Test(timeout=10000)
+    public void setMemToOne() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setMem(1.0);
+        assertThat(rsInfo.getMem(), closeTo(1.0, 0.0));
+    }
 
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
+    @Test(timeout=10000)
+    public void setMetadataToEmpty() {
+        RsInfo rsInfo = new RsInfo();
+        Map<String, String> metadata = new HashMap<String, String>();
+        rsInfo.setMetadata(metadata);
+        assertThat(rsInfo.getMetadata(), sameInstance(metadata));
+    }
 
-    // Act and Assert
-    assertEquals("{\"cpu\":0.0,\"ephemeral\":true,\"load\":0.0,\"mem\":0.0,"
-        + "\"port\":0,\"qps\":0.0,\"rt\":0.0,\"weight\":0.0}", rsInfo.toString());
-    assertEquals("{\"cpu\":0.0,\"ephemeral\":true,\"load\":0.0,\"mem\":0.0,"
-        + "\"port\":0,\"qps\":0.0,\"rt\":0.0,\"weight\":0.0}", rsInfo.toString());
-  }
+    @Test(timeout=10000)
+    public void setPortToOne() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setPort(1);
+        assertThat(rsInfo.getPort(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void getQpsTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.0, (new RsInfo()).getQps(), 0.0);
-  }
+    @Test(timeout=10000)
+    public void setQpsToOne() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setQps(1.0);
+        assertThat(rsInfo.getQps(), closeTo(1.0, 0.0));
+    }
 
-  @Test(timeout=10000)
-  public void setIpTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
+    @Test(timeout=10000)
+    public void setRtToOne() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setRt(1.0);
+        assertThat(rsInfo.getRt(), closeTo(1.0, 0.0));
+    }
 
-    // Act
-    rsInfo.setIp("127.0.0.1");
+    @Test(timeout=10000)
+    public void setServiceName() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setServiceName("/bin/bash");
+        assertThat(rsInfo.getServiceName(), is("/bin/bash"));
+    }
 
-    // Assert
-    assertEquals("127.0.0.1", rsInfo.getIp());
-  }
-
-  @Test(timeout=10000)
-  public void getServiceNameTest() {
-    // Arrange, Act and Assert
-    assertNull((new RsInfo()).getServiceName());
-  }
-
-  @Test(timeout=10000)
-  public void setQpsTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
-
-    // Act
-    rsInfo.setQps(10.0);
-
-    // Assert
-    assertEquals(10.0, rsInfo.getQps(), 0.0);
-  }
-
-  @Test(timeout=10000)
-  public void getMetadataTest() {
-    // Arrange, Act and Assert
-    assertNull((new RsInfo()).getMetadata());
-  }
-
-  @Test(timeout=10000)
-  public void setWeightTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
-
-    // Act
-    rsInfo.setWeight(10.0);
-
-    // Assert
-    assertEquals(10.0, rsInfo.getWeight(), 0.0);
-  }
-
-  @Test(timeout=10000)
-  public void setCpuTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
-
-    // Act
-    rsInfo.setCpu(10.0);
-
-    // Assert
-    assertEquals(10.0, rsInfo.getCpu(), 0.0);
-  }
-
-  @Test(timeout=10000)
-  public void getClusterTest() {
-    // Arrange, Act and Assert
-    assertNull((new RsInfo()).getCluster());
-  }
-
-  @Test(timeout=10000)
-  public void setMemTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
-
-    // Act
-    rsInfo.setMem(10.0);
-
-    // Assert
-    assertEquals(10.0, rsInfo.getMem(), 0.0);
-  }
-
-  @Test(timeout=10000)
-  public void getWeightTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.0, (new RsInfo()).getWeight(), 0.0);
-  }
-
-  @Test(timeout=10000)
-  public void setPortTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
-
-    // Act
-    rsInfo.setPort(8080);
-
-    // Assert
-    assertEquals(8080, rsInfo.getPort());
-  }
-
-  @Test(timeout=10000)
-  public void getCpuTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.0, (new RsInfo()).getCpu(), 0.0);
-  }
-
-  @Test(timeout=10000)
-  public void getLoadTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.0, (new RsInfo()).getLoad(), 0.0);
-  }
-
-  @Test(timeout=10000)
-  public void setClusterTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
-
-    // Act
-    rsInfo.setCluster("foo");
-
-    // Assert
-    assertEquals("foo", rsInfo.getCluster());
-  }
-
-  @Test(timeout=10000)
-  public void setAkTest() {
-    // Arrange
-    RsInfo rsInfo = new RsInfo();
-
-    // Act
-    rsInfo.setAk("foo");
-
-    // Assert
-    assertEquals("foo", rsInfo.getAk());
-  }
+    @Test(timeout=10000)
+    public void setWeightToOne() {
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setWeight(1.0);
+        assertThat(rsInfo.getWeight(), closeTo(1.0, 0.0));
+    }
 }
-

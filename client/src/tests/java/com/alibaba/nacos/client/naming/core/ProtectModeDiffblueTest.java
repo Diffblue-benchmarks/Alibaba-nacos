@@ -1,31 +1,26 @@
 package com.alibaba.nacos.client.naming.core;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.core.ProtectMode
+ *
+ * @author Diffblue JCover
+ */
+
 public class ProtectModeDiffblueTest {
-  @Test(timeout=10000)
-  public void getProtectThresholdTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.8f, (new ProtectMode()).getProtectThreshold(), 0.0f);
-  }
 
-  @Test(timeout=10000)
-  public void setProtectThresholdTest() {
-    // Arrange
-    ProtectMode protectMode = new ProtectMode();
+    @Test(timeout=10000)
+    public void getProtectThreshold() {
+        assertEquals(0x1.99999ap-1f /* 0.8 */, new ProtectMode().getProtectThreshold(), 0);
+    }
 
-    // Act
-    protectMode.setProtectThreshold(10.0f);
-
-    // Assert
-    assertEquals(10.0f, protectMode.getProtectThreshold(), 0.0f);
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertEquals(0.8f, (new ProtectMode()).getProtectThreshold(), 0.0f);
-  }
+    @Test(timeout=10000)
+    public void setProtectThresholdToOne() {
+        ProtectMode protectMode = new ProtectMode();
+        protectMode.setProtectThreshold(1.0f);
+        assertEquals(1.0f, protectMode.getProtectThreshold(), 0);
+    }
 }
-

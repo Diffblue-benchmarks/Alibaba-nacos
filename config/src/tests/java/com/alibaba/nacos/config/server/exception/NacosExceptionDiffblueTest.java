@@ -1,74 +1,41 @@
 package com.alibaba.nacos.config.server.exception;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.exception.NacosException
+ *
+ * @author Diffblue JCover
+ */
+
 public class NacosExceptionDiffblueTest {
-  @Test(timeout=10000)
-  public void getErrMsgTest() {
-    // Arrange, Act and Assert
-    assertNull((new NacosException()).getErrMsg());
-  }
 
-  @Test(timeout=10000)
-  public void setErrMsgTest() {
-    // Arrange
-    NacosException nacosException = new NacosException();
+    @Test(timeout=10000)
+    public void getErrCode() {
+        assertThat(new NacosException(1, "jpg").getErrCode(), is(1));
+        assertThat(new NacosException().getErrCode(), is(0));
+    }
 
-    // Act
-    nacosException.setErrMsg("foo");
+    @Test(timeout=10000)
+    public void getErrMsgReturnsNull() {
+        assertThat(new NacosException().getErrMsg(), is(nullValue()));
+    }
 
-    // Assert
-    assertEquals("foo", nacosException.getErrMsg());
-  }
+    @Test(timeout=10000)
+    public void setErrCodeToOne() {
+        NacosException nacosException = new NacosException();
+        nacosException.setErrCode(1);
+        assertThat(nacosException.getErrCode(), is(1));
+    }
 
-  @Test(timeout=10000)
-  public void getErrCodeTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new NacosException()).getErrCode());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange and Act
-    NacosException actualNacosException = new NacosException();
-
-    // Assert
-    String actualToStringResult = actualNacosException.toString();
-    int actualErrCode = actualNacosException.getErrCode();
-    assertEquals("ErrCode:0,ErrMsg:null", actualToStringResult);
-    assertNull(actualNacosException.getErrMsg());
-    assertEquals(0, actualErrCode);
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    NacosException actualNacosException = new NacosException(1, "foo");
-
-    // Assert
-    int actualErrCode = actualNacosException.getErrCode();
-    assertEquals("foo", actualNacosException.getErrMsg());
-    assertEquals(1, actualErrCode);
-  }
-
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange, Act and Assert
-    assertEquals("ErrCode:0,ErrMsg:null", (new NacosException()).toString());
-  }
-
-  @Test(timeout=10000)
-  public void setErrCodeTest() {
-    // Arrange
-    NacosException nacosException = new NacosException();
-
-    // Act
-    nacosException.setErrCode(1);
-
-    // Assert
-    assertEquals(1, nacosException.getErrCode());
-  }
+    @Test(timeout=10000)
+    public void setErrMsgToJpg() {
+        NacosException nacosException = new NacosException();
+        nacosException.setErrMsg("jpg");
+        assertThat(nacosException.getErrMsg(), is("jpg"));
+    }
 }
-

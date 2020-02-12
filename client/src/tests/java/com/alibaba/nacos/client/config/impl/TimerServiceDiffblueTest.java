@@ -1,13 +1,19 @@
 package com.alibaba.nacos.client.config.impl;
 
-import static org.junit.Assert.assertSame;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Test;
 
-public class TimerServiceDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertSame((new TimerService()).scheduledExecutor, TimerService.scheduledExecutor);
-  }
-}
+/**
+ * Unit tests for com.alibaba.nacos.client.config.impl.TimerService
+ *
+ * @author Diffblue JCover
+ */
 
+public class TimerServiceDiffblueTest {
+
+    @Test(timeout=10000)
+    public void scheduleWithFixedDelayDelayIsOneAndInitialDelayIsOneAndUnitIsNANOSECONDS() {
+        // pojo java.util.concurrent.ScheduledFuture<?>
+    }
+}

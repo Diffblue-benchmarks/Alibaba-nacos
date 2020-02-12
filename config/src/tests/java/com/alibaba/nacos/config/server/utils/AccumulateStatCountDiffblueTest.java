@@ -1,29 +1,25 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.AccumulateStatCount
+ *
+ * @author Diffblue JCover
+ */
+
 public class AccumulateStatCountDiffblueTest {
-  @Test(timeout=10000)
-  public void statTest() {
-    // Arrange
-    AccumulateStatCount accumulateStatCount = new AccumulateStatCount();
 
-    // Act and Assert
-    assertEquals(0L, accumulateStatCount.stat());
-    assertEquals(0L, accumulateStatCount.lastStatValue);
-  }
+    @Test(timeout=10000)
+    public void increaseReturnsOne() {
+        assertThat(new AccumulateStatCount().increase(), is(1L));
+    }
 
-  @Test(timeout=10000)
-  public void increaseTest() {
-    // Arrange, Act and Assert
-    assertEquals(1L, (new AccumulateStatCount()).increase());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange, Act and Assert
-    assertEquals(0L, (new AccumulateStatCount()).lastStatValue);
-  }
+    @Test(timeout=10000)
+    public void statReturnsZero() {
+        assertThat(new AccumulateStatCount().stat(), is(0L));
+    }
 }
-

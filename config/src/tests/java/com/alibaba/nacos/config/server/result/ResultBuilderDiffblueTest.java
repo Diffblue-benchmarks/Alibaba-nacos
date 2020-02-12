@@ -1,62 +1,53 @@
 package com.alibaba.nacos.config.server.result;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.IsSame.sameInstance;
+
 import com.alibaba.nacos.config.server.model.RestResult;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.result.ResultBuilder
+ *
+ * @author Diffblue JCover
+ */
+
 public class ResultBuilderDiffblueTest {
-  @Test(timeout=10000)
-  public void buildSuccessResultTest4() {
-    // Arrange and Act
-    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult("foo");
 
-    // Assert
-    int actualCode = actualBuildSuccessResultResult.getCode();
-    String actualMessage = actualBuildSuccessResultResult.getMessage();
-    assertEquals(200, actualCode);
-    assertNull(actualBuildSuccessResultResult.getData());
-    assertEquals("foo", actualMessage);
-  }
+    @Test(timeout=10000)
+    public void buildSuccessResult1() {
+        RestResult<Object> result = ResultBuilder.<Object>buildSuccessResult();
+        assertThat(result.getCode(), is(200));
+        assertThat(result.getData(), is(nullValue()));
+        assertThat(result.getMessage(), is("处理成功"));
+    }
 
-  @Test(timeout=10000)
-  public void buildSuccessResultTest3() {
-    // Arrange and Act
-    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult((Object) "foo");
+    @Test(timeout=10000)
+    public void buildSuccessResult2() {
+        Object resultData = new Object();
+        RestResult<Object> result = ResultBuilder.<Object>buildSuccessResult(resultData);
+        assertThat(result.getCode(), is(200));
+        assertThat(result.getData(), sameInstance(resultData));
+        assertThat(result.getMessage(), is("处理成功"));
+    }
 
-    // Assert
-    int actualCode = actualBuildSuccessResultResult.getCode();
-    String actualMessage = actualBuildSuccessResultResult.getMessage();
-    assertEquals(200, actualCode);
-    assertTrue(actualBuildSuccessResultResult.getData() instanceof String);
-    assertEquals("处理成功", actualMessage);
-  }
+    @Test(timeout=10000)
+    public void buildSuccessResultSuccessMsgIsFoo1() {
+        RestResult<Object> result = ResultBuilder.<Object>buildSuccessResult("foo");
+        assertThat(result.getCode(), is(200));
+        assertThat(result.getData(), is(nullValue()));
+        assertThat(result.getMessage(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void buildSuccessResultTest2() {
-    // Arrange and Act
-    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult();
-
-    // Assert
-    int actualCode = actualBuildSuccessResultResult.getCode();
-    String actualMessage = actualBuildSuccessResultResult.getMessage();
-    assertEquals(200, actualCode);
-    assertNull(actualBuildSuccessResultResult.getData());
-    assertEquals("处理成功", actualMessage);
-  }
-
-  @Test(timeout=10000)
-  public void buildSuccessResultTest() {
-    // Arrange and Act
-    RestResult<Object> actualBuildSuccessResultResult = ResultBuilder.<Object>buildSuccessResult("foo", "foo");
-
-    // Assert
-    int actualCode = actualBuildSuccessResultResult.getCode();
-    String actualMessage = actualBuildSuccessResultResult.getMessage();
-    assertEquals(200, actualCode);
-    assertTrue(actualBuildSuccessResultResult.getData() instanceof String);
-    assertEquals("foo", actualMessage);
-  }
+    @Test(timeout=10000)
+    public void buildSuccessResultSuccessMsgIsFoo2() {
+        Object resultData = new Object();
+        RestResult<Object> result = ResultBuilder.<Object>buildSuccessResult("foo", resultData);
+        assertThat(result.getCode(), is(200));
+        assertThat(result.getData(), sameInstance(resultData));
+        assertThat(result.getMessage(), is("foo"));
+    }
 }
-

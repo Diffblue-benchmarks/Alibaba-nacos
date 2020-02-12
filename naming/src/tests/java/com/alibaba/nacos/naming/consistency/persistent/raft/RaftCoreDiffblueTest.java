@@ -1,92 +1,94 @@
 package com.alibaba.nacos.naming.consistency.persistent.raft;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import com.alibaba.nacos.naming.consistency.ApplyAction;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.naming.consistency.RecordListener;
+
+import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore
+ *
+ * @author Diffblue JCover
+ */
+
 public class RaftCoreDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest2() {
-    // Arrange, Act and Assert
-    assertEquals(0, ((new RaftCore()).new Notifier()).getTaskSize());
-  }
 
-  @Test(timeout=10000)
-  public void addTaskTest() {
-    // Arrange
-    RaftCore.Notifier notifier = (new RaftCore()).new Notifier();
+    @Test(timeout=10000)
+    public void buildURL() {
+        assertThat(RaftCore.buildURL(":", "OX13QD"), is("http://:/nacosOX13QD"));
+        assertThat(RaftCore.buildURL("bar", "OX13QD"), is("http://bar:0/nacosOX13QD"));
+    }
 
-    // Act
-    notifier.addTask("foo", ApplyAction.CHANGE);
+    @Test(timeout=10000)
+    public void datumSizeReturnsZero() {
+        assertThat(new RaftCore().datumSize(), is(0));
+    }
 
-    // Assert
-    assertEquals(1, notifier.getTaskSize());
-  }
+    @Test(timeout=10000)
+    public void getDatumReturnsNull() {
+        assertThat(new RaftCore().getDatum("OX13QD"), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getTaskSizeTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, ((new RaftCore()).new Notifier()).getTaskSize());
-  }
+    @Test(timeout=10000)
+    public void getListenersReturnsEmpty() {
+        RaftCore raftCore = new RaftCore();
+        Map<String, java.util.List<com.alibaba.nacos.naming.consistency.RecordListener>> result = raftCore.getListeners();
+        assertThat(result.isEmpty(), is(true));
+        assertThat(raftCore.getListeners(), sameInstance(result));
+    }
 
-  @Test(timeout=10000)
-  public void datumSizeTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new RaftCore()).datumSize());
-  }
+    @Test(timeout=10000)
+    public void getNotifyTaskCountReturnsZero() {
+        assertThat(new RaftCore().getNotifyTaskCount(), is(0));
+    }
 
-  @Test(timeout=10000)
-  public void getListenersTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new RaftCore()).getListeners().size());
-  }
+    @Test(timeout=10000)
+    public void getPeerSetReturnsNull() {
+        assertThat(new RaftCore().getPeerSet(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getNotifyTaskCountTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new RaftCore()).getNotifyTaskCount());
-  }
+    @Test(timeout=10000)
+    public void listen() {
+        RaftCore raftCore = new RaftCore();
+        RecordListener listener = mock(RecordListener.class);
+        raftCore.listen("OX13QD", listener);
+        assertThat(raftCore.getListeners().get("OX13QD"), hasSize(1));
+        assertThat(raftCore.getListeners().get("OX13QD").get(0), sameInstance(listener));
+    }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    RaftCore actualRaftCore = new RaftCore();
+    @Test(timeout=10000)
+    public void loadDatum() {
+        new RaftCore().loadDatum("OX13QD");
+    }
 
-    // Assert
-    int actualNotifyTaskCount = actualRaftCore.getNotifyTaskCount();
-    assertEquals(0, actualNotifyTaskCount);
-    assertEquals(0, actualRaftCore.notifier.getTaskSize());
-  }
+    @Test(timeout=10000)
+    public void setPeerSet() {
+        RaftCore raftCore = new RaftCore();
+        RaftPeerSet peerSet = new RaftPeerSet();
+        raftCore.setPeerSet(peerSet);
+        assertThat(raftCore.getLeader(), is(nullValue()));
+        assertThat(raftCore.getPeerSet(), sameInstance(peerSet));
+        assertThat(raftCore.getPeers(), empty());
+        assertThat(raftCore.isLeader(), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void getDatumTest() {
-    // Arrange, Act and Assert
-    assertNull((new RaftCore()).getDatum("foo"));
-  }
+    @Test(timeout=10000)
+    public void unlisten() {
+        RecordListener listener = mock(RecordListener.class);
+        new RaftCore().unlisten("OX13QD", listener);
+    }
 
-  @Test(timeout=10000)
-  public void buildURLTest() {
-    // Arrange, Act and Assert
-    assertEquals("http://127.0.0.1:0/nacosfoo", RaftCore.buildURL("127.0.0.1", "foo"));
-  }
-
-  @Test(timeout=10000)
-  public void setPeerSetTest() {
-    // Arrange
-    RaftCore raftCore = new RaftCore();
-
-    // Act
-    raftCore.setPeerSet(new RaftPeerSet());
-
-    // Assert
-    assertNull(raftCore.getLeader());
-  }
-
-  @Test(timeout=10000)
-  public void getPeerSetTest() {
-    // Arrange, Act and Assert
-    assertNull((new RaftCore()).getPeerSet());
-  }
+    @Test(timeout=10000)
+    public void unlistenAll() {
+        new RaftCore().unlistenAll("OX13QD");
+    }
 }
-

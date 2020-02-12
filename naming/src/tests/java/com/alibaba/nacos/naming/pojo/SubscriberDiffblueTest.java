@@ -1,154 +1,81 @@
 package com.alibaba.nacos.naming.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.pojo.Subscriber
+ *
+ * @author Diffblue JCover
+ */
+
 public class SubscriberDiffblueTest {
-  @Test(timeout=10000)
-  public void getAddrStrTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getAddrStr());
-  }
 
-  @Test(timeout=10000)
-  public void getServiceNameTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getServiceName());
-  }
+    @Test(timeout=10000)
+    public void getAddrStrReturnsFoo() {
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").getAddrStr(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void setAgentTest() {
-    // Arrange
-    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
+    @Test(timeout=10000)
+    public void getAgentReturnsFoo() {
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").getAgent(), is("foo"));
+    }
 
-    // Act
-    subscriber.setAgent("foo");
+    @Test(timeout=10000)
+    public void getAppReturnsFoo() {
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").getApp(), is("foo"));
+    }
 
-    // Assert
-    assertEquals("foo", subscriber.getAgent());
-  }
+    @Test(timeout=10000)
+    public void getIpReturnsFoo() {
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").getIp(), is("foo"));
+    }
 
-  @Test(timeout=10000)
-  public void setAppTest() {
-    // Arrange
-    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
+    @Test(timeout=10000)
+    public void getNamespaceIdReturnsFoo() {
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").getNamespaceId(), is("foo"));
+    }
 
-    // Act
-    subscriber.setApp("foo");
+    @Test(timeout=10000)
+    public void getServiceName() {
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").getServiceName(), is("/bin/bash"));
+    }
 
-    // Assert
-    assertEquals("foo", subscriber.getApp());
-  }
+    @Test(timeout=10000)
+    public void setAddrStrToFoo() {
+        new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").setAddrStr("foo");
+    }
 
-  @Test(timeout=10000)
-  public void getAgentTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getAgent());
-  }
+    @Test(timeout=10000)
+    public void setAgentToFoo() {
+        new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").setAgent("foo");
+    }
 
-  @Test(timeout=10000)
-  public void getIpTest() {
-    // Arrange, Act and Assert
-    assertEquals("127.0.0.1", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getIp());
-  }
+    @Test(timeout=10000)
+    public void setAppToFoo() {
+        new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").setApp("foo");
+    }
 
-  @Test(timeout=10000)
-  public void setAddrStrTest() {
-    // Arrange
-    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
+    @Test(timeout=10000)
+    public void setIpToFoo() {
+        new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").setIp("foo");
+    }
 
-    // Act
-    subscriber.setAddrStr("foo");
+    @Test(timeout=10000)
+    public void setNamespaceIdToFoo() {
+        new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").setNamespaceId("foo");
+    }
 
-    // Assert
-    assertEquals("foo", subscriber.getAddrStr());
-  }
+    @Test(timeout=10000)
+    public void setServiceName() {
+        new Subscriber("foo", "foo", "foo", "foo", "foo", "/bin/bash").setServiceName("/bin/bash");
+    }
 
-  @Test(timeout=10000)
-  public void setNamespaceIdTest() {
-    // Arrange
-    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
-
-    // Act
-    subscriber.setNamespaceId("foo");
-
-    // Assert
-    assertEquals("foo", subscriber.getNamespaceId());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    Subscriber actualSubscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
-
-    // Assert
-    String actualNamespaceId = actualSubscriber.getNamespaceId();
-    String actualIp = actualSubscriber.getIp();
-    String actualAgent = actualSubscriber.getAgent();
-    String actualApp = actualSubscriber.getApp();
-    String actualServiceName = actualSubscriber.getServiceName();
-    assertEquals("123", actualNamespaceId);
-    assertEquals("foo", actualSubscriber.getAddrStr());
-    assertEquals("foo", actualServiceName);
-    assertEquals("foo", actualApp);
-    assertEquals("foo", actualAgent);
-    assertEquals("127.0.0.1", actualIp);
-  }
-
-  @Test(timeout=10000)
-  public void setServiceNameTest() {
-    // Arrange
-    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
-
-    // Act
-    subscriber.setServiceName("foo");
-
-    // Assert
-    assertEquals("foo", subscriber.getServiceName());
-  }
-
-  @Test(timeout=10000)
-  public void equalsTest() {
-    // Arrange, Act and Assert
-    assertFalse((new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).equals("foo"));
-  }
-
-  @Test(timeout=10000)
-  public void getAppTest() {
-    // Arrange, Act and Assert
-    assertEquals("foo", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getApp());
-  }
-
-  @Test(timeout=10000)
-  public void hashCodeTest() {
-    // Arrange, Act and Assert
-    assertEquals(-918599540, (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).hashCode());
-  }
-
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange, Act and Assert
-    assertEquals("Subscriber{addrStr='foo', agent='foo', app='foo'," + " ip='127.0.0.1', namespaceId='123', serviceName"
-        + "='foo'}", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).toString());
-  }
-
-  @Test(timeout=10000)
-  public void setIpTest() {
-    // Arrange
-    Subscriber subscriber = new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo");
-
-    // Act
-    subscriber.setIp("foo");
-
-    // Assert
-    assertEquals("foo", subscriber.getIp());
-  }
-
-  @Test(timeout=10000)
-  public void getNamespaceIdTest() {
-    // Arrange, Act and Assert
-    assertEquals("123", (new Subscriber("foo", "foo", "foo", "127.0.0.1", "123", "foo")).getNamespaceId());
-  }
+    @Test(timeout=10000)
+    public void testequals() {
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "bar").equals(new Object()), is(false));
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "foo", "bar").equals(null), is(false));
+    }
 }
-

@@ -1,25 +1,25 @@
 package com.alibaba.nacos.console.utils;
 
-import static org.junit.Assert.assertFalse;
-import org.junit.Rule;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+/**
+ * Unit tests for com.alibaba.nacos.console.utils.JwtTokenUtils
+ *
+ * @author Diffblue JCover
+ */
 
 public class JwtTokenUtilsDiffblueTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
-  @Test(timeout=10000)
-  public void getAuthenticationTest() {
-    // Arrange, Act and Assert
-    thrown.expect(IllegalArgumentException.class);
-    (new JwtTokenUtils()).getAuthentication("ABC123");
-  }
+    @Test(timeout=10000)
+    public void init() {
+        new JwtTokenUtils().init();
+    }
 
-  @Test(timeout=10000)
-  public void validateTokenTest() {
-    // Arrange, Act and Assert
-    assertFalse((new JwtTokenUtils()).validateToken("ABC123"));
-  }
+    @Test(timeout=10000)
+    public void validateTokenTokenIsFooReturnsFalse() {
+        assertThat(new JwtTokenUtils().validateToken("foo"), is(false));
+    }
 }
-

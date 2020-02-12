@@ -1,56 +1,45 @@
 package com.alibaba.nacos.api.naming.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.api.naming.pojo.ListView
+ *
+ * @author Diffblue JCover
+ */
+
 public class ListViewDiffblueTest {
-  @Test(timeout=10000)
-  public void getCountTest() {
-    // Arrange, Act and Assert
-    assertEquals(0, (new ListView<Object>()).getCount());
-  }
 
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    ListView<Object> actualListView = new ListView<Object>();
+    @Test(timeout=10000)
+    public void getCountReturnsZero() {
+        assertThat(new ListView<Object>().getCount(), is(0));
+    }
 
-    // Assert
-    List<Object> actualData = actualListView.getData();
-    String actualToStringResult = actualListView.toString();
-    assertNull(actualData);
-    assertEquals(0, actualListView.getCount());
-    assertEquals("{\"count\":0}", actualToStringResult);
-  }
+    @Test(timeout=10000)
+    public void getDataReturnsNull() {
+        assertThat(new ListView<Object>().getData(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange
-    ListView<Object> listView = new ListView<Object>();
+    @Test(timeout=10000)
+    public void setCountToOne() {
+        ListView<Object> listView = new ListView<Object>();
+        listView.setCount(1);
+        assertThat(listView.getCount(), is(1));
+    }
 
-    // Act and Assert
-    assertEquals("{\"count\":0}", listView.toString());
-    assertEquals("{\"count\":0}", listView.toString());
-  }
-
-  @Test(timeout=10000)
-  public void getDataTest() {
-    // Arrange, Act and Assert
-    assertNull((new ListView<Object>()).getData());
-  }
-
-  @Test(timeout=10000)
-  public void setCountTest() {
-    // Arrange
-    ListView<Object> listView = new ListView<Object>();
-
-    // Act
-    listView.setCount(3);
-
-    // Assert
-    assertEquals(3, listView.getCount());
-  }
+    @Test(timeout=10000)
+    public void setDataToEmpty() {
+        ListView<Object> listView = new ListView<Object>();
+        List<Object> data = new ArrayList<Object>();
+        listView.setData(data);
+        assertThat(listView.getData(), sameInstance(data));
+    }
 }
-

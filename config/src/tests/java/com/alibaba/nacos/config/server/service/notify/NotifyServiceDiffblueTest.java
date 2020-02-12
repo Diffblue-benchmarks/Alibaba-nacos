@@ -1,17 +1,19 @@
 package com.alibaba.nacos.config.server.service.notify;
 
-import static org.junit.Assert.assertEquals;
+import com.alibaba.nacos.config.server.service.ServerListService;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.notify.NotifyService
+ *
+ * @author Diffblue JCover
+ */
+
 public class NotifyServiceDiffblueTest {
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    NotifyService.HttpResult actualHttpResult = new NotifyService.HttpResult(1, "foo");
 
-    // Assert
-    assertEquals(1, actualHttpResult.code);
-    assertEquals("foo", actualHttpResult.content);
-  }
+    @Test(timeout=10000)
+    public void constructor() {
+        // pojo NotifyService
+    }
 }
-

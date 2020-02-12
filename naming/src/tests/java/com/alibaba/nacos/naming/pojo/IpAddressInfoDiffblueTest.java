@@ -1,138 +1,90 @@
 package com.alibaba.nacos.naming.pojo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+
+import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.naming.pojo.IpAddressInfo
+ *
+ * @author Diffblue JCover
+ */
+
 public class IpAddressInfoDiffblueTest {
-  @Test(timeout=10000)
-  public void isValidTest() {
-    // Arrange, Act and Assert
-    assertFalse((new IpAddressInfo()).isValid());
-  }
 
-  @Test(timeout=10000)
-  public void isEnabledTest() {
-    // Arrange, Act and Assert
-    assertFalse((new IpAddressInfo()).isEnabled());
-  }
+    @Test(timeout=10000)
+    public void getIpReturnsNull() {
+        assertThat(new IpAddressInfo().getIp(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getIpTest() {
-    // Arrange, Act and Assert
-    assertNull((new IpAddressInfo()).getIp());
-  }
+    @Test(timeout=10000)
+    public void getMetadataReturnsNull() {
+        assertThat(new IpAddressInfo().getMetadata(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void getMetadataTest() {
-    // Arrange, Act and Assert
-    assertNull((new IpAddressInfo()).getMetadata());
-  }
+    @Test(timeout=10000)
+    public void getPortReturnsNull() {
+        assertThat(new IpAddressInfo().getPort(), is(nullValue()));
+    }
 
-  @Test(timeout=10000)
-  public void setMetadataTest() {
-    // Arrange
-    IpAddressInfo ipAddressInfo = new IpAddressInfo();
+    @Test(timeout=10000)
+    public void getWeightReturnsNull() {
+        assertThat(new IpAddressInfo().getWeight(), is(nullValue()));
+    }
 
-    // Act
-    ipAddressInfo.setMetadata(null);
+    @Test(timeout=10000)
+    public void isEnabledReturnsFalse() {
+        assertThat(new IpAddressInfo().isEnabled(), is(false));
+    }
 
-    // Assert
-    assertNull(ipAddressInfo.getMetadata());
-  }
+    @Test(timeout=10000)
+    public void isValidReturnsFalse() {
+        assertThat(new IpAddressInfo().isValid(), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void getWeightTest() {
-    // Arrange, Act and Assert
-    assertNull((new IpAddressInfo()).getWeight());
-  }
+    @Test(timeout=10000)
+    public void setEnabledToFalse() {
+        new IpAddressInfo().setEnabled(false);
+    }
 
-  @Test(timeout=10000)
-  public void getPortTest() {
-    // Arrange, Act and Assert
-    assertNull((new IpAddressInfo()).getPort());
-  }
+    @Test(timeout=10000)
+    public void setIp() {
+        IpAddressInfo ipAddressInfo = new IpAddressInfo();
+        ipAddressInfo.setIp("280 Broadway");
+        assertThat(ipAddressInfo.getIp(), is("280 Broadway"));
+    }
 
-  @Test(timeout=10000)
-  public void setEnabledTest() {
-    // Arrange
-    IpAddressInfo ipAddressInfo = new IpAddressInfo();
+    @Test(timeout=10000)
+    public void setMetadataToEmpty() {
+        IpAddressInfo ipAddressInfo = new IpAddressInfo();
+        Map<String, String> metadata = new HashMap<String, String>();
+        ipAddressInfo.setMetadata(metadata);
+        assertThat(ipAddressInfo.getMetadata(), sameInstance(metadata));
+    }
 
-    // Act
-    ipAddressInfo.setEnabled(true);
+    @Test(timeout=10000)
+    public void setPortToOne() {
+        IpAddressInfo ipAddressInfo = new IpAddressInfo();
+        ipAddressInfo.setPort(1);
+        assertThat(ipAddressInfo.getPort(), is(1));
+    }
 
-    // Assert
-    assertTrue(ipAddressInfo.isEnabled());
-  }
+    @Test(timeout=10000)
+    public void setValidToFalse() {
+        new IpAddressInfo().setValid(false);
+    }
 
-  @Test(timeout=10000)
-  public void setPortTest() {
-    // Arrange
-    IpAddressInfo ipAddressInfo = new IpAddressInfo();
-
-    // Act
-    ipAddressInfo.setPort(Integer.valueOf(8080));
-
-    // Assert
-    assertEquals(Integer.valueOf(8080), ipAddressInfo.getPort());
-  }
-
-  @Test(timeout=10000)
-  public void constructorTest() {
-    // Arrange and Act
-    IpAddressInfo actualIpAddressInfo = new IpAddressInfo();
-
-    // Assert
-    Map<String, String> actualMetadata = actualIpAddressInfo.getMetadata();
-    String actualIp = actualIpAddressInfo.getIp();
-    boolean actualIsEnabledResult = actualIpAddressInfo.isEnabled();
-    Integer actualPort = actualIpAddressInfo.getPort();
-    Double actualWeight = actualIpAddressInfo.getWeight();
-    assertNull(actualMetadata);
-    assertFalse(actualIpAddressInfo.isValid());
-    assertNull(actualWeight);
-    assertNull(actualPort);
-    assertFalse(actualIsEnabledResult);
-    assertNull(actualIp);
-  }
-
-  @Test(timeout=10000)
-  public void setValidTest() {
-    // Arrange
-    IpAddressInfo ipAddressInfo = new IpAddressInfo();
-
-    // Act
-    ipAddressInfo.setValid(true);
-
-    // Assert
-    assertTrue(ipAddressInfo.isValid());
-  }
-
-  @Test(timeout=10000)
-  public void setWeightTest() {
-    // Arrange
-    IpAddressInfo ipAddressInfo = new IpAddressInfo();
-
-    // Act
-    ipAddressInfo.setWeight(Double.valueOf(10.0));
-
-    // Assert
-    assertEquals(Double.valueOf(10.0), ipAddressInfo.getWeight());
-  }
-
-  @Test(timeout=10000)
-  public void setIpTest() {
-    // Arrange
-    IpAddressInfo ipAddressInfo = new IpAddressInfo();
-
-    // Act
-    ipAddressInfo.setIp("127.0.0.1");
-
-    // Assert
-    assertEquals("127.0.0.1", ipAddressInfo.getIp());
-  }
+    @Test(timeout=10000)
+    public void setWeightToOne() {
+        IpAddressInfo ipAddressInfo = new IpAddressInfo();
+        ipAddressInfo.setWeight(1.0);
+        assertThat(ipAddressInfo.getWeight(), closeTo(1.0, 0.0));
+    }
 }
-

@@ -1,19 +1,26 @@
 package com.alibaba.nacos.config.server.utils;
 
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.IPUtil
+ *
+ * @author Diffblue JCover
+ */
+
 public class IPUtilDiffblueTest {
-  @Test(timeout=10000)
-  public void isIPV4Test() {
-    // Arrange, Act and Assert
-    assertFalse(IPUtil.isIPV4("foo"));
-  }
 
-  @Test(timeout=10000)
-  public void isIPV6Test() {
-    // Arrange, Act and Assert
-    assertFalse(IPUtil.isIPV6("foo"));
-  }
+    @Test(timeout=10000)
+    public void isIPV4AddrIsFooReturnsFalse() {
+        assertThat(IPUtil.isIPV4("foo"), is(false));
+    }
+
+    @Test(timeout=10000)
+    public void isIPV6() {
+        assertThat(IPUtil.isIPV6("foo"), is(false));
+        assertThat(IPUtil.isIPV6("d:d:d:d:d:d:d:d"), is(true));
+    }
 }
-

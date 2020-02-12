@@ -1,57 +1,64 @@
 package com.alibaba.nacos.client.naming.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertArrayEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.utils.IoUtils
+ *
+ * @author Diffblue JCover
+ */
+
 public class IoUtilsDiffblueTest {
-  @Test(timeout=10000)
-  public void toStringTest() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
 
-    // Act and Assert
-    assertEquals(
-        "\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001",
-        IoUtils.toString(new ByteArrayInputStream(byteArray), "UTF-8"));
-  }
+    @Test(timeout=10000)
+    public void copy() throws java.io.IOException {
+        assertThat(IoUtils.copy(new StringBufferInputStream("Broadway"), new ByteArrayOutputStream()), is(8L));
+        assertThat(IoUtils.copy(new StringReader("foo"), new StringWriter()), is(3L));
+        assertThat(IoUtils.copy(new StringBufferInputStream(""), new ByteArrayOutputStream()), is(0L));
+        assertThat(IoUtils.copy(new StringReader(""), new StringWriter()), is(0L));
+    }
 
-  @Test(timeout=10000)
-  public void isGzipStreamTest() {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
+    @Test(timeout=10000)
+    public void isGzipStreamBytesIsNull() {
+        assertThat(IoUtils.isGzipStream(null), is(false));
+    }
 
-    // Act and Assert
-    assertFalse(IoUtils.isGzipStream(byteArray));
-  }
+    @Test(timeout=10000)
+    public void isGzipStreamBytesIsOne() {
+        byte[] bytes = new byte[] { 1 };
+        assertThat(IoUtils.isGzipStream(bytes), is(false));
+    }
 
-  @Test(timeout=10000)
-  public void tryDecompressTest() throws Exception {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
+    @Test(timeout=10000)
+    public void isGzipStreamBytesIsZeroOne() {
+        byte[] bytes = new byte[] { 0, 1 };
+        assertThat(IoUtils.isGzipStream(bytes), is(false));
+    }
 
-    // Act
-    byte[] actualTryDecompressResult = IoUtils.tryDecompress(byteArray);
+    @Test(timeout=10000)
+    public void readLinesReturnsFoo() throws java.io.IOException {
+        assertThat(IoUtils.readLines(new StringReader("foo")).size(), is(1));
+        assertThat(IoUtils.readLines(new StringReader("foo")).get(0), is("foo"));
+    }
 
-    // Assert
-    assertEquals(24, actualTryDecompressResult.length);
-    assertEquals((byte) 1, actualTryDecompressResult[0]);
-    assertEquals((byte) 1, actualTryDecompressResult[1]);
-    assertEquals((byte) 1, actualTryDecompressResult[2]);
-    assertEquals((byte) 1, actualTryDecompressResult[3]);
-    assertEquals((byte) 1, actualTryDecompressResult[4]);
-    assertEquals((byte) 1, actualTryDecompressResult[5]);
-    assertEquals((byte) 1, actualTryDecompressResult[18]);
-    assertEquals((byte) 1, actualTryDecompressResult[19]);
-    assertEquals((byte) 1, actualTryDecompressResult[20]);
-    assertEquals((byte) 1, actualTryDecompressResult[21]);
-    assertEquals((byte) 1, actualTryDecompressResult[22]);
-    assertEquals((byte) 1, actualTryDecompressResult[23]);
-  }
+    @Test(timeout=10000)
+    public void testtoString() throws java.io.IOException {
+        assertThat(IoUtils.toString(new StringBufferInputStream("Broadway"), "foo"), is(""));
+        assertThat(IoUtils.toString(new StringReader("foo")), is("foo"));
+    }
+
+    @Test(timeout=10000)
+    public void tryDecompressRawIsOneReturnsOne() throws Exception {
+        byte[] raw = new byte[] { 1 };
+        assertArrayEquals(new byte[] { 1 }, IoUtils.tryDecompress(raw));
+    }
 }
-

@@ -1,22 +1,35 @@
 package com.alibaba.nacos.client.config.utils;
 
-import static org.junit.Assert.assertEquals;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Arrays;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import java.io.StringReader;
+import java.io.StringWriter;
+
 import org.junit.Test;
 
+/**
+ * Unit tests for com.alibaba.nacos.client.config.utils.IOUtils
+ *
+ * @author Diffblue JCover
+ */
+
 public class IOUtilsDiffblueTest {
-  @Test(timeout=10000)
-  public void toStringTest() throws IOException {
-    // Arrange
-    byte[] byteArray = new byte[24];
-    Arrays.fill(byteArray, (byte) 1);
 
-    // Act and Assert
-    assertEquals(
-        "\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001",
-        IOUtils.toString(new ByteArrayInputStream(byteArray), "UTF-8"));
-  }
+    @Test(timeout=10000)
+    public void copy() throws java.io.IOException {
+        assertThat(IOUtils.copy(new StringReader("foo"), new StringWriter()), is(3L));
+        assertThat(IOUtils.copy(new StringReader(""), new StringWriter()), is(0L));
+    }
+
+    @Test(timeout=10000)
+    public void readLinesReturnsFoo() throws java.io.IOException {
+        assertThat(IOUtils.readLines(new StringReader("foo")).size(), is(1));
+        assertThat(IOUtils.readLines(new StringReader("foo")).get(0), is("foo"));
+    }
+
+    @Test(timeout=10000)
+    public void toStringReturnsFoo() throws java.io.IOException {
+        assertThat(IOUtils.toString(new StringReader("foo")), is("foo"));
+    }
 }
-
