@@ -1,0 +1,10 @@
+address
+api
+client
+cmdb
+common
+config
+console
+core
+example
+naming
