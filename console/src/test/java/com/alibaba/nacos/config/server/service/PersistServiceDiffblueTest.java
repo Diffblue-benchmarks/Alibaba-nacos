@@ -1,0 +1,143 @@
+package com.alibaba.nacos.config.server.service;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import java.util.ArrayList;
+import org.junit.Test;
+
+public class PersistServiceDiffblueTest {
+  @Test
+  public void testAggrConfigInfoCountIn() {
+    // Arrange
+    PersistService persistService = new PersistService();
+    (new ArrayList<String>()).add("%");
+
+    // Act and Assert
+    assertEquals(0, persistService.aggrConfigInfoCountIn("%", "%", "%", null));
+  }
+
+  @Test
+  public void testAggrConfigInfoCountNotIn() {
+    // Arrange
+    PersistService persistService = new PersistService();
+    (new ArrayList<String>()).add("%");
+
+    // Act and Assert
+    assertEquals(0, persistService.aggrConfigInfoCountNotIn("%", "%", "%", null));
+  }
+
+  @Test
+  public void testConfigInfoBetaWrapperConstructor() {
+    // Arrange and Act
+    PersistService.ConfigInfoBetaWrapper actualConfigInfoBetaWrapper = new PersistService.ConfigInfoBetaWrapper();
+
+    // Assert
+    assertNull(actualConfigInfoBetaWrapper.getDataId());
+    assertNull(actualConfigInfoBetaWrapper.getBetaIps());
+    assertNull(actualConfigInfoBetaWrapper.getAppName());
+    assertEquals(0L, actualConfigInfoBetaWrapper.getLastModified());
+    assertNull(actualConfigInfoBetaWrapper.getTenant());
+    assertNull(actualConfigInfoBetaWrapper.getGroup());
+    assertNull(actualConfigInfoBetaWrapper.getMd5());
+    assertEquals("ConfigInfo{id=0, dataId='null', group='null'," + " tenant='null', appName='null', content='null',"
+        + " md5='null'}", actualConfigInfoBetaWrapper.toString());
+    assertNull(actualConfigInfoBetaWrapper.getContent());
+    assertEquals(0L, actualConfigInfoBetaWrapper.getId());
+  }
+
+  @Test
+  public void testConfigInfoBetaWrapperEquals() {
+    // Arrange
+    PersistService.ConfigInfoBetaWrapper configInfoBetaWrapper = new PersistService.ConfigInfoBetaWrapper();
+
+    // Act and Assert
+    assertFalse(configInfoBetaWrapper.equals("obj"));
+    assertNull(configInfoBetaWrapper.getMd5());
+  }
+
+  @Test
+  public void testConfigInfoBetaWrapperHashCode() {
+    // Arrange, Act and Assert
+    assertEquals(923521, (new PersistService.ConfigInfoBetaWrapper()).hashCode());
+  }
+
+  @Test
+  public void testConfigInfoBetaWrapperSetLastModified() {
+    // Arrange
+    PersistService.ConfigInfoBetaWrapper configInfoBetaWrapper = new PersistService.ConfigInfoBetaWrapper();
+
+    // Act
+    configInfoBetaWrapper.setLastModified(1L);
+
+    // Assert
+    assertEquals(1L, configInfoBetaWrapper.getLastModified());
+  }
+
+  @Test
+  public void testConfigInfoWrapperConstructor() {
+    // Arrange and Act
+    PersistService.ConfigInfoWrapper actualConfigInfoWrapper = new PersistService.ConfigInfoWrapper();
+
+    // Assert
+    assertNull(actualConfigInfoWrapper.getDataId());
+    assertNull(actualConfigInfoWrapper.getAppName());
+    assertEquals(0L, actualConfigInfoWrapper.getLastModified());
+    assertNull(actualConfigInfoWrapper.getTenant());
+    assertNull(actualConfigInfoWrapper.getGroup());
+    assertNull(actualConfigInfoWrapper.getMd5());
+    assertEquals("ConfigInfo{id=0, dataId='null', group='null'," + " tenant='null', appName='null', content='null',"
+        + " md5='null'}", actualConfigInfoWrapper.toString());
+    assertNull(actualConfigInfoWrapper.getContent());
+    assertEquals(0L, actualConfigInfoWrapper.getId());
+  }
+
+  @Test
+  public void testConfigInfoWrapperEquals() {
+    // Arrange, Act and Assert
+    assertFalse((new PersistService.ConfigInfoWrapper()).equals("obj"));
+  }
+
+  @Test
+  public void testConfigInfoWrapperHashCode() {
+    // Arrange, Act and Assert
+    assertEquals(923521, (new PersistService.ConfigInfoWrapper()).hashCode());
+  }
+
+  @Test
+  public void testConfigInfoWrapperSetLastModified() {
+    // Arrange
+    PersistService.ConfigInfoWrapper configInfoWrapper = new PersistService.ConfigInfoWrapper();
+
+    // Act
+    configInfoWrapper.setLastModified(1L);
+
+    // Assert
+    assertEquals(1L, configInfoWrapper.getLastModified());
+  }
+
+  @Test
+  public void testFindConfigMaxId() {
+    // Arrange, Act and Assert
+    assertEquals(0L, (new PersistService()).findConfigMaxId());
+  }
+
+  @Test
+  public void testIsExistTable() {
+    // Arrange, Act and Assert
+    assertFalse((new PersistService()).isExistTable("%"));
+  }
+
+  @Test
+  public void testSetBasicDataSourceService() {
+    // Arrange
+    PersistService persistService = new PersistService();
+
+    // Act
+    persistService.setBasicDataSourceService(new BasicDataSourceServiceImpl());
+
+    // Assert
+    assertNull(persistService.getJdbcTemplate());
+  }
+}
+
