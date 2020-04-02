@@ -1,10 +1,8 @@
 package com.alibaba.nacos.naming.healthcheck;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import com.alibaba.nacos.naming.core.Instance;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
 
 public class HealthCheckStatusDiffblueTest {
@@ -20,13 +18,10 @@ public class HealthCheckStatusDiffblueTest {
     Instance instance = new Instance();
 
     // Act and Assert
-    assertFalse(HealthCheckStatus.get(instance).isBeingChecked.get());
-    assertEquals(30000L, instance.getIpDeleteTimeout());
-    assertTrue(instance.isEnabled());
+    assertEquals(0, HealthCheckStatus.get(instance).checkOKCount.getAndDecrement());
+    assertEquals(0, instance.getPort());
     assertEquals(-1L, instance.getCheckRT());
     assertEquals("null:unknown:null_1.0_true_false_null", instance.toString());
-    assertNull(instance.getServiceName());
-    assertEquals(1.0, instance.getWeight(), 0.0);
   }
 
   @Test
@@ -38,13 +33,7 @@ public class HealthCheckStatusDiffblueTest {
     HealthCheckStatus.remv(instance);
 
     // Assert
-    assertEquals(5000L, instance.getInstanceHeartBeatInterval());
-    assertEquals(15000L, instance.getInstanceHeartBeatTimeOut());
-    assertFalse(instance.isMarked());
-    assertTrue(instance.isEphemeral());
     assertEquals(-1L, instance.getCheckRT());
-    assertNull(instance.getServiceName());
-    assertFalse(instance.isMockValid());
   }
 
   @Test
@@ -56,11 +45,11 @@ public class HealthCheckStatusDiffblueTest {
     HealthCheckStatus.reset(instance);
 
     // Assert
-    assertEquals(30000L, instance.getIpDeleteTimeout());
-    assertTrue(instance.isEphemeral());
+    AtomicInteger oKCount = instance.getOKCount();
     assertEquals(-1L, instance.getCheckRT());
-    assertNull(instance.getInstanceId());
-    assertFalse(instance.isMockValid());
+    assertEquals("null:0", instance.toIPAddr());
+    assertEquals(0, oKCount.getAndDecrement());
+    assertEquals(-1, oKCount.getAndIncrement());
   }
 }
 

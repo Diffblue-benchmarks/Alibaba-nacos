@@ -1,6 +1,7 @@
-package com.alibaba.nacos.naming.healthcheck;
+package com.alibaba.nacos.naming.consistency.persistent.raft;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +9,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @RunWith(org.springframework.test.context.junit4.SpringRunner.class)
 @SpringBootTest
-public class HttpHealthCheckProcessorDiffblueTest {
+public class RaftStoreDiffblueTest {
   @Autowired
-  private HttpHealthCheckProcessor httpHealthCheckProcessor;
+  private RaftStore raftStore;
   @Test
-  public void testConstructor() {
+  public void testLoad() throws Exception {
     // Arrange, Act and Assert
-    assertEquals("HTTP", (new HttpHealthCheckProcessor()).getType());
+    assertNull(this.raftStore.load(""));
   }
   @Test
-  public void testGetType() {
+  public void testLoadMeta() throws Exception {
     // Arrange, Act and Assert
-    assertEquals("HTTP", this.httpHealthCheckProcessor.getType());
+    assertEquals(1, this.raftStore.loadMeta().size());
   }
 }
 

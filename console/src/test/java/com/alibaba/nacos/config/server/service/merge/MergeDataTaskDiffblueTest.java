@@ -59,11 +59,5 @@ public class MergeDataTaskDiffblueTest {
     assertEquals("MergeTask[123, 123, tenant, clientIp]",
         (new MergeDataTask("123", "123", "tenant", "clientIp")).toString());
   }
-
-  @Test
-  public void testToString2() {
-    // Arrange, Act and Assert
-    assertEquals("MergeTask[, 123, tenant, clientIp]", (new MergeDataTask("", "123", "tenant", "clientIp")).toString());
-  }
 }
 

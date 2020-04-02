@@ -80,6 +80,12 @@ public class ClusterDiffblueTest {
   }
 
   @Test
+  public void testEquals2() {
+    // Arrange, Act and Assert
+    assertFalse((new Cluster()).equals(null));
+  }
+
+  @Test
   public void testGetDefIPPort() {
     // Arrange, Act and Assert
     assertEquals(80, (new Cluster()).getDefIPPort());

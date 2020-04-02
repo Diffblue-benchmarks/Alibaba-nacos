@@ -48,12 +48,8 @@ public class PersistServiceDiffblueTest {
 
   @Test
   public void testConfigInfoBetaWrapperEquals() {
-    // Arrange
-    PersistService.ConfigInfoBetaWrapper configInfoBetaWrapper = new PersistService.ConfigInfoBetaWrapper();
-
-    // Act and Assert
-    assertFalse(configInfoBetaWrapper.equals("obj"));
-    assertNull(configInfoBetaWrapper.getMd5());
+    // Arrange, Act and Assert
+    assertFalse((new PersistService.ConfigInfoBetaWrapper()).equals("obj"));
   }
 
   @Test
@@ -72,6 +68,51 @@ public class PersistServiceDiffblueTest {
 
     // Assert
     assertEquals(1L, configInfoBetaWrapper.getLastModified());
+    assertEquals("ConfigInfo{id=0, dataId='null', group='null'," + " tenant='null', appName='null', content='null',"
+        + " md5='null'}", configInfoBetaWrapper.toString());
+  }
+
+  @Test
+  public void testConfigInfoTagWrapperConstructor() {
+    // Arrange and Act
+    PersistService.ConfigInfoTagWrapper actualConfigInfoTagWrapper = new PersistService.ConfigInfoTagWrapper();
+
+    // Assert
+    assertNull(actualConfigInfoTagWrapper.getDataId());
+    assertNull(actualConfigInfoTagWrapper.getTag());
+    assertNull(actualConfigInfoTagWrapper.getAppName());
+    assertEquals(0L, actualConfigInfoTagWrapper.getLastModified());
+    assertNull(actualConfigInfoTagWrapper.getTenant());
+    assertNull(actualConfigInfoTagWrapper.getGroup());
+    assertNull(actualConfigInfoTagWrapper.getMd5());
+    assertEquals("ConfigInfo{id=0, dataId='null', group='null'," + " tenant='null', appName='null', content='null',"
+        + " md5='null'}", actualConfigInfoTagWrapper.toString());
+    assertNull(actualConfigInfoTagWrapper.getContent());
+    assertEquals(0L, actualConfigInfoTagWrapper.getId());
+  }
+
+  @Test
+  public void testConfigInfoTagWrapperEquals() {
+    // Arrange, Act and Assert
+    assertFalse((new PersistService.ConfigInfoTagWrapper()).equals("obj"));
+  }
+
+  @Test
+  public void testConfigInfoTagWrapperHashCode() {
+    // Arrange, Act and Assert
+    assertEquals(923521, (new PersistService.ConfigInfoTagWrapper()).hashCode());
+  }
+
+  @Test
+  public void testConfigInfoTagWrapperSetLastModified() {
+    // Arrange
+    PersistService.ConfigInfoTagWrapper configInfoTagWrapper = new PersistService.ConfigInfoTagWrapper();
+
+    // Act
+    configInfoTagWrapper.setLastModified(1L);
+
+    // Assert
+    assertEquals(1L, configInfoTagWrapper.getLastModified());
   }
 
   @Test

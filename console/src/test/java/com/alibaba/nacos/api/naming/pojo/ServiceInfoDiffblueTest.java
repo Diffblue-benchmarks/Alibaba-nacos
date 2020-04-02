@@ -50,7 +50,7 @@ public class ServiceInfoDiffblueTest {
     assertEquals("", actualServiceInfo.getJsonFromServer());
     assertEquals(1000L, actualServiceInfo.getCacheMillis());
     assertFalse(actualServiceInfo.isAllIPs());
-    assertEquals("", actualServiceInfo.getName());
+    assertEquals("", actualServiceInfo.toString());
   }
 
   @Test
@@ -75,8 +75,12 @@ public class ServiceInfoDiffblueTest {
 
   @Test
   public void testGetHosts() {
-    // Arrange, Act and Assert
-    assertEquals(0, ServiceInfo.fromKey("").getHosts().size());
+    // Arrange
+    ServiceInfo fromKeyResult = ServiceInfo.fromKey("");
+
+    // Act and Assert
+    assertEquals(0, fromKeyResult.getHosts().size());
+    assertEquals(0L, fromKeyResult.getLastRefTime());
   }
 
   @Test
@@ -118,7 +122,7 @@ public class ServiceInfoDiffblueTest {
     fromKeyResult.setAllIPs(true);
 
     // Assert
-    assertNull(fromKeyResult.toString());
+    assertTrue(fromKeyResult.isAllIPs());
   }
 
   @Test
@@ -154,7 +158,7 @@ public class ServiceInfoDiffblueTest {
     fromKeyResult.setClusters("");
 
     // Assert
-    assertEquals("", fromKeyResult.getClusters());
+    assertNull(fromKeyResult.getKey());
   }
 
   @Test

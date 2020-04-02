@@ -45,7 +45,6 @@ public class MonitorInfoDiffblueTest {
     monitorInfo.setFgc(1);
 
     // Assert
-    assertEquals(0.0, monitorInfo.getGct(), 0.0);
     assertEquals(1, monitorInfo.getFgc());
   }
 
@@ -70,6 +69,7 @@ public class MonitorInfoDiffblueTest {
     monitorInfo.setFreeMemory(1L);
 
     // Assert
+    assertEquals(0.0, monitorInfo.getLoad(), 0.0);
     assertEquals(1L, monitorInfo.getFreeMemory());
   }
 

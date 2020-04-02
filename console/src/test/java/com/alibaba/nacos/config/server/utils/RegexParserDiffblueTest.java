@@ -10,11 +10,9 @@ public class RegexParserDiffblueTest {
   public void testContainsWildcard() {
     // Arrange
     boolean actualContainsWildcardResult = RegexParser.containsWildcard("*");
-    boolean actualContainsWildcardResult1 = RegexParser.containsWildcard("?");
 
     // Act and Assert
     assertTrue(actualContainsWildcardResult);
-    assertTrue(actualContainsWildcardResult1);
     assertFalse(RegexParser.containsWildcard("regex"));
   }
 

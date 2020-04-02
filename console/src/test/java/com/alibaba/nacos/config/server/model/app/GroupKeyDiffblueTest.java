@@ -44,7 +44,7 @@ public class GroupKeyDiffblueTest {
     groupKey.setDataId("123");
 
     // Assert
-    assertEquals("123", groupKey.getDataId());
+    assertEquals("123+groupKeyString", groupKey.getGroupkeyString());
   }
 
   @Test

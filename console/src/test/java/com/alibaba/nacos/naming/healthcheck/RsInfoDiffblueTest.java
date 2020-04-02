@@ -12,6 +12,44 @@ public class RsInfoDiffblueTest {
   }
 
   @Test
+  public void testSetAk() {
+    // Arrange
+    RsInfo rsInfo = new RsInfo();
+
+    // Act
+    rsInfo.setAk("ak");
+
+    // Assert
+    assertEquals("ak", rsInfo.getAk());
+  }
+
+  @Test
+  public void testSetCluster() {
+    // Arrange
+    String cluster = System.getProperty("nacos.mode");
+    RsInfo rsInfo = new RsInfo();
+
+    // Act
+    rsInfo.setCluster(cluster);
+
+    // Assert
+    String expectedCluster = System.getProperty("nacos.mode");
+    assertEquals(expectedCluster, rsInfo.getCluster());
+  }
+
+  @Test
+  public void testSetCpu() {
+    // Arrange
+    RsInfo rsInfo = new RsInfo();
+
+    // Act
+    rsInfo.setCpu(10.0);
+
+    // Assert
+    assertEquals(10.0, rsInfo.getCpu(), 0.0);
+  }
+
+  @Test
   public void testSetEphemeral() {
     // Arrange
     RsInfo rsInfo = new RsInfo();

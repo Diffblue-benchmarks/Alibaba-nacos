@@ -41,7 +41,7 @@ public class MergeDatumServiceDiffblueTest {
     // Arrange, Act and Assert
     TaskManager taskManager = (new MergeDatumService(new PersistService())).mergeTasks;
     assertEquals("", taskManager.getTaskInfos());
-    assertEquals(0, taskManager.size());
+    assertTrue(taskManager.isEmpty());
     TaskProcessor defaultTaskProcessor = taskManager.getDefaultTaskProcessor();
     assertTrue(defaultTaskProcessor instanceof MergeTaskProcessor);
     assertEquals(10000, ((MergeTaskProcessor) defaultTaskProcessor).PAGE_SIZE);
@@ -54,9 +54,11 @@ public class MergeDatumServiceDiffblueTest {
     ArrayList<ConfigInfoChanged> configInfoChangedList = new ArrayList<ConfigInfoChanged>();
     configInfoChangedList.add(new ConfigInfoChanged());
 
-    // Act and Assert
-    assertEquals(5, (mergeDatumService.new MergeAllDataWorker(configInfoChangedList)).getPriority());
-    assertTrue(mergeDatumService.mergeTasks.isEmpty());
+    // Act
+    mergeDatumService.new MergeAllDataWorker(configInfoChangedList);
+
+    // Assert
+    assertTrue(mergeDatumService.mergeTasks.getDefaultTaskProcessor() instanceof MergeTaskProcessor);
   }
 
   @Test

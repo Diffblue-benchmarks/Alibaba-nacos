@@ -7,8 +7,12 @@ import org.junit.Test;
 public class DiskUtilDiffblueTest {
   @Test
   public void testGetConfig() throws IOException {
-    // Arrange, Act and Assert
-    assertEquals("", DiskUtil.getConfig("UTF-8", "UTF-8", "UTF-8"));
+    // Arrange
+    String actualConfig = DiskUtil.getConfig("UTF-8", "UTF-8", "UTF-8");
+
+    // Act and Assert
+    assertEquals("", actualConfig);
+    assertEquals("", DiskUtil.getConfig("UTF-8", "UTF-8", ""));
   }
 
   @Test

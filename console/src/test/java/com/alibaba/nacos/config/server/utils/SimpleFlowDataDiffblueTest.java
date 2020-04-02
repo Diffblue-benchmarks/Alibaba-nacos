@@ -11,7 +11,6 @@ public class SimpleFlowDataDiffblueTest {
 
     // Act and Assert
     assertEquals(3, simpleFlowData.addAndGet(3));
-    assertEquals(3, simpleFlowData.getSlotCount());
     assertEquals(3, simpleFlowData.getCurrentCount());
   }
 
@@ -29,12 +28,11 @@ public class SimpleFlowDataDiffblueTest {
   @Test
   public void testConstructor2() {
     // Arrange and Act
-    SimpleFlowData actualSimpleFlowData = new SimpleFlowData(2, 42);
+    SimpleFlowData actualSimpleFlowData = new SimpleFlowData(0, 42);
 
     // Assert
-    assertEquals(2, actualSimpleFlowData.getSlotCount());
-    assertEquals("0 0", actualSimpleFlowData.getSlotInfo());
-    assertEquals(0, actualSimpleFlowData.getCurrentCount());
+    assertEquals(0, actualSimpleFlowData.getSlotCount());
+    assertEquals("", actualSimpleFlowData.getSlotInfo());
   }
 
   @Test
@@ -74,6 +72,7 @@ public class SimpleFlowDataDiffblueTest {
     simpleFlowData.rotateSlot();
 
     // Assert
+    assertEquals("0 0 0", simpleFlowData.getSlotInfo());
     assertEquals(0, simpleFlowData.getAverageCount());
     assertEquals(0, simpleFlowData.getCurrentCount());
   }

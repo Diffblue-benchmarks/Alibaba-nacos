@@ -48,7 +48,7 @@ public class InstanceDiffblueTest {
     Instance actualInstance = new Instance("(\\d|\\.)+", 8080, "(\\d|\\.)+");
 
     // Assert
-    assertEquals(30000L, actualInstance.getIpDeleteTimeout());
+    assertEquals(5000L, actualInstance.getInstanceHeartBeatInterval());
     assertTrue(actualInstance.isEnabled());
     assertFalse(actualInstance.isMarked());
     assertTrue(actualInstance.isHealthy());
@@ -98,7 +98,6 @@ public class InstanceDiffblueTest {
     assertTrue(actualFromJSONResult.isEphemeral());
     assertEquals(1.0, actualFromJSONResult.getWeight(), 0.0);
     assertEquals("DEFAULT", actualFromJSONResult.getClusterName());
-    assertEquals("999.999.999.999:999", actualFromJSONResult.toInetAddr());
     assertEquals("999.999.999.999", actualFromJSONResult.getIp());
     assertFalse(actualFromJSONResult.isMockValid());
   }
@@ -138,7 +137,7 @@ public class InstanceDiffblueTest {
 
     // Act and Assert
     assertEquals("null#0#null#null", instance.generateInstanceId());
-    assertEquals("null:0", instance.toInetAddr());
+    assertEquals("null:unknown:null_1.0_true_false_null", instance.toString());
   }
 
   @Test

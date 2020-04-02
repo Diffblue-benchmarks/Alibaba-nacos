@@ -87,15 +87,15 @@ public class ConfigHistoryInfoDiffblueTest {
   @Test
   public void testSetLastModifiedTime() {
     // Arrange
-    Timestamp timestamp = new Timestamp(1L);
+    Timestamp lastModifiedTime = new Timestamp(1L);
     ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
 
     // Act
-    configHistoryInfo.setLastModifiedTime(timestamp);
+    configHistoryInfo.setLastModifiedTime(lastModifiedTime);
 
     // Assert
-    assertEquals(0, timestamp.getMinutes());
-    assertEquals("01-Jan-1970 01:00:00", configHistoryInfo.getLastModifiedTime().toLocaleString());
+    assertNull(configHistoryInfo.getAppName());
+    assertNull(configHistoryInfo.getDataId());
   }
 
   @Test
@@ -131,8 +131,6 @@ public class ConfigHistoryInfoDiffblueTest {
     configHistoryInfo.setSrcIp("srcIp");
 
     // Assert
-    assertNull(configHistoryInfo.getAppName());
-    assertNull(configHistoryInfo.getSrcUser());
     assertEquals("srcIp", configHistoryInfo.getSrcIp());
   }
 

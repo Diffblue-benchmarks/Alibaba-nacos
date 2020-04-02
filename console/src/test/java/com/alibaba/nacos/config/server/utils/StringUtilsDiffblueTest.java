@@ -60,11 +60,13 @@ public class StringUtilsDiffblueTest {
     // Arrange
     String actualSubstringBetweenResult = StringUtils.substringBetween("str", "open", "close");
     String actualSubstringBetweenResult1 = StringUtils.substringBetween(null, "open", "close");
+    String actualSubstringBetweenResult2 = StringUtils.substringBetween("str", null, "close");
 
     // Act and Assert
     assertNull(actualSubstringBetweenResult);
     assertNull(actualSubstringBetweenResult1);
-    assertNull(StringUtils.substringBetween("str", null, "close"));
+    assertNull(actualSubstringBetweenResult2);
+    assertNull(StringUtils.substringBetween("str", "open", null));
   }
 }
 

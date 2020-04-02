@@ -179,18 +179,6 @@ public class ConfigInfoAggrDiffblueTest {
   }
 
   @Test
-  public void testSetTenant() {
-    // Arrange
-    ConfigInfoAggr configInfoAggr = new ConfigInfoAggr();
-
-    // Act
-    configInfoAggr.setTenant("tenant");
-
-    // Assert
-    assertEquals("tenant", configInfoAggr.getTenant());
-  }
-
-  @Test
   public void testToString() {
     // Arrange, Act and Assert
     assertEquals("ConfigInfoAggr [dataId=null, group=null, datumId=null," + " content=null]",

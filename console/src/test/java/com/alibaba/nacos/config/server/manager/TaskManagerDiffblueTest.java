@@ -38,6 +38,19 @@ public class TaskManagerDiffblueTest {
   }
 
   @Test
+  public void testAddTask2() {
+    // Arrange
+    DumpTask task = new DumpTask("groupKey", 1000L, "lock");
+    TaskManager taskManager = new TaskManager();
+
+    // Act
+    taskManager.addTask(":type=", task);
+
+    // Assert
+    assertEquals(1, taskManager.size());
+  }
+
+  @Test
   public void testAwait() throws InterruptedException {
     // Arrange, Act and Assert
     assertFalse((new TaskManager()).await(10L, TimeUnit.NANOSECONDS));
@@ -45,17 +58,6 @@ public class TaskManagerDiffblueTest {
 
   @Test
   public void testConstructor() {
-    // Arrange and Act
-    TaskManager actualTaskManager = new TaskManager();
-
-    // Assert
-    assertEquals("", actualTaskManager.getTaskInfos());
-    assertNull(actualTaskManager.getDefaultTaskProcessor());
-    assertEquals(0, actualTaskManager.size());
-  }
-
-  @Test
-  public void testConstructor2() {
     // Arrange and Act
     TaskManager actualTaskManager = new TaskManager(":type=");
 
@@ -66,9 +68,9 @@ public class TaskManagerDiffblueTest {
   }
 
   @Test
-  public void testConstructor3() {
+  public void testConstructor2() {
     // Arrange and Act
-    TaskManager actualTaskManager = new TaskManager("");
+    TaskManager actualTaskManager = new TaskManager("processingThread");
 
     // Assert
     assertEquals("", actualTaskManager.getTaskInfos());
@@ -78,8 +80,12 @@ public class TaskManagerDiffblueTest {
 
   @Test
   public void testGetDefaultTaskProcessor() {
-    // Arrange, Act and Assert
-    assertNull((new TaskManager()).getDefaultTaskProcessor());
+    // Arrange
+    TaskManager taskManager = new TaskManager();
+
+    // Act and Assert
+    assertNull(taskManager.getDefaultTaskProcessor());
+    assertFalse(((ThreadGroup) taskManager.processingThread.getUncaughtExceptionHandler()).isDaemon());
   }
 
   @Test
@@ -102,8 +108,12 @@ public class TaskManagerDiffblueTest {
 
   @Test
   public void testIsEmpty() {
-    // Arrange, Act and Assert
-    assertTrue((new TaskManager()).isEmpty());
+    // Arrange
+    TaskManager taskManager = new TaskManager();
+
+    // Act and Assert
+    assertTrue(taskManager.isEmpty());
+    assertFalse(taskManager.lock.isHeldByCurrentThread());
   }
 
   @Test
@@ -116,7 +126,6 @@ public class TaskManagerDiffblueTest {
 
     // Assert
     assertEquals("", taskManager.getTaskInfos());
-    assertEquals(5, taskManager.processingThread.getPriority());
   }
 
   @Test
@@ -128,7 +137,7 @@ public class TaskManagerDiffblueTest {
     taskManager.removeTask(":type=");
 
     // Assert
-    assertTrue(taskManager.isEmpty());
+    assertEquals(0, taskManager.size());
   }
 
   @Test

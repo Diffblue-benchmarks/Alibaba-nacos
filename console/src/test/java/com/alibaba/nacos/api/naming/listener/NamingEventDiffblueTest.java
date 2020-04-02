@@ -1,7 +1,6 @@
 package com.alibaba.nacos.api.naming.listener;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import java.util.ArrayList;
@@ -100,7 +99,6 @@ public class NamingEventDiffblueTest {
 
     // Assert
     assertEquals("serviceName", namingEvent.getServiceName());
-    assertNull(namingEvent.getClusters());
   }
 }
 

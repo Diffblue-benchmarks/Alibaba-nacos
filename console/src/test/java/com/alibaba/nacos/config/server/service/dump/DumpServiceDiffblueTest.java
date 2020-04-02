@@ -18,6 +18,20 @@ public class DumpServiceDiffblueTest {
   }
 
   @Test
+  public void testMergeAllDataWorkerConstructor() {
+    // Arrange
+    DumpService dumpService = new DumpService();
+    ArrayList<ConfigInfoChanged> configInfoChangedList = new ArrayList<ConfigInfoChanged>();
+    configInfoChangedList.add(new ConfigInfoChanged());
+
+    // Act
+    dumpService.new MergeAllDataWorker(configInfoChangedList);
+
+    // Assert
+    assertEquals(1, configInfoChangedList.size());
+  }
+
+  @Test
   public void testSplitList() {
     // Arrange
     ArrayList<ConfigInfoChanged> configInfoChangedList = new ArrayList<ConfigInfoChanged>();
