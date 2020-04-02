@@ -1,73 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<!-- set debug to 'true' to see debug messages from the logging library itself
+     -->
+<configuration debug="false">
 
-    <springProperty scope="context" name="logPath" source="nacos.logs.path" defaultValue="${user.home}/nacos/logs"/>
-    <property name="LOG_HOME" value="${logPath}"/>
+  <conversionRule conversionWord="truncatedMsg" converterClass="com.diffblue.cover.logging.LongMessageConverter"/>
+  <conversionRule conversionWord="lessTruncatedMsg" converterClass="com.diffblue.cover.logging.LongerMessageConverter"/>
 
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <appender name="console-debug-minimal"
+    class="com.diffblue.cover.logging.ProgressBarAppender">
+    <target>System.out</target>
 
-    <include resource="META-INF/logback/nacos-included.xml"/>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %magenta(%level) %truncatedMsg%n</pattern>
+    </encoder>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-           <charset>UTF-8</charset>
-        </encoder>
-    </appender>
+    <!-- set level="DEBUG" or "TRACE" or "INFO" to enable more verbose output -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+  </appender>
 
-    <appender name="rootFile"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/nacos.log</file>
-        <append>true</append>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/nacos.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
-            <maxFileSize>50MB</maxFileSize>
-            <MaxHistory>15</MaxHistory>
-            <totalSizeCap>512MB</totalSizeCap>
-            <cleanHistoryOnStart>true</cleanHistoryOnStart>
-        </rollingPolicy>
-        <encoder>
-            <Pattern>%date %level %msg%n%n</Pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-    </appender>
+  <timestamp key="fileTimestamp" datePattern="yyyyMMdd'T'HHmmss"/>
 
-    <root>
-        <level value="INFO"/>
-        <appender-ref ref="rootFile"/>
-    </root>
+  <appender name="file-logger" class="com.diffblue.cover.logging.NoProgressBarFileAppender">
+    <file>.diffblue/log/cover-cli-${fileTimestamp}.log</file>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%level][%thread][%logger{16}] %lessTruncatedMsg%n</pattern>
+    </encoder>
 
-    <springProfile name="standalone">
+    <!-- set level="DEBUG" or "TRACE" or "INFO" to enable more verbose output -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>DEBUG</level>
+    </filter>
+  </appender>
 
-        <logger name="org.springframework">
-            <appender-ref ref="CONSOLE"/>
-            <level value="INFO"/>
-        </logger>
+  <!-- set level="DEBUG" or "TRACE" or "INFO" to enable more verbose output -->
+  <logger name="com.diffblue" additivity="false" level="TRACE">
+    <appender-ref ref="console-debug-minimal"/>
+    <appender-ref ref="file-logger"/>
+  </logger>
 
-        <logger name="org.apache.catalina.startup.DigesterFactory">
-            <appender-ref ref="CONSOLE"/>
-            <level value="INFO"/>
-        </logger>
-
-        <logger name="org.apache.catalina.util.LifecycleBase">
-            <appender-ref ref="CONSOLE"/>
-            <level value="ERROR"/>
-        </logger>
-
-        <logger name="org.apache.coyote.http11.Http11NioProtocol">
-            <appender-ref ref="CONSOLE"/>
-            <level value="WARN"/>
-        </logger>
-
-        <logger name="org.apache.tomcat.util.net.NioSelectorPool">
-            <appender-ref ref="CONSOLE"/>
-            <level value="WARN"/>
-        </logger>
-
-    </springProfile>
-
-    <logger name="com.alibaba.nacos.core.listener.StartingSpringApplicationRunListener">
-        <appender-ref ref="CONSOLE"/>
-        <level value="INFO"/>
-    </logger>
+  <!-- disable all logging that does not come from Diffblue code -->
+  <root level="OFF"/>
 </configuration>
