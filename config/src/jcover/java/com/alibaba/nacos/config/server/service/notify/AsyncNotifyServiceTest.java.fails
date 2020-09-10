@@ -41,7 +41,8 @@ class AsyncNotifyServiceTest {
 
     @Test
     void interestReturnsConfigDataChangeEvent() {
-        List<Class<? extends com.alibaba.nacos.config.server.utils.event.EventDispatcher.Event>> result = service.interest();
+        List<Class<? extends com.alibaba.nacos.config.server.utils.event.EventDispatcher.Event>> result =
+             service.interest();
         assertThat(result.size(), is(1));
         assertThat((Class<ConfigDataChangeEvent>) result.get(0), equalTo((Class) ConfigDataChangeEvent.class));
     }

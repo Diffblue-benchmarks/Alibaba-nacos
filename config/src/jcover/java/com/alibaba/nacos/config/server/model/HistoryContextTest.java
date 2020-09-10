@@ -51,7 +51,8 @@ class HistoryContextTest {
         configs1.setPageNumber(1);
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
-        HistoryContext historyContext = new HistoryContext("1234", "1234", "hello", 0, "New York", configs1);
+        HistoryContext historyContext =
+             new HistoryContext("1234", "1234", "hello", 0, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
         configs2.setPageItems(new ArrayList<ConfigHistoryInfo>());
@@ -84,7 +85,8 @@ class HistoryContextTest {
         configs1.setPageNumber(1);
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
-        HistoryContext historyContext = new HistoryContext("1234", "1234", "hello", 200, "New York", configs1);
+        HistoryContext historyContext =
+             new HistoryContext("1234", "1234", "hello", 200, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
         configs2.setPageItems(new ArrayList<ConfigHistoryInfo>());

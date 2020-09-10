@@ -3,7 +3,7 @@ package com.alibaba.nacos.naming.misc;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
-import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.consistency.ConsistencyService;
@@ -55,15 +55,18 @@ public class SwitchManagerTest {
         Map<String, Integer> map3 = new HashMap<String, Integer>();
         map3.put("foo", 1);
         Set<String> set3 = new HashSet<String>();
-        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams1 = new SwitchDomain.HttpHealthParams();
+        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams1 =
+             new SwitchDomain.HttpHealthParams();
         switchDomain$HttpHealthParams1.setFactor(1.0f);
         switchDomain$HttpHealthParams1.setMax(1);
         switchDomain$HttpHealthParams1.setMin(1);
-        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams2 = new SwitchDomain.HttpHealthParams();
+        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams2 =
+             new SwitchDomain.HttpHealthParams();
         switchDomain$HttpHealthParams2.setFactor(1.0f);
         switchDomain$HttpHealthParams2.setMax(1);
         switchDomain$HttpHealthParams2.setMin(1);
-        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams3 = new SwitchDomain.HttpHealthParams();
+        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams3 =
+             new SwitchDomain.HttpHealthParams();
         switchDomain$HttpHealthParams3.setFactor(1.0f);
         switchDomain$HttpHealthParams3.setMax(1);
         switchDomain$HttpHealthParams3.setMin(1);
@@ -75,27 +78,33 @@ public class SwitchManagerTest {
         Map<String, Integer> map6 = new HashMap<String, Integer>();
         map6.put("foo", 1);
         List<String> list6 = new ArrayList<String>();
-        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams1 = new SwitchDomain.MysqlHealthParams();
+        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams1 =
+             new SwitchDomain.MysqlHealthParams();
         switchDomain$MysqlHealthParams1.setFactor(1.0f);
         switchDomain$MysqlHealthParams1.setMax(1);
         switchDomain$MysqlHealthParams1.setMin(1);
-        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams2 = new SwitchDomain.MysqlHealthParams();
+        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams2 =
+             new SwitchDomain.MysqlHealthParams();
         switchDomain$MysqlHealthParams2.setFactor(1.0f);
         switchDomain$MysqlHealthParams2.setMax(1);
         switchDomain$MysqlHealthParams2.setMin(1);
-        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams3 = new SwitchDomain.MysqlHealthParams();
+        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams3 =
+             new SwitchDomain.MysqlHealthParams();
         switchDomain$MysqlHealthParams3.setFactor(1.0f);
         switchDomain$MysqlHealthParams3.setMax(1);
         switchDomain$MysqlHealthParams3.setMin(1);
-        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams1 = new SwitchDomain.TcpHealthParams();
+        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams1 =
+             new SwitchDomain.TcpHealthParams();
         switchDomain$TcpHealthParams1.setFactor(1.0f);
         switchDomain$TcpHealthParams1.setMax(1);
         switchDomain$TcpHealthParams1.setMin(1);
-        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams2 = new SwitchDomain.TcpHealthParams();
+        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams2 =
+             new SwitchDomain.TcpHealthParams();
         switchDomain$TcpHealthParams2.setFactor(1.0f);
         switchDomain$TcpHealthParams2.setMax(1);
         switchDomain$TcpHealthParams2.setMin(1);
-        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams3 = new SwitchDomain.TcpHealthParams();
+        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams3 =
+             new SwitchDomain.TcpHealthParams();
         switchDomain$TcpHealthParams3.setFactor(1.0f);
         switchDomain$TcpHealthParams3.setMax(1);
         switchDomain$TcpHealthParams3.setMin(1);
@@ -237,7 +246,7 @@ public class SwitchManagerTest {
         assertThat(result.getDefaultCacheMillis(), is(1L));
         assertThat(result.getDefaultPushCacheMillis(), is(1L));
         assertThat(result.getDistroServerExpiredMillis(), is(1L));
-        assertThat(result.getDistroThreshold(), closeTo(1.0f, 0.0));
+        assertEquals(1.0f, result.getDistroThreshold(), 0);
         assertThat(result.getHealthCheckWhiteList(), sameInstance(set3));
         assertThat(result.getHttpHealthParams(), sameInstance(switchDomain$HttpHealthParams3));
         assertThat(result.getIncrementalList(), sameInstance(list3));
@@ -261,7 +270,7 @@ public class SwitchManagerTest {
         assertThat(result.isHealthCheckEnabled(), is(false));
         assertThat(result.isPushEnabled(), is(false));
         assertThat(result.isSendBeatOnly(), is(false));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -269,7 +278,7 @@ public class SwitchManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.interests("key"), is(false));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -277,7 +286,7 @@ public class SwitchManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.matchUnlistenKey("key"), is(false));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -287,73 +296,57 @@ public class SwitchManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         SwitchDomain domain = new SwitchDomain();
-        HashMap<String, Integer> adWeightMap = new HashMap<String, Integer>();
-        adWeightMap.put("foo", 1);
-        domain.setAdWeightMap(adWeightMap);
         domain.setCheckTimes(1);
         domain.setClientBeatInterval(1L);
         domain.setDefaultCacheMillis(1L);
-        domain.setDefaultInstanceEphemeral(true);
         domain.setDefaultPushCacheMillis(1L);
-        domain.setDisableAddIP(false);
         domain.setDistroEnabled(false);
         domain.setDistroServerExpiredMillis(1L);
         domain.setDistroThreshold(1.0f);
-        domain.setEnableAuthentication(false);
         domain.setEnableStandalone(false);
         domain.setHealthCheckEnabled(false);
-        domain.setHealthCheckWhiteList(new HashSet<String>());
-        domain.setHttpHealthParams(new SwitchDomain.HttpHealthParams());
-        domain.setIncrementalList(new ArrayList<String>());
-        HashMap<String, Integer> limitedUrlMap = new HashMap<String, Integer>();
-        limitedUrlMap.put("foo", 1);
-        domain.setLimitedUrlMap(limitedUrlMap);
-        domain.setMasters(new ArrayList<String>());
-        domain.setMysqlHealthParams(new SwitchDomain.MysqlHealthParams());
         domain.setOverriddenServerStatus("/some/path.html");
         domain.setPushCVersion("1.0");
         domain.setPushEnabled(false);
         domain.setPushGoVersion("1.0");
         domain.setPushJavaVersion("1.0");
         domain.setPushPythonVersion("1.0");
-        domain.setSendBeatOnly(false);
         domain.setServerStatusSynchronizationPeriodMillis(1L);
         domain.setServiceStatusSynchronizationPeriodMillis(1L);
-        domain.setTcpHealthParams(new SwitchDomain.TcpHealthParams());
 
         // act
         service.onChange("key", domain);
 
         // assert
         Mockito.verify(switchDomain).setAdWeightMap(ArgumentMatchers.<Map<String, Integer>>any());
-        Mockito.verify(switchDomain).setCheckTimes(1);
-        Mockito.verify(switchDomain).setClientBeatInterval(1L);
-        Mockito.verify(switchDomain).setDefaultCacheMillis(1L);
-        Mockito.verify(switchDomain).setDefaultInstanceEphemeral(true);
-        Mockito.verify(switchDomain).setDefaultPushCacheMillis(1L);
-        Mockito.verify(switchDomain).setDisableAddIP(false);
-        Mockito.verify(switchDomain).setDistroEnabled(false);
-        Mockito.verify(switchDomain).setDistroServerExpiredMillis(1L);
-        Mockito.verify(switchDomain).setDistroThreshold(1.0f);
-        Mockito.verify(switchDomain).setEnableAuthentication(false);
-        Mockito.verify(switchDomain).setEnableStandalone(false);
-        Mockito.verify(switchDomain).setHealthCheckEnabled(false);
+        Mockito.verify(switchDomain).setCheckTimes(ArgumentMatchers.eq((Integer) 1));
+        Mockito.verify(switchDomain).setClientBeatInterval(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDefaultCacheMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDefaultInstanceEphemeral(ArgumentMatchers.eq((Boolean) true));
+        Mockito.verify(switchDomain).setDefaultPushCacheMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDisableAddIP(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setDistroEnabled(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setDistroServerExpiredMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDistroThreshold(ArgumentMatchers.eq((Float) 1.0f));
+        Mockito.verify(switchDomain).setEnableAuthentication(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setEnableStandalone(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setHealthCheckEnabled(ArgumentMatchers.eq((Boolean) false));
         Mockito.verify(switchDomain).setHttpHealthParams(ArgumentMatchers.<SwitchDomain.HttpHealthParams>any());
         Mockito.verify(switchDomain).setIncrementalList(ArgumentMatchers.<List<String>>any());
         Mockito.verify(switchDomain).setLimitedUrlMap(ArgumentMatchers.<Map<String, Integer>>any());
         Mockito.verify(switchDomain).setMasters(ArgumentMatchers.<List<String>>any());
         Mockito.verify(switchDomain).setMysqlHealthParams(ArgumentMatchers.<SwitchDomain.MysqlHealthParams>any());
-        Mockito.verify(switchDomain).setOverriddenServerStatus("/some/path.html");
-        Mockito.verify(switchDomain).setPushCVersion("1.0");
-        Mockito.verify(switchDomain).setPushEnabled(false);
-        Mockito.verify(switchDomain).setPushGoVersion("1.0");
-        Mockito.verify(switchDomain).setPushJavaVersion("1.0");
-        Mockito.verify(switchDomain).setPushPythonVersion("1.0");
-        Mockito.verify(switchDomain).setSendBeatOnly(false);
-        Mockito.verify(switchDomain).setServerStatusSynchronizationPeriodMillis(1L);
-        Mockito.verify(switchDomain).setServiceStatusSynchronizationPeriodMillis(1L);
+        Mockito.verify(switchDomain).setOverriddenServerStatus(ArgumentMatchers.eq("/some/path.html"));
+        Mockito.verify(switchDomain).setPushCVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setPushEnabled(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setPushGoVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setPushJavaVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setPushPythonVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setSendBeatOnly(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setServerStatusSynchronizationPeriodMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setServiceStatusSynchronizationPeriodMillis(ArgumentMatchers.eq((Long) 1L));
         Mockito.verify(switchDomain).setTcpHealthParams(ArgumentMatchers.<SwitchDomain.TcpHealthParams>any());
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -361,6 +354,6 @@ public class SwitchManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         service.onDelete("key");
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
     }
 }

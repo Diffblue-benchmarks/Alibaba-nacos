@@ -3,6 +3,9 @@ package com.alibaba.nacos.config.server.model;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -26,6 +29,13 @@ class ConfigInfoBaseTest {
         assertThat(configInfoBase.getGroup(), is("bar"));
         assertThat(configInfoBase.getId(), is(1L));
         assertThat(configInfoBase.getMd5(), is("foo"));
+    }
+
+    @Test
+    void dump() {
+        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        configInfoBase.setContent("hello");
+        configInfoBase.dump(new PrintWriter(new ByteArrayOutputStream()));
     }
 
     @Test

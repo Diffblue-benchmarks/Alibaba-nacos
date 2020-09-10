@@ -16,7 +16,8 @@ class ApplicationPublishRecordTest {
 
     @Test
     void factory() {
-        ApplicationPublishRecord applicationPublishRecord = new ApplicationPublishRecord("Acme", "1234", "1234");
+        ApplicationPublishRecord applicationPublishRecord =
+             new ApplicationPublishRecord("Acme", "1234", "1234");
         applicationPublishRecord.setAppName("Acme");
         GroupKey configInfo = new GroupKey("key");
         configInfo.setDataId("1234");

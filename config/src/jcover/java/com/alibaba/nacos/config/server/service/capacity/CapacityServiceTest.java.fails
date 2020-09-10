@@ -73,7 +73,8 @@ class CapacityServiceTest {
             .thenReturn(tenantCapacity);
 
         // act
-        Capacity result = service.getCapacity("/some/path.html", "/some/path.html");
+        Capacity result =
+             service.getCapacity("/some/path.html", "/some/path.html");
 
         // assert
         assertThat(result.getId(), is(1L));
@@ -99,7 +100,8 @@ class CapacityServiceTest {
             .thenReturn(tenantCapacity);
 
         // act
-        Capacity result = service.getCapacityWithDefault("/some/path.html", "/some/path.html");
+        Capacity result =
+             service.getCapacityWithDefault("/some/path.html", "/some/path.html");
 
         // assert
         assertThat(result.getId(), is(1L));

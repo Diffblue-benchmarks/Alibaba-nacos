@@ -1,9 +1,12 @@
 package com.alibaba.nacos.config.server.service.dump;
 
+import static org.mockito.Mockito.when;
+
 import com.alibaba.nacos.config.server.service.PersistService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
@@ -30,17 +33,24 @@ class DumpServiceTest {
     private DumpService service;
 
     @Test
-    void dump() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void dump1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
+        service.dump("1234", "/some/path.html", "/some/path.html", 1L, "/some/path.html");
+    }
+
+    @Test
+    void dump2() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
         service.dump("1234", "DumpService start", "/some/path.html", 1L, "/some/path.html");
     }
 
     @Test
-    void dumpAll() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void dumpAll() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
         service.dumpAll();
     }
 
     @Test
-    void dumpTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
-        service.dump("1234", "/some/path.html", "/some/path.html", "tag", 1L, "/some/path.html");
+    void dumpTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
+        service.dump("1234", "DumpService start", "/some/path.html", "tag", 1L, "/some/path.html");
     }
 }

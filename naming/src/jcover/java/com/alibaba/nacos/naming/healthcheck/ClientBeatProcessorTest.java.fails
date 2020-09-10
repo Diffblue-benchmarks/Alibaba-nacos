@@ -51,7 +51,8 @@ public class ClientBeatProcessorTest {
         x24.setSitegroup("DE");
         x24.setDefaultCheckPort(1);
         x24.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
         x24.setHealthChecker(healthChecker1);
         x24.setName("John Smith");
         x24.setUseIPPort4Check(false);

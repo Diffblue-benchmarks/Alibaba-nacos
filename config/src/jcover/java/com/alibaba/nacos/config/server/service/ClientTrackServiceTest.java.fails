@@ -52,7 +52,8 @@ class ClientTrackServiceTest {
 
     @Test
     void listSubsByGroupGroupKeyIsFoo() {
-        Map<String, SubscriberStatus> result = ClientTrackService.listSubsByGroup("foo");
+        Map<String, SubscriberStatus> result =
+             ClientTrackService.listSubsByGroup("foo");
         assertThat(result.get("/some/path.html").getGroupKey(), is("foo"));
         assertThat(result.get("/some/path.html").getLastTime(), is(1L));
         assertThat(result.get("/some/path.html").getMd5(), is("foo"));

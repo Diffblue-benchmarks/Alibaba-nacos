@@ -15,13 +15,18 @@ class ParamUtilsTest {
 
     @Test
     void isValid() {
-        assertThat(ParamUtils.isValid("name"), is(true));
+        assertThat(ParamUtils.isValid("data"), is(true));
         assertThat(ParamUtils.isValid(null), is(false));
     }
 
     @Test
-    void checkParamContentIsHelloAndDataIdIsBarAndGroupIsName() throws com.alibaba.nacos.config.server.exception.NacosException {
-        ParamUtils.checkParam("bar", "name", "1234", "hello");
+    void checkParamContentIsDataAndDataIdIsBarAndGroupIsFoo() throws com.alibaba.nacos.config.server.exception.NacosException {
+        ParamUtils.checkParam("bar", "foo", "1234", "data");
+    }
+
+    @Test
+    void checkParamTagIsData() {
+        ParamUtils.checkParam("data");
     }
 
     @Test
@@ -30,17 +35,12 @@ class ParamUtilsTest {
     }
 
     @Test
-    void checkParamTagIsName() {
-        ParamUtils.checkParam("name");
+    void checkTenantTenantIsData() {
+        ParamUtils.checkTenant("data");
     }
 
     @Test
     void checkTenantTenantIsEmpty() {
         ParamUtils.checkTenant("");
-    }
-
-    @Test
-    void checkTenantTenantIsName() {
-        ParamUtils.checkTenant("name");
     }
 }

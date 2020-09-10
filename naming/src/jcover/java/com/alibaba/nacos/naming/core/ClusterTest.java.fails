@@ -51,7 +51,8 @@ public class ClusterTest {
         cluster.setSitegroup("DE");
         cluster.setDefaultCheckPort(1);
         cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
         HashMap<String, String> metadata3 = new HashMap<String, String>();
         metadata3.put("foo", "foo");
@@ -82,7 +83,8 @@ public class ClusterTest {
         cluster.setSitegroup("DE");
         cluster.setDefaultCheckPort(1);
         cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
         HashMap<String, String> metadata2 = new HashMap<String, String>();
         metadata2.put("foo", "foo");
@@ -130,7 +132,8 @@ public class ClusterTest {
         cluster.setSitegroup("DE");
         cluster.setDefaultCheckPort(1);
         cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
         HashMap<String, String> metadata3 = new HashMap<String, String>();
         metadata3.put("foo", "foo");
@@ -180,27 +183,6 @@ public class ClusterTest {
     @Test
     public void equalsReturnsFalse() {
         assertThat(new Cluster().equals(new Object()), is(false));
-    }
-
-    @Test
-    public void update() throws CloneNotSupportedException {
-
-        // arrange
-        Cluster cluster1 = new Cluster();
-        cluster1.setService(new Service());
-        Cluster cluster2 = new Cluster();
-        cluster2.setDefCkport(1);
-        cluster2.setDefIPPort(1);
-        cluster2.setSitegroup("DE");
-        AbstractHealthChecker healthChecker2 = mock(AbstractHealthChecker.class);
-        cluster2.setHealthChecker(healthChecker2);
-        cluster2.setUseIPPort4Check(false);
-
-        // act
-        cluster1.update(cluster2);
-
-        // assert
-        assertThat(cluster1.getHealthChecker(), sameInstance(healthChecker2));
     }
 
     @Test

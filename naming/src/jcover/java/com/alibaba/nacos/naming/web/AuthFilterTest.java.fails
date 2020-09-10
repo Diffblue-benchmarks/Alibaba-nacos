@@ -30,7 +30,8 @@ public class AuthFilterTest {
     public void doFilter() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
 
         // arrange
-        MockHttpServletResponse servletResponse = new MockHttpServletResponse();
+        MockHttpServletResponse servletResponse =
+             new MockHttpServletResponse();
         Servlet servlet = mock(Servlet.class);
 
         // act

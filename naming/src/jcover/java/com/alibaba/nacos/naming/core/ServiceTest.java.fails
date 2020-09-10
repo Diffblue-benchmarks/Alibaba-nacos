@@ -4,7 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
-import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
@@ -36,7 +36,8 @@ public class ServiceTest {
         x5.setSitegroup("DE");
         x5.setDefaultCheckPort(1);
         x5.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
         x5.setHealthChecker(healthChecker1);
         x5.setName("John Smith");
         x5.setUseIPPort4Check(false);
@@ -73,7 +74,7 @@ public class ServiceTest {
         assertThat(service.getGroupName(), is("Acme"));
         assertThat(service.getMetadata().get("foo"), is("foo"));
         assertThat(service.getName(), is("Acme"));
-        assertThat(service.getProtectThreshold(), closeTo(1.0f, 0.0));
+        assertEquals(1.0f, service.getProtectThreshold(), 0);
     }
 
     @Test
@@ -87,7 +88,8 @@ public class ServiceTest {
         x5.setSitegroup("DE");
         x5.setDefaultCheckPort(1);
         x5.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
         x5.setHealthChecker(healthChecker1);
         x5.setName("John Smith");
         x5.setUseIPPort4Check(true);
@@ -124,7 +126,7 @@ public class ServiceTest {
         assertThat(service.getGroupName(), is("Acme"));
         assertThat(service.getMetadata().get("foo"), is("foo"));
         assertThat(service.getName(), is("Acme"));
-        assertThat(service.getProtectThreshold(), closeTo(1.0f, 0.0));
+        assertEquals(1.0f, service.getProtectThreshold(), 0);
     }
 
     @Test

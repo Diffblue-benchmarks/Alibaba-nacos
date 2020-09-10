@@ -15,7 +15,8 @@ class NamespaceTest {
 
     @Test
     void factory1() {
-        Namespace namespace2 = new NamespaceAllInfo("foo", "Acme", 0, 1, 1, "foo");
+        Namespace namespace2 =
+             new NamespaceAllInfo("foo", "Acme", 0, 1, 1, "foo");
         namespace2.setConfigCount(1);
         namespace2.setNamespace("foo");
         namespace2.setNamespaceShowName("Acme");

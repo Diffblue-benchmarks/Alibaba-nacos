@@ -20,7 +20,8 @@ public class ServiceDetailInfoTest {
     @Test
     public void factory() {
         ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
-        HashMap<String, ClusterInfo> clusterMap = new HashMap<String, ClusterInfo>();
+        HashMap<String, ClusterInfo> clusterMap =
+             new HashMap<String, ClusterInfo>();
         ClusterInfo x4 = new ClusterInfo();
         x4.setHosts(new ArrayList<IpAddressInfo>());
         clusterMap.put("foo", x4);

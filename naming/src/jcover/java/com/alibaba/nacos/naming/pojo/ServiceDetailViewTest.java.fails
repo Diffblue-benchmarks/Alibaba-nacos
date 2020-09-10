@@ -3,7 +3,7 @@ package com.alibaba.nacos.naming.pojo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
@@ -29,15 +29,18 @@ public class ServiceDetailViewTest {
         ServiceDetailView serviceDetailView = new ServiceDetailView();
         serviceDetailView.setClusters(new ArrayList<Cluster>());
         Service service2 = new Service();
-        HashMap<String, com.alibaba.nacos.naming.core.Cluster> clusterMap2 = new HashMap<String, com.alibaba.nacos.naming.core.Cluster>();
-        com.alibaba.nacos.naming.core.Cluster x70 = new com.alibaba.nacos.naming.core.Cluster();
+        HashMap<String, com.alibaba.nacos.naming.core.Cluster> clusterMap2 =
+             new HashMap<String, com.alibaba.nacos.naming.core.Cluster>();
+        com.alibaba.nacos.naming.core.Cluster x70 =
+             new com.alibaba.nacos.naming.core.Cluster();
         x70.setDefCkport(1);
         x70.setDefIPPort(1);
         x70.setServiceName("John Smith");
         x70.setSitegroup("DE");
         x70.setDefaultCheckPort(1);
         x70.setDefaultPort(1);
-        AbstractHealthChecker healthChecker4 = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker4 =
+             mock(AbstractHealthChecker.class);
         x70.setHealthChecker(healthChecker4);
         x70.setName("John Smith");
         x70.setUseIPPort4Check(false);
@@ -64,6 +67,6 @@ public class ServiceDetailViewTest {
         assertThat(serviceDetailView.getService().getGroupName(), is("Acme"));
         assertThat(serviceDetailView.getService().getMetadata().get("foo"), is("foo"));
         assertThat(serviceDetailView.getService().getName(), is("Acme"));
-        assertThat(serviceDetailView.getService().getProtectThreshold(), closeTo(1.0f, 0.0));
+        assertEquals(1.0f, serviceDetailView.getService().getProtectThreshold(), 0);
     }
 }

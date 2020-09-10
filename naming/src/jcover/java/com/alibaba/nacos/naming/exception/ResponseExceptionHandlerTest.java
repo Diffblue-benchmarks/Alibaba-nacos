@@ -18,14 +18,16 @@ public class ResponseExceptionHandlerTest {
 
     @Test
     public void handleParameterError() {
-        ResponseEntity<String> result = new ResponseExceptionHandler().handleParameterError(new IllegalArgumentException());
+        ResponseEntity<String> result =
+             new ResponseExceptionHandler().handleParameterError(new IllegalArgumentException());
         assertThat(result.getBody(), is(nullValue()));
         assertThat(result.getHeaders().isEmpty(), is(true));
     }
 
     @Test
     public void handleMissingParams() {
-        ResponseEntity<String> result = new ResponseExceptionHandler().handleMissingParams(new MissingServletRequestParameterException("name", "BASIC"));
+        ResponseEntity<String> result =
+             new ResponseExceptionHandler().handleMissingParams(new MissingServletRequestParameterException("name", "BASIC"));
         assertThat(result.getBody(), is("Parameter 'name' is missing"));
         assertThat(result.getHeaders().isEmpty(), is(true));
     }

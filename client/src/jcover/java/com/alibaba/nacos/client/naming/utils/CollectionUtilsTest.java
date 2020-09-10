@@ -1,9 +1,9 @@
 package com.alibaba.nacos.client.naming.utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
 
@@ -21,12 +21,12 @@ class CollectionUtilsTest {
     void subtract() {
         LinkedList b = new LinkedList();
         b.add(new Object());
-        assertThat(CollectionUtils.subtract(new LinkedList(), b), empty());
+        assertTrue((CollectionUtils.subtract(new LinkedList(), b)).isEmpty());
     }
 
     @Test
     void subtractBIsEmpty() {
-        assertThat(CollectionUtils.subtract(new LinkedList(), new LinkedList()), empty());
+        assertTrue((CollectionUtils.subtract(new LinkedList(), new LinkedList())).isEmpty());
     }
 
     @Test

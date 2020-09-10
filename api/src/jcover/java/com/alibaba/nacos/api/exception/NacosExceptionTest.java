@@ -27,7 +27,8 @@ class NacosExceptionTest {
 
     @Test
     void factory2() {
-        NacosException nacosException = new NacosException(0, "jpg", new NacosException());
+        NacosException nacosException =
+             new NacosException(0, "jpg", new NacosException());
         nacosException.setCauseThrowable(new NacosException());
         nacosException.setErrCode(1);
         nacosException.setErrMsg("jpg");
@@ -39,7 +40,8 @@ class NacosExceptionTest {
 
     @Test
     void factory3() {
-        NacosException nacosException = new NacosException(0, new NacosException());
+        NacosException nacosException =
+             new NacosException(0, new NacosException());
         nacosException.setCauseThrowable(new NacosException());
         nacosException.setErrCode(1);
         nacosException.setErrMsg("jpg");

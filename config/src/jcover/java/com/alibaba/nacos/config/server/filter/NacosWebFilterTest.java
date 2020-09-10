@@ -1,10 +1,10 @@
 package com.alibaba.nacos.config.server.filter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -59,7 +59,7 @@ class NacosWebFilterTest {
         assertThat(response.getCharacterEncoding(), is("UTF-8"));
         assertThat(response.getContentType(), is("application/json;charset=UTF-8"));
         assertThat(response.getHeaderNames(), hasSize(1));
-        assertThat(response.getHeaderNames(), hasItem("Content-Type"));
+        assertTrue(response.getHeaderNames().contains("Content-Type"));
         assertThat(response.isCharset(), is(true));
         Mockito.verify(servlet).service(ArgumentMatchers.<ServletRequest>any(), ArgumentMatchers.<ServletResponse>any());
     }

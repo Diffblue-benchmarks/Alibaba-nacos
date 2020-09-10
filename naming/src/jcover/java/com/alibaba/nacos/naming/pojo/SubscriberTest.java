@@ -15,7 +15,8 @@ public class SubscriberTest {
 
     @Test
     public void factory() {
-        Subscriber subscriber = new Subscriber("foo", "foo", "foo", "foo", "1234", "Acme");
+        Subscriber subscriber =
+             new Subscriber("foo", "foo", "foo", "foo", "1234", "Acme");
         subscriber.setAddrStr("foo");
         subscriber.setAgent("foo");
         subscriber.setApp("foo");

@@ -3,7 +3,7 @@ package com.alibaba.nacos.core.utils;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,17 +22,17 @@ class SystemUtilsTest {
 
     @Test
     void getLoad() {
-        assertThat(SystemUtils.getLoad(), closeTo(2.06f, 0.0));
+        assertEquals(2.94f, SystemUtils.getLoad(), 0);
     }
 
     @Test
     void getCPU() {
-        assertThat(SystemUtils.getCPU(), closeTo(0.0665695f, 0.0));
+        assertEquals(0x1.168bdp-4f /* 0.0680044 */, SystemUtils.getCPU(), 0);
     }
 
     @Test
     void getMem() {
-        assertThat(SystemUtils.getMem(), closeTo(0x1.b3df6cp-5f /* 0.0532071 */, 0.0));
+        assertEquals(0x1.c35b2ap-5f /* 0.0550972 */, SystemUtils.getMem(), 0);
     }
 
     @Test

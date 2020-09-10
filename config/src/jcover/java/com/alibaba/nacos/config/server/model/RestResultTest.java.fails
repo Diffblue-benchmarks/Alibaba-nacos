@@ -37,7 +37,8 @@ class RestResultTest {
 
     @Test
     void factory3() {
-        RestResult<String> restResult = new RestResult<String>(1, "bar", "something");
+        RestResult<String> restResult =
+             new RestResult<String>(1, "bar", "something");
         restResult.setCode(1);
         restResult.setData("something");
         restResult.setMessage("foo=bar");

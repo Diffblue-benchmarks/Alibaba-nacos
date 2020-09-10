@@ -2,22 +2,14 @@ package com.alibaba.nacos.naming.consistency.persistent.raft;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
 import com.alibaba.nacos.naming.consistency.Datum;
 import com.alibaba.nacos.naming.consistency.RecordListener;
-import com.alibaba.nacos.naming.core.Cluster;
-import com.alibaba.nacos.naming.core.Instance;
 import com.alibaba.nacos.naming.core.Instances;
 import com.alibaba.nacos.naming.core.Service;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 import com.alibaba.nacos.naming.pojo.Record;
-import com.alibaba.nacos.naming.selector.LabelSelector;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,7 +47,7 @@ public class RaftConsistencyServiceImplTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         when(raftCore.getDatum(Mockito.<String>any()))
-            .thenReturn(new Datum<?>());
+            .thenReturn(new Datum<Object>());
         // pojo Datum
     }
 
@@ -81,46 +73,10 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void listen() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-
-        // arrange
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
-        Service listener = new Service();
-        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x13 = new Cluster();
-        x13.setDefCkport(1);
-        x13.setDefIPPort(1);
-        x13.setServiceName("John Smith");
-        x13.setSitegroup("DE");
-        x13.setDefaultCheckPort(1);
-        x13.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
-        x13.setHealthChecker(healthChecker1);
-        x13.setName("John Smith");
-        x13.setUseIPPort4Check(false);
-        clusterMap.put("foo", x13);
-        listener.setClusterMap(clusterMap);
-        listener.setEnabled(false);
-        listener.setIpDeleteTimeout(1L);
-        listener.setLastModifiedMillis(1L);
-        listener.setNamespaceId("1234");
-        listener.setOwners(new ArrayList<String>());
-        listener.setResetWeight(false);
-        listener.setSelector(new LabelSelector());
-        listener.setToken("Bearer");
-        listener.setAppName("Acme");
-        listener.setGroupName("Acme");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        listener.setMetadata(metadata);
-        listener.setName("Acme");
-        listener.setProtectThreshold(1.0f);
-
-        // act
-        service.listen("key", listener);
-
-        // assert
-        Mockito.verify(raftCore).listen("key", ArgumentMatchers.<RecordListener>any());
+        service.listen("key", new Service());
+        Mockito.verify(raftCore).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -136,23 +92,15 @@ public class RaftConsistencyServiceImplTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         service.onRemove(new Datum(), new RaftPeer());
-        Mockito.verify(raftCore).onDelete(null, ArgumentMatchers.<RaftPeer>any());
+        Mockito.verify(raftCore).onDelete(ArgumentMatchers.eq((String) null), ArgumentMatchers.<RaftPeer>any());
     }
 
     @Test
     public void put() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-
-        // arrange
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
-        Instances value = new Instances();
-        value.setInstanceList(new ArrayList<Instance>());
-
-        // act
-        service.put("key", value);
-
-        // assert
-        Mockito.verify(raftCore).signalPublish("key", ArgumentMatchers.<Record>any());
+        service.put("key", new Instances());
+        Mockito.verify(raftCore).signalPublish(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
     }
 
     @Test
@@ -160,51 +108,15 @@ public class RaftConsistencyServiceImplTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         service.remove("key");
-        Mockito.verify(raftCore).signalDelete("key");
-        Mockito.verify(raftCore).unlistenAll("key");
+        Mockito.verify(raftCore).signalDelete(ArgumentMatchers.eq("key"));
+        Mockito.verify(raftCore).unlistenAll(ArgumentMatchers.eq("key"));
     }
 
     @Test
     public void unlisten() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-
-        // arrange
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
-        Service listener = new Service();
-        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x84 = new Cluster();
-        x84.setDefCkport(1);
-        x84.setDefIPPort(1);
-        x84.setServiceName("John Smith");
-        x84.setSitegroup("DE");
-        x84.setDefaultCheckPort(1);
-        x84.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
-        x84.setHealthChecker(healthChecker1);
-        x84.setName("John Smith");
-        x84.setUseIPPort4Check(false);
-        clusterMap.put("foo", x84);
-        listener.setClusterMap(clusterMap);
-        listener.setEnabled(false);
-        listener.setIpDeleteTimeout(1L);
-        listener.setLastModifiedMillis(1L);
-        listener.setNamespaceId("1234");
-        listener.setOwners(new ArrayList<String>());
-        listener.setResetWeight(false);
-        listener.setSelector(new LabelSelector());
-        listener.setToken("Bearer");
-        listener.setAppName("Acme");
-        listener.setGroupName("Acme");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        listener.setMetadata(metadata);
-        listener.setName("Acme");
-        listener.setProtectThreshold(1.0f);
-
-        // act
-        service.unlisten("key", listener);
-
-        // assert
-        Mockito.verify(raftCore).unlisten("key", ArgumentMatchers.<RecordListener>any());
+        service.unlisten("key", new Service());
+        Mockito.verify(raftCore).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 }

@@ -37,7 +37,8 @@ class RunningConfigUtilsTest {
         WebServer webServer = mock(WebServer.class);
         when(webServer.getPort())
             .thenReturn(1);
-        WebServerInitializedEvent event = mock(WebServerInitializedEvent.class);
+        WebServerInitializedEvent event =
+             mock(WebServerInitializedEvent.class);
         when(event.getWebServer())
             .thenReturn(webServer);
         service.onApplicationEvent(event);

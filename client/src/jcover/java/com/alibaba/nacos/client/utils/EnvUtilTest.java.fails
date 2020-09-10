@@ -20,7 +20,8 @@ class EnvUtilTest {
 
     @Test
     void setSelfEnv1() {
-        HashMap<String, List<String>> headers = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> headers =
+             new HashMap<String, List<String>>();
         ArrayList<String> x7 = new ArrayList<String>();
         x7.add("foo");
         headers.put("Amory-Tag", x7);
@@ -29,7 +30,8 @@ class EnvUtilTest {
 
     @Test
     void setSelfEnv2() {
-        HashMap<String, List<String>> headers = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> headers =
+             new HashMap<String, List<String>>();
         ArrayList<String> x7 = new ArrayList<String>();
         x7.add("foo");
         headers.put("Location-Tag", x7);
@@ -38,7 +40,8 @@ class EnvUtilTest {
 
     @Test
     void setSelfEnv3() {
-        HashMap<String, List<String>> headers = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> headers =
+             new HashMap<String, List<String>>();
         ArrayList<String> x7 = new ArrayList<String>();
         x7.add("foo");
         headers.put("Vipserver-Tag", x7);
@@ -47,7 +50,8 @@ class EnvUtilTest {
 
     @Test
     void setSelfEnv4() {
-        HashMap<String, List<String>> headers = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> headers =
+             new HashMap<String, List<String>>();
         ArrayList<String> x7 = new ArrayList<String>();
         x7.add("foo");
         headers.put(",", x7);
@@ -56,7 +60,8 @@ class EnvUtilTest {
 
     @Test
     void setSelfEnv5() {
-        HashMap<String, List<String>> headers = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> headers =
+             new HashMap<String, List<String>>();
         ArrayList<String> x7 = new ArrayList<String>();
         x7.add("foo");
         headers.put("selfLocationTag:{}", x7);
@@ -65,7 +70,8 @@ class EnvUtilTest {
 
     @Test
     void setSelfEnv6() {
-        HashMap<String, List<String>> headers = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> headers =
+             new HashMap<String, List<String>>();
         ArrayList<String> x7 = new ArrayList<String>();
         x7.add("foo");
         headers.put("selfVipserverTag:{}", x7);

@@ -18,7 +18,8 @@ class SampleResultTest {
     @Test
     void factory() {
         SampleResult sampleResult = new SampleResult();
-        HashMap<String, String> lisentersGroupkeyStatus = new HashMap<String, String>();
+        HashMap<String, String> lisentersGroupkeyStatus =
+             new HashMap<String, String>();
         lisentersGroupkeyStatus.put("foo", "foo");
         sampleResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
         assertThat(sampleResult.getLisentersGroupkeyStatus().get("foo"), is("foo"));

@@ -41,7 +41,8 @@ public class RunningConfigTest {
         WebServer webServer2 = mock(WebServer.class);
         when(webServer2.getPort())
             .thenReturn(1);
-        WebServerInitializedEvent event = mock(WebServerInitializedEvent.class);
+        WebServerInitializedEvent event =
+             mock(WebServerInitializedEvent.class);
         when(event.getWebServer())
             .thenReturn(webServer2)
             .thenReturn(webServer1);

@@ -1,6 +1,7 @@
 package com.alibaba.nacos.config.server.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import com.alibaba.nacos.config.server.utils.PropertyUtil;
@@ -9,8 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Unit tests for com.alibaba.nacos.config.server.service.LocalDataSourceServiceImpl
@@ -31,5 +34,84 @@ class LocalDataSourceServiceImplTest {
     @Test
     void checkMasterWritableReturnsTrue() {
         assertThat(service.checkMasterWritable(), is(true));
+    }
+
+    @Test
+    void getCurrentDBUrl() {
+        assertThat(service.getCurrentDBUrl(), is("jdbc:derby:/home/thomas_perkins/nacos/data/derby-data;create=true"));
+    }
+
+    @Test
+    void getHealthReturnsUP() {
+        assertThat(service.getHealth(), is("UP"));
+    }
+
+    @Test
+    void getJdbcTemplate() throws java.sql.SQLException {
+        JdbcTemplate result = service.getJdbcTemplate();
+        assertThat(result.getFetchSize(), is(-1));
+        assertThat(result.getMaxRows(), is(50_000));
+        assertThat(result.getQueryTimeout(), is(5_000));
+        assertThat(result.isIgnoreWarnings(), is(true));
+        assertThat(result.isResultsMapCaseInsensitive(), is(false));
+        assertThat(result.isSkipResultsProcessing(), is(false));
+        assertThat(result.isSkipUndeclaredResults(), is(false));
+        assertThat(result.getDataSource().getConnection().getAutoCommit(), is(true));
+        assertThat(result.getDataSource().getConnection().getCatalog(), is(nullValue()));
+        assertThat(result.getDataSource().getConnection().getClientInfo().isEmpty(), is(true));
+        assertThat(result.getDataSource().getConnection().getHoldability(), is(1));
+        assertThat(result.getDataSource().getConnection().getMetaData().getDatabaseMajorVersion(), is(10));
+        assertThat(result.getDataSource().getConnection().getMetaData().getDatabaseMinorVersion(), is(10));
+        assertThat(result.getDataSource().getConnection().getMetaData().getDefaultTransactionIsolation(), is(2));
+        assertThat(result.getDataSource().getConnection().getMetaData().getDriverMajorVersion(), is(10));
+        assertThat(result.getDataSource().getConnection().getMetaData().getDriverMinorVersion(), is(10));
+        assertThat(result.getDataSource().getConnection().getMetaData().getJDBCMajorVersion(), is(4));
+        assertThat(result.getDataSource().getConnection().getMetaData().getJDBCMinorVersion(), is(1));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxBinaryLiteralLength(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxCatalogNameLength(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxCharLiteralLength(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnNameLength(), is(128));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInGroupBy(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInIndex(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInOrderBy(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInSelect(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInTable(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxConnections(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxCursorNameLength(), is(128));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxIndexLength(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxLogicalLobSize(), is(0L));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxProcedureNameLength(), is(128));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxRowSize(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxSchemaNameLength(), is(128));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxStatementLength(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxStatements(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxTableNameLength(), is(128));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxTablesInSelect(), is(0));
+        assertThat(result.getDataSource().getConnection().getMetaData().getMaxUserNameLength(), is(128));
+        assertThat(result.getDataSource().getConnection().getMetaData().getResultSetHoldability(), is(1));
+        assertThat(result.getDataSource().getConnection().getMetaData().getSQLStateType(), is(2));
+        assertThat(result.getDataSource().getConnection().getMetaData().isCatalogAtStart(), is(false));
+        assertThat(result.getDataSource().getConnection().getMetaData().isReadOnly(), is(false));
+        assertThat(result.getDataSource().getConnection().getTransactionIsolation(), is(2));
+        assertThat(result.getDataSource().getConnection().getTypeMap().isEmpty(), is(true));
+        assertThat(result.getDataSource().getConnection().getWarnings(), is(nullValue()));
+        assertThat(result.getDataSource().getConnection().isClosed(), is(false));
+        assertThat(result.getDataSource().getConnection().isReadOnly(), is(false));
+        assertThat(result.isLazyInit(), is(true));
+    }
+
+    @Test
+    void getTransactionTemplate() {
+        TransactionTemplate result = service.getTransactionTemplate();
+        assertThat(result.getIsolationLevel(), is(-1));
+        assertThat(result.getName(), is(nullValue()));
+        assertThat(result.getPropagationBehavior(), is(0));
+        assertThat(result.getTimeout(), is(5_000));
+        assertThat(result.isReadOnly(), is(false));
+    }
+
+    @Test
+    void reload() {
+        service.reload();
     }
 }

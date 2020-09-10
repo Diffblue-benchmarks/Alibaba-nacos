@@ -34,7 +34,8 @@ class ConfigInfoBaseExTest {
 
     @Test
     void factory2() {
-        ConfigInfoBaseEx configInfoBaseEx = new ConfigInfoBaseEx("1234", "ConfigInfoBaseEx s", "hello");
+        ConfigInfoBaseEx configInfoBaseEx =
+             new ConfigInfoBaseEx("1234", "ConfigInfoBaseEx s", "hello");
         configInfoBaseEx.setMessage("/some/path.html");
         configInfoBaseEx.setStatus(1);
         configInfoBaseEx.setContent("hello");
@@ -53,7 +54,8 @@ class ConfigInfoBaseExTest {
 
     @Test
     void factory3() {
-        ConfigInfoBaseEx configInfoBaseEx = new ConfigInfoBaseEx("1234", "ConfigInfoBaseEx s", "hello", 1, "/some/path.html");
+        ConfigInfoBaseEx configInfoBaseEx =
+             new ConfigInfoBaseEx("1234", "ConfigInfoBaseEx s", "hello", 1, "/some/path.html");
         configInfoBaseEx.setMessage("/some/path.html");
         configInfoBaseEx.setStatus(1);
         configInfoBaseEx.setContent("hello");

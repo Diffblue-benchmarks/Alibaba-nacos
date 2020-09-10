@@ -17,7 +17,8 @@ public class LeaderElectFinishedEventTest {
     public void factory() {
         Object source = new Object();
         RaftPeer raftPeer = new RaftPeer();
-        LeaderElectFinishedEvent leaderElectFinishedEvent = new LeaderElectFinishedEvent(source, raftPeer);
+        LeaderElectFinishedEvent leaderElectFinishedEvent =
+             new LeaderElectFinishedEvent(source, raftPeer);
         assertThat(leaderElectFinishedEvent.getRaftPeer(), sameInstance(raftPeer));
         assertThat(leaderElectFinishedEvent.getSource(), sameInstance(source));
     }

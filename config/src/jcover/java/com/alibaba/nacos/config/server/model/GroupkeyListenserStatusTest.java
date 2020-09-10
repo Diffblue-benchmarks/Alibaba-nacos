@@ -17,9 +17,11 @@ class GroupkeyListenserStatusTest {
 
     @Test
     void factory() {
-        GroupkeyListenserStatus groupkeyListenserStatus = new GroupkeyListenserStatus();
+        GroupkeyListenserStatus groupkeyListenserStatus =
+             new GroupkeyListenserStatus();
         groupkeyListenserStatus.setCollectStatus(1);
-        HashMap<String, String> lisentersGroupkeyStatus = new HashMap<String, String>();
+        HashMap<String, String> lisentersGroupkeyStatus =
+             new HashMap<String, String>();
         lisentersGroupkeyStatus.put("bar", "foo");
         groupkeyListenserStatus.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
         assertThat(groupkeyListenserStatus.getCollectStatus(), is(1));

@@ -17,45 +17,45 @@ class ParamUtilsTest {
 
     @Test
     void isValid() {
-        assertThat(ParamUtils.isValid("name"), is(true));
+        assertThat(ParamUtils.isValid("data"), is(true));
         assertThat(ParamUtils.isValid(null), is(false));
     }
 
     @Test
     void checkKeyParam() throws com.alibaba.nacos.api.exception.NacosException {
-        ParamUtils.checkKeyParam("1234", "name");
+        ParamUtils.checkKeyParam("1234", "data");
     }
 
     @Test
-    void checkTDGGroupIsNameAndTenantIsBar() throws com.alibaba.nacos.api.exception.NacosException {
-        ParamUtils.checkTDG("bar", "1234", "name");
+    void checkTDGGroupIsDataAndTenantIsBar() throws com.alibaba.nacos.api.exception.NacosException {
+        ParamUtils.checkTDG("bar", "1234", "data");
     }
 
     @Test
     void checkKeyParamDataIdIsBar() throws com.alibaba.nacos.api.exception.NacosException {
-        ParamUtils.checkKeyParam("bar", "name", "1234");
+        ParamUtils.checkKeyParam("bar", "data", "1234");
     }
 
     @Test
     void checkKeyParamDataIdsIsBar() throws com.alibaba.nacos.api.exception.NacosException {
         ArrayList<String> dataIds = new ArrayList<String>();
         dataIds.add("bar");
-        ParamUtils.checkKeyParam(dataIds, "name");
+        ParamUtils.checkKeyParam(dataIds, "data");
     }
 
     @Test
-    void checkParam() throws com.alibaba.nacos.api.exception.NacosException {
-        ParamUtils.checkParam("1234", "name", "hello");
+    void checkParamGroupIsBar() throws com.alibaba.nacos.api.exception.NacosException {
+        ParamUtils.checkParam("1234", "bar", "data");
     }
 
     @Test
-    void checkParamDataIdIsBar() throws com.alibaba.nacos.api.exception.NacosException {
-        ParamUtils.checkParam("bar", "name", "1234", "hello");
+    void checkParamDataIdIsBarAndGroupIsFoo() throws com.alibaba.nacos.api.exception.NacosException {
+        ParamUtils.checkParam("bar", "foo", "1234", "data");
     }
 
     @Test
-    void checkTenantTenantIsName() throws com.alibaba.nacos.api.exception.NacosException {
-        ParamUtils.checkTenant("name");
+    void checkTenantTenantIsData() throws com.alibaba.nacos.api.exception.NacosException {
+        ParamUtils.checkTenant("data");
     }
 
     @Test

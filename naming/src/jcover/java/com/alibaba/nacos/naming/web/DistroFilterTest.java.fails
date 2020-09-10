@@ -32,7 +32,8 @@ public class DistroFilterTest {
         // arrange
         MockHttpServletRequest servletRequest = new MockHttpServletRequest();
         servletRequest.setQueryString("foo=bar");
-        MockHttpServletResponse servletResponse = new MockHttpServletResponse();
+        MockHttpServletResponse servletResponse =
+             new MockHttpServletResponse();
         Servlet servlet = mock(Servlet.class);
 
         // act
@@ -47,7 +48,8 @@ public class DistroFilterTest {
     public void doFilter2() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
 
         // arrange
-        MockHttpServletResponse servletResponse = new MockHttpServletResponse();
+        MockHttpServletResponse servletResponse =
+             new MockHttpServletResponse();
         Servlet servlet = mock(Servlet.class);
 
         // act

@@ -60,7 +60,7 @@ public class RaftCoreTest {
             .thenReturn(new Properties());
         assertThat(service.datumSize(), is(0));
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
-        Mockito.verify(peers).setTerm(0L);
+        Mockito.verify(peers).setTerm(ArgumentMatchers.eq((Long) 0L));
     }
 
     @Test

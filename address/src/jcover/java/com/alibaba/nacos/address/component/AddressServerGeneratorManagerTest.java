@@ -52,14 +52,15 @@ class AddressServerGeneratorManagerTest {
         String[] ipArray = new String[] { "280 Broadway" };
 
         // act
-        List<Instance> result = service.generateInstancesByIps("bar", "280 Broadway", "John Smith", ipArray);
+        List<Instance> result =
+             service.generateInstancesByIps("bar", "280 Broadway", "John Smith", ipArray);
 
         // assert
         assertThat(result.size(), is(1));
         assertThat(result.get(0).getApp(), is("280 Broadway"));
         assertThat(result.get(0).getCheckRT(), is(-1L));
         assertThat(result.get(0).getFailCount(), equalTo(new AtomicInteger(0)));
-        assertThat(result.get(0).getLastBeat(), is(1_599_778_653_453L));
+        assertThat(result.get(0).getLastBeat(), is(1_599_780_185_308L));
         assertThat(result.get(0).getOKCount(), equalTo(new AtomicInteger(0)));
         assertThat(result.get(0).getTenant(), is("public"));
         assertThat(result.get(0).isMarked(), is(false));

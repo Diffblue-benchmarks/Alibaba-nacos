@@ -22,7 +22,8 @@ class ClusterTest {
         Cluster cluster = new Cluster("John Smith");
         cluster.setDefaultCheckPort(0);
         cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
         HashMap<String, String> metadata = new HashMap<String, String>();
         metadata.put("foo", "foo");
@@ -44,7 +45,8 @@ class ClusterTest {
         Cluster cluster = new Cluster();
         cluster.setDefaultCheckPort(0);
         cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
         HashMap<String, String> metadata = new HashMap<String, String>();
         metadata.put("bar", "foo");

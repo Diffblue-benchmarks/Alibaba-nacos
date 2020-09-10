@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
@@ -35,23 +36,16 @@ class ServerListServiceTest {
     private ServerListService service;
 
     @Test
-    void getServerList1() throws javax.servlet.ServletException, java.net.MalformedURLException {
+    void getServerListReturnsEmpty() throws javax.servlet.ServletException, java.net.MalformedURLException, IllegalStateException, IllegalArgumentException {
         when(servletContext.getContextPath())
+            .thenReturn("foo");
+        when(env.getProperty(Mockito.<String>any()))
             .thenReturn("foo");
         assertThat(service.getServerList(), empty());
     }
 
     @Test
-    void getServerList2() throws javax.servlet.ServletException, java.net.MalformedURLException {
-        when(servletContext.getContextPath())
-            .thenReturn("address.server.port");
-        assertThat(service.getServerList(), empty());
-    }
-
-    @Test
-    void isHealthCheckReturnsTrue() throws javax.servlet.ServletException, java.net.MalformedURLException {
-        when(servletContext.getContextPath())
-            .thenReturn("foo");
+    void isHealthCheckReturnsTrue() throws javax.servlet.ServletException, java.net.MalformedURLException, IllegalStateException, IllegalArgumentException {
         assertThat(service.isHealthCheck(), is(true));
     }
 }

@@ -40,7 +40,8 @@ class MergeTaskProcessorTest {
         datumList.add(configInfoAggr);
 
         // act
-        ConfigInfo result = MergeTaskProcessor.merge("bar", "/some/path.html", "/some/path.html", datumList);
+        ConfigInfo result =
+             MergeTaskProcessor.merge("bar", "/some/path.html", "/some/path.html", datumList);
 
         // assert
         assertThat(result.getAppName(), is("Acme"));

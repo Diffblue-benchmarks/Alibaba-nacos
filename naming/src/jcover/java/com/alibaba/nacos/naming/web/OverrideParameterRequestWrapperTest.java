@@ -46,7 +46,8 @@ public class OverrideParameterRequestWrapperTest {
         request.setCookies(new Cookie("name", "value"));
 
         // act
-        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request);
+        OverrideParameterRequestWrapper result =
+             OverrideParameterRequestWrapper.buildRequest(request);
 
         // assert
         assertThat(result.getParameterMap().isEmpty(), is(true));
@@ -124,7 +125,8 @@ public class OverrideParameterRequestWrapperTest {
         request.setCookies(new Cookie("name", "value"));
 
         // act
-        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request, "name", "/some/path.html");
+        OverrideParameterRequestWrapper result =
+             OverrideParameterRequestWrapper.buildRequest(request, "name", "/some/path.html");
 
         // assert
         assertThat(result.getParameterMap().get("name"), Matchers.arrayContaining("/some/path.html"));
@@ -202,7 +204,8 @@ public class OverrideParameterRequestWrapperTest {
         request.setCookies(new Cookie("name", "value"));
 
         // act
-        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request, "name", null);
+        OverrideParameterRequestWrapper result =
+             OverrideParameterRequestWrapper.buildRequest(request, "name", null);
 
         // assert
         assertThat(result.getParameterMap().isEmpty(), is(true));
@@ -278,12 +281,14 @@ public class OverrideParameterRequestWrapperTest {
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
         request.setCookies(new Cookie("name", "value"));
-        HashMap<String, String[]> appendParameters = new HashMap<String, String[]>();
+        HashMap<String, String[]> appendParameters =
+             new HashMap<String, String[]>();
         String[] x306 = new String[] { "foo" };
         appendParameters.put("foo", x306);
 
         // act
-        OverrideParameterRequestWrapper result = OverrideParameterRequestWrapper.buildRequest(request, appendParameters);
+        OverrideParameterRequestWrapper result =
+             OverrideParameterRequestWrapper.buildRequest(request, appendParameters);
 
         // assert
         assertThat(result.getParameterMap().get("foo"), Matchers.arrayContaining("foo"));

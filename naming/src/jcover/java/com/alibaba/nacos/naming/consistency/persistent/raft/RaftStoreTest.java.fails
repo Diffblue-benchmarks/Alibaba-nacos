@@ -3,6 +3,12 @@ package com.alibaba.nacos.naming.consistency.persistent.raft;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.naming.consistency.Datum;
+
+import java.util.concurrent.ConcurrentMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,14 +30,24 @@ public class RaftStoreTest {
     private RaftStore service;
 
     @Test
-    public void load() throws Exception {
-        assertThat(service.load("bar"), is(nullValue()));
+    public void loadDatums() throws Exception {
+        RaftCore this$0 = new RaftCore();
+        this$0.setPeerSet(new RaftPeerSet());
+        @SuppressWarnings("unchecked")
+        ConcurrentMap<String, Datum> datums = mock(ConcurrentMap.class);
+        when(datums.size())
+            .thenReturn(1);
+        service.loadDatums(this$0.new Notifier(), datums);
+    }
+
+    @Test
+    public void loadKeyIsKeyReturnsNull() throws Exception {
         assertThat(service.load("key"), is(nullValue()));
     }
 
     @Test
-    public void loadMetaReturnsEmpty() throws Exception {
-        assertThat(service.loadMeta().isEmpty(), is(true));
+    public void loadMeta() throws Exception {
+        assertThat(service.loadMeta().getProperty("term"), is("1"));
     }
 
     @Test

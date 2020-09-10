@@ -18,7 +18,8 @@ class ConfigFilterChainManagerTest {
 
     @Test
     void addFilter() throws com.alibaba.nacos.api.exception.NacosException {
-        ConfigFilterChainManager configFilterChainManager = new ConfigFilterChainManager();
+        ConfigFilterChainManager configFilterChainManager =
+             new ConfigFilterChainManager();
         IConfigFilter filter = mock(IConfigFilter.class);
         assertThat(configFilterChainManager.addFilter(filter), sameInstance(configFilterChainManager));
     }

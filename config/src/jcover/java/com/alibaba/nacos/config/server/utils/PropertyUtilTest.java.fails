@@ -1,11 +1,12 @@
 package com.alibaba.nacos.config.server.utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
@@ -29,12 +30,19 @@ class PropertyUtilTest {
     private PropertyUtil service;
 
     @Test
-    void getProperty() {
-        assertThat(service.getProperty("key"), is(nullValue()));
+    void getProperty() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
+        when(env.getProperty(Mockito.<String>any(), Mockito.<String>any()))
+            .thenReturn("foo");
+        assertThat(service.getProperty("key"), is("foo"));
     }
 
     @Test
-    void getPropertyDefaultValueIsValue() {
-        assertThat(service.getProperty("key", "value"), is(nullValue()));
+    void getPropertyDefaultValueIsValue() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any(), Mockito.<String>any()))
+            .thenReturn("foo")
+            .thenReturn("foo");
+        assertThat(service.getProperty("key", "value"), is("foo"));
     }
 }

@@ -20,7 +20,8 @@ class NamingEventTest {
 
     @Test
     void factory() {
-        NamingEvent namingEvent = new NamingEvent("Acme", "Acme", "foo", new ArrayList<Instance>());
+        NamingEvent namingEvent =
+             new NamingEvent("Acme", "Acme", "foo", new ArrayList<Instance>());
         namingEvent.setClusters("foo");
         namingEvent.setGroupName("Acme");
         namingEvent.setInstances(new ArrayList<Instance>());

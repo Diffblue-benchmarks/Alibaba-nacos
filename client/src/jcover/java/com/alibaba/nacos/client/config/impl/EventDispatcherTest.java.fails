@@ -20,7 +20,8 @@ class EventDispatcherTest {
 
     @Test
     void addEventListener1() {
-        EventDispatcher.AbstractEventListener listener = mock(EventDispatcher.AbstractEventListener.class);
+        EventDispatcher.AbstractEventListener listener =
+             mock(EventDispatcher.AbstractEventListener.class);
         when(listener.interest())
             .thenReturn(new ArrayList<Class<? extends EventDispatcher.AbstractEvent>>());
         EventDispatcher.addEventListener(listener);
@@ -28,9 +29,11 @@ class EventDispatcherTest {
 
     @Test
     void addEventListener2() {
-        List<Class<? extends EventDispatcher.AbstractEvent>> list = new ArrayList<Class<? extends EventDispatcher.AbstractEvent>>();
+        List<Class<? extends EventDispatcher.AbstractEvent>> list =
+             new ArrayList<Class<? extends EventDispatcher.AbstractEvent>>();
         list.add(EventDispatcher.AbstractEvent.class);
-        EventDispatcher.AbstractEventListener listener = mock(EventDispatcher.AbstractEventListener.class);
+        EventDispatcher.AbstractEventListener listener =
+             mock(EventDispatcher.AbstractEventListener.class);
         when(listener.interest())
             .thenReturn(list);
         EventDispatcher.addEventListener(listener);
@@ -38,18 +41,22 @@ class EventDispatcherTest {
 
     @Test
     void fireEvent1() {
-        EventDispatcher.AbstractEvent abstractEvent = mock(EventDispatcher.AbstractEvent.class);
+        EventDispatcher.AbstractEvent abstractEvent =
+             mock(EventDispatcher.AbstractEvent.class);
         // inaccessible mock: EventDispatcher.AbstractEvent.implyEvents
         EventDispatcher.fireEvent(abstractEvent);
     }
 
     @Test
     void fireEvent2() {
-        List<EventDispatcher.AbstractEvent> list1 = new ArrayList<EventDispatcher.AbstractEvent>();
-        EventDispatcher.AbstractEvent eventDispatcher$AbstractEvent2 = mock(EventDispatcher.AbstractEvent.class);
+        List<EventDispatcher.AbstractEvent> list1 =
+             new ArrayList<EventDispatcher.AbstractEvent>();
+        EventDispatcher.AbstractEvent eventDispatcher$AbstractEvent2 =
+             mock(EventDispatcher.AbstractEvent.class);
         // inaccessible mock: EventDispatcher.AbstractEvent.implyEvents
         list1.add(eventDispatcher$AbstractEvent2);
-        EventDispatcher.AbstractEvent abstractEvent = mock(EventDispatcher.AbstractEvent.class);
+        EventDispatcher.AbstractEvent abstractEvent =
+             mock(EventDispatcher.AbstractEvent.class);
         // inaccessible mock: EventDispatcher.AbstractEvent.implyEvents
         EventDispatcher.fireEvent(abstractEvent);
     }

@@ -31,7 +31,8 @@ class FailoverReactorTest {
         EventDispatcher eventDispatcher1 = new EventDispatcher();
         ExecutorService executor1 = mock(ExecutorService.class);
         eventDispatcher1.setExecutor(executor1);
-        NamingProxy serverProxy1 = new NamingProxy("1234", "api.github.com", "Smith");
+        NamingProxy serverProxy1 =
+             new NamingProxy("1234", "api.github.com", "Smith");
         Properties properties1 = new Properties();
         properties1.setProperty("key", "value");
         serverProxy1.setProperties(properties1);
@@ -46,7 +47,8 @@ class FailoverReactorTest {
 
     @Test
     void getServiceKeyIsKey() {
-        ServiceInfo result = new FailoverReactor(new HostReactor(new EventDispatcher(), new NamingProxy("1234", "api.github.com", "Smith"), "OX13QD"), "foo").getService("key");
+        ServiceInfo result =
+             new FailoverReactor(new HostReactor(new EventDispatcher(), new NamingProxy("1234", "api.github.com", "Smith"), "OX13QD"), "foo").getService("key");
         assertThat(result.getCacheMillis(), is(1_000L));
         assertThat(result.getChecksum(), is(""));
         assertThat(result.getClusters(), is(nullValue()));

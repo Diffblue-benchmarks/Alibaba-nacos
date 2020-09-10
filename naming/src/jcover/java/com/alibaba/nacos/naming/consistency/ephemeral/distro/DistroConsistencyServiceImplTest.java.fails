@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -73,6 +74,15 @@ public class DistroConsistencyServiceImplTest {
         when(dataStore.get(Mockito.<String>any()))
             .thenReturn(new Datum());
         // pojo Datum
+    }
+
+    @Test
+    public void init() throws CloneNotSupportedException, Exception {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(serverListManager.getHealthyServers())
+            .thenReturn(new ArrayList<Server>());
+        service.init();
     }
 
     @Test
@@ -136,7 +146,8 @@ public class DistroConsistencyServiceImplTest {
         x19.setSitegroup("DE");
         x19.setDefaultCheckPort(1);
         x19.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
         x19.setHealthChecker(healthChecker1);
         x19.setName("John Smith");
         x19.setUseIPPort4Check(false);
@@ -144,14 +155,13 @@ public class DistroConsistencyServiceImplTest {
         listener.setClusterMap(clusterMap);
         listener.setEnabled(false);
         listener.setIpDeleteTimeout(1L);
-        listener.setLastModifiedMillis(1L);
-        listener.setNamespaceId("bar");
+        listener.setLastModifiedMillis(-1L);
+        listener.setNamespaceId("1234");
         listener.setOwners(new ArrayList<String>());
         listener.setResetWeight(false);
         listener.setSelector(new LabelSelector());
         listener.setToken("Bearer");
         listener.setAppName("Acme");
-        listener.setGroupName("Acme");
         HashMap<String, String> metadata = new HashMap<String, String>();
         metadata.put("foo", "foo");
         listener.setMetadata(metadata);
@@ -172,7 +182,7 @@ public class DistroConsistencyServiceImplTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         service.put("key", new Instances());
-        Mockito.verify(taskDispatcher).addTask("key");
+        Mockito.verify(taskDispatcher).addTask(ArgumentMatchers.eq("key"));
     }
 
     @Test

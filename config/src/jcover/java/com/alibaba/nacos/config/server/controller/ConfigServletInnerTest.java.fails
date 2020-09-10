@@ -1,9 +1,9 @@
 package com.alibaba.nacos.config.server.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.alibaba.nacos.config.server.service.LongPollingService;
 import com.alibaba.nacos.config.server.service.PersistService;
@@ -53,10 +53,10 @@ class ConfigServletInnerTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
         assertThat(service.doPollingConfig(new MockHttpServletRequest(), response, new HashMap<String, String>(), 1), is("200"));
         assertThat(response.getHeaderNames(), hasSize(5));
-        assertThat(response.getHeaderNames(), hasItem("Cache-Control"));
-        assertThat(response.getHeaderNames(), hasItem("Expires"));
-        assertThat(response.getHeaderNames(), hasItem("Pragma"));
-        assertThat(response.getHeaderNames(), hasItem("Probe-Modify-Response"));
-        assertThat(response.getHeaderNames(), hasItem("Probe-Modify-Response-New"));
+        assertTrue(response.getHeaderNames().contains("Cache-Control"));
+        assertTrue(response.getHeaderNames().contains("Expires"));
+        assertTrue(response.getHeaderNames().contains("Pragma"));
+        assertTrue(response.getHeaderNames().contains("Probe-Modify-Response"));
+        assertTrue(response.getHeaderNames().contains("Probe-Modify-Response-New"));
     }
 }

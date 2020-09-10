@@ -3,6 +3,7 @@ package com.alibaba.nacos.console.security;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,8 +31,11 @@ class JwtAuthenticationEntryPointTest {
     void commence() throws java.io.UnsupportedEncodingException, java.io.IOException, javax.servlet.ServletException {
 
         // arrange
-        MockHttpServletResponse httpServletResponse = new MockHttpServletResponse();
+        MockHttpServletResponse httpServletResponse =
+             new MockHttpServletResponse();
         AuthenticationException e = mock(AuthenticationException.class);
+        when(e.getMessage())
+            .thenReturn("foo");
 
         // act
         service.commence(new MockHttpServletRequest(), httpServletResponse, e);

@@ -26,11 +26,6 @@ class LocalConfigInfoProcessorTest {
     }
 
     @Test
-    void saveSnapshotConfigIsBar() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "545321456", "545321456", "bar");
-    }
-
-    @Test
     void saveSnapshotDataIdIsEmpty() {
         LocalConfigInfoProcessor.saveSnapshot("Acme", "", "545321456", "545321456", "545321456");
     }
@@ -43,6 +38,11 @@ class LocalConfigInfoProcessorTest {
     @Test
     void cleanAllSnapshot() {
         LocalConfigInfoProcessor.cleanAllSnapshot();
+    }
+
+    @Test
+    void cleanEnvSnapshotEnvNameIsAcme() {
+        LocalConfigInfoProcessor.cleanEnvSnapshot("Acme");
     }
 
     @Test

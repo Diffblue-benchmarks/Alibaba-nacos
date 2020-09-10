@@ -38,7 +38,8 @@ class ConfigInfoExTest {
 
     @Test
     void factory2() {
-        ConfigInfoEx configInfoEx = new ConfigInfoEx("1234", "ConfigInfoEx s", "hello");
+        ConfigInfoEx configInfoEx =
+             new ConfigInfoEx("1234", "ConfigInfoEx s", "hello");
         configInfoEx.setMessage("/some/path.html");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");
@@ -61,7 +62,8 @@ class ConfigInfoExTest {
 
     @Test
     void factory3() {
-        ConfigInfoEx configInfoEx = new ConfigInfoEx("1234", "ConfigInfoEx s", "hello", 1, "/some/path.html");
+        ConfigInfoEx configInfoEx =
+             new ConfigInfoEx("1234", "ConfigInfoEx s", "hello", 1, "/some/path.html");
         configInfoEx.setMessage("/some/path.html");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");

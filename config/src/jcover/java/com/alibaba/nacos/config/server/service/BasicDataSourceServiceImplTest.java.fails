@@ -3,9 +3,11 @@ package com.alibaba.nacos.config.server.service;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
@@ -31,17 +33,23 @@ class BasicDataSourceServiceImplTest {
     private BasicDataSourceServiceImpl service;
 
     @Test
-    void getCurrentDBUrlReturnsEmpty() {
+    void getCurrentDBUrlReturnsEmpty() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
         assertThat(service.getCurrentDBUrl(), is(""));
     }
 
     @Test
-    void getHealthReturnsUP() {
+    void getHealthReturnsUP() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
         assertThat(service.getHealth(), is("UP"));
     }
 
     @Test
-    void getJdbcTemplate() {
+    void getJdbcTemplate() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
         JdbcTemplate result = service.getJdbcTemplate();
         assertThat(result.getFetchSize(), is(-1));
         assertThat(result.getMaxRows(), is(50_000));
@@ -55,7 +63,9 @@ class BasicDataSourceServiceImplTest {
     }
 
     @Test
-    void getTransactionTemplate() {
+    void getTransactionTemplate() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
         TransactionTemplate result = service.getTransactionTemplate();
         assertThat(result.getIsolationLevel(), is(-1));
         assertThat(result.getName(), is(nullValue()));

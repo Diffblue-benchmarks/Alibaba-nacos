@@ -4,9 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 
-import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
 import com.alibaba.nacos.naming.cluster.ServerListManager;
 import com.alibaba.nacos.naming.consistency.ConsistencyService;
 import com.alibaba.nacos.naming.consistency.RecordListener;
@@ -15,7 +13,6 @@ import com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeerSet;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 import com.alibaba.nacos.naming.pojo.Record;
 import com.alibaba.nacos.naming.push.PushService;
-import com.alibaba.nacos.naming.selector.LabelSelector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +23,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -63,7 +59,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         service.addUpdatedService2Queue("1234", "Acme", "/some/path.html", "DE");
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -71,7 +67,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.containService("1234", "Acme"), is(false));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -79,8 +75,8 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         service.createEmptyService("1234", "Acme", false);
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
-        Mockito.verify(consistencyService).put("com.alibaba.nacos.naming.domains.meta.1234##Acme", ArgumentMatchers.<Record>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).put(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.1234##Acme"), ArgumentMatchers.<Record>any());
     }
 
     @Test
@@ -88,7 +84,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getAllNamespaces(), empty());
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -96,7 +92,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getAllServiceNameList("root"), empty());
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -104,7 +100,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getAllServiceNames().isEmpty(), is(true));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -112,7 +108,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getInstance("1234", "Acme", "John Smith", "DE", 1), is(nullValue()));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -120,19 +116,15 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getInstanceCount(), is(0));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
-    public void getPagedClusterState() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, IllegalStateException, org.springframework.beans.BeansException {
+    public void getPagedClusterState() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
-        RaftPeerSet raftPeerSet = new RaftPeerSet();
-        ApplicationContext applicationContext = mock(ApplicationContext.class);
-        raftPeerSet.setApplicationContext(applicationContext);
-        raftPeerSet.setTerm(1L);
-        assertThat(service.getPagedClusterState("1234", 1, 1, "New York", "New York", new ArrayList<RaftPeer>(), raftPeerSet), is(0));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        assertThat(service.getPagedClusterState("1234", 1, 1, "New York", "New York", new ArrayList<RaftPeer>(), new RaftPeerSet()), is(0));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -140,7 +132,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getPagedService("1234", 1, 1, "DE", "DE", new ArrayList<Service>()), is(0));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -148,7 +140,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getResponsibleInstanceCount(), is(0));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -156,7 +148,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getResponsibleServiceCount(), is(0));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -164,7 +156,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getResponsibleServices().isEmpty(), is(true));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -172,7 +164,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getServiceCount(), is(0));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -180,7 +172,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.getServiceMap("1234"), is(nullValue()));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -188,7 +180,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.interests("key"), is(false));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -196,7 +188,7 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         assertThat(service.matchUnlistenKey("key"), is(false));
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -207,40 +199,15 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x343 = new Cluster();
-        x343.setDefCkport(1);
-        x343.setDefIPPort(1);
-        x343.setServiceName("John Smith");
-        x343.setSitegroup("DE");
-        x343.setDefaultCheckPort(1);
-        x343.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
-        x343.setHealthChecker(healthChecker1);
-        x343.setName("John Smith");
-        x343.setUseIPPort4Check(false);
-        clusterMap.put("foo", x343);
+        clusterMap.put("foo", new Cluster());
         service1.setClusterMap(clusterMap);
-        service1.setEnabled(false);
-        service1.setIpDeleteTimeout(1L);
-        service1.setLastModifiedMillis(1L);
-        service1.setNamespaceId("1234");
-        service1.setOwners(new ArrayList<String>());
-        service1.setResetWeight(false);
-        service1.setSelector(new LabelSelector());
-        service1.setToken("Bearer");
-        service1.setAppName("Acme");
-        service1.setGroupName("Acme");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        service1.setMetadata(metadata);
         service1.setName("Acme");
-        service1.setProtectThreshold(1.0f);
 
         // act
         service.onChange("key", service1);
 
         // assert
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -250,40 +217,13 @@ public class ServiceManagerTest {
         // inaccessible mock: SwitchDomain.clone
         // inaccessible mock: SwitchDomain.clone
         Service service1 = new Service();
-        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x395 = new Cluster();
-        x395.setDefCkport(1);
-        x395.setDefIPPort(1);
-        x395.setServiceName("John Smith");
-        x395.setSitegroup("DE");
-        x395.setDefaultCheckPort(1);
-        x395.setDefaultPort(1);
-        AbstractHealthChecker healthChecker1 = mock(AbstractHealthChecker.class);
-        x395.setHealthChecker(healthChecker1);
-        x395.setName("John Smith");
-        x395.setUseIPPort4Check(false);
-        clusterMap.put("foo", x395);
-        service1.setClusterMap(clusterMap);
-        service1.setEnabled(false);
-        service1.setIpDeleteTimeout(1L);
-        service1.setLastModifiedMillis(1L);
         service1.setNamespaceId("1234");
-        service1.setOwners(new ArrayList<String>());
-        service1.setResetWeight(false);
-        service1.setSelector(new LabelSelector());
-        service1.setToken("Bearer");
-        service1.setAppName("Acme");
-        service1.setGroupName("Acme");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        service1.setMetadata(metadata);
         service1.setName("Acme");
-        service1.setProtectThreshold(1.0f);
 
         // act
         service.putService(service1);
 
         // assert
-        Mockito.verify(consistencyService).listen("com.alibaba.nacos.naming.domains.meta.", ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 }

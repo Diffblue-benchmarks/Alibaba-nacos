@@ -34,7 +34,8 @@ class ConfigInfoAggrTest {
 
     @Test
     void factory2() {
-        ConfigInfoAggr configInfoAggr = new ConfigInfoAggr("1234", "ConfigInfoAggr d", "1234", "hello");
+        ConfigInfoAggr configInfoAggr =
+             new ConfigInfoAggr("1234", "ConfigInfoAggr d", "1234", "hello");
         configInfoAggr.setAppName("Acme");
         configInfoAggr.setContent("hello");
         configInfoAggr.setDataId("1234");
@@ -53,7 +54,8 @@ class ConfigInfoAggrTest {
 
     @Test
     void factory3() {
-        ConfigInfoAggr configInfoAggr = new ConfigInfoAggr("1234", "ConfigInfoAggr d", "1234", "Acme", "hello");
+        ConfigInfoAggr configInfoAggr =
+             new ConfigInfoAggr("1234", "ConfigInfoAggr d", "1234", "Acme", "hello");
         configInfoAggr.setAppName("Acme");
         configInfoAggr.setContent("hello");
         configInfoAggr.setDataId("1234");

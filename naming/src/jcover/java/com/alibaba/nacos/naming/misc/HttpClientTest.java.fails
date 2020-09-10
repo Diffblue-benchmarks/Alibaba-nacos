@@ -79,7 +79,8 @@ public class HttpClientTest {
 
     @Test
     public void translateParameterMapParameterMapIsFooReturnsFoo() {
-        HashMap<String, String[]> parameterMap = new HashMap<String, String[]>();
+        HashMap<String, String[]> parameterMap =
+             new HashMap<String, String[]>();
         String[] x158 = new String[] { "foo" };
         parameterMap.put("foo", x158);
         assertThat(HttpClient.translateParameterMap(parameterMap).get("foo"), is("foo"));

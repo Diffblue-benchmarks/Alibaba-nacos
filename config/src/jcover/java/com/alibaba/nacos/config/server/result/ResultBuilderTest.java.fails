@@ -18,7 +18,8 @@ class ResultBuilderTest {
 
     @Test
     void buildSuccessResultResultDataIsSomething1() {
-        RestResult<String> result = ResultBuilder.<String>buildSuccessResult("something");
+        RestResult<String> result =
+             ResultBuilder.<String>buildSuccessResult("something");
         assertThat(result.getCode(), is(200));
         assertThat(result.getData(), is("something"));
         assertThat(result.getMessage(), is("处理成功"));
@@ -26,7 +27,8 @@ class ResultBuilderTest {
 
     @Test
     void buildSuccessResultResultDataIsSomething2() {
-        RestResult<String> result = ResultBuilder.<String>buildSuccessResult("/some/path.html", "something");
+        RestResult<String> result =
+             ResultBuilder.<String>buildSuccessResult("/some/path.html", "something");
         assertThat(result.getCode(), is(200));
         assertThat(result.getData(), is("something"));
         assertThat(result.getMessage(), is("/some/path.html"));
@@ -42,7 +44,8 @@ class ResultBuilderTest {
 
     @Test
     void buildSuccessResult2() {
-        RestResult<String> result = ResultBuilder.<String>buildSuccessResult("/some/path.html");
+        RestResult<String> result =
+             ResultBuilder.<String>buildSuccessResult("/some/path.html");
         assertThat(result.getCode(), is(200));
         assertThat(result.getData(), is(nullValue()));
         assertThat(result.getMessage(), is("/some/path.html"));

@@ -3,6 +3,7 @@ package com.alibaba.nacos.client.naming.utils;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,27 +17,27 @@ class RandomUtilsTest {
 
     @Test
     void nextInt() {
-        assertThat(RandomUtils.nextInt(), is(469_120_530));
+        assertThat(RandomUtils.nextInt(), is(1_304_227_510));
         assertThat(RandomUtils.nextInt(1), is(0));
     }
 
     @Test
     void nextLong() {
-        assertThat(RandomUtils.nextLong(), is(3_275_376_668_602_862_242L));
+        assertThat(RandomUtils.nextLong(), is(8_844_952_482_568_704_881L));
     }
 
     @Test
-    void nextBooleanReturnsTrue() {
-        assertThat(RandomUtils.nextBoolean(), is(true));
+    void nextBooleanReturnsFalse() {
+        assertThat(RandomUtils.nextBoolean(), is(false));
     }
 
     @Test
     void nextFloat() {
-        assertThat(RandomUtils.nextFloat(), closeTo(0x1.2ff9f2p-1f /* 0.593704 */, 0.0));
+        assertEquals(0x1.a521b8p-2f /* 0.411261 */, RandomUtils.nextFloat(), 0);
     }
 
     @Test
     void nextDouble() {
-        assertThat(RandomUtils.nextDouble(), closeTo(0x1.e30afc8e7e624p-1 /* 0.943443 */, 0.0));
+        assertThat(RandomUtils.nextDouble(), closeTo(0x1.fbbdfae8822dcp-2 /* 0.495842 */, 0.0));
     }
 }

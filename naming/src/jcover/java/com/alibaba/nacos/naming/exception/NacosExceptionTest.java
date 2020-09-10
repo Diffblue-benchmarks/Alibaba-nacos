@@ -43,7 +43,8 @@ public class NacosExceptionTest {
 
     @Test
     public void factory4() {
-        NacosException nacosException = new NacosException(1, "jpg", new NacosException());
+        NacosException nacosException =
+             new NacosException(1, "jpg", new NacosException());
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
@@ -53,7 +54,8 @@ public class NacosExceptionTest {
 
     @Test
     public void factory5() {
-        NacosException nacosException = new NacosException(1, new NacosException());
+        NacosException nacosException =
+             new NacosException(1, new NacosException());
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));

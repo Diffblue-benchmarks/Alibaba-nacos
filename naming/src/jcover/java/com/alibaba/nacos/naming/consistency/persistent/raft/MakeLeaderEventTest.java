@@ -17,7 +17,8 @@ public class MakeLeaderEventTest {
     public void factory() {
         Object source = new Object();
         RaftPeer raftPeer = new RaftPeer();
-        MakeLeaderEvent makeLeaderEvent = new MakeLeaderEvent(source, raftPeer);
+        MakeLeaderEvent makeLeaderEvent =
+             new MakeLeaderEvent(source, raftPeer);
         assertThat(makeLeaderEvent.getRaftPeer(), sameInstance(raftPeer));
         assertThat(makeLeaderEvent.getSource(), sameInstance(source));
     }
