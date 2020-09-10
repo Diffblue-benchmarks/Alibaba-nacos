@@ -1,0 +1,78 @@
+package com.alibaba.nacos.naming.controllers;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.core.ServiceManager;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+import com.alibaba.nacos.naming.push.PushService;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.controllers.ApiController
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ApiController.class})
+@RunWith(SpringRunner.class)
+public class ApiControllerTest {
+
+    @MockBean(name = "distroMapper")
+    private DistroMapper distroMapper;
+
+    @MockBean(name = "pushService")
+    private PushService pushService;
+
+    @MockBean(name = "serviceManager")
+    private ServiceManager serviceManager;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private ApiController controller;
+
+    @Test
+    public void allDomNames() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        Map<String, Set<String>> map = new HashMap<String, Set<String>>();
+        map.put("foo", new HashSet<String>());
+        when(serviceManager.getAllServiceNames())
+            .thenReturn(map);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/api/allDomNames"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"count\":0,\"doms\":{\"foo\":[]}}"));
+    }
+
+    @Test
+    public void hello() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/api/hello"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+            .andExpect(content().string("ok"));
+    }
+}

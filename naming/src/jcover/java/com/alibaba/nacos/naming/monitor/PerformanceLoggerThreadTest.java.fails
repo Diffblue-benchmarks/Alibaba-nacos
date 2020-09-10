@@ -1,0 +1,56 @@
+package com.alibaba.nacos.naming.monitor;
+
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore;
+import com.alibaba.nacos.naming.core.ServiceManager;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+import com.alibaba.nacos.naming.push.PushService;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.monitor.PerformanceLoggerThread
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {PerformanceLoggerThread.class})
+@RunWith(SpringRunner.class)
+public class PerformanceLoggerThreadTest {
+
+    @MockBean(name = "pushService")
+    private PushService pushService;
+
+    @MockBean(name = "raftCore")
+    private RaftCore raftCore;
+
+    @MockBean(name = "serviceManager")
+    private ServiceManager serviceManager;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private PerformanceLoggerThread service;
+
+    @Test
+    public void init() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        service.init();
+    }
+
+    @Test
+    public void refreshMetrics() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        service.refreshMetrics();
+        Mockito.verify(pushService).setFailedPush(0);
+        Mockito.verify(pushService).setTotalPush(0);
+    }
+}

@@ -1,0 +1,77 @@
+package com.alibaba.nacos.config.server.monitor;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.monitor.MetricsMonitor
+ *
+ * @author Diffblue Cover
+ */
+
+class MetricsMonitorTest {
+
+    @Test
+    void getConfigMonitor() {
+        assertThat(MetricsMonitor.getConfigMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    void getPublishMonitor() {
+        assertThat(MetricsMonitor.getPublishMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    void getLongPollingMonitor() {
+        assertThat(MetricsMonitor.getLongPollingMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    void getConfigCountMonitor() {
+        assertThat(MetricsMonitor.getConfigCountMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    void getNotifyTaskMonitor() {
+        assertThat(MetricsMonitor.getNotifyTaskMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    void getDumpTaskMonitor() {
+        assertThat(MetricsMonitor.getDumpTaskMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    void getNotifyRtTimer() {
+        // pojo io.micrometer.core.instrument.Timer
+    }
+
+    @Test
+    void getIllegalArgumentException() {
+        // pojo io.micrometer.core.instrument.Counter
+    }
+
+    @Test
+    void getNacosException() {
+        // pojo io.micrometer.core.instrument.Counter
+    }
+
+    @Test
+    void getDbException() {
+        // pojo io.micrometer.core.instrument.Counter
+    }
+
+    @Test
+    void getConfigNotifyException() {
+        // pojo io.micrometer.core.instrument.Counter
+    }
+
+    @Test
+    void getUnhealthException() {
+        // pojo io.micrometer.core.instrument.Counter
+    }
+}

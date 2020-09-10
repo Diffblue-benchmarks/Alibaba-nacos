@@ -1,0 +1,62 @@
+package com.alibaba.nacos.config.server.controller;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.config.server.service.LongPollingService;
+import com.alibaba.nacos.config.server.service.PersistService;
+
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.controller.ConfigServletInner
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ConfigServletInner.class})
+@ExtendWith(SpringExtension.class)
+class ConfigServletInnerTest {
+
+    @MockBean(name = "longPollingService")
+    private LongPollingService longPollingService;
+
+    @MockBean(name = "persistService")
+    private PersistService persistService;
+
+    @Autowired
+    private ConfigServletInner service;
+
+    @Test
+    void doGetConfigTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, java.io.UnsupportedEncodingException, javax.servlet.ServletException {
+        // inaccessible mock: LongPollingService.generateResponse
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        assertThat(service.doGetConfig(new MockHttpServletRequest(), response, "1234", "/some/path.html", "/some/path.html", "tag", "/some/path.html"), is("404"));
+        assertThat(response.getContentAsString(), is("config data not exist\n"));
+        assertThat(response.getStatus(), is(404));
+    }
+
+    @Test
+    void doPollingConfigClientMd5MapIsEmptyAndProbeRequestSizeIsOne() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, java.io.UnsupportedEncodingException, javax.servlet.ServletException {
+        // inaccessible mock: LongPollingService.generateResponse
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        assertThat(service.doPollingConfig(new MockHttpServletRequest(), response, new HashMap<String, String>(), 1), is("200"));
+        assertThat(response.getHeaderNames(), hasSize(5));
+        assertThat(response.getHeaderNames(), hasItem("Cache-Control"));
+        assertThat(response.getHeaderNames(), hasItem("Expires"));
+        assertThat(response.getHeaderNames(), hasItem("Pragma"));
+        assertThat(response.getHeaderNames(), hasItem("Probe-Modify-Response"));
+        assertThat(response.getHeaderNames(), hasItem("Probe-Modify-Response-New"));
+    }
+}

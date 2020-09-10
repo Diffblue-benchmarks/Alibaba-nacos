@@ -1,0 +1,101 @@
+package com.alibaba.nacos.naming.controllers;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.cluster.ServerStatusManager;
+import com.alibaba.nacos.naming.cluster.servers.Server;
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore;
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeerSet;
+import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.core.ServiceManager;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+import com.alibaba.nacos.naming.misc.SwitchManager;
+import com.alibaba.nacos.naming.push.PushService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.controllers.OperatorController
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {OperatorController.class})
+@RunWith(SpringRunner.class)
+public class OperatorControllerTest {
+
+    @MockBean(name = "distroMapper")
+    private DistroMapper distroMapper;
+
+    @MockBean(name = "pushService")
+    private PushService pushService;
+
+    @MockBean(name = "raftCore")
+    private RaftCore raftCore;
+
+    @MockBean(name = "raftPeerSet")
+    private RaftPeerSet raftPeerSet;
+
+    @MockBean(name = "serverListManager")
+    private ServerListManager serverListManager;
+
+    @MockBean(name = "serverStatusManager")
+    private ServerStatusManager serverStatusManager;
+
+    @MockBean(name = "serviceManager")
+    private ServiceManager serviceManager;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @MockBean(name = "switchManager")
+    private SwitchManager switchManager;
+
+    @Autowired
+    private OperatorController controller;
+
+    @Test
+    public void distroStatus() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        Map<String, List<Server>> map = new HashMap<String, List<Server>>();
+        map.put("action", new ArrayList<Server>());
+        when(serverListManager.getDistroConfig())
+            .thenReturn(map);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/operator/distro/status"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"status\":{\"action\":[]}}"));
+    }
+
+    @Test
+    public void getHealthyServerList() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(serverListManager.getServers())
+            .thenReturn(new ArrayList<Server>());
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/operator/servers"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"servers\":[]}"));
+    }
+}

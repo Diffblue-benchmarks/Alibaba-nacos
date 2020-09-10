@@ -1,0 +1,63 @@
+package com.alibaba.nacos.client.config.impl;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.config.impl.ServerListManager
+ *
+ * @author Diffblue Cover
+ */
+
+class ServerListManagerTest {
+
+    @Test
+    void factory() {
+        ServerListManager serverListManager = new ServerListManager();
+        assertThat(serverListManager.getContentPath(), is("nacos"));
+        assertThat(serverListManager.getIterator(), is(nullValue()));
+        assertThat(serverListManager.getName(), is("default"));
+        assertThat(serverListManager.getNamespace(), is(""));
+        assertThat(serverListManager.getTenant(), is(""));
+    }
+
+    @Test
+    void start() throws com.alibaba.nacos.api.exception.NacosException {
+        new ServerListManager(new ArrayList<String>()).start();
+    }
+
+    @Test
+    void iterator() {
+        assertThat(new ServerListManager().iterator().hasNext(), is(false));
+    }
+
+    @Test
+    void getUrlString() {
+        assertThat(new ServerListManager().getUrlString(), is("[]"));
+    }
+
+    @Test
+    void getFixedNameSuffixServerIpsIsSmithReturnsSmith() {
+        assertThat(new ServerListManager().getFixedNameSuffix("Smith"), is("Smith"));
+    }
+
+    @Test
+    void contain() throws com.alibaba.nacos.api.exception.NacosException {
+        assertThat(new ServerListManager().contain("Smith"), is(false));
+        assertThat(new ServerListManager("api.github.com").contain("Smith"), is(false));
+        assertThat(new ServerListManager("OX13QD", 1).contain("Smith"), is(false));
+        assertThat(new ServerListManager(new ArrayList<String>()).contain("Smith"), is(false));
+        assertThat(new ServerListManager(new ArrayList<String>(), "Smith").contain("Smith"), is(false));
+        assertThat(new ServerListManager("api.github.com", "bar").contain("Smith"), is(false));
+    }
+
+    @Test
+    void updateCurrentServerAddr() {
+        new ServerListManager().updateCurrentServerAddr("/some/path.html");
+    }
+}

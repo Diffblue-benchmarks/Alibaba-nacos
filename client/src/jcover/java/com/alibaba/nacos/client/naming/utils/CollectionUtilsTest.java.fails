@@ -1,0 +1,69 @@
+package com.alibaba.nacos.client.naming.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import java.util.LinkedList;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.utils.CollectionUtils
+ *
+ * @author Diffblue Cover
+ */
+
+class CollectionUtilsTest {
+
+    @Test
+    void subtract() {
+        LinkedList b = new LinkedList();
+        b.add(new Object());
+        assertThat(CollectionUtils.subtract(new LinkedList(), b), empty());
+    }
+
+    @Test
+    void subtractBIsEmpty() {
+        assertThat(CollectionUtils.subtract(new LinkedList(), new LinkedList()), empty());
+    }
+
+    @Test
+    void getCardinalityMap() {
+        LinkedList coll = new LinkedList();
+        Object object = 1;
+        coll.add(object);
+        assertThat(CollectionUtils.getCardinalityMap(coll).get(object), sameInstance(object));
+    }
+
+    @Test
+    void getCardinalityMapCollIsEmptyReturnsEmpty() {
+        assertThat(CollectionUtils.getCardinalityMap(new LinkedList()).isEmpty(), is(true));
+    }
+
+    @Test
+    void isEqualCollectionAIsEmptyReturnsTrue() {
+        assertThat(CollectionUtils.isEqualCollection(new LinkedList(), new LinkedList()), is(true));
+    }
+
+    @Test
+    void isEqualCollectionReturnsFalse() {
+        LinkedList a = new LinkedList();
+        a.add(new Object());
+        assertThat(CollectionUtils.isEqualCollection(a, new LinkedList()), is(false));
+    }
+
+    @Test
+    void isEmpty() {
+        assertThat(CollectionUtils.isEmpty(new LinkedList()), is(true));
+        assertThat(CollectionUtils.isEmpty(null), is(true));
+    }
+
+    @Test
+    void isEmptyReturnsFalse() {
+        LinkedList coll = new LinkedList();
+        coll.add(new Object());
+        assertThat(CollectionUtils.isEmpty(coll), is(false));
+    }
+}

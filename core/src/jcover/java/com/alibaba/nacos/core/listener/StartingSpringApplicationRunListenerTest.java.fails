@@ -1,0 +1,151 @@
+package com.alibaba.nacos.core.listener;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Properties;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.support.BeanNameGenerator;
+import org.springframework.boot.Banner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.io.ResourceLoader;
+
+/**
+ * Unit tests for com.alibaba.nacos.core.listener.StartingSpringApplicationRunListener
+ *
+ * @author Diffblue Cover
+ */
+
+class StartingSpringApplicationRunListenerTest {
+
+    @Test
+    void factory() {
+        Class<?>[] primarySources = new Class[] { String.class };
+        SpringApplication application = new SpringApplication(primarySources);
+        application.setAddCommandLineProperties(true);
+        application.setAddConversionService(false);
+        application.setAdditionalProfiles("octet-stream");
+        application.setAllowBeanDefinitionOverriding(false);
+        application.setApplicationContextClass(ConfigurableApplicationContext.class);
+        Banner banner = mock(Banner.class);
+        application.setBanner(banner);
+        application.setBannerMode(Banner.Mode.OFF);
+        BeanNameGenerator beanNameGenerator = mock(BeanNameGenerator.class);
+        application.setBeanNameGenerator(beanNameGenerator);
+        HashMap<String, Object> defaultProperties1 = new HashMap<String, Object>();
+        defaultProperties1.put("foo", new Object());
+        application.setDefaultProperties(defaultProperties1);
+        Properties defaultProperties2 = new Properties();
+        defaultProperties2.setProperty("key", "value");
+        application.setDefaultProperties(defaultProperties2);
+        ConfigurableEnvironment environment = mock(ConfigurableEnvironment.class);
+        application.setEnvironment(environment);
+        application.setHeadless(false);
+        application.setInitializers(new LinkedList<ApplicationContextInitializer<Object>>());
+        application.setListeners(new LinkedList<ApplicationListener<Object>>());
+        application.setLogStartupInfo(false);
+        application.setMainApplicationClass(String.class);
+        application.setRegisterShutdownHook(false);
+        ResourceLoader resourceLoader = mock(ResourceLoader.class);
+        application.setResourceLoader(resourceLoader);
+        application.setSources(new HashSet<String>());
+        application.setWebApplicationType(WebApplicationType.NONE);
+        String[] args = new String[] { "foo" };
+        assertThat(new StartingSpringApplicationRunListener(application, args).getOrder(), is(-2_147_483_648));
+    }
+
+    @Test
+    void starting() {
+        Class<?>[] primarySources = new Class[] { String.class };
+        String[] args = new String[] { "foo" };
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources), args).starting();
+    }
+
+    @Test
+    void environmentPrepared() {
+        Class<?>[] primarySources = new Class[] { String.class };
+        String[] args = new String[] { "foo" };
+        ConfigurableEnvironment environment2 = mock(ConfigurableEnvironment.class);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources), args).environmentPrepared(environment2);
+    }
+
+    @Test
+    void contextPrepared() throws IllegalStateException, org.springframework.beans.BeansException {
+        Class<?>[] primarySources = new Class[] { String.class };
+        String[] args = new String[] { "foo" };
+        ConfigurableApplicationContext context = mock(ConfigurableApplicationContext.class);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources), args).contextPrepared(context);
+    }
+
+    @Test
+    void contextLoaded() throws IllegalStateException, org.springframework.beans.BeansException {
+        Class<?>[] primarySources = new Class[] { String.class };
+        String[] args = new String[] { "foo" };
+        ConfigurableApplicationContext context = mock(ConfigurableApplicationContext.class);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources), args).contextLoaded(context);
+    }
+
+    @Test
+    void started() throws IllegalStateException, org.springframework.beans.BeansException {
+        Class<?>[] primarySources = new Class[] { String.class };
+        String[] args = new String[] { "foo" };
+        ConfigurableApplicationContext context = mock(ConfigurableApplicationContext.class);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources), args).started(context);
+    }
+
+    @Test
+    void running() throws IllegalStateException, org.springframework.beans.BeansException {
+        Class<?>[] primarySources = new Class[] { String.class };
+        SpringApplication application = new SpringApplication(primarySources);
+        application.setAddConversionService(false);
+        application.setAdditionalProfiles("octet-stream");
+        application.setAllowBeanDefinitionOverriding(false);
+        application.setApplicationContextClass(ConfigurableApplicationContext.class);
+        Banner banner = mock(Banner.class);
+        application.setBanner(banner);
+        application.setBannerMode(Banner.Mode.OFF);
+        BeanNameGenerator beanNameGenerator = mock(BeanNameGenerator.class);
+        application.setBeanNameGenerator(beanNameGenerator);
+        HashMap<String, Object> defaultProperties1 = new HashMap<String, Object>();
+        defaultProperties1.put("foo", new Object());
+        application.setDefaultProperties(defaultProperties1);
+        Properties defaultProperties2 = new Properties();
+        defaultProperties2.setProperty("key", "value");
+        application.setDefaultProperties(defaultProperties2);
+        ConfigurableEnvironment environment = mock(ConfigurableEnvironment.class);
+        application.setEnvironment(environment);
+        application.setHeadless(false);
+        application.setInitializers(new LinkedList<ApplicationContextInitializer<Object>>());
+        application.setListeners(new LinkedList<ApplicationListener<Object>>());
+        application.setLogStartupInfo(false);
+        application.setMainApplicationClass(String.class);
+        application.setRegisterShutdownHook(false);
+        ResourceLoader resourceLoader = mock(ResourceLoader.class);
+        application.setResourceLoader(resourceLoader);
+        application.setSources(new HashSet<String>());
+        application.setWebApplicationType(WebApplicationType.NONE);
+        String[] args = new String[] { "foo" };
+        ConfigurableApplicationContext context = mock(ConfigurableApplicationContext.class);
+        new StartingSpringApplicationRunListener(application, args).running(context);
+    }
+
+    @Test
+    void failed() throws IllegalStateException, org.springframework.beans.BeansException {
+        Class<?>[] primarySources = new Class[] { String.class };
+        String[] args = new String[] { "foo" };
+        ConfigurableApplicationContext context = mock(ConfigurableApplicationContext.class);
+        Exception exception = new Exception();
+        exception.setStackTrace(new StackTraceElement[] { });
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources), args).failed(context, exception);
+    }
+}

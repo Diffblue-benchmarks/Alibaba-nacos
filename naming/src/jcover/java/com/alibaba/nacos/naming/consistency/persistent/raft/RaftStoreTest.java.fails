@@ -1,0 +1,41 @@
+package com.alibaba.nacos.naming.consistency.persistent.raft;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.persistent.raft.RaftStore
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {RaftStore.class})
+@RunWith(SpringRunner.class)
+public class RaftStoreTest {
+
+    @Autowired
+    private RaftStore service;
+
+    @Test
+    public void load() throws Exception {
+        assertThat(service.load("bar"), is(nullValue()));
+        assertThat(service.load("key"), is(nullValue()));
+    }
+
+    @Test
+    public void loadMetaReturnsEmpty() throws Exception {
+        assertThat(service.loadMeta().isEmpty(), is(true));
+    }
+
+    @Test
+    public void updateTermTermIsOne() throws Exception {
+        service.updateTerm(1L);
+    }
+}

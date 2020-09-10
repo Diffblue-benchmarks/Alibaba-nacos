@@ -1,0 +1,44 @@
+package com.alibaba.nacos.common.util;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+
+import java.net.URL;
+import java.nio.file.Paths;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.common.util.ResourceUtils
+ *
+ * @author Diffblue Cover
+ */
+
+class ResourceUtilsTest {
+
+    @Test
+    void getResourceURLResourceIsFoo() throws java.io.IOException {
+        assertThat(ResourceUtils.getResourceURL("foo").toString(), is("file:/home/thomas_perkins/JVD/projects/Alibaba-nacos/common/foo"));
+    }
+
+    @Test
+    void getResourceAsStreamResourceIsEmpty() throws java.io.IOException {
+        // pojo java.io.InputStream
+    }
+
+    @Test
+    void getResourceAsProperties() throws java.io.IOException {
+        assertThat(ResourceUtils.getResourceAsProperties("").isEmpty(), is(true));
+        assertThat(ResourceUtils.getResourceAsProperties(null, "").isEmpty(), is(true));
+    }
+
+    @Test
+    void getResourceAsFile() throws java.net.MalformedURLException, java.io.IOException {
+        assertThat(ResourceUtils.getResourceAsFile(new URL("http://www.test.com/")).getPath(), is("/"));
+        assertThat(ResourceUtils.getResourceAsFile("Resource ").getPath(), equalTo(Paths.get("").toAbsolutePath().toString()+"/Resource%20"));
+        assertThat(ResourceUtils.getResourceAsFile("classpath:").getPath(), is("/tmp/jcover-cp-MlsxXx"));
+        assertThat(ResourceUtils.getResourceAsFile(null, "").getPath(), is("/tmp/jcover-cp-MlsxXx"));
+        assertThat(ResourceUtils.getResourceAsFile(ClassLoader.getSystemClassLoader(), "").getPath(), is("/tmp/jcover-cp-MlsxXx"));
+    }
+}

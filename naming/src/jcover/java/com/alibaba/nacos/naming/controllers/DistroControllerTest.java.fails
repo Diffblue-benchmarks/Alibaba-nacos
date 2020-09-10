@@ -1,0 +1,72 @@
+package com.alibaba.nacos.naming.controllers;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.naming.cluster.transport.Serializer;
+import com.alibaba.nacos.naming.consistency.Datum;
+import com.alibaba.nacos.naming.consistency.ephemeral.distro.DataStore;
+import com.alibaba.nacos.naming.consistency.ephemeral.distro.DistroConsistencyServiceImpl;
+import com.alibaba.nacos.naming.core.ServiceManager;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.controllers.DistroController
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {DistroController.class})
+@RunWith(SpringRunner.class)
+public class DistroControllerTest {
+
+    @MockBean(name = "consistencyService")
+    private DistroConsistencyServiceImpl consistencyService;
+
+    @MockBean(name = "dataStore")
+    private DataStore dataStore;
+
+    @MockBean(name = "serializer")
+    private Serializer serializer;
+
+    @MockBean(name = "serviceManager")
+    private ServiceManager serviceManager;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private DistroController controller;
+
+    @Test
+    public void getAllDatums() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        byte[] obj = new byte[] { 1 };
+        when(serializer.serialize(Mockito.<String>any()))
+            .thenReturn(obj);
+        Map<String, Datum> map = new HashMap<String, Datum>();
+        map.put("foo", new Datum());
+        when(dataStore.getDataMap())
+            .thenReturn(map);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/distro/datums"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("\u0001"));
+    }
+}

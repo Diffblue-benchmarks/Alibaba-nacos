@@ -1,0 +1,45 @@
+package com.alibaba.nacos.config.server.utils;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import javax.servlet.ServletContext;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.web.context.WebServerInitializedEvent;
+import org.springframework.boot.web.server.WebServer;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.RunningConfigUtils
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {RunningConfigUtils.class})
+@ExtendWith(SpringExtension.class)
+class RunningConfigUtilsTest {
+
+    @MockBean(name = "servletContext")
+    private ServletContext servletContext;
+
+    @Autowired
+    private RunningConfigUtils service;
+
+    @Test
+    void onApplicationEvent() throws javax.servlet.ServletException, java.net.MalformedURLException, org.springframework.boot.web.server.WebServerException {
+        when(servletContext.getContextPath())
+            .thenReturn("foo");
+        WebServer webServer = mock(WebServer.class);
+        when(webServer.getPort())
+            .thenReturn(1);
+        WebServerInitializedEvent event = mock(WebServerInitializedEvent.class);
+        when(event.getWebServer())
+            .thenReturn(webServer);
+        service.onApplicationEvent(event);
+    }
+}

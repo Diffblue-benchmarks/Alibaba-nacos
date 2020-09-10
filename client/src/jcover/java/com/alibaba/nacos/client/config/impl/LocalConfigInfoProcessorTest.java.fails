@@ -1,0 +1,59 @@
+package com.alibaba.nacos.client.config.impl;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.config.impl.LocalConfigInfoProcessor
+ *
+ * @author Diffblue Cover
+ */
+
+class LocalConfigInfoProcessorTest {
+
+    @Test
+    void getFailoverGroupIsBarAndServerNameIsAcmeReturnsNull() {
+        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "bar", "545321456"), is(nullValue()));
+    }
+
+    @Test
+    void getSnapshot() {
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "", "545321456", "545321456"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "545321456"), is(nullValue()));
+    }
+
+    @Test
+    void saveSnapshotConfigIsBar() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "545321456", "545321456", "bar");
+    }
+
+    @Test
+    void saveSnapshotDataIdIsEmpty() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "", "545321456", "545321456", "545321456");
+    }
+
+    @Test
+    void saveSnapshotGroupIsBar() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "bar", "545321456", "545321456");
+    }
+
+    @Test
+    void cleanAllSnapshot() {
+        LocalConfigInfoProcessor.cleanAllSnapshot();
+    }
+
+    @Test
+    void getFailoverFile() {
+        assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "bar", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data-tenant/bin/bash/bar/1234"));
+        assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "/bin/bash", "").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data/bin/bash/1234"));
+    }
+
+    @Test
+    void getSnapshotFile() {
+        assertThat(LocalConfigInfoProcessor.getSnapshotFile("data.txt", "1234", "bar", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/snapshot-tenant/bin/bash/bar/1234"));
+        assertThat(LocalConfigInfoProcessor.getSnapshotFile("data.txt", "1234", "/bin/bash", "").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/snapshot/bin/bash/1234"));
+    }
+}

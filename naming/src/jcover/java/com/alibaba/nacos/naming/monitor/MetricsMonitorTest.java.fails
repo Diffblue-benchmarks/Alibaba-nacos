@@ -1,0 +1,78 @@
+package com.alibaba.nacos.naming.monitor;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.monitor.MetricsMonitor
+ *
+ * @author Diffblue Cover
+ */
+
+public class MetricsMonitorTest {
+
+    @Test
+    public void getMysqlHealthCheckMonitor() {
+        assertThat(MetricsMonitor.getMysqlHealthCheckMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    public void getHttpHealthCheckMonitor() {
+        assertThat(MetricsMonitor.getHttpHealthCheckMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    public void getTcpHealthCheckMonitor() {
+        assertThat(MetricsMonitor.getTcpHealthCheckMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    public void getDomCountMonitor() {
+        assertThat(MetricsMonitor.getDomCountMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    public void getIpCountMonitor() {
+        assertThat(MetricsMonitor.getIpCountMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    public void getMaxPushCostMonitor() {
+        assertThat(MetricsMonitor.getMaxPushCostMonitor(), equalTo(new AtomicLong(0L)));
+    }
+
+    @Test
+    public void getAvgPushCostMonitor() {
+        assertThat(MetricsMonitor.getAvgPushCostMonitor(), equalTo(new AtomicLong(0L)));
+    }
+
+    @Test
+    public void getLeaderStatusMonitor() {
+        assertThat(MetricsMonitor.getLeaderStatusMonitor(), equalTo(new AtomicLong(0L)));
+    }
+
+    @Test
+    public void getTotalPushMonitor() {
+        assertThat(MetricsMonitor.getTotalPushMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    public void getFailedPushMonitor() {
+        assertThat(MetricsMonitor.getFailedPushMonitor(), equalTo(new AtomicInteger(0)));
+    }
+
+    @Test
+    public void getDiskException() {
+        // pojo io.micrometer.core.instrument.Counter
+    }
+
+    @Test
+    public void getLeaderSendBeatFailedException() {
+        // pojo io.micrometer.core.instrument.Counter
+    }
+}

@@ -1,0 +1,96 @@
+package com.alibaba.nacos.naming.consistency.ephemeral.distro;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.cluster.servers.Server;
+import com.alibaba.nacos.naming.cluster.transport.Serializer;
+import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.misc.GlobalConfig;
+
+import java.util.ArrayList;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.ephemeral.distro.DataSyncer
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {DataSyncer.class})
+@RunWith(SpringRunner.class)
+public class DataSyncerTest {
+
+    @MockBean(name = "dataStore")
+    private DataStore dataStore;
+
+    @MockBean(name = "distroMapper")
+    private DistroMapper distroMapper;
+
+    @MockBean(name = "partitionConfig")
+    private GlobalConfig partitionConfig;
+
+    @MockBean(name = "serializer")
+    private Serializer serializer;
+
+    @MockBean(name = "serverListManager")
+    private ServerListManager serverListManager;
+
+    @Autowired
+    private DataSyncer service;
+
+    @Test
+    public void buildKeyKeyIsKey() {
+        assertThat(service.buildKey("key", "/some/path.html"), is("key@@@@/some/path.html"));
+    }
+
+    @Test
+    public void getServersReturnsEmpty() {
+        when(serverListManager.getHealthyServers())
+            .thenReturn(new ArrayList<Server>());
+        assertThat(service.getServers(), empty());
+    }
+
+    @Test
+    public void submit1() {
+        SyncTask task = new SyncTask();
+        ArrayList<String> keys = new ArrayList<String>();
+        keys.add("key");
+        task.setKeys(keys);
+        task.setRetryCount(1);
+        task.setTargetServer("/some/path.html");
+        service.submit(task, 1L);
+    }
+
+    @Test
+    public void submit2() {
+        SyncTask task = new SyncTask();
+        task.setKeys(new ArrayList<String>());
+        service.submit(task, 1L);
+    }
+
+    @Test
+    public void submit3() {
+        SyncTask task = new SyncTask();
+        ArrayList<String> keys = new ArrayList<String>();
+        keys.add("key");
+        task.setKeys(keys);
+        service.submit(task, 1L);
+    }
+
+    @Test
+    public void submit4() {
+        SyncTask task = new SyncTask();
+        task.setKeys(new ArrayList<String>());
+        service.submit(task, 1L);
+    }
+}

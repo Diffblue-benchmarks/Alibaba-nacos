@@ -1,0 +1,29 @@
+package com.alibaba.nacos.core.listener;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.core.listener.StandaloneProfileApplicationListener
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {StandaloneProfileApplicationListener.class})
+@ExtendWith(SpringExtension.class)
+class StandaloneProfileApplicationListenerTest {
+
+    @Autowired
+    private StandaloneProfileApplicationListener service;
+
+    @Test
+    void getOrderReturnsIntMin() {
+        assertThat(service.getOrder(), is(-2_147_483_648));
+    }
+}

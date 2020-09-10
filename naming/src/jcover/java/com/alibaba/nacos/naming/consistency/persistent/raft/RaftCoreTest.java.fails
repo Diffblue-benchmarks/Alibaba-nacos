@@ -1,0 +1,209 @@
+package com.alibaba.nacos.naming.consistency.persistent.raft;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.naming.consistency.Datum;
+import com.alibaba.nacos.naming.core.Service;
+import com.alibaba.nacos.naming.misc.GlobalConfig;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+
+import java.util.LinkedList;
+import java.util.Properties;
+import java.util.concurrent.ConcurrentMap;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {RaftCore.class})
+@RunWith(SpringRunner.class)
+public class RaftCoreTest {
+
+    @MockBean(name = "globalConfig")
+    private GlobalConfig globalConfig;
+
+    @MockBean(name = "peers")
+    private RaftPeerSet peers;
+
+    @MockBean(name = "raftProxy")
+    private RaftProxy raftProxy;
+
+    @MockBean(name = "raftStore")
+    private RaftStore raftStore;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private RaftCore service;
+
+    @Test
+    public void datumSize1() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(raftStore.loadMeta())
+            .thenReturn(new Properties());
+        assertThat(service.datumSize(), is(0));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+        Mockito.verify(peers).setTerm(0L);
+    }
+
+    @Test
+    public void datumSize2() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isReady())
+            .thenReturn(false);
+        assertThat(service.datumSize(), is(0));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void getDatum() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isReady())
+            .thenReturn(false);
+        assertThat(service.getDatum("key"), is(nullValue()));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void getLeader() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.getLeader())
+            .thenReturn(new RaftPeer());
+        when(peers.isReady())
+            .thenReturn(false);
+        // pojo RaftPeer
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void getListeners() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isReady())
+            .thenReturn(false);
+        assertThat(service.getListeners().isEmpty(), is(true));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void getNotifyTaskCount() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isReady())
+            .thenReturn(false);
+        assertThat(service.getNotifyTaskCount(), is(0));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void getPeers() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.allPeers())
+            .thenReturn(new LinkedList<RaftPeer>());
+        when(peers.isReady())
+            .thenReturn(false);
+        assertThat(service.getPeers(), empty());
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void getPeerSet() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isReady())
+            .thenReturn(false)
+            .thenReturn(false)
+            .thenReturn(false);
+        assertThat(service.getPeerSet().isReady(), is(false));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void isInitialized() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(globalConfig.isDataWarmup())
+            .thenReturn(false);
+        assertThat(service.isInitialized(), is(true));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void isLeader1() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isLeader(Mockito.<String>any()))
+            .thenReturn(false);
+        when(peers.isReady())
+            .thenReturn(false);
+        assertThat(service.isLeader(), is(false));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void isLeader2() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isLeader(Mockito.<String>any()))
+            .thenReturn(false);
+        when(peers.isReady())
+            .thenReturn(false);
+        assertThat(service.isLeader("DE"), is(false));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void listen() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        when(peers.isReady())
+            .thenReturn(false);
+        service.listen("key", new Service());
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void setPeerSet() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        service.setPeerSet(new RaftPeerSet());
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void unlisten() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        service.unlisten("key", new Service());
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+
+    @Test
+    public void unlistenAll() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        // inaccessible mock: SwitchDomain.clone
+        // inaccessible mock: SwitchDomain.clone
+        service.unlistenAll("key");
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+    }
+}

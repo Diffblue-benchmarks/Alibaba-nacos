@@ -1,0 +1,64 @@
+package com.alibaba.nacos.client.naming.core;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.api.naming.listener.EventListener;
+import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.core.EventDispatcher
+ *
+ * @author Diffblue Cover
+ */
+
+class EventDispatcherTest {
+
+    @Test
+    void addListenerClustersIsDE() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ThreadFactory x3 = mock(ThreadFactory.class);
+        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        EventListener listener = mock(EventListener.class);
+        eventDispatcher.addListener(new ServiceInfo(), "DE", listener);
+    }
+
+    @Test
+    void removeListenerClustersIsDEAndServiceNameIsAcme() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ThreadFactory x3 = mock(ThreadFactory.class);
+        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        EventListener listener = mock(EventListener.class);
+        eventDispatcher.removeListener("Acme", "DE", listener);
+    }
+
+    @Test
+    void getSubscribeServicesReturnsEmpty() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ThreadFactory x3 = mock(ThreadFactory.class);
+        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        assertThat(eventDispatcher.getSubscribeServices(), empty());
+    }
+
+    @Test
+    void serviceChanged() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ThreadFactory x3 = mock(ThreadFactory.class);
+        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        eventDispatcher.serviceChanged(new ServiceInfo());
+    }
+
+    @Test
+    void serviceChangedServiceInfoIsNull() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ThreadFactory x3 = mock(ThreadFactory.class);
+        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        eventDispatcher.serviceChanged(null);
+    }
+}

@@ -1,0 +1,152 @@
+package com.alibaba.nacos.config.server.service;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.ConfigService
+ *
+ * @author Diffblue Cover
+ */
+
+class ConfigServiceTest {
+
+    @Test
+    void groupCountReturnsTwo() {
+        assertThat(ConfigService.groupCount(), is(2));
+    }
+
+    @Test
+    void hasGroupKeyGroupKeyIsKeyReturnsFalse() {
+        assertThat(ConfigService.hasGroupKey("key"), is(false));
+    }
+
+    @Test
+    void dump() {
+        assertThat(ConfigService.dump("1234", "bar", "/some/path.html", "hello", 1L), is(true));
+        assertThat(ConfigService.dump("", "bar", "/some/path.html", "hello", 1L), is(false));
+        assertThat(ConfigService.dump("1234", "/some/path.html", "", "hello", 1L), is(true));
+    }
+
+    @Test
+    void dumpBeta() {
+        assertThat(ConfigService.dumpBeta("1234", "/some/path.html", "/some/path.html", "hello", 1L, "bar"), is(true));
+        assertThat(ConfigService.dumpBeta("", "/some/path.html", "/some/path.html", "hello", 1L, "/some/path.html"), is(false));
+        assertThat(ConfigService.dumpBeta("1234", "bar", "/some/path.html", "hello", 1L, "/some/path.html"), is(true));
+    }
+
+    @Test
+    void dumpTag() {
+        assertThat(ConfigService.dumpTag("1234", "tag", "tag", "tag", "bar", 1L), is(true));
+        assertThat(ConfigService.dumpTag("1234", "bar", "tag", "tag", "hello", 1L), is(true));
+        assertThat(ConfigService.dumpTag("1234", "tag", "tag", "tag", "hello", 0L), is(true));
+        assertThat(ConfigService.dumpTag("1234", "tag", "tag", "bar", "hello", 1L), is(true));
+        assertThat(ConfigService.dumpTag("1234", "tag", "tag", "", "hello", 1L), is(false));
+    }
+
+    @Test
+    void dumpChange() {
+        assertThat(ConfigService.dumpChange("1234", "/some/path.html", "/some/path.html", "bar", 1L), is(true));
+        assertThat(ConfigService.dumpChange("", "/some/path.html", "/some/path.html", "hello", 1L), is(false));
+        assertThat(ConfigService.dumpChange("1234", "bar", "/some/path.html", "hello", 1L), is(true));
+    }
+
+    @Test
+    void reloadConfig() {
+        ConfigService.reloadConfig();
+    }
+
+    @Test
+    void checkMd5ReturnsEmpty() {
+        assertThat(ConfigService.checkMd5(), empty());
+    }
+
+    @Test
+    void removeGroupIsBarReturnsTrue() {
+        assertThat(ConfigService.remove("1234", "bar", "/some/path.html"), is(true));
+    }
+
+    @Test
+    void removeBetaGroupIsBarReturnsTrue() {
+        assertThat(ConfigService.removeBeta("1234", "bar", "/some/path.html"), is(true));
+    }
+
+    @Test
+    void removeTagGroupIsBarAndTagIsTagAndTenantIsTagReturnsTrue() {
+        assertThat(ConfigService.removeTag("1234", "bar", "tag", "tag"), is(true));
+    }
+
+    @Test
+    void updateMd5GroupKeyIsKeyAndLastModifiedTsIsOneAndMd5IsEmpty() {
+        ConfigService.updateMd5("key", "", 1L);
+    }
+
+    @Test
+    void updateBetaMd5GroupKeyIsKeyAndIps4BetaIsEmptyAndLastModifiedTsIsOneAndMd5IsEmpty() {
+        ConfigService.updateBetaMd5("key", "", new ArrayList<String>(), 1L);
+    }
+
+    @Test
+    void getContentBetaMd5GroupKeyIsKeyReturnsEmpty() {
+        assertThat(ConfigService.getContentBetaMd5("key"), is(""));
+    }
+
+    @Test
+    void getContentTagMd5GroupKeyIsKeyAndTagIsTagReturnsEmpty() {
+        assertThat(ConfigService.getContentTagMd5("key", "tag"), is(""));
+    }
+
+    @Test
+    void getBetaIpsGroupKeyIsKeyReturnsEmpty() {
+        assertThat(ConfigService.getBetaIps("key"), empty());
+    }
+
+    @Test
+    void getContentCacheGroupKeyIsKeyReturnsNull() {
+        assertThat(ConfigService.getContentCache("key"), is(nullValue()));
+    }
+
+    @Test
+    void getContentMd5() {
+        assertThat(ConfigService.getContentMd5("key", "bar", "tag"), is("tag"));
+        assertThat(ConfigService.getContentMd5("key"), is(""));
+        assertThat(ConfigService.getContentMd5("key", "hello", "bar"), is("/some/path.html"));
+        assertThat(ConfigService.getContentMd5("key", "hello", ""), is("/some/path.html"));
+        assertThat(ConfigService.getContentMd5("key", "hello", "tag"), is(""));
+    }
+
+    @Test
+    void getLastModifiedTsGroupKeyIsKeyReturnsZero() {
+        assertThat(ConfigService.getLastModifiedTs("key"), is(0L));
+    }
+
+    @Test
+    void isUptodate() {
+        assertThat(ConfigService.isUptodate("key", "bar"), is(false));
+        assertThat(ConfigService.isUptodate("key", "/some/path.html", "/some/path.html", "bar"), is(true));
+        assertThat(ConfigService.isUptodate("key", "bar", "/some/path.html", "tag"), is(false));
+    }
+
+    @Test
+    void tryReadLock() {
+        assertThat(ConfigService.tryReadLock("bar"), is(-1));
+        assertThat(ConfigService.tryReadLock("key"), is(1));
+    }
+
+    @Test
+    void releaseReadLockGroupKeyIsKey() {
+        ConfigService.releaseReadLock("key");
+    }
+
+    @Test
+    void tryWriteLock() {
+        assertThat(ConfigService.tryWriteLock("key"), is(-1));
+        assertThat(ConfigService.tryWriteLock("[write-lock] failed, {}, {}"), is(0));
+    }
+}

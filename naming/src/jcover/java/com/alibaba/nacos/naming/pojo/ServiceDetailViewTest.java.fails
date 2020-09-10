@@ -1,0 +1,69 @@
+package com.alibaba.nacos.naming.pojo;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
+import com.alibaba.nacos.api.naming.pojo.Cluster;
+import com.alibaba.nacos.naming.core.Service;
+import com.alibaba.nacos.naming.selector.LabelSelector;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.pojo.ServiceDetailView
+ *
+ * @author Diffblue Cover
+ */
+
+public class ServiceDetailViewTest {
+
+    @Test
+    public void factory() throws CloneNotSupportedException {
+        ServiceDetailView serviceDetailView = new ServiceDetailView();
+        serviceDetailView.setClusters(new ArrayList<Cluster>());
+        Service service2 = new Service();
+        HashMap<String, com.alibaba.nacos.naming.core.Cluster> clusterMap2 = new HashMap<String, com.alibaba.nacos.naming.core.Cluster>();
+        com.alibaba.nacos.naming.core.Cluster x70 = new com.alibaba.nacos.naming.core.Cluster();
+        x70.setDefCkport(1);
+        x70.setDefIPPort(1);
+        x70.setServiceName("John Smith");
+        x70.setSitegroup("DE");
+        x70.setDefaultCheckPort(1);
+        x70.setDefaultPort(1);
+        AbstractHealthChecker healthChecker4 = mock(AbstractHealthChecker.class);
+        x70.setHealthChecker(healthChecker4);
+        x70.setName("John Smith");
+        x70.setUseIPPort4Check(false);
+        clusterMap2.put("foo", x70);
+        service2.setClusterMap(clusterMap2);
+        service2.setEnabled(false);
+        service2.setIpDeleteTimeout(1L);
+        service2.setLastModifiedMillis(1L);
+        service2.setNamespaceId("1234");
+        service2.setOwners(new ArrayList<String>());
+        service2.setResetWeight(false);
+        service2.setSelector(new LabelSelector());
+        service2.setToken("Bearer");
+        service2.setAppName("Acme");
+        service2.setGroupName("Acme");
+        HashMap<String, String> metadata3 = new HashMap<String, String>();
+        metadata3.put("foo", "foo");
+        service2.setMetadata(metadata3);
+        service2.setName("Acme");
+        service2.setProtectThreshold(1.0f);
+        serviceDetailView.setService(service2);
+        assertThat(serviceDetailView.getClusters(), empty());
+        assertThat(serviceDetailView.getService().getAppName(), is("Acme"));
+        assertThat(serviceDetailView.getService().getGroupName(), is("Acme"));
+        assertThat(serviceDetailView.getService().getMetadata().get("foo"), is("foo"));
+        assertThat(serviceDetailView.getService().getName(), is("Acme"));
+        assertThat(serviceDetailView.getService().getProtectThreshold(), closeTo(1.0f, 0.0));
+    }
+}

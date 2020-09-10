@@ -1,0 +1,63 @@
+package com.alibaba.nacos.naming.controllers;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.core.ServiceManager;
+import com.alibaba.nacos.naming.push.PushService;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.controllers.HealthController
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {HealthController.class})
+@RunWith(SpringRunner.class)
+public class HealthControllerTest {
+
+    @MockBean(name = "distroMapper")
+    private DistroMapper distroMapper;
+
+    @MockBean(name = "pushService")
+    private PushService pushService;
+
+    @MockBean(name = "serviceManager")
+    private ServiceManager serviceManager;
+
+    @Autowired
+    private HealthController controller;
+
+    @Test
+    public void server() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(serviceManager.getServiceCount())
+            .thenReturn(1);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/health/server"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"msg\":\"Hello! I am Nacos-Naming and healthy! total services: raft 1, local port:0\"}"));
+    }
+
+    @Test
+    public void checkers() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/health/checkers"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"TCP\":{\"type\":\"TCP\"},\"HTTP\":{\"type\":\"HTTP\",\"path\":\"\",\"headers\":\"\",\"expectedResponseCode\":200,\"customHeaders\":{}},\"MYSQL\":{\"type\":\"MYSQL\",\"user\":null,\"pwd\":null,\"cmd\":null},\"NONE\":{\"type\":\"NONE\"}}"));
+    }
+}

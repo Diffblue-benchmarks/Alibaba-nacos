@@ -1,0 +1,62 @@
+package com.alibaba.nacos.config.server.service;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.config.server.model.SampleResult;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.ConfigSubService
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ConfigSubService.class})
+@ExtendWith(SpringExtension.class)
+class ConfigSubServiceTest {
+
+    @MockBean(name = "serverListService")
+    private ServerListService serverListService;
+
+    @Autowired
+    private ConfigSubService service;
+
+    @Test
+    void mergeSampleResult1() {
+        assertThat(service.mergeSampleResult(new SampleResult(), new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void mergeSampleResult2() {
+        SampleResult sampleCollectResult = new SampleResult();
+        HashMap<String, String> lisentersGroupkeyStatus1 = new HashMap<String, String>();
+        lisentersGroupkeyStatus1.put("bar", "foo");
+        sampleCollectResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus1);
+        assertThat(service.mergeSampleResult(sampleCollectResult, new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().get("bar"), is("foo"));
+    }
+
+    @Test
+    void mergeSampleResult3() {
+        SampleResult sampleCollectResult = new SampleResult();
+        HashMap<String, String> lisentersGroupkeyStatus1 = new HashMap<String, String>();
+        lisentersGroupkeyStatus1.put("foo", "foo");
+        sampleCollectResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus1);
+        ArrayList<SampleResult> sampleResults = new ArrayList<SampleResult>();
+        SampleResult sampleResult = new SampleResult();
+        HashMap<String, String> lisentersGroupkeyStatus2 = new HashMap<String, String>();
+        lisentersGroupkeyStatus2.put("foo", "foo");
+        sampleResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus2);
+        sampleResults.add(sampleResult);
+        assertThat(service.mergeSampleResult(sampleCollectResult, sampleResults).getLisentersGroupkeyStatus().get("foo"), is("foo"));
+    }
+}

@@ -1,0 +1,33 @@
+package com.alibaba.nacos.naming.misc;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.misc.GlobalConfig
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {GlobalConfig.class})
+@RunWith(SpringRunner.class)
+public class GlobalConfigTest {
+
+    @Autowired
+    private GlobalConfig service;
+
+    @Test
+    public void getters() {
+        assertThat(service.getBatchSyncKeyCount(), is(1_000));
+        assertThat(service.getSyncRetryDelay(), is(5_000L));
+        assertThat(service.getTaskDispatchPeriod(), is(2_000));
+        assertThat(service.isDataWarmup(), is(false));
+        assertThat(service.isExpireInstance(), is(true));
+    }
+}

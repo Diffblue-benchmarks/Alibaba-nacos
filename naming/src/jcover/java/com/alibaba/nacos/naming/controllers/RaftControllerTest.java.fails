@@ -1,0 +1,114 @@
+package com.alibaba.nacos.naming.controllers;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.naming.consistency.RecordListener;
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftConsistencyServiceImpl;
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore;
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeer;
+import com.alibaba.nacos.naming.core.ServiceManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.controllers.RaftController
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {RaftController.class})
+@RunWith(SpringRunner.class)
+public class RaftControllerTest {
+
+    @MockBean(name = "raftConsistencyService")
+    private RaftConsistencyServiceImpl raftConsistencyService;
+
+    @MockBean(name = "raftCore")
+    private RaftCore raftCore;
+
+    @MockBean(name = "serviceManager")
+    private ServiceManager serviceManager;
+
+    @Autowired
+    private RaftController controller;
+
+    @Test
+    public void getPeer1() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(raftCore.getPeers())
+            .thenReturn(new ArrayList<RaftPeer>());
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":95,\"leaderDueMs\":1422,\"term\":0,\"state\":\"FOLLOWER\"}"));
+    }
+
+    @Test
+    public void getPeer2() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        List<RaftPeer> list = new ArrayList<RaftPeer>();
+        list.add(new RaftPeer());
+        when(raftCore.getPeers())
+            .thenReturn(list);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":406,\"leaderDueMs\":11314,\"term\":0,\"state\":\"FOLLOWER\"}"));
+    }
+
+    @Test
+    public void state() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(serviceManager.getServiceCount())
+            .thenReturn(1);
+        when(raftCore.getPeers())
+            .thenReturn(new ArrayList<RaftPeer>());
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/raft/state"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json; charset=UTF-8"))
+            .andExpect(content().string("{\"peers\":[],\"services\":1}"));
+    }
+
+    @Test
+    public void getLeader() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(raftCore.getLeader())
+            .thenReturn(new RaftPeer());
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/raft/leader"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"leader\":\"{\\\"heartbeatDueMs\\\":1028,\\\"leaderDueMs\\\":6493,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
+    }
+
+    @Test
+    public void getAllListeners() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        Map<String, List<RecordListener>> map = new HashMap<String, List<RecordListener>>();
+        map.put("foo", new ArrayList<RecordListener>());
+        when(raftCore.getListeners())
+            .thenReturn(map);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/raft/listeners"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"listeners\":[\"foo\"]}"));
+    }
+}

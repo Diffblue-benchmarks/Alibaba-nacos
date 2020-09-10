@@ -1,0 +1,99 @@
+package com.alibaba.nacos.client.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.utils.ParamUtil
+ *
+ * @author Diffblue Cover
+ */
+
+class ParamUtilTest {
+
+    @Test
+    void getAppKeyReturnsEmpty() {
+        assertThat(ParamUtil.getAppKey(), is(""));
+    }
+
+    @Test
+    void setAppKeyAppKeyIsKey() {
+        ParamUtil.setAppKey("key");
+    }
+
+    @Test
+    void getAppNameReturnsUnknown() {
+        assertThat(ParamUtil.getAppName(), is("unknown"));
+    }
+
+    @Test
+    void setAppNameAppNameIsName() {
+        ParamUtil.setAppName("name");
+    }
+
+    @Test
+    void getDefaultContextPathReturnsNacos() {
+        assertThat(ParamUtil.getDefaultContextPath(), is("nacos"));
+    }
+
+    @Test
+    void setDefaultContextPath() {
+        ParamUtil.setDefaultContextPath("/bin/bash");
+    }
+
+    @Test
+    void getClientVersion() {
+        assertThat(ParamUtil.getClientVersion(), is("${project.version}"));
+    }
+
+    @Test
+    void setClientVersion() {
+        ParamUtil.setClientVersion("1.0");
+    }
+
+    @Test
+    void getConnectTimeoutReturnsOneThousand() {
+        assertThat(ParamUtil.getConnectTimeout(), is(1_000));
+    }
+
+    @Test
+    void setConnectTimeoutConnectTimeoutIsOne() {
+        ParamUtil.setConnectTimeout(1);
+    }
+
+    @Test
+    void getPerTaskConfigSize() {
+        assertThat(ParamUtil.getPerTaskConfigSize(), closeTo(3000.0, 0.0));
+    }
+
+    @Test
+    void setPerTaskConfigSizePerTaskConfigSizeIsOne() {
+        ParamUtil.setPerTaskConfigSize(1.0);
+    }
+
+    @Test
+    void getDefaultServerPort() {
+        assertThat(ParamUtil.getDefaultServerPort(), is("8848"));
+    }
+
+    @Test
+    void getDefaultNodesPathReturnsServerlist() {
+        assertThat(ParamUtil.getDefaultNodesPath(), is("serverlist"));
+    }
+
+    @Test
+    void setDefaultNodesPath() {
+        ParamUtil.setDefaultNodesPath("/bin/bash");
+    }
+
+    @Test
+    void parsingEndpointRule() {
+        assertThat(ParamUtil.parsingEndpointRule("api.github.com"), is("api.github.com"));
+        assertThat(ParamUtil.parsingEndpointRule("${^}"), is("^"));
+        assertThat(ParamUtil.parsingEndpointRule(""), is(""));
+        assertThat(ParamUtil.parsingEndpointRule(null), is(""));
+    }
+}

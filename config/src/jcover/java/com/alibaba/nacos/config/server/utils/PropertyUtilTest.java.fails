@@ -1,0 +1,40 @@
+package com.alibaba.nacos.config.server.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.env.Environment;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.utils.PropertyUtil
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {PropertyUtil.class})
+@ExtendWith(SpringExtension.class)
+class PropertyUtilTest {
+
+    @MockBean(name = "env")
+    private Environment env;
+
+    @Autowired
+    private PropertyUtil service;
+
+    @Test
+    void getProperty() {
+        assertThat(service.getProperty("key"), is(nullValue()));
+    }
+
+    @Test
+    void getPropertyDefaultValueIsValue() {
+        assertThat(service.getProperty("key", "value"), is(nullValue()));
+    }
+}

@@ -1,0 +1,27 @@
+package com.alibaba.nacos.client.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.utils.LogUtils
+ *
+ * @author Diffblue Cover
+ */
+
+class LogUtilsTest {
+
+    @Test
+    void loggerClazzIsString() {
+        Logger result = LogUtils.logger(String.class);
+        assertThat(result.getName(), is("java.lang.String"));
+        assertThat(result.isDebugEnabled(), is(true));
+        assertThat(result.isErrorEnabled(), is(true));
+        assertThat(result.isInfoEnabled(), is(true));
+        assertThat(result.isTraceEnabled(), is(false));
+        assertThat(result.isWarnEnabled(), is(true));
+    }
+}

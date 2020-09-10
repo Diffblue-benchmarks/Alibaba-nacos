@@ -1,0 +1,35 @@
+package com.alibaba.nacos.config.server.service;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.config.server.utils.PropertyUtil;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.LocalDataSourceServiceImpl
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {LocalDataSourceServiceImpl.class})
+@ExtendWith(SpringExtension.class)
+class LocalDataSourceServiceImplTest {
+
+    @MockBean(name = "propertyUtil")
+    private PropertyUtil propertyUtil;
+
+    @Autowired
+    private LocalDataSourceServiceImpl service;
+
+    @Test
+    void checkMasterWritableReturnsTrue() {
+        assertThat(service.checkMasterWritable(), is(true));
+    }
+}

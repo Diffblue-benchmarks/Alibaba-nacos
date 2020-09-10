@@ -1,0 +1,42 @@
+package com.alibaba.nacos.client.naming.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.utils.RandomUtils
+ *
+ * @author Diffblue Cover
+ */
+
+class RandomUtilsTest {
+
+    @Test
+    void nextInt() {
+        assertThat(RandomUtils.nextInt(), is(469_120_530));
+        assertThat(RandomUtils.nextInt(1), is(0));
+    }
+
+    @Test
+    void nextLong() {
+        assertThat(RandomUtils.nextLong(), is(3_275_376_668_602_862_242L));
+    }
+
+    @Test
+    void nextBooleanReturnsTrue() {
+        assertThat(RandomUtils.nextBoolean(), is(true));
+    }
+
+    @Test
+    void nextFloat() {
+        assertThat(RandomUtils.nextFloat(), closeTo(0x1.2ff9f2p-1f /* 0.593704 */, 0.0));
+    }
+
+    @Test
+    void nextDouble() {
+        assertThat(RandomUtils.nextDouble(), closeTo(0x1.e30afc8e7e624p-1 /* 0.943443 */, 0.0));
+    }
+}

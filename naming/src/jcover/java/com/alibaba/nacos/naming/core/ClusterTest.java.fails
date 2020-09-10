@@ -1,0 +1,212 @@
+package com.alibaba.nacos.naming.core;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
+import com.alibaba.nacos.naming.selector.LabelSelector;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.core.Cluster
+ *
+ * @author Diffblue Cover
+ */
+
+public class ClusterTest {
+
+    @Test
+    public void factory1() throws CloneNotSupportedException {
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(-1);
+        Service service2 = new Service();
+        service2.setClusterMap(new HashMap<String, Cluster>());
+        service2.setEnabled(false);
+        service2.setIpDeleteTimeout(1L);
+        service2.setLastModifiedMillis(1L);
+        service2.setNamespaceId("1234");
+        service2.setOwners(new ArrayList<String>());
+        service2.setResetWeight(false);
+        service2.setSelector(new LabelSelector());
+        service2.setToken("Bearer");
+        service2.setAppName("Acme");
+        service2.setGroupName("Acme");
+        HashMap<String, String> metadata2 = new HashMap<String, String>();
+        metadata2.put("foo", "foo");
+        service2.setMetadata(metadata2);
+        service2.setName("Acme");
+        service2.setProtectThreshold(1.0f);
+        cluster.setService(service2);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        HashMap<String, String> metadata3 = new HashMap<String, String>();
+        metadata3.put("foo", "foo");
+        cluster.setMetadata(metadata3);
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+        assertThat(cluster.getHealthCheckTask(), is(nullValue()));
+        assertThat(cluster.getService(), sameInstance(service2));
+        assertThat(cluster.getSitegroup(), is("DE"));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getMetadata().get("foo"), is("foo"));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("Acme"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
+    public void factory2() throws CloneNotSupportedException {
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(1);
+        cluster.setService(null);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        HashMap<String, String> metadata2 = new HashMap<String, String>();
+        metadata2.put("foo", "foo");
+        cluster.setMetadata(metadata2);
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+        assertThat(cluster.getHealthCheckTask(), is(nullValue()));
+        assertThat(cluster.getService(), is(nullValue()));
+        assertThat(cluster.getSitegroup(), is("DE"));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getMetadata().get("foo"), is("foo"));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("John Smith"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
+    public void factory3() throws CloneNotSupportedException {
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(1);
+        Service service2 = new Service();
+        service2.setClusterMap(new HashMap<String, Cluster>());
+        service2.setEnabled(true);
+        service2.setIpDeleteTimeout(1L);
+        service2.setLastModifiedMillis(1L);
+        service2.setNamespaceId("1234");
+        service2.setOwners(new ArrayList<String>());
+        service2.setResetWeight(false);
+        service2.setSelector(new LabelSelector());
+        service2.setToken("Bearer");
+        service2.setAppName("Acme");
+        service2.setGroupName("Acme");
+        HashMap<String, String> metadata2 = new HashMap<String, String>();
+        metadata2.put("foo", "foo");
+        service2.setMetadata(metadata2);
+        service2.setName("Acme");
+        service2.setProtectThreshold(1.0f);
+        cluster.setService(service2);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker = mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        HashMap<String, String> metadata3 = new HashMap<String, String>();
+        metadata3.put("foo", "foo");
+        cluster.setMetadata(metadata3);
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+        assertThat(cluster.getHealthCheckTask(), is(nullValue()));
+        assertThat(cluster.getService(), sameInstance(service2));
+        assertThat(cluster.getSitegroup(), is("DE"));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getMetadata().get("foo"), is("foo"));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("Acme"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
+    public void allIPs() {
+        assertThat(new Cluster().allIPs(), empty());
+        assertThat(new Cluster().allIPs(false), empty());
+    }
+
+    @Test
+    public void destroy() {
+        new Cluster().destroy();
+    }
+
+    @Test
+    public void updateIPsEphemeralIsFalseAndIpsIsEmpty() {
+        new Cluster().updateIPs(new ArrayList<Instance>(), false);
+    }
+
+    @Test
+    public void updatedIPsAIsEmptyAndBIsEmptyReturnsEmpty() {
+        assertThat(new Cluster().updatedIPs(new LinkedList<Instance>(), new LinkedList<Instance>()), empty());
+    }
+
+    @Test
+    public void subtractAIsEmptyAndBIsEmptyReturnsEmpty() {
+        assertThat(new Cluster().subtract(new LinkedList<Instance>(), new LinkedList<Instance>()), empty());
+    }
+
+    @Test
+    public void equalsReturnsFalse() {
+        assertThat(new Cluster().equals(new Object()), is(false));
+    }
+
+    @Test
+    public void update() throws CloneNotSupportedException {
+
+        // arrange
+        Cluster cluster1 = new Cluster();
+        cluster1.setService(new Service());
+        Cluster cluster2 = new Cluster();
+        cluster2.setDefCkport(1);
+        cluster2.setDefIPPort(1);
+        cluster2.setSitegroup("DE");
+        AbstractHealthChecker healthChecker2 = mock(AbstractHealthChecker.class);
+        cluster2.setHealthChecker(healthChecker2);
+        cluster2.setUseIPPort4Check(false);
+
+        // act
+        cluster1.update(cluster2);
+
+        // assert
+        assertThat(cluster1.getHealthChecker(), sameInstance(healthChecker2));
+    }
+
+    @Test
+    public void containsReturnsFalse() {
+        Instance ip1 = new Instance();
+        ip1.setIp("DE");
+        assertThat(new Cluster().contains(ip1), is(false));
+    }
+}

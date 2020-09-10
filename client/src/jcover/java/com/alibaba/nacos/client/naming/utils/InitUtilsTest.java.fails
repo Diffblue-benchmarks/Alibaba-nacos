@@ -1,0 +1,48 @@
+package com.alibaba.nacos.client.naming.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import java.util.Properties;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.utils.InitUtils
+ *
+ * @author Diffblue Cover
+ */
+
+class InitUtilsTest {
+
+    @Test
+    void initNamespaceForNaming() {
+        assertThat(InitUtils.initNamespaceForNaming(new Properties()), is("public"));
+        assertThat(InitUtils.initNamespaceForNaming(new Properties()), is("public"));
+    }
+
+    @Test
+    void initWebRootContext() {
+        InitUtils.initWebRootContext();
+    }
+
+    @Test
+    void initEndpoint() {
+        assertThat(InitUtils.initEndpoint(new Properties()), is(""));
+        assertThat(InitUtils.initEndpoint(null), is(""));
+    }
+
+    @Test
+    void initEndpointPropertiesIsValue1() {
+        Properties properties = new Properties();
+        properties.setProperty("endpoint", "value");
+        assertThat(InitUtils.initEndpoint(properties), is("value:8080"));
+    }
+
+    @Test
+    void initEndpointPropertiesIsValue2() {
+        Properties properties = new Properties();
+        properties.setProperty("isUseEndpointParsingRule", "value");
+        assertThat(InitUtils.initEndpoint(properties), is(""));
+    }
+}

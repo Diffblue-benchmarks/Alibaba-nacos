@@ -1,0 +1,65 @@
+package com.alibaba.nacos.naming.web;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+
+import javax.servlet.FilterConfig;
+import javax.servlet.Servlet;
+
+import org.junit.Test;
+import org.springframework.mock.web.MockFilterChain;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.web.DistroFilter
+ *
+ * @author Diffblue Cover
+ */
+
+public class DistroFilterTest {
+
+    @Test
+    public void init() throws javax.servlet.ServletException {
+        FilterConfig filterConfig = mock(FilterConfig.class);
+        new DistroFilter().init(filterConfig);
+    }
+
+    @Test
+    public void doFilter1() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
+
+        // arrange
+        MockHttpServletRequest servletRequest = new MockHttpServletRequest();
+        servletRequest.setQueryString("foo=bar");
+        MockHttpServletResponse servletResponse = new MockHttpServletResponse();
+        Servlet servlet = mock(Servlet.class);
+
+        // act
+        new DistroFilter().doFilter(servletRequest, servletResponse, new MockFilterChain(servlet));
+
+        // assert
+        assertThat(servletResponse.getErrorMessage(), is("Server failed,"));
+        assertThat(servletResponse.getStatus(), is(500));
+    }
+
+    @Test
+    public void doFilter2() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
+
+        // arrange
+        MockHttpServletResponse servletResponse = new MockHttpServletResponse();
+        Servlet servlet = mock(Servlet.class);
+
+        // act
+        new DistroFilter().doFilter(new MockHttpServletRequest(), servletResponse, new MockFilterChain(servlet));
+
+        // assert
+        assertThat(servletResponse.getErrorMessage(), is("Server failed,"));
+        assertThat(servletResponse.getStatus(), is(500));
+    }
+
+    @Test
+    public void destroy() {
+        new DistroFilter().destroy();
+    }
+}

@@ -1,0 +1,17 @@
+package com.alibaba.nacos.client.logging.logback;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.logging.logback.LogbackNacosLogging
+ *
+ * @author Diffblue Cover
+ */
+
+class LogbackNacosLoggingTest {
+
+    @Test
+    void loadConfiguration() {
+        new LogbackNacosLogging().loadConfiguration();
+    }
+}

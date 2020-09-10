@@ -1,0 +1,20 @@
+package com.alibaba.nacos.client.logging.log4j2;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.logging.log4j2.Log4J2NacosLogging
+ *
+ * @author Diffblue Cover
+ */
+
+class Log4J2NacosLoggingTest {
+
+    @Test
+    void getLocationDefaultLocationIsDEReturnsDE() {
+        assertThat(new Log4J2NacosLogging().getLocation("DE"), is("DE"));
+    }
+}

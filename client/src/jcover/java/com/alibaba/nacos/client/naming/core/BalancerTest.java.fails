@@ -1,0 +1,64 @@
+package com.alibaba.nacos.client.naming.core;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+
+import com.alibaba.nacos.api.naming.pojo.Instance;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.core.Balancer
+ *
+ * @author Diffblue Cover
+ */
+
+class BalancerTest {
+
+    @Test
+    void getHostByRandomWeight1() {
+
+        // arrange
+        ArrayList<Instance> hosts = new ArrayList<Instance>();
+        Instance instance = new Instance();
+        instance.setClusterName("John Smith");
+        instance.setEnabled(false);
+        instance.setEphemeral(false);
+        instance.setInstanceId("1234");
+        instance.setIp("foo");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        instance.setMetadata(metadata);
+        instance.setPort(1);
+        instance.setServiceName("Acme");
+        hosts.add(instance);
+
+        // act
+        Instance result = Balancer.getHostByRandomWeight(hosts);
+
+        // assert
+        assertThat(result.getClusterName(), is("John Smith"));
+        assertThat(result.getInstanceId(), is("1234"));
+        assertThat(result.getIp(), is("foo"));
+        assertThat(result.getMetadata().get("foo"), is("foo"));
+        assertThat(result.getPort(), is(1));
+        assertThat(result.getServiceName(), is("Acme"));
+        assertThat(result.getWeight(), closeTo(1.0, 0.0));
+        assertThat(result.isEnabled(), is(false));
+        assertThat(result.isEphemeral(), is(false));
+        assertThat(result.isHealthy(), is(true));
+        assertThat(hosts.get(0), sameInstance(result));
+    }
+
+    @Test
+    void getHostByRandomWeight2() {
+        assertThat(Balancer.getHostByRandomWeight(new ArrayList<Instance>()), is(nullValue()));
+        assertThat(Balancer.getHostByRandomWeight(null), is(nullValue()));
+    }
+}

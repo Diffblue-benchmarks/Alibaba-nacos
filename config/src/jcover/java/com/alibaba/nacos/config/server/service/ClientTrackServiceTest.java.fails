@@ -1,0 +1,79 @@
+package com.alibaba.nacos.config.server.service;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.config.server.model.SubscriberStatus;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.ClientTrackService
+ *
+ * @author Diffblue Cover
+ */
+
+class ClientTrackServiceTest {
+
+    @Test
+    void trackClientMd5() {
+        ClientTrackService.trackClientMd5("/some/path.html", new HashMap<String, String>());
+    }
+
+    @Test
+    void trackClientMd5ClientlastPollingTSMapIsEmpty() {
+        ClientTrackService.trackClientMd5("/some/path.html", new HashMap<String, String>(), new HashMap<String, Long>());
+    }
+
+    @Test
+    void trackClientMd5GroupKeyIsKey() {
+        ClientTrackService.trackClientMd5("/some/path.html", "key", "/some/path.html");
+    }
+
+    @Test
+    void subscribeClientCountReturnsZero() {
+        assertThat(ClientTrackService.subscribeClientCount(), is(0));
+    }
+
+    @Test
+    void subscriberCountReturnsZero() {
+        assertThat(ClientTrackService.subscriberCount(), is(0L));
+    }
+
+    @Test
+    void listSubStatus() {
+        assertThat(ClientTrackService.listSubStatus("bar").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubStatus("Smith").isEmpty(), is(true));
+    }
+
+    @Test
+    void listSubsByGroupGroupKeyIsFoo() {
+        Map<String, SubscriberStatus> result = ClientTrackService.listSubsByGroup("foo");
+        assertThat(result.get("/some/path.html").getGroupKey(), is("foo"));
+        assertThat(result.get("/some/path.html").getLastTime(), is(1L));
+        assertThat(result.get("/some/path.html").getMd5(), is("foo"));
+        assertThat(result.get("/some/path.html").getServerIp(), is(nullValue()));
+        assertThat(result.get("/some/path.html").getStatus(), is(false));
+    }
+
+    @Test
+    void getters() {
+        assertThat(ClientTrackService.isClientUptodate("bar").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubsByGroup("key").isEmpty(), is(true));
+    }
+
+    @Test
+    void listSubscriberByGroup() {
+        assertThat(ClientTrackService.listSubscriberByGroup("foo").get("/some/path.html"), is(false));
+        assertThat(ClientTrackService.listSubscriberByGroup("key").isEmpty(), is(true));
+    }
+
+    @Test
+    void refreshClientRecord() {
+        ClientTrackService.refreshClientRecord();
+    }
+}

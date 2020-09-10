@@ -1,0 +1,52 @@
+package com.alibaba.nacos.client.config.impl;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.config.impl.SpasAdapter
+ *
+ * @author Diffblue Cover
+ */
+
+class SpasAdapterTest {
+
+    @Test
+    void getSignHeaders() {
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key"), hasSize(4));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(0), is("Timestamp"));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(1), is("1599779339041"));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(2), is("Spas-Signature"));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(3), is("+AdVUCbmZ7Vqnz7MSwLzNWoHe9I="));
+        assertThat(SpasAdapter.getSignHeaders((ArrayList<String>) null, "key"), is(nullValue()));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key"), hasSize(4));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(0), is("Timestamp"));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(1), is("1599779338945"));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(2), is("Spas-Signature"));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(3), is("eAWos7ppYOsSFmbSfOvaxH2eHT4="));
+        assertThat(SpasAdapter.getSignHeaders("foo", null), hasSize(2));
+        assertThat(SpasAdapter.getSignHeaders("foo", null).get(0), is("Timestamp"));
+        assertThat(SpasAdapter.getSignHeaders("foo", null).get(1), is("1599779339049"));
+    }
+
+    @Test
+    void getSkReturnsNull() {
+        assertThat(SpasAdapter.getSk(), is(nullValue()));
+    }
+
+    @Test
+    void getAkReturnsNull() {
+        assertThat(SpasAdapter.getAk(), is(nullValue()));
+    }
+
+    @Test
+    void signWithhmacSHA1EncryptEncryptKeyIsKeyAndEncryptTextIsHello() {
+        assertThat(SpasAdapter.signWithhmacSHA1Encrypt("hello", "key"), is("s0zqxFFv8joUPmHXnQ+npPvl8mY="));
+    }
+}

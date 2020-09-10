@@ -1,0 +1,77 @@
+package com.alibaba.nacos.client.naming.utils;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.utils.IoUtils
+ *
+ * @author Diffblue Cover
+ */
+
+class IoUtilsTest {
+
+    @Test
+    void testToString() throws java.io.IOException {
+        assertThat(IoUtils.toString(new StringBufferInputStream("NA"), "foo"), is(""));
+        assertThat(IoUtils.toString(new StringReader("foo")), is("foo"));
+    }
+
+    @Test
+    void copyReturnsThree2() throws java.io.IOException {
+        StringWriter output = new StringWriter();
+        assertThat(IoUtils.copy(new StringReader("foo"), output), is(3L));
+        assertThat(output.getBuffer().toString(), is("foo"));
+    }
+
+    @Test
+    void copy() throws java.io.IOException {
+        assertThat(IoUtils.copy(new StringBufferInputStream(""), new ByteArrayOutputStream()), is(0L));
+        assertThat(IoUtils.copy(new StringReader(""), new StringWriter()), is(0L));
+    }
+
+    @Test
+    void copyReturnsThree1() throws java.io.IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        assertThat(IoUtils.copy(new StringBufferInputStream("foo"), output), is(3L));
+        assertArrayEquals(new byte[] { 102, 111, 111 }, output.toByteArray());
+    }
+
+    @Test
+    void readLinesReturnsFoo() throws java.io.IOException {
+        assertThat(IoUtils.readLines(new StringReader("foo")), hasSize(1));
+        assertThat(IoUtils.readLines(new StringReader("foo")).get(0), is("foo"));
+    }
+
+    @Test
+    void isGzipStreamBytesIsNull() {
+        assertThat(IoUtils.isGzipStream(null), is(false));
+    }
+
+    @Test
+    void isGzipStreamBytesIsOne() {
+        byte[] bytes = new byte[] { 1 };
+        assertThat(IoUtils.isGzipStream(bytes), is(false));
+    }
+
+    @Test
+    void isGzipStreamBytesIsZeroOne() {
+        byte[] bytes = new byte[] { 0, 1 };
+        assertThat(IoUtils.isGzipStream(bytes), is(false));
+    }
+
+    @Test
+    void tryDecompressRawIsOneReturnsOne() throws Exception {
+        byte[] raw = new byte[] { 1 };
+        assertArrayEquals(new byte[] { 1 }, IoUtils.tryDecompress(raw));
+    }
+}

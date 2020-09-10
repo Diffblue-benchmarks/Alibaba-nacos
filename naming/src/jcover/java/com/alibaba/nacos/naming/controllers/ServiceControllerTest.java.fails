@@ -1,0 +1,59 @@
+package com.alibaba.nacos.naming.controllers;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.core.ServiceManager;
+import com.alibaba.nacos.naming.core.SubscribeManager;
+
+import java.util.HashSet;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.controllers.ServiceController
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ServiceController.class})
+@RunWith(SpringRunner.class)
+public class ServiceControllerTest {
+
+    @MockBean(name = "distroMapper")
+    private DistroMapper distroMapper;
+
+    @MockBean(name = "serverListManager")
+    private ServerListManager serverListManager;
+
+    @MockBean(name = "serviceManager")
+    private ServiceManager serviceManager;
+
+    @MockBean(name = "subscribeManager")
+    private SubscribeManager subscribeManager;
+
+    @Autowired
+    private ServiceController controller;
+
+    @Test
+    public void searchService() throws InterruptedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(serviceManager.getAllNamespaces())
+            .thenReturn(new HashSet<String>());
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/service/names"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().string("{\"count\":0,\"services\":{}}"));
+    }
+}

@@ -1,0 +1,59 @@
+package com.alibaba.nacos.config.server.service.merge;
+
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.config.server.model.ConfigInfoChanged;
+import com.alibaba.nacos.config.server.service.PersistService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.merge.MergeDatumService
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {MergeDatumService.class})
+@ExtendWith(SpringExtension.class)
+class MergeDatumServiceTest {
+
+    @MockBean(name = "persistService")
+    private PersistService persistService;
+
+    @Autowired
+    private MergeDatumService service;
+
+    @Test
+    void addMergeTask() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        service.addMergeTask("1234", "1234", "/some/path.html", "/some/path.html");
+    }
+
+    @Test
+    void addMergeTaskTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        service.addMergeTask("1234", "1234", "/some/path.html", "tag", "/some/path.html");
+    }
+
+    @Test
+    void mergeAll1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(persistService.findAllAggrGroup())
+            .thenReturn(new ArrayList<ConfigInfoChanged>());
+        service.mergeAll();
+    }
+
+    @Test
+    void mergeAll2() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        List<ConfigInfoChanged> list = new ArrayList<ConfigInfoChanged>();
+        list.add(new ConfigInfoChanged());
+        when(persistService.findAllAggrGroup())
+            .thenReturn(list);
+        service.mergeAll();
+    }
+}

@@ -1,0 +1,48 @@
+package com.alibaba.nacos.client.config.http;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.client.config.impl.ServerListManager;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.config.http.ServerHttpAgent
+ *
+ * @author Diffblue Cover
+ */
+
+class ServerHttpAgentTest {
+
+    @Test
+    void factory() {
+        assertThat(new ServerHttpAgent(new ServerListManager()).getEncode(), is(nullValue()));
+    }
+
+    @Test
+    void getAppnameReturnsUnknown() {
+        assertThat(ServerHttpAgent.getAppname(), is("unknown"));
+    }
+
+    @Test
+    void start() throws com.alibaba.nacos.api.exception.NacosException {
+        new ServerHttpAgent(new ServerListManager(new java.util.ArrayList<String>())).start();
+    }
+
+    @Test
+    void getNameReturnsDefault() {
+        assertThat(new ServerHttpAgent(new ServerListManager()).getName(), is("default"));
+    }
+
+    @Test
+    void getNamespaceReturnsEmpty() {
+        assertThat(new ServerHttpAgent(new ServerListManager()).getNamespace(), is(""));
+    }
+
+    @Test
+    void getTenantReturnsEmpty() {
+        assertThat(new ServerHttpAgent(new ServerListManager()).getTenant(), is(""));
+    }
+}

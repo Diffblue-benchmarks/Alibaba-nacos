@@ -1,0 +1,72 @@
+package com.alibaba.nacos.naming.consistency;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.naming.consistency.ephemeral.EphemeralConsistencyService;
+import com.alibaba.nacos.naming.consistency.persistent.PersistentConsistencyService;
+import com.alibaba.nacos.naming.core.Instances;
+import com.alibaba.nacos.naming.core.Service;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.DelegateConsistencyServiceImpl
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {DelegateConsistencyServiceImpl.class})
+@RunWith(SpringRunner.class)
+public class DelegateConsistencyServiceImplTest {
+
+    @MockBean(name = "ephemeralConsistencyService")
+    private EphemeralConsistencyService ephemeralConsistencyService;
+
+    @MockBean(name = "persistentConsistencyService")
+    private PersistentConsistencyService persistentConsistencyService;
+
+    @Autowired
+    private DelegateConsistencyServiceImpl service;
+
+    @Test
+    public void getKeyIsKeyReturnsNull() throws com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.get("key"), is(nullValue()));
+    }
+
+    @Test
+    public void isAvailableReturnsFalse() {
+        assertThat(service.isAvailable(), is(false));
+    }
+
+    @Test
+    public void listen() throws com.alibaba.nacos.api.exception.NacosException {
+        service.listen("com.alibaba.nacos.naming.domains.meta.", new Service());
+    }
+
+    @Test
+    public void listenKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        service.listen("key", new Service());
+    }
+
+    @Test
+    public void putKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        service.put("key", new Instances());
+    }
+
+    @Test
+    public void removeKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        service.remove("key");
+    }
+
+    @Test
+    public void unlistenKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        service.unlisten("key", new Service());
+    }
+}

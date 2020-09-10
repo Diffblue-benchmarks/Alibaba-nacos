@@ -1,0 +1,53 @@
+package com.alibaba.nacos.client.identify;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.identify.STSConfig
+ *
+ * @author Diffblue Cover
+ */
+
+class STSConfigTest {
+
+    @Test
+    void factory() {
+        STSConfig obj = STSConfig.getInstance();
+        obj.setCacheSecurityCredentials(false);
+        obj.setRamRoleName("entity");
+        obj.setSecurityCredentials("bar");
+        obj.setSecurityCredentialsUrl("545321456");
+        obj.setTimeToRefreshInMillisecond(1);
+        assertThat(obj.getRamRoleName(), is("entity"));
+        assertThat(obj.getSecurityCredentials(), is("bar"));
+        assertThat(obj.getTimeToRefreshInMillisecond(), is(1));
+        assertThat(obj.isCacheSecurityCredentials(), is(false));
+    }
+
+    @Test
+    void getInstance() {
+        STSConfig result = STSConfig.getInstance();
+        assertThat(result.getRamRoleName(), is(nullValue()));
+        assertThat(result.getSecurityCredentials(), is(nullValue()));
+        assertThat(result.getTimeToRefreshInMillisecond(), is(180_000));
+        assertThat(result.isCacheSecurityCredentials(), is(true));
+    }
+
+    @Test
+    void getSecurityCredentialsUrl() {
+        assertThat(STSConfig.getInstance().getSecurityCredentialsUrl(), is("545321456"));
+        assertThat(STSConfig.getInstance().getSecurityCredentialsUrl(), is(nullValue()));
+    }
+
+    @Test
+    void isSTSOn() {
+        assertThat(STSConfig.getInstance().isSTSOn(), is(true));
+        assertThat(STSConfig.getInstance().isSTSOn(), is(true));
+        assertThat(STSConfig.getInstance().isSTSOn(), is(true));
+        assertThat(STSConfig.getInstance().isSTSOn(), is(false));
+    }
+}

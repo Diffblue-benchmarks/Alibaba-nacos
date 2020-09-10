@@ -1,0 +1,64 @@
+package com.alibaba.nacos.config.server.service.notify;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.config.server.service.ConfigDataChangeEvent;
+import com.alibaba.nacos.config.server.service.ServerListService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.notify.AsyncNotifyService
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {AsyncNotifyService.class})
+@ExtendWith(SpringExtension.class)
+class AsyncNotifyServiceTest {
+
+    @MockBean(name = "serverListService")
+    private ServerListService serverListService;
+
+    @Autowired
+    private AsyncNotifyService service;
+
+    @Test
+    void getExecutor() {
+        // pojo java.util.concurrent.Executor
+    }
+
+    @Test
+    void interestReturnsConfigDataChangeEvent() {
+        List<Class<? extends com.alibaba.nacos.config.server.utils.event.EventDispatcher.Event>> result = service.interest();
+        assertThat(result.size(), is(1));
+        assertThat((Class<ConfigDataChangeEvent>) result.get(0), equalTo((Class) ConfigDataChangeEvent.class));
+    }
+
+    @Test
+    void onEvent1() {
+        List<String> list = new ArrayList<String>();
+        list.add("foo");
+        when(serverListService.getServerList())
+            .thenReturn(list);
+        service.onEvent(new ConfigDataChangeEvent("something", "something", 1L));
+    }
+
+    @Test
+    void onEvent2() {
+        when(serverListService.getServerList())
+            .thenReturn(new ArrayList<String>());
+        service.onEvent(new ConfigDataChangeEvent("bar", "something", 1L));
+    }
+}

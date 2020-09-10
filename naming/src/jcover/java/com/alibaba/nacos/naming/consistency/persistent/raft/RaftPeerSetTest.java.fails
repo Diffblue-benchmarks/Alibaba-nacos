@@ -1,0 +1,183 @@
+package com.alibaba.nacos.naming.consistency.persistent.raft;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+
+import com.alibaba.nacos.naming.boot.SpringContext;
+import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.cluster.servers.Server;
+import com.alibaba.nacos.naming.cluster.servers.ServerChangeListener;
+
+import java.util.ArrayList;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeerSet
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {RaftPeerSet.class})
+@RunWith(SpringRunner.class)
+public class RaftPeerSetTest {
+
+    @MockBean(name = "serverListManager")
+    private ServerListManager serverListManager;
+
+    @Autowired
+    private RaftPeerSet service;
+
+    @Test
+    public void allPeers() {
+        assertThat(service.allPeers(), empty());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void allServersIncludeMyself() {
+        assertThat(service.allServersIncludeMyself(), empty());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void allSites() {
+        assertThat(service.allSites(), empty());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void contains() {
+        assertThat(service.contains(new RaftPeer()), is(false));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void decideLeader() {
+        assertThat(service.decideLeader(new RaftPeer()), is(nullValue()));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void get() {
+        assertThat(service.get("/some/path.html"), is(nullValue()));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void getLeader() {
+        assertThat(service.getLeader(), is(nullValue()));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void getTerm() {
+        assertThat(service.getTerm(), is(0L));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void isLeader() {
+        assertThat(service.isLeader("female"), is(false));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void isReady() {
+        assertThat(service.isReady(), is(false));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void majorityCount() {
+        assertThat(service.majorityCount(), is(1));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void onChangeHealthyServerList() {
+        service.onChangeHealthyServerList(new ArrayList<Server>());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void onChangeServerList1() {
+        service.onChangeServerList(new ArrayList<Server>());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void onChangeServerList2() {
+
+        // arrange
+        ArrayList<Server> latestMembers = new ArrayList<Server>();
+        latestMembers.add(new Server());
+
+        // act
+        service.onChangeServerList(latestMembers);
+
+        // assert
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void remove1() {
+        service.remove(new ArrayList<String>());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void remove2() {
+
+        // arrange
+        ArrayList<String> servers = new ArrayList<String>();
+        servers.add("foo");
+
+        // act
+        service.remove(servers);
+
+        // assert
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void reset() {
+        service.reset();
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void setApplicationContext() throws org.springframework.beans.BeansException {
+        service.setApplicationContext(SpringContext.getAppContext());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void setTerm() {
+        service.setTerm(1L);
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void size() {
+        assertThat(service.size(), is(0));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void update() {
+        RaftPeer peer = new RaftPeer();
+        assertThat(service.update(peer), sameInstance(peer));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+}
