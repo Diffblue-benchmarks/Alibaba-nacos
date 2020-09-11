@@ -22,17 +22,17 @@ class SystemUtilsTest {
 
     @Test
     void getLoad() {
-        assertEquals(2.46f, SystemUtils.getLoad(), 0);
+        assertEquals(2.13f, SystemUtils.getLoad(), 0);
     }
 
     @Test
     void getCPU() {
-        assertEquals(0.0710837f, SystemUtils.getCPU(), 0);
+        assertEquals(0x1.28e27ap-4f /* 0.0724816 */, SystemUtils.getCPU(), 0);
     }
 
     @Test
     void getMem() {
-        assertEquals(0x1.d97bf4p-5f /* 0.0577984 */, SystemUtils.getMem(), 0);
+        assertEquals(0x1.e49152p-5f /* 0.0591513 */, SystemUtils.getMem(), 0);
     }
 
     @Test

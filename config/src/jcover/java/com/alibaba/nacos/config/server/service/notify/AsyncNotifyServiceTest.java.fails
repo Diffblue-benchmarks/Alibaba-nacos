@@ -62,7 +62,7 @@ class AsyncNotifyServiceTest {
         list.add("foo");
         when(serverListService.getServerList())
             .thenReturn(list);
-        service.onEvent(new ConfigDataChangeEvent("something", "something", -1L));
+        service.onEvent(new ConfigDataChangeEvent("something", "foo", 1L));
     }
 
     @Test

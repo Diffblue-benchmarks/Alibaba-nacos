@@ -30,7 +30,7 @@ class JwtTokenUtilsTest {
         Authentication authentication = mock(Authentication.class);
         when(authentication.getName())
             .thenReturn("foo");
-        assertThat(service.createToken(authentication), is("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJhdXRoIjoiIiwiZXhwIjoxNTk5Nzg0NTMzfQ.Fr8jqZYXFJOR7FfLohKIRdZ4zg6VcqrxVv1GSWOHEg4"));
+        assertThat(service.createToken(authentication), is("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJhdXRoIjoiIiwiZXhwIjoxNTk5Nzg2MjMzfQ.NuhaqCG2kBN1zM6PwlULGKMue0Zp-mCW1hLUcIJf9L0"));
     }
 
     @Test

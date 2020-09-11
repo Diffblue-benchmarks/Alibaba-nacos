@@ -131,11 +131,11 @@ public class DistroConsistencyServiceImplTest {
              mock(AbstractHealthChecker.class);
         x19.setHealthChecker(healthChecker1);
         x19.setName("John Smith");
-        x19.setUseIPPort4Check(false);
+        x19.setUseIPPort4Check(true);
         clusterMap.put("foo", x19);
         listener.setClusterMap(clusterMap);
         listener.setEnabled(false);
-        listener.setIpDeleteTimeout(0L);
+        listener.setIpDeleteTimeout(1L);
         listener.setLastModifiedMillis(1L);
         listener.setNamespaceId("1234");
         ArrayList<String> owners = new ArrayList<String>();
@@ -162,9 +162,7 @@ public class DistroConsistencyServiceImplTest {
         Service listener = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         Cluster x19 = new Cluster();
-        x19.setDefIPPort(1);
-        x19.setServiceName("John Smith");
-        x19.setSitegroup("DE");
+        x19.setDefCkport(1);
         x19.setDefaultCheckPort(1);
         x19.setDefaultPort(1);
         AbstractHealthChecker healthChecker1 =
