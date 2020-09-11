@@ -14,8 +14,7 @@ import com.alibaba.nacos.client.naming.net.NamingProxy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ExecutorService;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,10 +27,10 @@ import org.junit.jupiter.api.Test;
 class FailoverReactorTest {
 
     @Test
-    void addDayNumIsOne() throws java.text.ParseException {
+    void addDayNumIsOne() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException, java.text.ParseException {
         EventDispatcher eventDispatcher1 = new EventDispatcher();
-        ThreadFactory x5 = mock(ThreadFactory.class);
-        eventDispatcher1.setExecutor(Executors.newSingleThreadExecutor(x5));
+        ExecutorService executor1 = mock(ExecutorService.class);
+        eventDispatcher1.setExecutor(executor1);
         NamingProxy serverProxy1 =
              new NamingProxy("1234", "api.github.com", "Smith");
         Properties properties1 = new Properties();

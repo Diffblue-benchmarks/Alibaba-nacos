@@ -99,8 +99,8 @@ public class SwitchManagerTest {
 
     @Test
     public void getSwitchDomain() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getSwitchDomain(), instanceOf(SwitchDomain.1531242515.class));
-        // pojo SwitchDomain.1531242515
+        assertThat(service.getSwitchDomain(), instanceOf(SwitchDomain.23306891.class));
+        // pojo SwitchDomain.23306891
         Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
     }
 

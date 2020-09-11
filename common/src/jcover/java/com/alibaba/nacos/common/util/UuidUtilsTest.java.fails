@@ -15,6 +15,6 @@ class UuidUtilsTest {
 
     @Test
     void generateUuid() {
-        assertThat(UuidUtils.generateUuid(), is("c00db47f-eb50-4f70-aa97-c7ce69810135"));
+        assertThat(UuidUtils.generateUuid(), is("435e52ab-6b06-442f-9cdf-87f14349ce42"));
     }
 }

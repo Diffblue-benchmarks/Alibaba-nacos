@@ -5,8 +5,8 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
 
-import com.alibaba.nacos.naming.boot.SpringContext;
 import com.alibaba.nacos.naming.cluster.ServerListManager;
 import com.alibaba.nacos.naming.cluster.servers.Server;
 import com.alibaba.nacos.naming.cluster.servers.ServerChangeListener;
@@ -19,6 +19,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -39,8 +40,9 @@ public class RaftPeerSetTest {
     private RaftPeerSet service;
 
     @Test
-    public void setApplicationContext() throws org.springframework.beans.BeansException {
-        service.setApplicationContext(SpringContext.getAppContext());
+    public void setApplicationContext() throws IllegalStateException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.beans.BeansException, org.springframework.context.NoSuchMessageException, java.io.IOException {
+        ApplicationContext applicationContext = mock(ApplicationContext.class);
+        service.setApplicationContext(applicationContext);
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
     }
 

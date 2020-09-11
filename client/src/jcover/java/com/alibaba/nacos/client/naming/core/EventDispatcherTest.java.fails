@@ -7,8 +7,7 @@ import static org.mockito.Mockito.mock;
 import com.alibaba.nacos.api.naming.listener.EventListener;
 import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ExecutorService;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,28 +20,28 @@ import org.junit.jupiter.api.Test;
 class EventDispatcherTest {
 
     @Test
-    void addListenerClustersIsDE() {
+    void addListenerClustersIsDE() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
         EventDispatcher eventDispatcher = new EventDispatcher();
-        ThreadFactory x3 = mock(ThreadFactory.class);
-        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
         EventListener listener = mock(EventListener.class);
         eventDispatcher.addListener(new ServiceInfo(), "DE", listener);
     }
 
     @Test
-    void removeListenerClustersIsDEAndServiceNameIsAcme() {
+    void removeListenerClustersIsDEAndServiceNameIsAcme() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
         EventDispatcher eventDispatcher = new EventDispatcher();
-        ThreadFactory x3 = mock(ThreadFactory.class);
-        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
         EventListener listener = mock(EventListener.class);
         eventDispatcher.removeListener("Acme", "DE", listener);
     }
 
     @Test
-    void getSubscribeServicesReturnsEmpty() {
+    void getSubscribeServicesReturnsEmpty() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
         EventDispatcher eventDispatcher = new EventDispatcher();
-        ThreadFactory x3 = mock(ThreadFactory.class);
-        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
         assertThat(eventDispatcher.getSubscribeServices(), empty());
     }
 }

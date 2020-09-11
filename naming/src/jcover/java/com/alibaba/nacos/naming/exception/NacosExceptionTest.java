@@ -16,15 +16,6 @@ public class NacosExceptionTest {
 
     @Test
     public void factory1() {
-        NacosException nacosException = new NacosException();
-        assertThat(nacosException.getErrorCode(), is(0));
-        assertThat(nacosException.getErrorMsg(), is(nullValue()));
-        assertThat(nacosException.getCause(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is(nullValue()));
-    }
-
-    @Test
-    public void factory2() {
         NacosException nacosException = new NacosException(1);
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
@@ -33,7 +24,7 @@ public class NacosExceptionTest {
     }
 
     @Test
-    public void factory3() {
+    public void factory2() {
         NacosException nacosException = new NacosException(1, "foo");
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is("foo"));
@@ -42,9 +33,10 @@ public class NacosExceptionTest {
     }
 
     @Test
-    public void factory4() {
-        NacosException nacosException =
-             new NacosException(1, "foo", new NacosException());
+    public void factory3() {
+        Exception cause = new Exception();
+        cause.setStackTrace(new StackTraceElement[] { });
+        NacosException nacosException = new NacosException(1, "foo", cause);
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
@@ -53,13 +45,14 @@ public class NacosExceptionTest {
     }
 
     @Test
-    public void factory5() {
-        NacosException nacosException =
-             new NacosException(1, new NacosException());
+    public void factory4() {
+        Exception cause = new Exception();
+        cause.setStackTrace(new StackTraceElement[] { });
+        NacosException nacosException = new NacosException(1, cause);
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
         assertThat(nacosException.getCause().getMessage(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("com.alibaba.nacos.naming.exception.NacosException"));
+        assertThat(nacosException.getMessage(), is("java.lang.Exception"));
     }
 }

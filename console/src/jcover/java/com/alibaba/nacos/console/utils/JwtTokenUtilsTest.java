@@ -25,7 +25,7 @@ class JwtTokenUtilsTest {
 
     @Test
     void createToken() {
-        assertThat(service.createToken(new TestingAuthenticationToken("Bearer", "Bearer")), is("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCZWFyZXIiLCJhdXRoIjoiIiwiZXhwIjoxNTk5Nzk2MDMzfQ.Wp1p40Wew5cTW9fkxscPwlxYKSS1nyk7a4KWohjOw6s"));
+        assertThat(service.createToken(new TestingAuthenticationToken("Bearer", "Bearer")), is("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCZWFyZXIiLCJhdXRoIjoiIiwiZXhwIjoxNTk5Nzk3ODc1fQ.kXl2qKUWNWYNeauU5jCe7PkgonYvnrf7GoZuH2u5Ef4"));
     }
 
     @Test

@@ -30,8 +30,8 @@ class LoggingSpringApplicationRunListenerTest {
 
     @Test
     void factory() throws IllegalStateException, IllegalArgumentException, org.springframework.core.env.MissingRequiredPropertiesException {
-        Class<?>[] primarySources = new Class[] { String.class };
-        SpringApplication application = new SpringApplication(primarySources);
+        Class<?>[] primarySources1 = new Class[] { String.class };
+        SpringApplication application = new SpringApplication(primarySources1);
         application.setAddCommandLineProperties(false);
         application.setAddConversionService(false);
         application.setAdditionalProfiles("octet-stream");
@@ -64,8 +64,8 @@ class LoggingSpringApplicationRunListenerTest {
         application.setLogStartupInfo(false);
         application.setMainApplicationClass(String.class);
         application.setRegisterShutdownHook(false);
-        ResourceLoader resourceLoader = mock(ResourceLoader.class);
-        application.setResourceLoader(resourceLoader);
+        ResourceLoader resourceLoader2 = mock(ResourceLoader.class);
+        application.setResourceLoader(resourceLoader2);
         application.setSources(new HashSet<String>());
         application.setWebApplicationType(WebApplicationType.NONE);
         String[] args = new String[] { "foo" };
@@ -74,55 +74,55 @@ class LoggingSpringApplicationRunListenerTest {
 
     @Test
     void starting() {
-        Class<?>[] primarySources = new Class[] { String.class };
+        Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "DE" };
-        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources), args).starting();
+        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).starting();
     }
 
     @Test
     void contextPrepared() throws IllegalStateException, org.springframework.beans.BeansException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.context.NoSuchMessageException, java.io.IOException, Exception {
-        Class<?>[] primarySources = new Class[] { String.class };
+        Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "DE" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
-        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources), args).contextPrepared(context);
+        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).contextPrepared(context);
     }
 
     @Test
     void contextLoaded() throws IllegalStateException, org.springframework.beans.BeansException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.context.NoSuchMessageException, java.io.IOException, Exception {
-        Class<?>[] primarySources = new Class[] { String.class };
+        Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "DE" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
-        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources), args).contextLoaded(context);
+        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).contextLoaded(context);
     }
 
     @Test
     void started() throws IllegalStateException, org.springframework.beans.BeansException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.context.NoSuchMessageException, java.io.IOException, Exception {
-        Class<?>[] primarySources = new Class[] { String.class };
+        Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "DE" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
-        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources), args).started(context);
+        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).started(context);
     }
 
     @Test
     void running() throws IllegalStateException, org.springframework.beans.BeansException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.context.NoSuchMessageException, java.io.IOException, Exception {
-        Class<?>[] primarySources = new Class[] { String.class };
+        Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "DE" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
-        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources), args).running(context);
+        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).running(context);
     }
 
     @Test
     void failed() throws IllegalStateException, org.springframework.beans.BeansException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.context.NoSuchMessageException, java.io.IOException, Exception {
-        Class<?>[] primarySources = new Class[] { String.class };
+        Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "DE" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
         Exception exception = new Exception();
         exception.setStackTrace(new StackTraceElement[] { });
-        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources), args).failed(context, exception);
+        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).failed(context, exception);
     }
 }

@@ -17,13 +17,13 @@ class RandomUtilsTest {
 
     @Test
     void nextInt() {
-        assertThat(RandomUtils.nextInt(), is(416_588_963));
+        assertThat(RandomUtils.nextInt(), is(595_903_845));
         assertThat(RandomUtils.nextInt(1), is(0));
     }
 
     @Test
     void nextLong() {
-        assertThat(RandomUtils.nextLong(), is(2_658_535_094_207_234_619L));
+        assertThat(RandomUtils.nextLong(), is(7_640_128_514_537_963_526L));
     }
 
     @Test
@@ -33,11 +33,11 @@ class RandomUtilsTest {
 
     @Test
     void nextFloat() {
-        assertEquals(0x1.1349a8p-3f /* 0.134418 */, RandomUtils.nextFloat(), 0);
+        assertEquals(0.177284f, RandomUtils.nextFloat(), 0);
     }
 
     @Test
     void nextDouble() {
-        assertThat(RandomUtils.nextDouble(), closeTo(0x1.a3b8b1c2ade4ap-2 /* 0.409884 */, 0.0));
+        assertThat(RandomUtils.nextDouble(), closeTo(0x1.1b7df4d00c4c9p-1 /* 0.553695 */, 0.0));
     }
 }

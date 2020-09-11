@@ -133,8 +133,8 @@ public class RaftCoreTest {
 
     @Test
     public void getPeerSet() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
-        assertThat(service.getPeerSet(), instanceOf(RaftPeerSet.1426419927.class));
-        // pojo RaftPeerSet.1426419927
+        assertThat(service.getPeerSet(), instanceOf(RaftPeerSet.1908865578.class));
+        // pojo RaftPeerSet.1908865578
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
     }
 

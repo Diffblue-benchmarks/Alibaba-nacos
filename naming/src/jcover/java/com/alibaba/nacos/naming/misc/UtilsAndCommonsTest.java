@@ -3,8 +3,6 @@ package com.alibaba.nacos.naming.misc;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.alibaba.nacos.naming.exception.NacosException;
-
 import org.junit.Test;
 
 /**
@@ -17,9 +15,14 @@ public class UtilsAndCommonsTest {
 
     @Test
     public void getAllExceptionMsg() {
-        assertThat(UtilsAndCommons.getAllExceptionMsg(new NacosException(1, "an error has happened")), is("caused: an error has happened;"));
-        assertThat(UtilsAndCommons.getAllExceptionMsg(new NacosException(1, new NacosException())), is("caused: com.alibaba.nacos.naming.exception.NacosException;"));
-        assertThat(UtilsAndCommons.getAllExceptionMsg(new NacosException()), is(""));
+        Exception e = new Exception();
+        e.setStackTrace(new StackTraceElement[] { });
+        assertThat(UtilsAndCommons.getAllExceptionMsg(e), is(""));
+    }
+
+    @Test
+    public void getAllExceptionMsgEIsNull() {
+        assertThat(UtilsAndCommons.getAllExceptionMsg(null), is(""));
     }
 
     @Test
@@ -28,7 +31,7 @@ public class UtilsAndCommonsTest {
     }
 
     @Test
-    public void parseMetadata() throws NacosException {
+    public void parseMetadata() throws com.alibaba.nacos.naming.exception.NacosException {
         assertThat(UtilsAndCommons.parseMetadata(",").isEmpty(), is(true));
         assertThat(UtilsAndCommons.parseMetadata("").isEmpty(), is(true));
     }

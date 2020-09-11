@@ -75,18 +75,18 @@ public class PushServiceTest {
     }
 
     @Test
-    public void serviceChanged() throws CloneNotSupportedException {
-        service.serviceChanged("1234", "N ackEntry is nullx");
-    }
-
-    @Test
-    public void serviceChangedServiceNameIsAcme() throws CloneNotSupportedException {
+    public void serviceChanged1() throws CloneNotSupportedException {
         service.serviceChanged("1234", "Acme");
     }
 
     @Test
-    public void serviceChangedServiceNameIsEmpty() throws CloneNotSupportedException {
-        service.serviceChanged("1234", "");
+    public void serviceChanged2() throws CloneNotSupportedException {
+        service.serviceChanged("N pushing empty data for client is not allowed:", "Acme");
+    }
+
+    @Test
+    public void serviceChangedNamespaceIdIsBar() throws CloneNotSupportedException {
+        service.serviceChanged("bar", "Acme");
     }
 
     @Test
