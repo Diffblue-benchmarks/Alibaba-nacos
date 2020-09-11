@@ -65,14 +65,14 @@ class ConfigInfoBaseTest {
 
     @Test
     void dump() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setContent("hello");
         configInfoBase.dump(new PrintWriter(new ByteArrayOutputStream()));
     }
 
     @Test
     void compareTo1() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setDataId("bar");
         ConfigInfo o = new ConfigAllInfo();
         o.setDataId("1234");
@@ -81,7 +81,7 @@ class ConfigInfoBaseTest {
 
     @Test
     void compareTo2() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("bar");
         ConfigInfo o = new ConfigAllInfo();
@@ -92,12 +92,12 @@ class ConfigInfoBaseTest {
 
     @Test
     void compareToOIsNullReturnsOne() {
-        assertThat(new ConfigAllInfo().compareTo((ConfigInfo) null), is(1));
+        assertThat(new ConfigInfoBase().compareTo((ConfigInfo) null), is(1));
     }
 
     @Test
     void compareToReturnsMinusOne1() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("/some/path.html");
         ConfigInfo o = new ConfigAllInfo();
@@ -111,12 +111,12 @@ class ConfigInfoBaseTest {
     void compareToReturnsMinusOne2() {
         ConfigInfo o = new ConfigAllInfo();
         o.setDataId("1234");
-        assertThat(new ConfigAllInfo().compareTo(o), is(-1));
+        assertThat(new ConfigInfoBase().compareTo(o), is(-1));
     }
 
     @Test
     void compareToReturnsMinusOne3() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setDataId("1234");
         ConfigInfo o = new ConfigAllInfo();
         o.setDataId("1234");
@@ -126,7 +126,7 @@ class ConfigInfoBaseTest {
 
     @Test
     void compareToReturnsMinusSix() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setContent("bar");
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("/some/path.html");
@@ -139,7 +139,7 @@ class ConfigInfoBaseTest {
 
     @Test
     void compareToReturnsOne1() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setContent("hello");
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("/some/path.html");
@@ -151,14 +151,14 @@ class ConfigInfoBaseTest {
 
     @Test
     void compareToReturnsOne2() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setDataId("1234");
         assertThat(configInfoBase.compareTo(new ConfigAllInfo()), is(1));
     }
 
     @Test
     void compareToReturnsOne3() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("/some/path.html");
         ConfigInfo o = new ConfigAllInfo();
@@ -168,7 +168,7 @@ class ConfigInfoBaseTest {
 
     @Test
     void compareToReturnsZero() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setContent("hello");
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("/some/path.html");
@@ -181,7 +181,7 @@ class ConfigInfoBaseTest {
 
     @Test
     void testEquals() {
-        assertThat(new ConfigAllInfo().equals(new Object()), is(false));
-        assertThat(new ConfigAllInfo().equals(null), is(false));
+        assertThat(new ConfigInfoBase().equals(new Object()), is(false));
+        assertThat(new ConfigInfoBase().equals(null), is(false));
     }
 }

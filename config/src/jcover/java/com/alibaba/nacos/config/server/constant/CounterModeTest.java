@@ -19,10 +19,4 @@ class CounterModeTest {
         assertThat(result[0], is(CounterMode.INCREMENT));
         assertThat(result[1], is(CounterMode.DECREMENT));
     }
-
-    @Test
-    void reverse() {
-        assertThat(CounterMode.INCREMENT.reverse(), is(CounterMode.DECREMENT));
-        assertThat(CounterMode.DECREMENT.reverse(), is(CounterMode.INCREMENT));
-    }
 }

@@ -135,7 +135,7 @@ public class DistroConsistencyServiceImplTest {
         clusterMap.put("foo", x19);
         listener.setClusterMap(clusterMap);
         listener.setEnabled(false);
-        listener.setIpDeleteTimeout(2L);
+        listener.setIpDeleteTimeout(0L);
         listener.setLastModifiedMillis(1L);
         listener.setNamespaceId("1234");
         ArrayList<String> owners = new ArrayList<String>();
@@ -163,6 +163,7 @@ public class DistroConsistencyServiceImplTest {
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         Cluster x19 = new Cluster();
         x19.setDefCkport(1);
+        x19.setDefIPPort(1);
         x19.setSitegroup("DE");
         x19.setDefaultCheckPort(1);
         x19.setDefaultPort(1);

@@ -76,25 +76,25 @@ class CapacityTest {
 
     @Test
     void getGmtCreate() {
-        Capacity capacity = new GroupCapacity();
+        Capacity capacity = new Capacity();
         capacity.setGmtCreate(Timestamp.valueOf("2019-12-31 23:10:59"));
         assertThat(capacity.getGmtCreate(), equalTo(Timestamp.valueOf("2019-12-31 23:10:59.0")));
     }
 
     @Test
     void getGmtCreateReturnsNull() {
-        assertThat(new GroupCapacity().getGmtCreate(), is(nullValue()));
+        assertThat(new Capacity().getGmtCreate(), is(nullValue()));
     }
 
     @Test
     void getGmtModified() {
-        Capacity capacity = new GroupCapacity();
+        Capacity capacity = new Capacity();
         capacity.setGmtModified(Timestamp.valueOf("2019-12-31 23:10:59"));
         assertThat(capacity.getGmtModified(), equalTo(Timestamp.valueOf("2019-12-31 23:10:59.0")));
     }
 
     @Test
     void getGmtModifiedReturnsNull() {
-        assertThat(new GroupCapacity().getGmtModified(), is(nullValue()));
+        assertThat(new Capacity().getGmtModified(), is(nullValue()));
     }
 }

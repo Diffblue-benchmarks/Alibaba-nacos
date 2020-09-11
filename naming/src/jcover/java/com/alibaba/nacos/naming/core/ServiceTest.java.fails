@@ -30,9 +30,9 @@ public class ServiceTest {
     public void factory1() throws CloneNotSupportedException {
         Service service1 = new Service("Acme");
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x409 = new Cluster();
-        x409.setDefCkport(1);
-        x409.setDefIPPort(1);
+        Cluster x473 = new Cluster();
+        x473.setDefCkport(1);
+        x473.setDefIPPort(1);
         Service service3 = new Service();
         service3.setEnabled(false);
         service3.setIpDeleteTimeout(1L);
@@ -48,17 +48,17 @@ public class ServiceTest {
         service3.setGroupName("Acme");
         service3.setName("Acme");
         service3.setProtectThreshold(1.0f);
-        x409.setService(service3);
-        x409.setServiceName("John Smith");
-        x409.setSitegroup("DE");
-        x409.setDefaultCheckPort(1);
-        x409.setDefaultPort(1);
+        x473.setService(service3);
+        x473.setServiceName("John Smith");
+        x473.setSitegroup("DE");
+        x473.setDefaultCheckPort(1);
+        x473.setDefaultPort(1);
         AbstractHealthChecker healthChecker1 =
              mock(AbstractHealthChecker.class);
-        x409.setHealthChecker(healthChecker1);
-        x409.setName("John Smith");
-        x409.setUseIPPort4Check(false);
-        clusterMap.put("foo", x409);
+        x473.setHealthChecker(healthChecker1);
+        x473.setName("John Smith");
+        x473.setUseIPPort4Check(false);
+        clusterMap.put("foo", x473);
         service1.setClusterMap(clusterMap);
         service1.setEnabled(false);
         service1.setIpDeleteTimeout(1L);
@@ -80,7 +80,7 @@ public class ServiceTest {
         service1.setMetadata(metadata);
         service1.setName("Acme");
         service1.setProtectThreshold(1.0f);
-        assertThat(service1.getClusterMap().get("foo"), sameInstance(x409));
+        assertThat(service1.getClusterMap().get("foo"), sameInstance(x473));
         assertThat(service1.getEnabled(), is(false));
         assertThat(service1.getIpDeleteTimeout(), is(1L));
         assertThat(service1.getLastModifiedMillis(), is(1L));
@@ -101,9 +101,9 @@ public class ServiceTest {
     public void factory2() throws CloneNotSupportedException {
         Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x293 = new Cluster();
-        x293.setDefCkport(1);
-        x293.setDefIPPort(1);
+        Cluster x357 = new Cluster();
+        x357.setDefCkport(1);
+        x357.setDefIPPort(1);
         Service service3 = new Service();
         service3.setEnabled(false);
         service3.setIpDeleteTimeout(1L);
@@ -117,17 +117,17 @@ public class ServiceTest {
         service3.setGroupName("Acme");
         service3.setName("Acme");
         service3.setProtectThreshold(1.0f);
-        x293.setService(service3);
-        x293.setServiceName("John Smith");
-        x293.setSitegroup("DE");
-        x293.setDefaultCheckPort(1);
-        x293.setDefaultPort(1);
+        x357.setService(service3);
+        x357.setServiceName("John Smith");
+        x357.setSitegroup("DE");
+        x357.setDefaultCheckPort(1);
+        x357.setDefaultPort(1);
         AbstractHealthChecker healthChecker1 =
              mock(AbstractHealthChecker.class);
-        x293.setHealthChecker(healthChecker1);
-        x293.setName("John Smith");
-        x293.setUseIPPort4Check(false);
-        clusterMap.put("foo", x293);
+        x357.setHealthChecker(healthChecker1);
+        x357.setName("John Smith");
+        x357.setUseIPPort4Check(false);
+        clusterMap.put("foo", x357);
         service1.setClusterMap(clusterMap);
         service1.setEnabled(false);
         service1.setIpDeleteTimeout(1L);
@@ -149,7 +149,7 @@ public class ServiceTest {
         service1.setMetadata(metadata);
         service1.setName("Acme");
         service1.setProtectThreshold(1.0f);
-        assertThat(service1.getClusterMap().get("foo"), sameInstance(x293));
+        assertThat(service1.getClusterMap().get("foo"), sameInstance(x357));
         assertThat(service1.getEnabled(), is(false));
         assertThat(service1.getIpDeleteTimeout(), is(1L));
         assertThat(service1.getLastModifiedMillis(), is(1L));
@@ -188,59 +188,59 @@ public class ServiceTest {
 
     @Test
     public void healthyInstanceCountReturnsZero() {
-        Service service = new Service();
+        Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         clusterMap.put("foo", new Cluster());
-        service.setClusterMap(clusterMap);
-        assertThat(service.healthyInstanceCount(), is(0));
+        service1.setClusterMap(clusterMap);
+        assertThat(service1.healthyInstanceCount(), is(0));
     }
 
     @Test
     public void meetProtectThresholdReturnsFalse() {
-        Service service = new Service();
+        Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         clusterMap.put("foo", new Cluster());
-        service.setClusterMap(clusterMap);
-        assertThat(service.meetProtectThreshold(), is(false));
+        service1.setClusterMap(clusterMap);
+        assertThat(service1.meetProtectThreshold(), is(false));
     }
 
     @Test
     public void destroy() throws Exception {
-        Service service = new Service();
+        Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         clusterMap.put("foo", new Cluster());
-        service.setClusterMap(clusterMap);
-        service.setName("Acme");
-        service.destroy();
+        service1.setClusterMap(clusterMap);
+        service1.setName("Acme");
+        service1.destroy();
     }
 
     @Test
     public void allIPsEphemeralIsFalse() {
-        Service service = new Service();
+        Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         clusterMap.put("foo", new Cluster());
-        service.setClusterMap(clusterMap);
-        assertThat(service.allIPs(false), empty());
+        service1.setClusterMap(clusterMap);
+        assertThat(service1.allIPs(false), empty());
     }
 
     @Test
     public void allIPsClustersIsFoo() {
-        Service service = new Service();
+        Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         clusterMap.put("foo", new Cluster());
-        service.setClusterMap(clusterMap);
+        service1.setClusterMap(clusterMap);
         ArrayList<String> clusters = new ArrayList<String>();
         clusters.add("foo");
-        assertThat(service.allIPs(clusters), empty());
+        assertThat(service1.allIPs(clusters), empty());
     }
 
     @Test
     public void srvIPsClustersIsEmptyReturnsEmpty() {
-        Service service = new Service();
+        Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
         clusterMap.put("foo", new Cluster());
-        service.setClusterMap(clusterMap);
-        assertThat(service.srvIPs(new ArrayList<String>()), empty());
+        service1.setClusterMap(clusterMap);
+        assertThat(service1.srvIPs(new ArrayList<String>()), empty());
     }
 
     @Test

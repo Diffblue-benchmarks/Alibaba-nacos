@@ -32,19 +32,19 @@ public class ClusterTest {
         cluster.setDefIPPort(-1);
         Service service = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x368 = new Cluster();
-        x368.setDefCkport(1);
-        x368.setDefIPPort(1);
-        x368.setServiceName("John Smith");
-        x368.setSitegroup("DE");
-        x368.setDefaultCheckPort(1);
-        x368.setDefaultPort(1);
+        Cluster x394 = new Cluster();
+        x394.setDefCkport(1);
+        x394.setDefIPPort(1);
+        x394.setServiceName("John Smith");
+        x394.setSitegroup("DE");
+        x394.setDefaultCheckPort(1);
+        x394.setDefaultPort(1);
         AbstractHealthChecker healthChecker1 =
              mock(AbstractHealthChecker.class);
-        x368.setHealthChecker(healthChecker1);
-        x368.setName("John Smith");
-        x368.setUseIPPort4Check(false);
-        clusterMap.put("foo", x368);
+        x394.setHealthChecker(healthChecker1);
+        x394.setName("John Smith");
+        x394.setUseIPPort4Check(false);
+        clusterMap.put("foo", x394);
         service.setClusterMap(clusterMap);
         service.setEnabled(false);
         service.setIpDeleteTimeout(1L);
@@ -132,19 +132,19 @@ public class ClusterTest {
         cluster.setDefIPPort(1);
         Service service = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x368 = new Cluster();
-        x368.setDefCkport(1);
-        x368.setDefIPPort(1);
-        x368.setServiceName("John Smith");
-        x368.setSitegroup("DE");
-        x368.setDefaultCheckPort(1);
-        x368.setDefaultPort(1);
+        Cluster x394 = new Cluster();
+        x394.setDefCkport(1);
+        x394.setDefIPPort(1);
+        x394.setServiceName("John Smith");
+        x394.setSitegroup("DE");
+        x394.setDefaultCheckPort(1);
+        x394.setDefaultPort(1);
         AbstractHealthChecker healthChecker1 =
              mock(AbstractHealthChecker.class);
-        x368.setHealthChecker(healthChecker1);
-        x368.setName("John Smith");
-        x368.setUseIPPort4Check(false);
-        clusterMap.put("foo", x368);
+        x394.setHealthChecker(healthChecker1);
+        x394.setName("John Smith");
+        x394.setUseIPPort4Check(false);
+        clusterMap.put("foo", x394);
         service.setClusterMap(clusterMap);
         service.setEnabled(false);
         service.setIpDeleteTimeout(1L);
@@ -200,15 +200,6 @@ public class ClusterTest {
     @Test
     public void destroy() {
         new Cluster().destroy();
-    }
-
-    @Test
-    public void getServiceNameReturnsAcme() {
-        Cluster cluster = new Cluster();
-        Service service2 = new Service();
-        service2.setName("Acme");
-        cluster.setService(service2);
-        assertThat(cluster.getServiceName(), is("Acme"));
     }
 
     @Test
