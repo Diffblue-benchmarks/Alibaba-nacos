@@ -32,7 +32,7 @@ class LoggingSpringApplicationRunListenerTest {
     void factory() throws IllegalStateException, IllegalArgumentException, org.springframework.core.env.MissingRequiredPropertiesException {
         Class<?>[] primarySources = new Class[] { String.class };
         SpringApplication application = new SpringApplication(primarySources);
-        application.setAddCommandLineProperties(true);
+        application.setAddCommandLineProperties(false);
         application.setAddConversionService(false);
         application.setAdditionalProfiles("octet-stream");
         application.setAllowBeanDefinitionOverriding(false);
@@ -54,7 +54,13 @@ class LoggingSpringApplicationRunListenerTest {
         application.setEnvironment(environment);
         application.setHeadless(false);
         application.setInitializers(new LinkedList<ApplicationContextInitializer<Object>>());
-        application.setListeners(new LinkedList<ApplicationListener<Object>>());
+        LinkedList<ApplicationListener<Object>> listeners =
+             new LinkedList<ApplicationListener<Object>>();
+        @SuppressWarnings("unchecked")
+        ApplicationListener<Object> applicationListener =
+             mock(ApplicationListener.class);
+        listeners.add(applicationListener);
+        application.setListeners(listeners);
         application.setLogStartupInfo(false);
         application.setMainApplicationClass(String.class);
         application.setRegisterShutdownHook(false);

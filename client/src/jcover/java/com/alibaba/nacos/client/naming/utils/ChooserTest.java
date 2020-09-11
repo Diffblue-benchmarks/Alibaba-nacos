@@ -18,7 +18,9 @@ class ChooserTest {
 
     @Test
     void factory() {
-        assertThat(new Chooser<String, String>("key").getUniqueKey(), is("key"));
+        ArrayList<Pair<String>> pairs = new ArrayList<Pair<String>>();
+        pairs.add(new Pair<String>("foo", 1.0));
+        assertThat(new Chooser<String, String>("key", pairs).getUniqueKey(), is("key"));
     }
 
     @Test

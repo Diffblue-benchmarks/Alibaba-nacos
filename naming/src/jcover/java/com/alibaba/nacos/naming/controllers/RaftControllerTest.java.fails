@@ -8,6 +8,7 @@ import com.alibaba.nacos.naming.consistency.RecordListener;
 import com.alibaba.nacos.naming.consistency.persistent.raft.RaftConsistencyServiceImpl;
 import com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore;
 import com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeer;
+import com.alibaba.nacos.naming.core.Service;
 import com.alibaba.nacos.naming.core.ServiceManager;
 
 import java.util.ArrayList;
@@ -48,18 +49,6 @@ public class RaftControllerTest {
 
     @Test
     public void getPeer1() throws com.alibaba.nacos.api.exception.NacosException, Exception {
-        when(raftCore.getPeers())
-            .thenReturn(new ArrayList<RaftPeer>());
-        MockMvcBuilders.standaloneSetup(controller)
-            .build().perform(
-            MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":2748,\"leaderDueMs\":3169,\"term\":0,\"state\":\"FOLLOWER\"}"));
-    }
-
-    @Test
-    public void getPeer2() throws com.alibaba.nacos.api.exception.NacosException, Exception {
         List<RaftPeer> list = new ArrayList<RaftPeer>();
         list.add(new RaftPeer());
         when(raftCore.getPeers())
@@ -69,7 +58,19 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":4611,\"leaderDueMs\":1745,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":4549,\"leaderDueMs\":14026,\"term\":0,\"state\":\"FOLLOWER\"}"));
+    }
+
+    @Test
+    public void getPeer2() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(raftCore.getPeers())
+            .thenReturn(new ArrayList<RaftPeer>());
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":4295,\"leaderDueMs\":10621,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
@@ -95,14 +96,16 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/leader"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":1570,\\\"leaderDueMs\\\":13073,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
+            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":463,\\\"leaderDueMs\\\":4566,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
     }
 
     @Test
     public void getAllListeners() throws com.alibaba.nacos.api.exception.NacosException, Exception {
         Map<String, List<RecordListener>> map =
              new HashMap<String, List<RecordListener>>();
-        map.put("foo", new ArrayList<RecordListener>());
+        ArrayList<RecordListener> x502 = new ArrayList<RecordListener>();
+        x502.add(new Service());
+        map.put("foo", x502);
         when(raftCore.getListeners())
             .thenReturn(map);
         MockMvcBuilders.standaloneSetup(controller)

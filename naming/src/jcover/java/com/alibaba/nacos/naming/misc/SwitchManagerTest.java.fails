@@ -55,59 +55,69 @@ public class SwitchManagerTest {
         Map<String, Integer> map3 = new HashMap<String, Integer>();
         map3.put("foo", 1);
         Set<String> set3 = new HashSet<String>();
-        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams1 =
+        SwitchDomain.HttpHealthParams httpHealthParams1 =
              new SwitchDomain.HttpHealthParams();
-        switchDomain$HttpHealthParams1.setFactor(1.0f);
-        switchDomain$HttpHealthParams1.setMax(1);
-        switchDomain$HttpHealthParams1.setMin(1);
-        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams2 =
+        httpHealthParams1.setFactor(1.0f);
+        httpHealthParams1.setMax(1);
+        httpHealthParams1.setMin(1);
+        SwitchDomain.HttpHealthParams httpHealthParams2 =
              new SwitchDomain.HttpHealthParams();
-        switchDomain$HttpHealthParams2.setFactor(1.0f);
-        switchDomain$HttpHealthParams2.setMax(1);
-        switchDomain$HttpHealthParams2.setMin(1);
-        SwitchDomain.HttpHealthParams switchDomain$HttpHealthParams3 =
+        httpHealthParams2.setFactor(1.0f);
+        httpHealthParams2.setMax(1);
+        httpHealthParams2.setMin(1);
+        SwitchDomain.HttpHealthParams httpHealthParams3 =
              new SwitchDomain.HttpHealthParams();
-        switchDomain$HttpHealthParams3.setFactor(1.0f);
-        switchDomain$HttpHealthParams3.setMax(1);
-        switchDomain$HttpHealthParams3.setMin(1);
+        httpHealthParams3.setFactor(1.0f);
+        httpHealthParams3.setMax(1);
+        httpHealthParams3.setMin(1);
+        List<String> list1 = new ArrayList<String>();
+        list1.add("foo");
+        List<String> list2 = new ArrayList<String>();
+        list2.add("foo");
         List<String> list3 = new ArrayList<String>();
+        list3.add("foo");
         Map<String, Integer> map4 = new HashMap<String, Integer>();
         map4.put("foo", 1);
         Map<String, Integer> map5 = new HashMap<String, Integer>();
         map5.put("foo", 1);
         Map<String, Integer> map6 = new HashMap<String, Integer>();
         map6.put("foo", 1);
+        List<String> list4 = new ArrayList<String>();
+        list4.add("foo");
+        List<String> list5 = new ArrayList<String>();
+        list5.add("foo");
         List<String> list6 = new ArrayList<String>();
-        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams1 =
+        list6.add("foo");
+        SwitchDomain.MysqlHealthParams mysqlHealthParams1 =
              new SwitchDomain.MysqlHealthParams();
-        switchDomain$MysqlHealthParams1.setFactor(1.0f);
-        switchDomain$MysqlHealthParams1.setMax(1);
-        switchDomain$MysqlHealthParams1.setMin(1);
-        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams2 =
+        mysqlHealthParams1.setFactor(1.0f);
+        mysqlHealthParams1.setMax(1);
+        mysqlHealthParams1.setMin(1);
+        SwitchDomain.MysqlHealthParams mysqlHealthParams2 =
              new SwitchDomain.MysqlHealthParams();
-        switchDomain$MysqlHealthParams2.setFactor(1.0f);
-        switchDomain$MysqlHealthParams2.setMax(1);
-        switchDomain$MysqlHealthParams2.setMin(1);
-        SwitchDomain.MysqlHealthParams switchDomain$MysqlHealthParams3 =
+        mysqlHealthParams2.setFactor(1.0f);
+        mysqlHealthParams2.setMax(1);
+        mysqlHealthParams2.setMin(1);
+        SwitchDomain.MysqlHealthParams mysqlHealthParams3 =
              new SwitchDomain.MysqlHealthParams();
-        switchDomain$MysqlHealthParams3.setFactor(1.0f);
-        switchDomain$MysqlHealthParams3.setMax(1);
-        switchDomain$MysqlHealthParams3.setMin(1);
-        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams1 =
+        mysqlHealthParams3.setFactor(1.0f);
+        mysqlHealthParams3.setMax(1);
+        mysqlHealthParams3.setMin(1);
+        SwitchDomain.TcpHealthParams tcpHealthParams1 =
              new SwitchDomain.TcpHealthParams();
-        switchDomain$TcpHealthParams1.setFactor(1.0f);
-        switchDomain$TcpHealthParams1.setMax(1);
-        switchDomain$TcpHealthParams1.setMin(1);
-        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams2 =
+        tcpHealthParams1.setFactor(1.0f);
+        tcpHealthParams1.setMax(1);
+        tcpHealthParams1.setMin(1);
+        SwitchDomain.TcpHealthParams tcpHealthParams2 =
              new SwitchDomain.TcpHealthParams();
-        switchDomain$TcpHealthParams2.setFactor(1.0f);
-        switchDomain$TcpHealthParams2.setMax(1);
-        switchDomain$TcpHealthParams2.setMin(1);
-        SwitchDomain.TcpHealthParams switchDomain$TcpHealthParams3 =
+        tcpHealthParams2.setFactor(1.0f);
+        tcpHealthParams2.setMax(1);
+        tcpHealthParams2.setMin(1);
+        SwitchDomain.TcpHealthParams tcpHealthParams3 =
              new SwitchDomain.TcpHealthParams();
-        switchDomain$TcpHealthParams3.setFactor(1.0f);
-        switchDomain$TcpHealthParams3.setMax(1);
-        switchDomain$TcpHealthParams3.setMin(1);
+        tcpHealthParams3.setFactor(1.0f);
+        tcpHealthParams3.setMax(1);
+        tcpHealthParams3.setMin(1);
         when(switchDomain.getAdWeightMap())
             .thenReturn(map1)
             .thenReturn(map2)
@@ -145,25 +155,25 @@ public class SwitchManagerTest {
             .thenReturn(new HashSet<String>())
             .thenReturn(set3);
         when(switchDomain.getHttpHealthParams())
-            .thenReturn(switchDomain$HttpHealthParams1)
-            .thenReturn(switchDomain$HttpHealthParams2)
-            .thenReturn(switchDomain$HttpHealthParams3);
+            .thenReturn(httpHealthParams1)
+            .thenReturn(httpHealthParams2)
+            .thenReturn(httpHealthParams3);
         when(switchDomain.getIncrementalList())
-            .thenReturn(new ArrayList<String>())
-            .thenReturn(new ArrayList<String>())
+            .thenReturn(list1)
+            .thenReturn(list2)
             .thenReturn(list3);
         when(switchDomain.getLimitedUrlMap())
             .thenReturn(map4)
             .thenReturn(map5)
             .thenReturn(map6);
         when(switchDomain.getMasters())
-            .thenReturn(new ArrayList<String>())
-            .thenReturn(new ArrayList<String>())
+            .thenReturn(list4)
+            .thenReturn(list5)
             .thenReturn(list6);
         when(switchDomain.getMysqlHealthParams())
-            .thenReturn(switchDomain$MysqlHealthParams1)
-            .thenReturn(switchDomain$MysqlHealthParams2)
-            .thenReturn(switchDomain$MysqlHealthParams3);
+            .thenReturn(mysqlHealthParams1)
+            .thenReturn(mysqlHealthParams2)
+            .thenReturn(mysqlHealthParams3);
         when(switchDomain.getName())
             .thenReturn("foo")
             .thenReturn("foo")
@@ -197,9 +207,9 @@ public class SwitchManagerTest {
             .thenReturn(1L)
             .thenReturn(1L);
         when(switchDomain.getTcpHealthParams())
-            .thenReturn(switchDomain$TcpHealthParams1)
-            .thenReturn(switchDomain$TcpHealthParams2)
-            .thenReturn(switchDomain$TcpHealthParams3);
+            .thenReturn(tcpHealthParams1)
+            .thenReturn(tcpHealthParams2)
+            .thenReturn(tcpHealthParams3);
         when(switchDomain.isDefaultInstanceEphemeral())
             .thenReturn(false)
             .thenReturn(false)
@@ -246,11 +256,11 @@ public class SwitchManagerTest {
         assertThat(result.getDistroServerExpiredMillis(), is(1L));
         assertEquals(1.0f, result.getDistroThreshold(), 0);
         assertThat(result.getHealthCheckWhiteList(), sameInstance(set3));
-        assertThat(result.getHttpHealthParams(), sameInstance(switchDomain$HttpHealthParams3));
+        assertThat(result.getHttpHealthParams(), sameInstance(httpHealthParams3));
         assertThat(result.getIncrementalList(), sameInstance(list3));
         assertThat(result.getLimitedUrlMap(), sameInstance(map6));
         assertThat(result.getMasters(), sameInstance(list6));
-        assertThat(result.getMysqlHealthParams(), sameInstance(switchDomain$MysqlHealthParams3));
+        assertThat(result.getMysqlHealthParams(), sameInstance(mysqlHealthParams3));
         assertThat(result.getName(), is("foo"));
         assertThat(result.getOverriddenServerStatus(), is("foo"));
         assertThat(result.getPushCVersion(), is("foo"));
@@ -259,7 +269,7 @@ public class SwitchManagerTest {
         assertThat(result.getPushPythonVersion(), is("foo"));
         assertThat(result.getServerStatusSynchronizationPeriodMillis(), is(1L));
         assertThat(result.getServiceStatusSynchronizationPeriodMillis(), is(1L));
-        assertThat(result.getTcpHealthParams(), sameInstance(switchDomain$TcpHealthParams3));
+        assertThat(result.getTcpHealthParams(), sameInstance(tcpHealthParams3));
         assertThat(result.isDefaultInstanceEphemeral(), is(false));
         assertThat(result.isDisableAddIP(), is(false));
         assertThat(result.isDistroEnabled(), is(false));
@@ -291,6 +301,7 @@ public class SwitchManagerTest {
         domain.setCheckTimes(1);
         domain.setClientBeatInterval(1L);
         domain.setDefaultCacheMillis(1L);
+        domain.setDefaultInstanceEphemeral(false);
         domain.setDefaultPushCacheMillis(1L);
         domain.setDistroEnabled(false);
         domain.setDistroServerExpiredMillis(1L);
@@ -314,7 +325,7 @@ public class SwitchManagerTest {
         Mockito.verify(switchDomain).setCheckTimes(ArgumentMatchers.eq((Integer) 1));
         Mockito.verify(switchDomain).setClientBeatInterval(ArgumentMatchers.eq((Long) 1L));
         Mockito.verify(switchDomain).setDefaultCacheMillis(ArgumentMatchers.eq((Long) 1L));
-        Mockito.verify(switchDomain).setDefaultInstanceEphemeral(ArgumentMatchers.eq((Boolean) true));
+        Mockito.verify(switchDomain).setDefaultInstanceEphemeral(ArgumentMatchers.eq((Boolean) false));
         Mockito.verify(switchDomain).setDefaultPushCacheMillis(ArgumentMatchers.eq((Long) 1L));
         Mockito.verify(switchDomain).setDisableAddIP(ArgumentMatchers.eq((Boolean) false));
         Mockito.verify(switchDomain).setDistroEnabled(ArgumentMatchers.eq((Boolean) false));

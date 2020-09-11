@@ -1,9 +1,9 @@
 package com.alibaba.nacos.naming.consistency.persistent.raft;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.consistency.Datum;
@@ -11,7 +11,9 @@ import com.alibaba.nacos.naming.core.Service;
 import com.alibaba.nacos.naming.misc.GlobalConfig;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentMap;
 
@@ -105,11 +107,22 @@ public class RaftCoreTest {
 
     @Test
     public void getPeers() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+
+        // arrange
+        Collection<RaftPeer> collection = new LinkedList<RaftPeer>();
+        RaftPeer raftPeer = new RaftPeer();
+        collection.add(raftPeer);
         when(peers.allPeers())
-            .thenReturn(new LinkedList<RaftPeer>());
+            .thenReturn(collection);
         when(peers.isReady())
             .thenReturn(false);
-        assertThat(service.getPeers(), empty());
+
+        // act
+        List<RaftPeer> result = service.getPeers();
+
+        // assert
+        assertThat(result.size(), is(1));
+        assertThat(result.get(0), sameInstance(raftPeer));
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
     }
 

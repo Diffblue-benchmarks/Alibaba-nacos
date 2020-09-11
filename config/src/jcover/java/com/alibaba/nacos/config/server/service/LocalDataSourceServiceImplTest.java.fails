@@ -56,47 +56,9 @@ class LocalDataSourceServiceImplTest {
         assertThat(result.isResultsMapCaseInsensitive(), is(false));
         assertThat(result.isSkipResultsProcessing(), is(false));
         assertThat(result.isSkipUndeclaredResults(), is(false));
-        assertThat(result.getDataSource().getConnection().getAutoCommit(), is(true));
-        assertThat(result.getDataSource().getConnection().getCatalog(), is(nullValue()));
-        assertThat(result.getDataSource().getConnection().getClientInfo().isEmpty(), is(true));
-        assertThat(result.getDataSource().getConnection().getHoldability(), is(1));
-        assertThat(result.getDataSource().getConnection().getMetaData().getDatabaseMajorVersion(), is(10));
-        assertThat(result.getDataSource().getConnection().getMetaData().getDatabaseMinorVersion(), is(10));
-        assertThat(result.getDataSource().getConnection().getMetaData().getDefaultTransactionIsolation(), is(2));
-        assertThat(result.getDataSource().getConnection().getMetaData().getDriverMajorVersion(), is(10));
-        assertThat(result.getDataSource().getConnection().getMetaData().getDriverMinorVersion(), is(10));
-        assertThat(result.getDataSource().getConnection().getMetaData().getJDBCMajorVersion(), is(4));
-        assertThat(result.getDataSource().getConnection().getMetaData().getJDBCMinorVersion(), is(1));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxBinaryLiteralLength(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxCatalogNameLength(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxCharLiteralLength(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnNameLength(), is(128));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInGroupBy(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInIndex(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInOrderBy(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInSelect(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxColumnsInTable(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxConnections(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxCursorNameLength(), is(128));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxIndexLength(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxLogicalLobSize(), is(0L));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxProcedureNameLength(), is(128));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxRowSize(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxSchemaNameLength(), is(128));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxStatementLength(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxStatements(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxTableNameLength(), is(128));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxTablesInSelect(), is(0));
-        assertThat(result.getDataSource().getConnection().getMetaData().getMaxUserNameLength(), is(128));
-        assertThat(result.getDataSource().getConnection().getMetaData().getResultSetHoldability(), is(1));
-        assertThat(result.getDataSource().getConnection().getMetaData().getSQLStateType(), is(2));
-        assertThat(result.getDataSource().getConnection().getMetaData().isCatalogAtStart(), is(false));
-        assertThat(result.getDataSource().getConnection().getMetaData().isReadOnly(), is(false));
-        assertThat(result.getDataSource().getConnection().getTransactionIsolation(), is(2));
-        assertThat(result.getDataSource().getConnection().getTypeMap().isEmpty(), is(true));
-        assertThat(result.getDataSource().getConnection().getWarnings(), is(nullValue()));
+        // pojo String
+        // pojo String
         assertThat(result.getDataSource().getConnection().isClosed(), is(false));
-        assertThat(result.getDataSource().getConnection().isReadOnly(), is(false));
         assertThat(result.isLazyInit(), is(true));
     }
 

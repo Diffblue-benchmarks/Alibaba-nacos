@@ -1,7 +1,8 @@
 package com.alibaba.nacos.naming.core;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.cluster.ServerListManager;
@@ -10,6 +11,7 @@ import com.alibaba.nacos.naming.pojo.Subscriber;
 import com.alibaba.nacos.naming.push.PushService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,18 +41,42 @@ public class SubscribeManagerTest {
     private SubscribeManager service;
 
     @Test
-    public void getSubscribersAggregationIsFalse() throws InterruptedException {
+    public void getSubscribersAggregationIsFalseAndServiceNameIsBar() throws InterruptedException {
+
+        // arrange
+        List<Subscriber> list = new ArrayList<Subscriber>();
+        Subscriber subscriber =
+             new Subscriber("foo", "foo", "foo", "foo", "1234", "Acme");
+        list.add(subscriber);
         when(pushService.getClients(Mockito.<String>any(), Mockito.<String>any()))
-            .thenReturn(new ArrayList<Subscriber>());
-        assertThat(service.getSubscribers("Acme", "1234", false), empty());
+            .thenReturn(list);
+
+        // act
+        List<Subscriber> result = service.getSubscribers("bar", "1234", false);
+
+        // assert
+        assertThat(result.size(), is(1));
+        assertThat(result.get(0), sameInstance(subscriber));
     }
 
     @Test
-    public void getSubscribersAggregationIsTrue() throws InterruptedException {
+    public void getSubscribersAggregationIsTrueAndServiceNameIsAcme() throws InterruptedException {
+
+        // arrange
         when(serverListManager.getHealthyServers())
             .thenReturn(new ArrayList<Server>());
+        List<Subscriber> list2 = new ArrayList<Subscriber>();
+        Subscriber subscriber =
+             new Subscriber("foo", "foo", "foo", "foo", "1234", "Acme");
+        list2.add(subscriber);
         when(pushService.getClients(Mockito.<String>any(), Mockito.<String>any()))
-            .thenReturn(new ArrayList<Subscriber>());
-        assertThat(service.getSubscribers("Acme", "1234", true), empty());
+            .thenReturn(list2);
+
+        // act
+        List<Subscriber> result = service.getSubscribers("Acme", "1234", true);
+
+        // assert
+        assertThat(result.size(), is(1));
+        assertThat(result.get(0), sameInstance(subscriber));
     }
 }

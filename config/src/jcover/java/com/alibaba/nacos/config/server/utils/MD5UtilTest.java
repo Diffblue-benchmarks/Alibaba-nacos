@@ -45,11 +45,6 @@ class MD5UtilTest {
     }
 
     @Test
-    void compareMd5OldResultChangedGroupKeysIsEmptyReturnsEmpty() {
-        assertThat(MD5Util.compareMd5OldResult(new ArrayList<String>()), is(""));
-    }
-
-    @Test
     void compareMd5ResultStringChangedGroupKeysIsBar() throws java.io.IOException {
         ArrayList<String> changedGroupKeys = new ArrayList<String>();
         changedGroupKeys.add("bar");

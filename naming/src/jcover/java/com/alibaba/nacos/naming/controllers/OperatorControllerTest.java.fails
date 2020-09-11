@@ -72,7 +72,7 @@ public class OperatorControllerTest {
     @Test
     public void distroStatus() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
         Map<String, List<Server>> map = new HashMap<String, List<Server>>();
-        map.put("action", new ArrayList<Server>());
+        map.put("foo=bar", new ArrayList<Server>());
         when(serverListManager.getDistroConfig())
             .thenReturn(map);
         MockMvcBuilders.standaloneSetup(controller)
@@ -80,7 +80,7 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/distro/status"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"status\":{\"action\":[]}}"));
+            .andExpect(content().json("{\"status\":{\"foo=bar\":[]}}"));
     }
 
     @Test

@@ -23,7 +23,15 @@ public class ServiceDetailInfoTest {
         HashMap<String, ClusterInfo> clusterMap =
              new HashMap<String, ClusterInfo>();
         ClusterInfo x33 = new ClusterInfo();
-        x33.setHosts(new ArrayList<IpAddressInfo>());
+        ArrayList<IpAddressInfo> hosts1 = new ArrayList<IpAddressInfo>();
+        IpAddressInfo ipAddressInfo1 = new IpAddressInfo();
+        ipAddressInfo1.setEnabled(false);
+        ipAddressInfo1.setIp("280 Broadway");
+        ipAddressInfo1.setPort(1);
+        ipAddressInfo1.setValid(false);
+        ipAddressInfo1.setWeight(1.0);
+        hosts1.add(ipAddressInfo1);
+        x33.setHosts(hosts1);
         clusterMap.put("foo", x33);
         serviceDetailInfo.setClusterMap(clusterMap);
         serviceDetailInfo.setGroupName("Acme");

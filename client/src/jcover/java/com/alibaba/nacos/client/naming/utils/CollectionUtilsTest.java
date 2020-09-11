@@ -3,7 +3,6 @@ package com.alibaba.nacos.client.naming.utils;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
 
@@ -19,14 +18,12 @@ class CollectionUtilsTest {
 
     @Test
     void subtract() {
+        LinkedList a = new LinkedList();
+        Object object1 = new Object();
+        a.add(object1);
         LinkedList b = new LinkedList();
         b.add(new Object());
-        assertTrue((CollectionUtils.subtract(new LinkedList(), b)).isEmpty());
-    }
-
-    @Test
-    void subtractBIsEmpty() {
-        assertTrue((CollectionUtils.subtract(new LinkedList(), new LinkedList())).isEmpty());
+        assertThat(CollectionUtils.subtract(a, b).size(), is(1));
     }
 
     @Test
@@ -43,15 +40,33 @@ class CollectionUtilsTest {
     }
 
     @Test
-    void isEqualCollectionAIsEmptyReturnsTrue() {
+    void isEqualCollectionAIsEmptyAndBIsEmptyReturnsTrue() {
         assertThat(CollectionUtils.isEqualCollection(new LinkedList(), new LinkedList()), is(true));
+    }
+
+    @Test
+    void isEqualCollectionAIsEmptyReturnsFalse() {
+        LinkedList b = new LinkedList();
+        b.add("foo");
+        assertThat(CollectionUtils.isEqualCollection(new LinkedList(), b), is(false));
     }
 
     @Test
     void isEqualCollectionReturnsFalse() {
         LinkedList a = new LinkedList();
-        a.add(new Object());
-        assertThat(CollectionUtils.isEqualCollection(a, new LinkedList()), is(false));
+        a.add(1);
+        LinkedList b = new LinkedList();
+        b.add("foo");
+        assertThat(CollectionUtils.isEqualCollection(a, b), is(false));
+    }
+
+    @Test
+    void isEqualCollectionReturnsTrue() {
+        LinkedList a = new LinkedList();
+        a.add("foo");
+        LinkedList b = new LinkedList();
+        b.add("foo");
+        assertThat(CollectionUtils.isEqualCollection(a, b), is(true));
     }
 
     @Test
@@ -63,7 +78,7 @@ class CollectionUtilsTest {
     @Test
     void isEmptyReturnsFalse() {
         LinkedList coll = new LinkedList();
-        coll.add(new Object());
+        coll.add("foo");
         assertThat(CollectionUtils.isEmpty(coll), is(false));
     }
 }

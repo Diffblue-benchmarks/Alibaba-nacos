@@ -1,8 +1,8 @@
 package com.alibaba.nacos.naming.consistency.ephemeral.distro;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.cluster.ServerListManager;
@@ -12,6 +12,7 @@ import com.alibaba.nacos.naming.core.DistroMapper;
 import com.alibaba.nacos.naming.misc.GlobalConfig;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,10 +55,21 @@ public class DataSyncerTest {
     }
 
     @Test
-    public void getServersReturnsEmpty() {
+    public void getServers() {
+
+        // arrange
+        List<Server> list = new ArrayList<Server>();
+        Server server = new Server();
+        list.add(server);
         when(serverListManager.getHealthyServers())
-            .thenReturn(new ArrayList<Server>());
-        assertThat(service.getServers(), empty());
+            .thenReturn(list);
+
+        // act
+        List<Server> result = service.getServers();
+
+        // assert
+        assertThat(result.size(), is(1));
+        assertThat(result.get(0), sameInstance(server));
     }
 
     @Test
@@ -67,6 +79,7 @@ public class DataSyncerTest {
         keys.add("key");
         task.setKeys(keys);
         task.setRetryCount(1);
+        task.setTargetServer("/some/path.html");
         service.submit(task, 1L);
     }
 
@@ -83,15 +96,6 @@ public class DataSyncerTest {
         ArrayList<String> keys = new ArrayList<String>();
         keys.add("key");
         task.setKeys(keys);
-        task.setRetryCount(0);
-        task.setTargetServer("/some/path.html");
-        service.submit(task, 1L);
-    }
-
-    @Test
-    public void submit4() {
-        SyncTask task = new SyncTask();
-        task.setKeys(new ArrayList<String>());
         service.submit(task, 1L);
     }
 }

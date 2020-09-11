@@ -50,7 +50,9 @@ public class ClusterTest {
         service.setIpDeleteTimeout(1L);
         service.setLastModifiedMillis(1L);
         service.setNamespaceId("1234");
-        service.setOwners(new ArrayList<String>());
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("foo");
+        service.setOwners(owners);
         service.setResetWeight(false);
         LabelSelector selector = new LabelSelector();
         selector.setLabels(new HashSet<String>());
@@ -141,7 +143,7 @@ public class ClusterTest {
              mock(AbstractHealthChecker.class);
         x368.setHealthChecker(healthChecker1);
         x368.setName("John Smith");
-        x368.setUseIPPort4Check(true);
+        x368.setUseIPPort4Check(false);
         clusterMap.put("foo", x368);
         service.setClusterMap(clusterMap);
         service.setEnabled(false);
@@ -210,18 +212,50 @@ public class ClusterTest {
     }
 
     @Test
-    public void updateIPsEphemeralIsFalseAndIpsIsEmpty() {
-        new Cluster().updateIPs(new ArrayList<Instance>(), false);
+    public void updateIPsEphemeralIsFalse() {
+        Cluster cluster = new Cluster();
+        cluster.setService(new Service());
+        ArrayList<Instance> ips = new ArrayList<Instance>();
+        Instance instance = new Instance();
+        instance.setIp("DE");
+        ips.add(instance);
+        cluster.updateIPs(ips, false);
     }
 
     @Test
-    public void updatedIPsAIsEmptyAndBIsEmptyReturnsEmpty() {
-        assertThat(new Cluster().updatedIPs(new LinkedList<Instance>(), new LinkedList<Instance>()), empty());
+    public void updatedIPsReturnsEmpty() {
+        LinkedList<Instance> a = new LinkedList<Instance>();
+        Instance instance1 = new Instance();
+        instance1.setClusterName("John Smith");
+        instance1.setEphemeral(false);
+        instance1.setHealthy(false);
+        instance1.setIp("DE");
+        instance1.setPort(1);
+        a.add(instance1);
+        LinkedList<Instance> b = new LinkedList<Instance>();
+        Instance instance2 = new Instance();
+        instance2.setClusterName("John Smith");
+        instance2.setEphemeral(false);
+        instance2.setHealthy(false);
+        instance2.setIp("DE");
+        instance2.setPort(1);
+        b.add(instance2);
+        assertThat(new Cluster().updatedIPs(a, b), empty());
     }
 
     @Test
-    public void subtractAIsEmptyAndBIsEmptyReturnsEmpty() {
-        assertThat(new Cluster().subtract(new LinkedList<Instance>(), new LinkedList<Instance>()), empty());
+    public void subtractReturnsEmpty() {
+        LinkedList<Instance> a = new LinkedList<Instance>();
+        Instance instance1 = new Instance();
+        instance1.setIp("DE");
+        instance1.setPort(1);
+        a.add(instance1);
+        LinkedList<Instance> b = new LinkedList<Instance>();
+        Instance instance2 = new Instance();
+        instance2.setIp("DE");
+        instance2.setPort(1);
+        b.add(instance2);
+        assertThat(new Cluster().subtract(a, b), empty());
     }
 
     @Test

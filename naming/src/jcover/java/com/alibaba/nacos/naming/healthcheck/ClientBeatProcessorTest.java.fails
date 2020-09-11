@@ -63,7 +63,9 @@ public class ClientBeatProcessorTest {
         service.setIpDeleteTimeout(1L);
         service.setLastModifiedMillis(1L);
         service.setNamespaceId("1234");
-        service.setOwners(new ArrayList<String>());
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("foo");
+        service.setOwners(owners);
         service.setResetWeight(false);
         LabelSelector selector = new LabelSelector();
         selector.setLabels(new HashSet<String>());

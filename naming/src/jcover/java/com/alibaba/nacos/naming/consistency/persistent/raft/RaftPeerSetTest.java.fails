@@ -131,13 +131,7 @@ public class RaftPeerSetTest {
     }
 
     @Test
-    public void remove1() {
-        service.remove(new ArrayList<String>());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
-    }
-
-    @Test
-    public void remove2() {
+    public void remove() {
 
         // arrange
         ArrayList<String> servers = new ArrayList<String>();

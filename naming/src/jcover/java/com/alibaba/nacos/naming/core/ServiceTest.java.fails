@@ -1,0 +1,260 @@
+package com.alibaba.nacos.naming.core;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
+import com.alibaba.nacos.naming.healthcheck.RsInfo;
+import com.alibaba.nacos.naming.selector.LabelSelector;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.core.Service
+ *
+ * @author Diffblue Cover
+ */
+
+public class ServiceTest {
+
+    @Test
+    public void factory1() throws CloneNotSupportedException {
+        Service service1 = new Service("Acme");
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster x409 = new Cluster();
+        x409.setDefCkport(1);
+        x409.setDefIPPort(1);
+        Service service3 = new Service();
+        service3.setEnabled(false);
+        service3.setIpDeleteTimeout(1L);
+        service3.setLastModifiedMillis(1L);
+        service3.setNamespaceId("1234");
+        ArrayList<String> owners2 = new ArrayList<String>();
+        owners2.add("foo");
+        service3.setOwners(owners2);
+        service3.setResetWeight(false);
+        service3.setSelector(new LabelSelector());
+        service3.setToken("Bearer");
+        service3.setAppName("Acme");
+        service3.setGroupName("Acme");
+        service3.setName("Acme");
+        service3.setProtectThreshold(1.0f);
+        x409.setService(service3);
+        x409.setServiceName("John Smith");
+        x409.setSitegroup("DE");
+        x409.setDefaultCheckPort(1);
+        x409.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        x409.setHealthChecker(healthChecker1);
+        x409.setName("John Smith");
+        x409.setUseIPPort4Check(false);
+        clusterMap.put("foo", x409);
+        service1.setClusterMap(clusterMap);
+        service1.setEnabled(false);
+        service1.setIpDeleteTimeout(1L);
+        service1.setLastModifiedMillis(1L);
+        service1.setNamespaceId("1234");
+        ArrayList<String> owners5 = new ArrayList<String>();
+        owners5.add("foo");
+        service1.setOwners(owners5);
+        service1.setResetWeight(false);
+        LabelSelector selector5 = new LabelSelector();
+        selector5.setLabels(new HashSet<String>());
+        selector5.setExpression("1");
+        service1.setSelector(selector5);
+        service1.setToken("Bearer");
+        service1.setAppName("Acme");
+        service1.setGroupName("Acme");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        service1.setMetadata(metadata);
+        service1.setName("Acme");
+        service1.setProtectThreshold(1.0f);
+        assertThat(service1.getClusterMap().get("foo"), sameInstance(x409));
+        assertThat(service1.getEnabled(), is(false));
+        assertThat(service1.getIpDeleteTimeout(), is(1L));
+        assertThat(service1.getLastModifiedMillis(), is(1L));
+        assertThat(service1.getNamespaceId(), is("1234"));
+        assertThat(service1.getOwners(), hasSize(1));
+        assertThat(service1.getOwners().get(0), is("foo"));
+        assertThat(service1.getResetWeight(), is(false));
+        assertThat(service1.getSelector().getType(), is("label"));
+        assertThat(service1.getToken(), is("Bearer"));
+        assertThat(service1.getAppName(), is("Acme"));
+        assertThat(service1.getGroupName(), is("Acme"));
+        assertThat(service1.getMetadata().get("foo"), is("foo"));
+        assertThat(service1.getName(), is("Acme"));
+        assertEquals(1.0f, service1.getProtectThreshold(), 0);
+    }
+
+    @Test
+    public void factory2() throws CloneNotSupportedException {
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster x293 = new Cluster();
+        x293.setDefCkport(1);
+        x293.setDefIPPort(1);
+        Service service3 = new Service();
+        service3.setEnabled(false);
+        service3.setIpDeleteTimeout(1L);
+        service3.setLastModifiedMillis(1L);
+        service3.setNamespaceId("1234");
+        service3.setOwners(new ArrayList<String>());
+        service3.setResetWeight(false);
+        service3.setSelector(new LabelSelector());
+        service3.setToken("Bearer");
+        service3.setAppName("Acme");
+        service3.setGroupName("Acme");
+        service3.setName("Acme");
+        service3.setProtectThreshold(1.0f);
+        x293.setService(service3);
+        x293.setServiceName("John Smith");
+        x293.setSitegroup("DE");
+        x293.setDefaultCheckPort(1);
+        x293.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        x293.setHealthChecker(healthChecker1);
+        x293.setName("John Smith");
+        x293.setUseIPPort4Check(false);
+        clusterMap.put("foo", x293);
+        service1.setClusterMap(clusterMap);
+        service1.setEnabled(false);
+        service1.setIpDeleteTimeout(1L);
+        service1.setLastModifiedMillis(1L);
+        service1.setNamespaceId("1234");
+        ArrayList<String> owners5 = new ArrayList<String>();
+        owners5.add("foo");
+        service1.setOwners(owners5);
+        service1.setResetWeight(false);
+        LabelSelector selector5 = new LabelSelector();
+        selector5.setLabels(new HashSet<String>());
+        selector5.setExpression("1");
+        service1.setSelector(selector5);
+        service1.setToken("Bearer");
+        service1.setAppName("Acme");
+        service1.setGroupName("Acme");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        service1.setMetadata(metadata);
+        service1.setName("Acme");
+        service1.setProtectThreshold(1.0f);
+        assertThat(service1.getClusterMap().get("foo"), sameInstance(x293));
+        assertThat(service1.getEnabled(), is(false));
+        assertThat(service1.getIpDeleteTimeout(), is(1L));
+        assertThat(service1.getLastModifiedMillis(), is(1L));
+        assertThat(service1.getNamespaceId(), is("1234"));
+        assertThat(service1.getOwners(), hasSize(1));
+        assertThat(service1.getOwners().get(0), is("foo"));
+        assertThat(service1.getResetWeight(), is(false));
+        assertThat(service1.getSelector().getType(), is("label"));
+        assertThat(service1.getToken(), is("Bearer"));
+        assertThat(service1.getAppName(), is("Acme"));
+        assertThat(service1.getGroupName(), is("Acme"));
+        assertThat(service1.getMetadata().get("foo"), is("foo"));
+        assertThat(service1.getName(), is("Acme"));
+        assertEquals(1.0f, service1.getProtectThreshold(), 0);
+    }
+
+    @Test
+    public void processClientBeat() {
+        new Service().processClientBeat(new RsInfo());
+    }
+
+    @Test
+    public void interestsKeyIsKeyReturnsFalse() {
+        assertThat(new Service().interests("key"), is(false));
+    }
+
+    @Test
+    public void matchUnlistenKeyKeyIsKeyReturnsFalse() {
+        assertThat(new Service().matchUnlistenKey("key"), is(false));
+    }
+
+    @Test
+    public void onDeleteKeyIsKey() throws Exception {
+        new Service().onDelete("key");
+    }
+
+    @Test
+    public void healthyInstanceCountReturnsZero() {
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        clusterMap.put("foo", new Cluster());
+        service.setClusterMap(clusterMap);
+        assertThat(service.healthyInstanceCount(), is(0));
+    }
+
+    @Test
+    public void meetProtectThresholdReturnsFalse() {
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        clusterMap.put("foo", new Cluster());
+        service.setClusterMap(clusterMap);
+        assertThat(service.meetProtectThreshold(), is(false));
+    }
+
+    @Test
+    public void destroy() throws Exception {
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        clusterMap.put("foo", new Cluster());
+        service.setClusterMap(clusterMap);
+        service.setName("Acme");
+        service.destroy();
+    }
+
+    @Test
+    public void allIPsEphemeralIsFalse() {
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        clusterMap.put("foo", new Cluster());
+        service.setClusterMap(clusterMap);
+        assertThat(service.allIPs(false), empty());
+    }
+
+    @Test
+    public void allIPsClustersIsFoo() {
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        clusterMap.put("foo", new Cluster());
+        service.setClusterMap(clusterMap);
+        ArrayList<String> clusters = new ArrayList<String>();
+        clusters.add("foo");
+        assertThat(service.allIPs(clusters), empty());
+    }
+
+    @Test
+    public void srvIPsClustersIsEmptyReturnsEmpty() {
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        clusterMap.put("foo", new Cluster());
+        service.setClusterMap(clusterMap);
+        assertThat(service.srvIPs(new ArrayList<String>()), empty());
+    }
+
+    @Test
+    public void addCluster() {
+
+        // arrange
+        Service service1 = new Service();
+        Cluster cluster = new Cluster();
+        cluster.setName("John Smith");
+
+        // act
+        service1.addCluster(cluster);
+
+        // assert
+        assertThat(service1.getClusterMap().get("John Smith"), sameInstance(cluster));
+    }
+}

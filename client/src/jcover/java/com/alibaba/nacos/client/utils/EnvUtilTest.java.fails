@@ -54,27 +54,7 @@ class EnvUtilTest {
              new HashMap<String, List<String>>();
         ArrayList<String> x197 = new ArrayList<String>();
         x197.add("foo");
-        headers.put(",", x197);
-        EnvUtil.setSelfEnv(headers);
-    }
-
-    @Test
-    void setSelfEnv5() {
-        HashMap<String, List<String>> headers =
-             new HashMap<String, List<String>>();
-        ArrayList<String> x197 = new ArrayList<String>();
-        x197.add("foo");
-        headers.put("selfLocationTag:{}", x197);
-        EnvUtil.setSelfEnv(headers);
-    }
-
-    @Test
-    void setSelfEnv6() {
-        HashMap<String, List<String>> headers =
-             new HashMap<String, List<String>>();
-        ArrayList<String> x197 = new ArrayList<String>();
-        x197.add("foo");
-        headers.put("selfVipserverTag:{}", x197);
+        headers.put("bar", x197);
         EnvUtil.setSelfEnv(headers);
     }
 

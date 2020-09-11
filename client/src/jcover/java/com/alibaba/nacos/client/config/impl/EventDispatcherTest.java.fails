@@ -19,16 +19,7 @@ import org.junit.jupiter.api.Test;
 class EventDispatcherTest {
 
     @Test
-    void addEventListener1() {
-        EventDispatcher.AbstractEventListener listener =
-             mock(EventDispatcher.AbstractEventListener.class);
-        when(listener.interest())
-            .thenReturn(new ArrayList<Class<? extends EventDispatcher.AbstractEvent>>());
-        EventDispatcher.addEventListener(listener);
-    }
-
-    @Test
-    void addEventListener2() {
+    void addEventListener() {
         List<Class<? extends EventDispatcher.AbstractEvent>> list =
              new ArrayList<Class<? extends EventDispatcher.AbstractEvent>>();
         list.add(EventDispatcher.AbstractEvent.class);
@@ -51,14 +42,14 @@ class EventDispatcherTest {
     void fireEvent2() {
         List<EventDispatcher.AbstractEvent> list1 =
              new ArrayList<EventDispatcher.AbstractEvent>();
-        EventDispatcher.AbstractEvent eventDispatcher$AbstractEvent2 =
+        EventDispatcher.AbstractEvent abstractEvent1 =
              mock(EventDispatcher.AbstractEvent.class);
         // inaccessible mock: EventDispatcher.AbstractEvent.implyEvents
-        list1.add(eventDispatcher$AbstractEvent2);
-        EventDispatcher.AbstractEvent abstractEvent =
+        list1.add(abstractEvent1);
+        EventDispatcher.AbstractEvent abstractEvent2 =
              mock(EventDispatcher.AbstractEvent.class);
         // inaccessible mock: EventDispatcher.AbstractEvent.implyEvents
-        EventDispatcher.fireEvent(abstractEvent);
+        EventDispatcher.fireEvent(abstractEvent2);
     }
 
     @Test

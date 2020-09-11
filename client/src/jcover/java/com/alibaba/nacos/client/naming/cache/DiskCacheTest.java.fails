@@ -7,6 +7,7 @@ import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,22 @@ class DiskCacheTest {
         dom.setChecksum("foo");
         dom.setClusters("bar");
         dom.setGroupName("Acme");
-        dom.setHosts(new ArrayList<Instance>());
+        ArrayList<Instance> hosts = new ArrayList<Instance>();
+        Instance instance = new Instance();
+        instance.setClusterName("John Smith");
+        instance.setEnabled(false);
+        instance.setEphemeral(false);
+        instance.setHealthy(false);
+        instance.setInstanceId("1234");
+        instance.setIp("foo");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        instance.setMetadata(metadata);
+        instance.setPort(1);
+        instance.setServiceName("Acme");
+        instance.setWeight(1.0);
+        hosts.add(instance);
+        dom.setHosts(hosts);
         dom.setJsonFromServer("\"foo\"");
         dom.setLastRefTime(1L);
         dom.setName("Acme");

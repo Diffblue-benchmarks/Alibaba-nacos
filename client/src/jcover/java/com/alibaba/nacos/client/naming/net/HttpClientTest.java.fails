@@ -30,7 +30,7 @@ class HttpClientTest {
     }
 
     @Test
-    void httpGetParamValuesIsFooAndUrlIsGET() {
+    void httpGetParamValuesIsFoo() {
         HashMap<String, String> paramValues = new HashMap<String, String>();
         paramValues.put("foo", "foo");
         // pojo HttpClient.HttpResult
@@ -38,7 +38,7 @@ class HttpClientTest {
     }
 
     @Test
-    void httpGetParamValuesIsNullAndUrlIsEmpty() {
+    void httpGetParamValuesIsNull() {
         // pojo HttpClient.HttpResult
     }
 }

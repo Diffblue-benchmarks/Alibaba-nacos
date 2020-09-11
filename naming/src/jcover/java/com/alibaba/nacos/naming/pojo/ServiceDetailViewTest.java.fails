@@ -1,8 +1,8 @@
 package com.alibaba.nacos.naming.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -28,7 +28,21 @@ public class ServiceDetailViewTest {
     @Test
     public void factory() throws CloneNotSupportedException {
         ServiceDetailView serviceDetailView = new ServiceDetailView();
-        serviceDetailView.setClusters(new ArrayList<Cluster>());
+        ArrayList<Cluster> clusters = new ArrayList<Cluster>();
+        Cluster cluster = new com.alibaba.nacos.naming.core.Cluster();
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker1);
+        HashMap<String, String> metadata2 = new HashMap<String, String>();
+        metadata2.put("foo", "foo");
+        cluster.setMetadata(metadata2);
+        cluster.setName("John Smith");
+        cluster.setServiceName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        clusters.add(cluster);
+        serviceDetailView.setClusters(clusters);
         Service service2 = new Service();
         HashMap<String, com.alibaba.nacos.naming.core.Cluster> clusterMap2 =
              new HashMap<String, com.alibaba.nacos.naming.core.Cluster>();
@@ -51,7 +65,9 @@ public class ServiceDetailViewTest {
         service2.setIpDeleteTimeout(1L);
         service2.setLastModifiedMillis(1L);
         service2.setNamespaceId("1234");
-        service2.setOwners(new ArrayList<String>());
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("foo");
+        service2.setOwners(owners);
         service2.setResetWeight(false);
         LabelSelector selector2 = new LabelSelector();
         selector2.setLabels(new HashSet<String>());
@@ -66,7 +82,8 @@ public class ServiceDetailViewTest {
         service2.setName("Acme");
         service2.setProtectThreshold(1.0f);
         serviceDetailView.setService(service2);
-        assertThat(serviceDetailView.getClusters(), empty());
+        assertThat(serviceDetailView.getClusters().size(), is(1));
+        assertThat(serviceDetailView.getClusters().get(0), sameInstance(cluster));
         assertThat(serviceDetailView.getService().getAppName(), is("Acme"));
         assertThat(serviceDetailView.getService().getGroupName(), is("Acme"));
         assertThat(serviceDetailView.getService().getMetadata().get("foo"), is("foo"));

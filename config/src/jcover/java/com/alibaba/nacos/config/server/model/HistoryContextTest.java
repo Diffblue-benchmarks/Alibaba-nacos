@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class HistoryContextTest {
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs = new Page<ConfigHistoryInfo>();
         configs.setPageItems(new ArrayList<ConfigHistoryInfo>());
-        configs.setPageNumber(0);
+        configs.setPageNumber(1);
         configs.setPagesAvailable(1);
         configs.setTotalCount(1);
         historyContext.setConfigs(configs);
@@ -47,15 +48,49 @@ class HistoryContextTest {
     @Test
     void factory2() {
         Page<ConfigHistoryInfo> configs1 = new Page<ConfigHistoryInfo>();
-        configs1.setPageItems(new ArrayList<ConfigHistoryInfo>());
+        ArrayList<ConfigHistoryInfo> pageItems1 =
+             new ArrayList<ConfigHistoryInfo>();
+        ConfigHistoryInfo configHistoryInfo1 = new ConfigHistoryInfo();
+        configHistoryInfo1.setAppName("Acme");
+        configHistoryInfo1.setContent("hello");
+        configHistoryInfo1.setCreatedTime(Timestamp.valueOf("2019-12-31 23:10:59"));
+        configHistoryInfo1.setDataId("1234");
+        configHistoryInfo1.setGroup("/some/path.html");
+        configHistoryInfo1.setId(1L);
+        configHistoryInfo1.setLastId(1L);
+        configHistoryInfo1.setLastModifiedTime(Timestamp.valueOf("2019-12-31 23:10:59"));
+        configHistoryInfo1.setMd5("/some/path.html");
+        configHistoryInfo1.setOpType("BASIC");
+        configHistoryInfo1.setSrcIp("/some/path.html");
+        configHistoryInfo1.setSrcUser("John Smith");
+        configHistoryInfo1.setTenant("/some/path.html");
+        pageItems1.add(configHistoryInfo1);
+        configs1.setPageItems(pageItems1);
         configs1.setPageNumber(1);
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "foo", 0, "New York", configs1);
+             new HistoryContext("1234", "1234", "foo", 200, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
-        configs2.setPageItems(new ArrayList<ConfigHistoryInfo>());
+        ArrayList<ConfigHistoryInfo> pageItems2 =
+             new ArrayList<ConfigHistoryInfo>();
+        ConfigHistoryInfo configHistoryInfo2 = new ConfigHistoryInfo();
+        configHistoryInfo2.setAppName("Acme");
+        configHistoryInfo2.setContent("hello");
+        configHistoryInfo2.setCreatedTime(Timestamp.valueOf("2019-12-31 23:10:59"));
+        configHistoryInfo2.setDataId("1234");
+        configHistoryInfo2.setGroup("/some/path.html");
+        configHistoryInfo2.setId(1L);
+        configHistoryInfo2.setLastId(1L);
+        configHistoryInfo2.setLastModifiedTime(Timestamp.valueOf("2019-12-31 23:10:59"));
+        configHistoryInfo2.setMd5("/some/path.html");
+        configHistoryInfo2.setOpType("BASIC");
+        configHistoryInfo2.setSrcIp("/some/path.html");
+        configHistoryInfo2.setSrcUser("John Smith");
+        configHistoryInfo2.setTenant("/some/path.html");
+        pageItems2.add(configHistoryInfo2);
+        configs2.setPageItems(pageItems2);
         configs2.setPageNumber(1);
         configs2.setPagesAvailable(1);
         configs2.setTotalCount(1);
@@ -86,10 +121,27 @@ class HistoryContextTest {
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "foo", 200, "New York", configs1);
+             new HistoryContext("1234", "1234", "foo", 1, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
-        configs2.setPageItems(new ArrayList<ConfigHistoryInfo>());
+        ArrayList<ConfigHistoryInfo> pageItems2 =
+             new ArrayList<ConfigHistoryInfo>();
+        ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
+        configHistoryInfo.setAppName("Acme");
+        configHistoryInfo.setContent("hello");
+        configHistoryInfo.setCreatedTime(Timestamp.valueOf("2019-12-31 23:10:59"));
+        configHistoryInfo.setDataId("1234");
+        configHistoryInfo.setGroup("/some/path.html");
+        configHistoryInfo.setId(1L);
+        configHistoryInfo.setLastId(1L);
+        configHistoryInfo.setLastModifiedTime(Timestamp.valueOf("2019-12-31 23:10:59"));
+        configHistoryInfo.setMd5("/some/path.html");
+        configHistoryInfo.setOpType("BASIC");
+        configHistoryInfo.setSrcIp("/some/path.html");
+        configHistoryInfo.setSrcUser("John Smith");
+        configHistoryInfo.setTenant("/some/path.html");
+        pageItems2.add(configHistoryInfo);
+        configs2.setPageItems(pageItems2);
         configs2.setPageNumber(1);
         configs2.setPagesAvailable(1);
         configs2.setTotalCount(1);

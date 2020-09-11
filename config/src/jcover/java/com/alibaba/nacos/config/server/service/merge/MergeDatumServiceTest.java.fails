@@ -42,14 +42,7 @@ class MergeDatumServiceTest {
     }
 
     @Test
-    void mergeAll1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
-        when(persistService.findAllAggrGroup())
-            .thenReturn(new ArrayList<ConfigInfoChanged>());
-        service.mergeAll();
-    }
-
-    @Test
-    void mergeAll2() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void mergeAll() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
         List<ConfigInfoChanged> list = new ArrayList<ConfigInfoChanged>();
         list.add(new ConfigInfoChanged());
         when(persistService.findAllAggrGroup())

@@ -36,6 +36,11 @@ class ServerListServiceTest {
     private ServerListService service;
 
     @Test
+    void getEnvIdReturnsEmpty() throws javax.servlet.ServletException, java.net.MalformedURLException, IllegalStateException, IllegalArgumentException {
+        assertThat(service.getEnvId(), is(""));
+    }
+
+    @Test
     void getServerListReturnsEmpty() throws javax.servlet.ServletException, java.net.MalformedURLException, IllegalStateException, IllegalArgumentException {
         when(servletContext.getContextPath())
             .thenReturn("foo");

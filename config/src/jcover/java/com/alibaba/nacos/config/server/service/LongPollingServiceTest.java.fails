@@ -40,16 +40,18 @@ class LongPollingServiceTest {
     }
 
     @Test
-    void generateResponseChangedGroupsIsEmpty() throws java.io.UnsupportedEncodingException {
+    void generateResponse() throws java.io.UnsupportedEncodingException {
 
         // arrange
         MockHttpServletResponse response = new MockHttpServletResponse();
+        ArrayList<String> changedGroups = new ArrayList<String>();
+        changedGroups.add("foo=bar");
 
         // act
-        service.generateResponse(new MockHttpServletRequest(), response, new ArrayList<String>());
+        service.generateResponse(new MockHttpServletRequest(), response, changedGroups);
 
         // assert
-        assertThat(response.getContentAsString(), is("\n"));
+        assertThat(response.getContentAsString(), is("null%02foo%3Dbar%01\n"));
         assertThat(response.getHeaderNames(), hasSize(3));
         assertTrue(response.getHeaderNames().contains("Cache-Control"));
         assertTrue(response.getHeaderNames().contains("Expires"));
@@ -75,7 +77,18 @@ class LongPollingServiceTest {
         assertThat(service.getCollectSubscribleInfo("1234", "/some/path.html", "/some/path.html").getLisentersGroupkeyStatus().isEmpty(), is(true));
         assertThat(service.getCollectSubscribleInfoByIp("/some/path.html").getLisentersGroupkeyStatus().isEmpty(), is(true));
         assertThat(service.getRetainIps().isEmpty(), is(true));
-        assertThat(service.mergeSampleResult(new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void mergeSampleResult() {
+        ArrayList<SampleResult> sampleResults = new ArrayList<SampleResult>();
+        SampleResult sampleResult = new SampleResult();
+        HashMap<String, String> lisentersGroupkeyStatus =
+             new HashMap<String, String>();
+        lisentersGroupkeyStatus.put("foo", "foo");
+        sampleResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
+        sampleResults.add(sampleResult);
+        assertThat(service.mergeSampleResult(sampleResults).getLisentersGroupkeyStatus().get("foo"), is("foo"));
     }
 
     @Test

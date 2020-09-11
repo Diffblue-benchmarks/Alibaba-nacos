@@ -1,0 +1,38 @@
+package com.alibaba.nacos.naming.healthcheck;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.healthcheck.MysqlHealthCheckProcessor
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {MysqlHealthCheckProcessor.class})
+@RunWith(SpringRunner.class)
+public class MysqlHealthCheckProcessorTest {
+
+    @MockBean(name = "healthCheckCommon")
+    private HealthCheckCommon healthCheckCommon;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private MysqlHealthCheckProcessor service;
+
+    @Test
+    public void getTypeReturnsMYSQL() throws CloneNotSupportedException {
+        assertThat(service.getType(), is("MYSQL"));
+    }
+}

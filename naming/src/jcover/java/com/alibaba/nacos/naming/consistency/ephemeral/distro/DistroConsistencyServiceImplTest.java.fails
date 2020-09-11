@@ -1,0 +1,218 @@
+package com.alibaba.nacos.naming.consistency.ephemeral.distro;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
+import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.cluster.servers.Server;
+import com.alibaba.nacos.naming.cluster.transport.Serializer;
+import com.alibaba.nacos.naming.consistency.Datum;
+import com.alibaba.nacos.naming.core.Cluster;
+import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.core.Instances;
+import com.alibaba.nacos.naming.core.Service;
+import com.alibaba.nacos.naming.misc.GlobalConfig;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+import com.alibaba.nacos.naming.selector.LabelSelector;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.ephemeral.distro.DistroConsistencyServiceImpl
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {DistroConsistencyServiceImpl.class})
+@RunWith(SpringRunner.class)
+public class DistroConsistencyServiceImplTest {
+
+    @MockBean(name = "dataStore")
+    private DataStore dataStore;
+
+    @MockBean(name = "dataSyncer")
+    private DataSyncer dataSyncer;
+
+    @MockBean(name = "distroMapper")
+    private DistroMapper distroMapper;
+
+    @MockBean(name = "globalConfig")
+    private GlobalConfig globalConfig;
+
+    @MockBean(name = "serializer")
+    private Serializer serializer;
+
+    @MockBean(name = "serverListManager")
+    private ServerListManager serverListManager;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @MockBean(name = "taskDispatcher")
+    private TaskDispatcher taskDispatcher;
+
+    @Autowired
+    private DistroConsistencyServiceImpl service;
+
+    @Test
+    public void getKeyIsKey() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        when(dataStore.get(Mockito.<String>any()))
+            .thenReturn(new Datum());
+        // pojo Datum
+    }
+
+    @Test
+    public void init() throws CloneNotSupportedException, Exception {
+        List<Server> list1 = new ArrayList<Server>();
+        Server server1 = new Server();
+        server1.setLastRefTimeStr("Smith");
+        server1.setServePort(1);
+        server1.setSite("/some/path.html");
+        server1.setWeight(1);
+        list1.add(server1);
+        List<Server> list2 = new ArrayList<Server>();
+        Server server2 = new Server();
+        server2.setAdWeight(1);
+        server2.setAlive(false);
+        server2.setIp("/some/path.html");
+        server2.setLastRefTime(1L);
+        server2.setLastRefTimeStr("Smith");
+        server2.setServePort(1);
+        server2.setSite("/some/path.html");
+        server2.setWeight(1);
+        list2.add(server2);
+        when(serverListManager.getHealthyServers())
+            .thenReturn(list1)
+            .thenReturn(list2);
+        service.init();
+    }
+
+    @Test
+    public void isAvailableReturnsTrue() throws CloneNotSupportedException {
+        when(globalConfig.isDataWarmup())
+            .thenReturn(false);
+        assertThat(service.isAvailable(), is(true));
+    }
+
+    @Test
+    public void isInitializedReturnsTrue() throws CloneNotSupportedException {
+        when(globalConfig.isDataWarmup())
+            .thenReturn(false);
+        assertThat(service.isInitialized(), is(true));
+    }
+
+    @Test
+    public void listen1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        Service listener = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster x19 = new Cluster();
+        x19.setDefCkport(1);
+        x19.setDefIPPort(1);
+        x19.setServiceName("John Smith");
+        x19.setSitegroup("DE");
+        x19.setDefaultCheckPort(1);
+        x19.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        x19.setHealthChecker(healthChecker1);
+        x19.setName("John Smith");
+        x19.setUseIPPort4Check(false);
+        clusterMap.put("foo", x19);
+        listener.setClusterMap(clusterMap);
+        listener.setEnabled(false);
+        listener.setIpDeleteTimeout(0L);
+        listener.setLastModifiedMillis(1L);
+        listener.setNamespaceId("1234");
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("foo");
+        listener.setOwners(owners);
+        listener.setResetWeight(false);
+        LabelSelector selector = new LabelSelector();
+        selector.setLabels(new HashSet<String>());
+        selector.setExpression("1");
+        listener.setSelector(selector);
+        listener.setToken("Bearer");
+        listener.setAppName("Acme");
+        listener.setGroupName("Acme");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        listener.setMetadata(metadata);
+        listener.setName("Acme");
+        listener.setProtectThreshold(1.0f);
+        service.listen("key", listener);
+    }
+
+    @Test
+    public void listen2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        Service listener = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster x19 = new Cluster();
+        x19.setDefIPPort(1);
+        x19.setServiceName("John Smith");
+        x19.setSitegroup("DE");
+        x19.setDefaultCheckPort(1);
+        x19.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        x19.setHealthChecker(healthChecker1);
+        x19.setName("John Smith");
+        x19.setUseIPPort4Check(false);
+        clusterMap.put("foo", x19);
+        listener.setClusterMap(clusterMap);
+        listener.setEnabled(false);
+        listener.setIpDeleteTimeout(1L);
+        listener.setLastModifiedMillis(1L);
+        listener.setNamespaceId("1234");
+        listener.setOwners(new ArrayList<String>());
+        listener.setResetWeight(false);
+        LabelSelector selector = new LabelSelector();
+        selector.setLabels(new HashSet<String>());
+        selector.setExpression("1");
+        listener.setSelector(selector);
+        listener.setToken("Bearer");
+        listener.setAppName("Acme");
+        listener.setGroupName("Acme");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        listener.setMetadata(metadata);
+        listener.setName("Acme");
+        listener.setProtectThreshold(1.0f);
+        service.listen("key", listener);
+    }
+
+    @Test
+    public void onPutKeyIsKey() throws CloneNotSupportedException {
+        service.onPut("key", new Instances());
+    }
+
+    @Test
+    public void put() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        service.put("key", new Instances());
+        Mockito.verify(taskDispatcher).addTask(ArgumentMatchers.eq("key"));
+    }
+
+    @Test
+    public void syncAllDataFromRemoteReturnsFalse() throws CloneNotSupportedException {
+        assertThat(service.syncAllDataFromRemote(new Server()), is(false));
+    }
+
+    @Test
+    public void unlistenKeyIsKey() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        service.unlisten("key", new Service());
+    }
+}

@@ -55,13 +55,4 @@ public class ServerStatusManagerTest {
             .thenReturn("foo");
         service.init();
     }
-
-    @Test
-    public void init3() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("");
-        when(consistencyService.isAvailable())
-            .thenReturn(false);
-        service.init();
-    }
 }

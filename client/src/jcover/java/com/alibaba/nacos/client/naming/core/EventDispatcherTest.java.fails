@@ -45,20 +45,4 @@ class EventDispatcherTest {
         eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
         assertThat(eventDispatcher.getSubscribeServices(), empty());
     }
-
-    @Test
-    void serviceChanged() {
-        EventDispatcher eventDispatcher = new EventDispatcher();
-        ThreadFactory x3 = mock(ThreadFactory.class);
-        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
-        eventDispatcher.serviceChanged(new ServiceInfo());
-    }
-
-    @Test
-    void serviceChangedServiceInfoIsNull() {
-        EventDispatcher eventDispatcher = new EventDispatcher();
-        ThreadFactory x3 = mock(ThreadFactory.class);
-        eventDispatcher.setExecutor(Executors.newSingleThreadExecutor(x3));
-        eventDispatcher.serviceChanged(null);
-    }
 }

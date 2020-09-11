@@ -65,13 +65,7 @@ public class DistroMapperTest {
     }
 
     @Test
-    public void onChangeHealthyServerList1() throws CloneNotSupportedException {
-        service.onChangeHealthyServerList(new ArrayList<Server>());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
-    }
-
-    @Test
-    public void onChangeHealthyServerList2() throws CloneNotSupportedException {
+    public void onChangeHealthyServerList() throws CloneNotSupportedException {
 
         // arrange
         ArrayList<Server> latestReachableMembers = new ArrayList<Server>();

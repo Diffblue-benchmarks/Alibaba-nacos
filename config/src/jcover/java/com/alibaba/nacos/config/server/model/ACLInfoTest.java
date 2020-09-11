@@ -1,7 +1,7 @@
 package com.alibaba.nacos.config.server.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 
 import java.util.ArrayList;
@@ -19,9 +19,12 @@ class ACLInfoTest {
     @Test
     void factory() {
         ACLInfo obj = new ACLInfo();
-        obj.setIps(new ArrayList<String>());
+        ArrayList<String> ips = new ArrayList<String>();
+        ips.add("foo=bar");
+        obj.setIps(ips);
         obj.setIsOpen(false);
-        assertThat(obj.getIps(), empty());
+        assertThat(obj.getIps(), hasSize(1));
+        assertThat(obj.getIps().get(0), is("foo=bar"));
         assertThat(obj.getIsOpen(), is(false));
     }
 }

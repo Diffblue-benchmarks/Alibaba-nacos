@@ -103,7 +103,12 @@ class AddressServerGeneratorManagerTest {
     }
 
     @Test
-    void generateResponseIpsInstanceListIsEmptyReturnsEmpty() {
-        assertThat(service.generateResponseIps(new ArrayList<Instance>()), is(""));
+    void generateResponseIps() {
+        ArrayList<Instance> instanceList = new ArrayList<Instance>();
+        Instance instance = new Instance();
+        instance.setIp("DE");
+        instance.setPort(1);
+        instanceList.add(instance);
+        assertThat(service.generateResponseIps(instanceList), is("DE:1\n"));
     }
 }

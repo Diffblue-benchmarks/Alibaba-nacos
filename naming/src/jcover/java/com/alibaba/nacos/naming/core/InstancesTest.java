@@ -1,9 +1,9 @@
 package com.alibaba.nacos.naming.core;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,9 +21,32 @@ public class InstancesTest {
     @Test
     public void factory() {
         Instances instances = new Instances();
-        instances.setInstanceList(new ArrayList<Instance>());
+        ArrayList<Instance> instanceList = new ArrayList<Instance>();
+        Instance instance = new Instance();
+        instance.setApp("DE");
+        instance.setBeingChecked(false);
+        instance.setCheckRT(1L);
+        instance.setLastBeat(1L);
+        instance.setMarked(false);
+        instance.setMockValid(false);
+        instance.setTenant("DE");
+        instance.setClusterName("John Smith");
+        instance.setEnabled(false);
+        instance.setEphemeral(false);
+        instance.setHealthy(false);
+        instance.setInstanceId("1234");
+        instance.setIp("DE");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        instance.setMetadata(metadata);
+        instance.setPort(1);
+        instance.setServiceName("Acme");
+        instance.setWeight(1.0);
+        instanceList.add(instance);
+        instances.setInstanceList(instanceList);
         assertThat(instances.getCachedChecksum(), is(nullValue()));
-        assertThat(instances.getInstanceList(), empty());
+        assertThat(instances.getInstanceList().size(), is(1));
+        assertThat(instances.getInstanceList().get(0), sameInstance(instance));
     }
 
     @Test
