@@ -26,25 +26,26 @@ class RestResultTest {
 
     @Test
     void factory2() {
-        RestResult<String> restResult = new RestResult<String>(1, "foo=bar");
+        RestResult<String> restResult =
+             new RestResult<String>(0, "an error has happened");
         restResult.setCode(1);
         restResult.setData("something");
-        restResult.setMessage("bar");
+        restResult.setMessage("an error has happened");
         assertThat(restResult.getCode(), is(1));
         assertThat(restResult.getData(), is("something"));
-        assertThat(restResult.getMessage(), is("bar"));
+        assertThat(restResult.getMessage(), is("an error has happened"));
     }
 
     @Test
     void factory3() {
         RestResult<String> restResult =
-             new RestResult<String>(1, "bar", "something");
+             new RestResult<String>(0, "an error has happened", "something");
         restResult.setCode(1);
         restResult.setData("something");
-        restResult.setMessage("foo=bar");
+        restResult.setMessage("an error has happened");
         assertThat(restResult.getCode(), is(1));
         assertThat(restResult.getData(), is("something"));
-        assertThat(restResult.getMessage(), is("foo=bar"));
+        assertThat(restResult.getMessage(), is("an error has happened"));
     }
 
     @Test

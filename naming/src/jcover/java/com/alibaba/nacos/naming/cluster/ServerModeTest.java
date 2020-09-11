@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ServerModeTest {
 
     @Test
-    public void valuesReturnsAPCPMIXED() {
+    public void valuesReturnsApCpMixed() {
         ServerMode[] result = ServerMode.values();
         assertThat(result[0], is(ServerMode.AP));
         assertThat(result[1], is(ServerMode.CP));

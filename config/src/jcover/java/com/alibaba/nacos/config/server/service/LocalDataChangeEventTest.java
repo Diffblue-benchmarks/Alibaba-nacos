@@ -1,5 +1,7 @@
 package com.alibaba.nacos.config.server.service;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -11,7 +13,17 @@ import org.junit.jupiter.api.Test;
 class LocalDataChangeEventTest {
 
     @Test
-    void factory() {
+    void factory1() {
+        // pojo LocalDataChangeEvent
+    }
+
+    @Test
+    void factory2() {
+        // pojo LocalDataChangeEvent
+    }
+
+    @Test
+    void factory3() {
         // pojo LocalDataChangeEvent
     }
 }

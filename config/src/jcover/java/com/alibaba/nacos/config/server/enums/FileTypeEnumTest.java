@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class FileTypeEnumTest {
 
     @Test
-    void valuesReturnsYMLYAMLTXTTEXTJSONXMLHTMHTMLPROPERTIES() {
+    void valuesReturnsYmlYamlTxtTextJsonXmlHtmHtmlProperties() {
         FileTypeEnum[] result = FileTypeEnum.values();
         assertThat(result[0], is(FileTypeEnum.YML));
         assertThat(result[1], is(FileTypeEnum.YAML));

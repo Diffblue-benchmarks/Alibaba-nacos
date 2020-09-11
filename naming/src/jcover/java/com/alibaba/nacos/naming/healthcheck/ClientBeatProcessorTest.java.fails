@@ -11,6 +11,7 @@ import com.alibaba.nacos.naming.selector.LabelSelector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -44,19 +45,19 @@ public class ClientBeatProcessorTest {
         clientBeatProcessor.setRsInfo(rsInfo);
         Service service = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x24 = new Cluster();
-        x24.setDefCkport(1);
-        x24.setDefIPPort(1);
-        x24.setServiceName("John Smith");
-        x24.setSitegroup("DE");
-        x24.setDefaultCheckPort(1);
-        x24.setDefaultPort(1);
+        Cluster x97 = new Cluster();
+        x97.setDefCkport(1);
+        x97.setDefIPPort(1);
+        x97.setServiceName("John Smith");
+        x97.setSitegroup("DE");
+        x97.setDefaultCheckPort(1);
+        x97.setDefaultPort(1);
         AbstractHealthChecker healthChecker1 =
              mock(AbstractHealthChecker.class);
-        x24.setHealthChecker(healthChecker1);
-        x24.setName("John Smith");
-        x24.setUseIPPort4Check(false);
-        clusterMap.put("foo", x24);
+        x97.setHealthChecker(healthChecker1);
+        x97.setName("John Smith");
+        x97.setUseIPPort4Check(false);
+        clusterMap.put("foo", x97);
         service.setClusterMap(clusterMap);
         service.setEnabled(false);
         service.setIpDeleteTimeout(1L);
@@ -64,7 +65,10 @@ public class ClientBeatProcessorTest {
         service.setNamespaceId("1234");
         service.setOwners(new ArrayList<String>());
         service.setResetWeight(false);
-        service.setSelector(new LabelSelector());
+        LabelSelector selector = new LabelSelector();
+        selector.setLabels(new HashSet<String>());
+        selector.setExpression("1");
+        service.setSelector(selector);
         service.setToken("Bearer");
         service.setAppName("Acme");
         service.setGroupName("Acme");

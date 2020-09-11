@@ -54,6 +54,6 @@ public class ServiceControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/service/names"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"count\":0,\"services\":{}}"));
+            .andExpect(content().json("{\"count\":0,\"services\":{}}"));
     }
 }

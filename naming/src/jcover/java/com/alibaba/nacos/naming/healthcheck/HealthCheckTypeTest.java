@@ -30,7 +30,7 @@ public class HealthCheckTypeTest {
     }
 
     @Test
-    public void getLoadedHealthCheckerClassesReturnsInnerClassInnerClassInnerClassInnerClass() {
+    public void getLoadedHealthCheckerClassesReturnsNestedClassNestedClassNestedClassNestedClass() {
         List<Class> result = HealthCheckType.getLoadedHealthCheckerClasses();
         assertThat(result.size(), is(4));
         assertThat((Class<AbstractHealthChecker.Tcp>) result.get(0), equalTo((Class) AbstractHealthChecker.Tcp.class));

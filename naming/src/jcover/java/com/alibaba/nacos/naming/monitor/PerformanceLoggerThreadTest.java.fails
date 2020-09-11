@@ -41,15 +41,11 @@ public class PerformanceLoggerThreadTest {
 
     @Test
     public void init() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.init();
     }
 
     @Test
     public void refreshMetrics() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.refreshMetrics();
         Mockito.verify(pushService).setFailedPush(ArgumentMatchers.eq((Integer) 0));
         Mockito.verify(pushService).setTotalPush(ArgumentMatchers.eq((Integer) 0));

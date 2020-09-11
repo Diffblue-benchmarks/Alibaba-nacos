@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class SameConfigPolicyTest {
 
     @Test
-    void valuesReturnsABORTSKIPOVERWRITE() {
+    void valuesReturnsAbortSkipOverwrite() {
         SameConfigPolicy[] result = SameConfigPolicy.values();
         assertThat(result[0], is(SameConfigPolicy.ABORT));
         assertThat(result[1], is(SameConfigPolicy.SKIP));

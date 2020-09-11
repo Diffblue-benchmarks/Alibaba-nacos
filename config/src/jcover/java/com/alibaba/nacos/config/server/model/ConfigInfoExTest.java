@@ -16,19 +16,19 @@ class ConfigInfoExTest {
     @Test
     void factory1() {
         ConfigInfoEx configInfoEx = new ConfigInfoEx();
-        configInfoEx.setMessage("ConfigInfoEx s");
+        configInfoEx.setMessage("an error has happened");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");
-        configInfoEx.setTenant("/some/path.html");
+        configInfoEx.setTenant("ConfigInfoEx s");
         configInfoEx.setContent("hello");
         configInfoEx.setDataId("1234");
         configInfoEx.setGroup("/some/path.html");
         configInfoEx.setId(1L);
         configInfoEx.setMd5("/some/path.html");
-        assertThat(configInfoEx.getMessage(), is("ConfigInfoEx s"));
+        assertThat(configInfoEx.getMessage(), is("an error has happened"));
         assertThat(configInfoEx.getStatus(), is(1));
         assertThat(configInfoEx.getAppName(), is("Acme"));
-        assertThat(configInfoEx.getTenant(), is("/some/path.html"));
+        assertThat(configInfoEx.getTenant(), is("ConfigInfoEx s"));
         assertThat(configInfoEx.getContent(), is("hello"));
         assertThat(configInfoEx.getDataId(), is("1234"));
         assertThat(configInfoEx.getGroup(), is("/some/path.html"));
@@ -38,21 +38,20 @@ class ConfigInfoExTest {
 
     @Test
     void factory2() {
-        ConfigInfoEx configInfoEx =
-             new ConfigInfoEx("1234", "ConfigInfoEx s", "hello");
-        configInfoEx.setMessage("/some/path.html");
+        ConfigInfoEx configInfoEx = new ConfigInfoEx("1234", "foo", "hello");
+        configInfoEx.setMessage("an error has happened");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");
-        configInfoEx.setTenant("/some/path.html");
+        configInfoEx.setTenant("ConfigInfoEx s");
         configInfoEx.setContent("hello");
         configInfoEx.setDataId("1234");
         configInfoEx.setGroup("/some/path.html");
         configInfoEx.setId(1L);
         configInfoEx.setMd5("/some/path.html");
-        assertThat(configInfoEx.getMessage(), is("/some/path.html"));
+        assertThat(configInfoEx.getMessage(), is("an error has happened"));
         assertThat(configInfoEx.getStatus(), is(1));
         assertThat(configInfoEx.getAppName(), is("Acme"));
-        assertThat(configInfoEx.getTenant(), is("/some/path.html"));
+        assertThat(configInfoEx.getTenant(), is("ConfigInfoEx s"));
         assertThat(configInfoEx.getContent(), is("hello"));
         assertThat(configInfoEx.getDataId(), is("1234"));
         assertThat(configInfoEx.getGroup(), is("/some/path.html"));
@@ -63,8 +62,8 @@ class ConfigInfoExTest {
     @Test
     void factory3() {
         ConfigInfoEx configInfoEx =
-             new ConfigInfoEx("1234", "ConfigInfoEx s", "hello", 1, "/some/path.html");
-        configInfoEx.setMessage("/some/path.html");
+             new ConfigInfoEx("1234", "foo", "hello", 0, "an error has happened");
+        configInfoEx.setMessage("an error has happened");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");
         configInfoEx.setTenant("/some/path.html");
@@ -73,7 +72,7 @@ class ConfigInfoExTest {
         configInfoEx.setGroup("/some/path.html");
         configInfoEx.setId(1L);
         configInfoEx.setMd5("/some/path.html");
-        assertThat(configInfoEx.getMessage(), is("/some/path.html"));
+        assertThat(configInfoEx.getMessage(), is("an error has happened"));
         assertThat(configInfoEx.getStatus(), is(1));
         assertThat(configInfoEx.getAppName(), is("Acme"));
         assertThat(configInfoEx.getTenant(), is("/some/path.html"));

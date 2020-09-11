@@ -1,0 +1,82 @@
+package com.alibaba.nacos.naming.cluster;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeerSet;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.cluster.ServerListManager
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ServerListManager.class})
+@RunWith(SpringRunner.class)
+public class ServerListManagerTest {
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private ServerListManager service;
+
+    @Test
+    public void clean() throws CloneNotSupportedException {
+        service.clean();
+    }
+
+    @Test
+    public void containsSIsSmithReturnsFalse() throws CloneNotSupportedException {
+        assertThat(service.contains("Smith"), is(false));
+    }
+
+    @Test
+    public void getDistroConfigReturnsEmpty() throws CloneNotSupportedException {
+        assertThat(service.getDistroConfig().isEmpty(), is(true));
+    }
+
+    @Test
+    public void getHealthyServersReturnsEmpty() throws CloneNotSupportedException {
+        assertThat(service.getHealthyServers(), empty());
+    }
+
+    @Test
+    public void getLiveSitesReturnsEmpty() throws CloneNotSupportedException {
+        assertThat(service.getLiveSites(), empty());
+    }
+
+    @Test
+    public void getServersReturnsEmpty() throws CloneNotSupportedException {
+        assertThat(service.getServers(), empty());
+    }
+
+    @Test
+    public void listen() throws CloneNotSupportedException {
+        service.listen(new RaftPeerSet());
+    }
+
+    @Test
+    public void onReceiveServerStatus1() throws CloneNotSupportedException {
+        service.onReceiveServerStatus("/some/path.html");
+    }
+
+    @Test
+    public void onReceiveServerStatus2() throws CloneNotSupportedException {
+        service.onReceiveServerStatus("\r\n");
+    }
+
+    @Test
+    public void onReceiveServerStatusConfigInfoIsBar() throws CloneNotSupportedException {
+        service.onReceiveServerStatus("bar");
+    }
+}

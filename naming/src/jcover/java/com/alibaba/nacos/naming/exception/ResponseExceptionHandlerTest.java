@@ -27,7 +27,7 @@ public class ResponseExceptionHandlerTest {
     @Test
     public void handleMissingParams() {
         ResponseEntity<String> result =
-             new ResponseExceptionHandler().handleMissingParams(new MissingServletRequestParameterException("name", "BASIC"));
+             new ResponseExceptionHandler().handleMissingParams(new MissingServletRequestParameterException("name", "data"));
         assertThat(result.getBody(), is("Parameter 'name' is missing"));
         assertThat(result.getHeaders().isEmpty(), is(true));
     }

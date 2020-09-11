@@ -114,15 +114,6 @@ class ServiceInfoTest {
     }
 
     @Test
-    void ipCountReturnsOne() {
-        ServiceInfo serviceInfo = new ServiceInfo();
-        ArrayList<Instance> hosts = new ArrayList<Instance>();
-        hosts.add(new Instance());
-        serviceInfo.setHosts(hosts);
-        assertThat(serviceInfo.ipCount(), is(1));
-    }
-
-    @Test
     void ipCountReturnsZero() {
         assertThat(new ServiceInfo().ipCount(), is(0));
     }
@@ -138,25 +129,7 @@ class ServiceInfoTest {
     }
 
     @Test
-    void validate1() {
-        ServiceInfo serviceInfo = new ServiceInfo();
-        serviceInfo.setAllIPs(true);
-        assertThat(serviceInfo.validate(), is(true));
-    }
-
-    @Test
-    void validate2() {
-        ServiceInfo serviceInfo = new ServiceInfo();
-        ArrayList<Instance> hosts = new ArrayList<Instance>();
-        Instance instance = new Instance();
-        instance.setHealthy(false);
-        hosts.add(instance);
-        serviceInfo.setHosts(hosts);
-        assertThat(serviceInfo.validate(), is(true));
-    }
-
-    @Test
-    void validate3() {
+    void validateReturnsTrue() {
         assertThat(new ServiceInfo().validate(), is(true));
     }
 

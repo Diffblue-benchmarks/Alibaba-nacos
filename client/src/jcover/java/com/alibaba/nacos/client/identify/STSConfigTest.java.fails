@@ -15,20 +15,6 @@ import org.junit.jupiter.api.Test;
 class STSConfigTest {
 
     @Test
-    void factory() {
-        STSConfig obj = STSConfig.getInstance();
-        obj.setCacheSecurityCredentials(false);
-        obj.setRamRoleName("data");
-        obj.setSecurityCredentials("bar");
-        obj.setSecurityCredentialsUrl("545321456");
-        obj.setTimeToRefreshInMillisecond(1);
-        assertThat(obj.getRamRoleName(), is("data"));
-        assertThat(obj.getSecurityCredentials(), is("bar"));
-        assertThat(obj.getTimeToRefreshInMillisecond(), is(1));
-        assertThat(obj.isCacheSecurityCredentials(), is(false));
-    }
-
-    @Test
     void getInstance() {
         STSConfig result = STSConfig.getInstance();
         assertThat(result.getRamRoleName(), is(nullValue()));

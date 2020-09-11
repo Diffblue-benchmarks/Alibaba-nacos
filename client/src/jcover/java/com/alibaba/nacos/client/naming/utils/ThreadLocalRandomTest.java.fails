@@ -20,7 +20,7 @@ class ThreadLocalRandomTest {
 
     @Test
     void getInitialSeedUniquifier() {
-        assertThat(ThreadLocalRandom.getInitialSeedUniquifier(), is(6_638_333_771_533_613_127L));
+        assertThat(ThreadLocalRandom.getInitialSeedUniquifier(), is(-7_344_710_221_906_197_672L));
     }
 
     @Test

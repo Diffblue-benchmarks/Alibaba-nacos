@@ -67,7 +67,6 @@ public class DataSyncerTest {
         keys.add("key");
         task.setKeys(keys);
         task.setRetryCount(1);
-        task.setTargetServer("/some/path.html");
         service.submit(task, 1L);
     }
 

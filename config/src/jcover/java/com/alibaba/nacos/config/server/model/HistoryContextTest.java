@@ -20,12 +20,12 @@ class HistoryContextTest {
     void factory1() {
         HistoryContext historyContext = new HistoryContext();
         historyContext.setAppName("Acme");
-        Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
-        configs2.setPageItems(new ArrayList<ConfigHistoryInfo>());
-        configs2.setPageNumber(0);
-        configs2.setPagesAvailable(1);
-        configs2.setTotalCount(1);
-        historyContext.setConfigs(configs2);
+        Page<ConfigHistoryInfo> configs = new Page<ConfigHistoryInfo>();
+        configs.setPageItems(new ArrayList<ConfigHistoryInfo>());
+        configs.setPageNumber(0);
+        configs.setPagesAvailable(1);
+        configs.setTotalCount(1);
+        historyContext.setConfigs(configs);
         historyContext.setDataId("1234");
         historyContext.setGroup("hello");
         historyContext.setServerId("1234");
@@ -34,7 +34,7 @@ class HistoryContextTest {
         historyContext.setSuccess(false);
         historyContext.setTenant("hello");
         assertThat(historyContext.getAppName(), is("Acme"));
-        assertThat(historyContext.getConfigs(), sameInstance(configs2));
+        assertThat(historyContext.getConfigs(), sameInstance(configs));
         assertThat(historyContext.getDataId(), is("1234"));
         assertThat(historyContext.getGroup(), is("hello"));
         assertThat(historyContext.getServerId(), is("1234"));
@@ -52,7 +52,7 @@ class HistoryContextTest {
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "hello", 0, "New York", configs1);
+             new HistoryContext("1234", "1234", "foo", 0, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
         configs2.setPageItems(new ArrayList<ConfigHistoryInfo>());
@@ -86,7 +86,7 @@ class HistoryContextTest {
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "hello", 200, "New York", configs1);
+             new HistoryContext("1234", "1234", "foo", 200, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
         configs2.setPageItems(new ArrayList<ConfigHistoryInfo>());

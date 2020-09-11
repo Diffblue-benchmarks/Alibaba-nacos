@@ -48,7 +48,7 @@ public class HealthControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/health/server"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"msg\":\"Hello! I am Nacos-Naming and healthy! total services: raft 1, local port:0\"}"));
+            .andExpect(content().json("{\"msg\":\"Hello! I am Nacos-Naming and healthy! total services: raft 1, local port:0\"}"));
     }
 
     @Test
@@ -58,6 +58,6 @@ public class HealthControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/health/checkers"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"TCP\":{\"type\":\"TCP\"},\"HTTP\":{\"type\":\"HTTP\",\"path\":\"\",\"headers\":\"\",\"expectedResponseCode\":200,\"customHeaders\":{}},\"MYSQL\":{\"type\":\"MYSQL\",\"user\":null,\"pwd\":null,\"cmd\":null},\"NONE\":{\"type\":\"NONE\"}}"));
+            .andExpect(content().json("{\"TCP\":{\"type\":\"TCP\"},\"HTTP\":{\"type\":\"HTTP\",\"path\":\"\",\"headers\":\"\",\"expectedResponseCode\":200,\"customHeaders\":{}},\"MYSQL\":{\"type\":\"MYSQL\",\"user\":null,\"pwd\":null,\"cmd\":null},\"NONE\":{\"type\":\"NONE\"}}"));
     }
 }

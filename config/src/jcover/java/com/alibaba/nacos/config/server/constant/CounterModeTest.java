@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class CounterModeTest {
 
     @Test
-    void valuesReturnsINCREMENTDECREMENT() {
+    void valuesReturnsIncrementDecrement() {
         CounterMode[] result = CounterMode.values();
         assertThat(result[0], is(CounterMode.INCREMENT));
         assertThat(result[1], is(CounterMode.DECREMENT));

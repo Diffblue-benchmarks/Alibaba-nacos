@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class AuthTypeTest {
 
     @Test
-    void valuesReturnsGROUPGROUP_DATAIDTENANT_GROUPTENANT() {
+    void valuesReturnsGroupGroup_dataidTenant_groupTenant() {
         AuthType[] result = AuthType.values();
         assertThat(result[0], is(AuthType.GROUP));
         assertThat(result[1], is(AuthType.GROUP_DATAID));

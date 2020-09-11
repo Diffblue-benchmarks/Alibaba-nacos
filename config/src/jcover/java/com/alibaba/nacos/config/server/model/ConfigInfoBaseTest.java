@@ -17,18 +17,50 @@ import org.junit.jupiter.api.Test;
 class ConfigInfoBaseTest {
 
     @Test
-    void factory() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+    void factory1() {
+        ConfigInfoBase configInfoBase = new ConfigInfoBase();
         configInfoBase.setContent("hello");
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("bar");
         configInfoBase.setId(1L);
-        configInfoBase.setMd5("foo");
+        configInfoBase.setMd5("/some/path.html");
         assertThat(configInfoBase.getContent(), is("hello"));
         assertThat(configInfoBase.getDataId(), is("1234"));
         assertThat(configInfoBase.getGroup(), is("bar"));
         assertThat(configInfoBase.getId(), is(1L));
-        assertThat(configInfoBase.getMd5(), is("foo"));
+        assertThat(configInfoBase.getMd5(), is("/some/path.html"));
+    }
+
+    @Test
+    void factory2() {
+        ConfigInfoBase configInfoBase =
+             new ConfigInfoBase("1234", "foo", null);
+        configInfoBase.setContent("hello");
+        configInfoBase.setDataId("1234");
+        configInfoBase.setGroup("/some/path.html");
+        configInfoBase.setId(1L);
+        configInfoBase.setMd5("/some/path.html");
+        assertThat(configInfoBase.getContent(), is("hello"));
+        assertThat(configInfoBase.getDataId(), is("1234"));
+        assertThat(configInfoBase.getGroup(), is("/some/path.html"));
+        assertThat(configInfoBase.getId(), is(1L));
+        assertThat(configInfoBase.getMd5(), is("/some/path.html"));
+    }
+
+    @Test
+    void factory3() {
+        ConfigInfoBase configInfoBase =
+             new ConfigInfoBase("1234", "foo", "hello");
+        configInfoBase.setContent("hello");
+        configInfoBase.setDataId("1234");
+        configInfoBase.setGroup("bar");
+        configInfoBase.setId(1L);
+        configInfoBase.setMd5("/some/path.html");
+        assertThat(configInfoBase.getContent(), is("hello"));
+        assertThat(configInfoBase.getDataId(), is("1234"));
+        assertThat(configInfoBase.getGroup(), is("bar"));
+        assertThat(configInfoBase.getId(), is(1L));
+        assertThat(configInfoBase.getMd5(), is("/some/path.html"));
     }
 
     @Test
@@ -67,16 +99,6 @@ class ConfigInfoBaseTest {
     void compareToReturnsMinusOne1() {
         ConfigInfoBase configInfoBase = new ConfigAllInfo();
         configInfoBase.setDataId("1234");
-        ConfigInfo o = new ConfigAllInfo();
-        o.setDataId("1234");
-        o.setGroup("/some/path.html");
-        assertThat(configInfoBase.compareTo(o), is(-1));
-    }
-
-    @Test
-    void compareToReturnsMinusOne2() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
-        configInfoBase.setDataId("1234");
         configInfoBase.setGroup("/some/path.html");
         ConfigInfo o = new ConfigAllInfo();
         o.setContent("hello");
@@ -86,10 +108,20 @@ class ConfigInfoBaseTest {
     }
 
     @Test
-    void compareToReturnsMinusOne3() {
+    void compareToReturnsMinusOne2() {
         ConfigInfo o = new ConfigAllInfo();
         o.setDataId("1234");
         assertThat(new ConfigAllInfo().compareTo(o), is(-1));
+    }
+
+    @Test
+    void compareToReturnsMinusOne3() {
+        ConfigInfoBase configInfoBase = new ConfigAllInfo();
+        configInfoBase.setDataId("1234");
+        ConfigInfo o = new ConfigAllInfo();
+        o.setDataId("1234");
+        o.setGroup("/some/path.html");
+        assertThat(configInfoBase.compareTo(o), is(-1));
     }
 
     @Test
@@ -135,24 +167,13 @@ class ConfigInfoBaseTest {
     }
 
     @Test
-    void compareToReturnsZero1() {
+    void compareToReturnsZero() {
         ConfigInfoBase configInfoBase = new ConfigAllInfo();
         configInfoBase.setContent("hello");
         configInfoBase.setDataId("1234");
         configInfoBase.setGroup("/some/path.html");
         ConfigInfo o = new ConfigAllInfo();
         o.setContent("hello");
-        o.setDataId("1234");
-        o.setGroup("/some/path.html");
-        assertThat(configInfoBase.compareTo(o), is(0));
-    }
-
-    @Test
-    void compareToReturnsZero2() {
-        ConfigInfoBase configInfoBase = new ConfigAllInfo();
-        configInfoBase.setDataId("1234");
-        configInfoBase.setGroup("/some/path.html");
-        ConfigInfo o = new ConfigAllInfo();
         o.setDataId("1234");
         o.setGroup("/some/path.html");
         assertThat(configInfoBase.compareTo(o), is(0));

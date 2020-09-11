@@ -50,8 +50,6 @@ public class ApiControllerTest {
 
     @Test
     public void allDomNames() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         Map<String, Set<String>> map = new HashMap<String, Set<String>>();
         map.put("foo", new HashSet<String>());
         when(serviceManager.getAllServiceNames())
@@ -61,13 +59,11 @@ public class ApiControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/api/allDomNames"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"count\":0,\"doms\":{\"foo\":[]}}"));
+            .andExpect(content().json("{\"count\":0,\"doms\":{\"foo\":[]}}"));
     }
 
     @Test
     public void hello() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/api/hello"))

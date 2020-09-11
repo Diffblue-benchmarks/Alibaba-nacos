@@ -14,8 +14,20 @@ import org.junit.jupiter.api.Test;
 class ConfigInfoChangedTest {
 
     @Test
-    void factory() {
+    void factory1() {
         ConfigInfoChanged configInfoChanged = new ConfigInfoChanged();
+        configInfoChanged.setDataId("1234");
+        configInfoChanged.setGroup("/some/path.html");
+        configInfoChanged.setTenant("/some/path.html");
+        assertThat(configInfoChanged.getDataId(), is("1234"));
+        assertThat(configInfoChanged.getGroup(), is("/some/path.html"));
+        assertThat(configInfoChanged.getTenant(), is("/some/path.html"));
+    }
+
+    @Test
+    void factory2() {
+        ConfigInfoChanged configInfoChanged =
+             new ConfigInfoChanged("1234", "foo", "foo");
         configInfoChanged.setDataId("1234");
         configInfoChanged.setGroup("/some/path.html");
         configInfoChanged.setTenant("/some/path.html");
@@ -27,7 +39,6 @@ class ConfigInfoChangedTest {
     @Test
     void testEquals() {
         assertThat(new ConfigInfoChanged().equals(new Object()), is(false));
-        assertThat(new ConfigInfoChanged("1234", "ConfigInfoChanged d", "/some/path.html").equals(new Object()), is(false));
         assertThat(new ConfigInfoChanged().equals(null), is(false));
     }
 }

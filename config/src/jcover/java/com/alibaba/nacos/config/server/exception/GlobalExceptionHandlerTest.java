@@ -21,10 +21,10 @@ class GlobalExceptionHandlerTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         // act
-        new GlobalExceptionHandler().handleIllegalArgumentException(response, new NacosException());
+        new GlobalExceptionHandler().handleIllegalArgumentException(response, new NacosException(1, "an error has happened"));
 
         // assert
-        assertThat(response.getContentAsString(), is("invalid param\n"));
+        assertThat(response.getContentAsString(), is("an error has happened\n"));
         assertThat(response.getStatus(), is(400));
     }
 
@@ -35,32 +35,15 @@ class GlobalExceptionHandlerTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         // act
-        new GlobalExceptionHandler().handleIllegalArgumentException(response, new NacosException(1, "jpg"));
+        new GlobalExceptionHandler().handleIllegalArgumentException(response, new NacosException());
 
         // assert
-        assertThat(response.getContentAsString(), is("jpg\n"));
+        assertThat(response.getContentAsString(), is("invalid param\n"));
         assertThat(response.getStatus(), is(400));
     }
 
     @Test
     void handleNacosException1() throws java.io.UnsupportedEncodingException, java.io.IOException {
-
-        // arrange
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        NacosException ex = new NacosException();
-        ex.setErrCode(1);
-        ex.setErrMsg("jpg");
-
-        // act
-        new GlobalExceptionHandler().handleNacosException(response, ex);
-
-        // assert
-        assertThat(response.getContentAsString(), is("jpg\n"));
-        assertThat(response.getStatus(), is(1));
-    }
-
-    @Test
-    void handleNacosException2() throws java.io.UnsupportedEncodingException, java.io.IOException {
 
         // arrange
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -72,6 +55,23 @@ class GlobalExceptionHandlerTest {
 
         // assert
         assertThat(response.getContentAsString(), is("unknown exception\n"));
+        assertThat(response.getStatus(), is(1));
+    }
+
+    @Test
+    void handleNacosException2() throws java.io.UnsupportedEncodingException, java.io.IOException {
+
+        // arrange
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        NacosException ex = new NacosException();
+        ex.setErrCode(1);
+        ex.setErrMsg("bar");
+
+        // act
+        new GlobalExceptionHandler().handleNacosException(response, ex);
+
+        // assert
+        assertThat(response.getContentAsString(), is("bar\n"));
         assertThat(response.getStatus(), is(1));
     }
 }

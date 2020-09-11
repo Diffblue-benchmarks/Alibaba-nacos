@@ -62,7 +62,7 @@ class LoggingSpringApplicationRunListenerTest {
         application.setResourceLoader(resourceLoader);
         application.setSources(new HashSet<String>());
         application.setWebApplicationType(WebApplicationType.NONE);
-        String[] args = new String[] { "DE" };
+        String[] args = new String[] { "foo" };
         assertThat(new LoggingSpringApplicationRunListener(application, args).getOrder(), is(-2_147_483_648));
     }
 

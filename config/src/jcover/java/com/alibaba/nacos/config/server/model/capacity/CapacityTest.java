@@ -19,7 +19,7 @@ class CapacityTest {
 
     @Test
     void factory1() {
-        Capacity capacity = new GroupCapacity();
+        Capacity capacity = new Capacity();
         capacity.setGmtCreate(null);
         capacity.setGmtModified(Timestamp.valueOf("2019-12-31 23:10:59"));
         capacity.setId(1L);
@@ -38,7 +38,7 @@ class CapacityTest {
 
     @Test
     void factory2() {
-        Capacity capacity = new GroupCapacity();
+        Capacity capacity = new Capacity();
         capacity.setGmtCreate(Timestamp.valueOf("2019-12-31 23:10:59"));
         capacity.setGmtModified(null);
         capacity.setId(1L);
@@ -57,7 +57,7 @@ class CapacityTest {
 
     @Test
     void factory3() {
-        Capacity capacity = new GroupCapacity();
+        Capacity capacity = new Capacity();
         capacity.setGmtCreate(Timestamp.valueOf("2019-12-31 23:10:59"));
         capacity.setGmtModified(Timestamp.valueOf("2019-12-31 23:10:59"));
         capacity.setId(1L);

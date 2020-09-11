@@ -18,7 +18,7 @@ class ChooserTest {
 
     @Test
     void factory() {
-        assertThat(new Chooser<String, String>("foo").getUniqueKey(), is("foo"));
+        assertThat(new Chooser<String, String>("key").getUniqueKey(), is("key"));
     }
 
     @Test

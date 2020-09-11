@@ -44,8 +44,6 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void getKeyIsKey() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         when(raftCore.getDatum(Mockito.<String>any()))
             .thenReturn(new Datum<Object>());
         // pojo Datum
@@ -53,8 +51,6 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void isAvailableReturnsFalse() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         when(switchDomain.getOverriddenServerStatus())
             .thenReturn("foo");
         when(raftCore.isInitialized())
@@ -64,8 +60,6 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void isAvailableReturnsTrue() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         when(raftCore.isInitialized())
             .thenReturn(true);
         assertThat(service.isAvailable(), is(true));
@@ -73,40 +67,30 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void listen() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.listen("key", new Service());
         Mockito.verify(raftCore).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
     public void onPut() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.onPut(new Datum(), new RaftPeer());
         Mockito.verify(raftCore).onPublish(ArgumentMatchers.<Datum>any(), ArgumentMatchers.<RaftPeer>any());
     }
 
     @Test
     public void onRemove() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.onRemove(new Datum(), new RaftPeer());
         Mockito.verify(raftCore).onDelete(ArgumentMatchers.eq((String) null), ArgumentMatchers.<RaftPeer>any());
     }
 
     @Test
     public void put() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.put("key", new Instances());
         Mockito.verify(raftCore).signalPublish(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
     }
 
     @Test
     public void remove() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.remove("key");
         Mockito.verify(raftCore).signalDelete(ArgumentMatchers.eq("key"));
         Mockito.verify(raftCore).unlistenAll(ArgumentMatchers.eq("key"));
@@ -114,8 +98,6 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void unlisten() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         service.unlisten("key", new Service());
         Mockito.verify(raftCore).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }

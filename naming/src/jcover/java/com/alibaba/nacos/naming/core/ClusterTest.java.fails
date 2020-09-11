@@ -12,6 +12,7 @@ import com.alibaba.nacos.naming.selector.LabelSelector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import org.junit.Test;
@@ -29,44 +30,61 @@ public class ClusterTest {
         Cluster cluster = new Cluster();
         cluster.setDefCkport(1);
         cluster.setDefIPPort(-1);
-        Service service2 = new Service();
-        service2.setClusterMap(new HashMap<String, Cluster>());
-        service2.setEnabled(false);
-        service2.setIpDeleteTimeout(1L);
-        service2.setLastModifiedMillis(1L);
-        service2.setNamespaceId("1234");
-        service2.setOwners(new ArrayList<String>());
-        service2.setResetWeight(false);
-        service2.setSelector(new LabelSelector());
-        service2.setToken("Bearer");
-        service2.setAppName("Acme");
-        service2.setGroupName("Acme");
-        HashMap<String, String> metadata2 = new HashMap<String, String>();
-        metadata2.put("foo", "foo");
-        service2.setMetadata(metadata2);
-        service2.setName("Acme");
-        service2.setProtectThreshold(1.0f);
-        cluster.setService(service2);
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster x368 = new Cluster();
+        x368.setDefCkport(1);
+        x368.setDefIPPort(1);
+        x368.setServiceName("John Smith");
+        x368.setSitegroup("DE");
+        x368.setDefaultCheckPort(1);
+        x368.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        x368.setHealthChecker(healthChecker1);
+        x368.setName("John Smith");
+        x368.setUseIPPort4Check(false);
+        clusterMap.put("foo", x368);
+        service.setClusterMap(clusterMap);
+        service.setEnabled(false);
+        service.setIpDeleteTimeout(1L);
+        service.setLastModifiedMillis(1L);
+        service.setNamespaceId("1234");
+        service.setOwners(new ArrayList<String>());
+        service.setResetWeight(false);
+        LabelSelector selector = new LabelSelector();
+        selector.setLabels(new HashSet<String>());
+        selector.setExpression("1");
+        service.setSelector(selector);
+        service.setToken("Bearer");
+        service.setAppName("Acme");
+        service.setGroupName("Acme");
+        HashMap<String, String> metadata1 = new HashMap<String, String>();
+        metadata1.put("foo", "foo");
+        service.setMetadata(metadata1);
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        cluster.setService(service);
         cluster.setServiceName("John Smith");
         cluster.setSitegroup("DE");
         cluster.setDefaultCheckPort(1);
         cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker =
+        AbstractHealthChecker healthChecker3 =
              mock(AbstractHealthChecker.class);
-        cluster.setHealthChecker(healthChecker);
-        HashMap<String, String> metadata3 = new HashMap<String, String>();
-        metadata3.put("foo", "foo");
-        cluster.setMetadata(metadata3);
+        cluster.setHealthChecker(healthChecker3);
+        HashMap<String, String> metadata2 = new HashMap<String, String>();
+        metadata2.put("foo", "foo");
+        cluster.setMetadata(metadata2);
         cluster.setName("John Smith");
         cluster.setUseIPPort4Check(false);
         assertThat(cluster.getDefCkport(), is(1));
         assertThat(cluster.getDefIPPort(), is(1));
         assertThat(cluster.getHealthCheckTask(), is(nullValue()));
-        assertThat(cluster.getService(), sameInstance(service2));
+        assertThat(cluster.getService(), sameInstance(service));
         assertThat(cluster.getSitegroup(), is("DE"));
         assertThat(cluster.getDefaultCheckPort(), is(1));
         assertThat(cluster.getDefaultPort(), is(1));
-        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker3));
         assertThat(cluster.getMetadata().get("foo"), is("foo"));
         assertThat(cluster.getName(), is("John Smith"));
         assertThat(cluster.getServiceName(), is("Acme"));
@@ -86,9 +104,9 @@ public class ClusterTest {
         AbstractHealthChecker healthChecker =
              mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
-        HashMap<String, String> metadata2 = new HashMap<String, String>();
-        metadata2.put("foo", "foo");
-        cluster.setMetadata(metadata2);
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        cluster.setMetadata(metadata);
         cluster.setName("John Smith");
         cluster.setUseIPPort4Check(false);
         assertThat(cluster.getDefCkport(), is(1));
@@ -110,44 +128,61 @@ public class ClusterTest {
         Cluster cluster = new Cluster();
         cluster.setDefCkport(1);
         cluster.setDefIPPort(1);
-        Service service2 = new Service();
-        service2.setClusterMap(new HashMap<String, Cluster>());
-        service2.setEnabled(true);
-        service2.setIpDeleteTimeout(1L);
-        service2.setLastModifiedMillis(1L);
-        service2.setNamespaceId("1234");
-        service2.setOwners(new ArrayList<String>());
-        service2.setResetWeight(false);
-        service2.setSelector(new LabelSelector());
-        service2.setToken("Bearer");
-        service2.setAppName("Acme");
-        service2.setGroupName("Acme");
-        HashMap<String, String> metadata2 = new HashMap<String, String>();
-        metadata2.put("foo", "foo");
-        service2.setMetadata(metadata2);
-        service2.setName("Acme");
-        service2.setProtectThreshold(1.0f);
-        cluster.setService(service2);
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster x368 = new Cluster();
+        x368.setDefCkport(1);
+        x368.setDefIPPort(1);
+        x368.setServiceName("John Smith");
+        x368.setSitegroup("DE");
+        x368.setDefaultCheckPort(1);
+        x368.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        x368.setHealthChecker(healthChecker1);
+        x368.setName("John Smith");
+        x368.setUseIPPort4Check(true);
+        clusterMap.put("foo", x368);
+        service.setClusterMap(clusterMap);
+        service.setEnabled(false);
+        service.setIpDeleteTimeout(1L);
+        service.setLastModifiedMillis(1L);
+        service.setNamespaceId("1234");
+        service.setOwners(new ArrayList<String>());
+        service.setResetWeight(false);
+        LabelSelector selector = new LabelSelector();
+        selector.setLabels(new HashSet<String>());
+        selector.setExpression("1");
+        service.setSelector(selector);
+        service.setToken("Bearer");
+        service.setAppName("Acme");
+        service.setGroupName("Acme");
+        HashMap<String, String> metadata1 = new HashMap<String, String>();
+        metadata1.put("foo", "foo");
+        service.setMetadata(metadata1);
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        cluster.setService(service);
         cluster.setServiceName("John Smith");
         cluster.setSitegroup("DE");
         cluster.setDefaultCheckPort(1);
         cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker =
+        AbstractHealthChecker healthChecker3 =
              mock(AbstractHealthChecker.class);
-        cluster.setHealthChecker(healthChecker);
-        HashMap<String, String> metadata3 = new HashMap<String, String>();
-        metadata3.put("foo", "foo");
-        cluster.setMetadata(metadata3);
+        cluster.setHealthChecker(healthChecker3);
+        HashMap<String, String> metadata2 = new HashMap<String, String>();
+        metadata2.put("foo", "foo");
+        cluster.setMetadata(metadata2);
         cluster.setName("John Smith");
         cluster.setUseIPPort4Check(false);
         assertThat(cluster.getDefCkport(), is(1));
         assertThat(cluster.getDefIPPort(), is(1));
         assertThat(cluster.getHealthCheckTask(), is(nullValue()));
-        assertThat(cluster.getService(), sameInstance(service2));
+        assertThat(cluster.getService(), sameInstance(service));
         assertThat(cluster.getSitegroup(), is("DE"));
         assertThat(cluster.getDefaultCheckPort(), is(1));
         assertThat(cluster.getDefaultPort(), is(1));
-        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker3));
         assertThat(cluster.getMetadata().get("foo"), is("foo"));
         assertThat(cluster.getName(), is("John Smith"));
         assertThat(cluster.getServiceName(), is("Acme"));
@@ -163,6 +198,15 @@ public class ClusterTest {
     @Test
     public void destroy() {
         new Cluster().destroy();
+    }
+
+    @Test
+    public void getServiceNameReturnsAcme() {
+        Cluster cluster = new Cluster();
+        Service service2 = new Service();
+        service2.setName("Acme");
+        cluster.setService(service2);
+        assertThat(cluster.getServiceName(), is("Acme"));
     }
 
     @Test

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class TimerTaskServiceTest {
 
     @Test
-    void scheduleWithFixedDelayDelayIsOneAndInitialDelayIsOneAndUnitIsNANOSECONDS() {
+    void scheduleWithFixedDelayDelayIsOneAndInitialDelayIsOneAndUnitIsNanoseconds() {
         TimerTaskService.scheduleWithFixedDelay(Thread.currentThread(), 1L, 1L, TimeUnit.NANOSECONDS);
     }
 }

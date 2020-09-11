@@ -19,9 +19,23 @@ import org.junit.jupiter.api.Test;
 class NamingEventTest {
 
     @Test
-    void factory() {
+    void factory1() {
         NamingEvent namingEvent =
              new NamingEvent("Acme", "Acme", "foo", new ArrayList<Instance>());
+        namingEvent.setClusters("foo");
+        namingEvent.setGroupName("Acme");
+        namingEvent.setInstances(new ArrayList<Instance>());
+        namingEvent.setServiceName("Acme");
+        assertThat(namingEvent.getClusters(), is("foo"));
+        assertThat(namingEvent.getGroupName(), is("Acme"));
+        assertThat(namingEvent.getInstances(), empty());
+        assertThat(namingEvent.getServiceName(), is("Acme"));
+    }
+
+    @Test
+    void factory2() {
+        NamingEvent namingEvent =
+             new NamingEvent("Acme", new ArrayList<Instance>());
         namingEvent.setClusters("foo");
         namingEvent.setGroupName("Acme");
         namingEvent.setInstances(new ArrayList<Instance>());

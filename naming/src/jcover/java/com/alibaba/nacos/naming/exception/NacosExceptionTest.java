@@ -34,22 +34,22 @@ public class NacosExceptionTest {
 
     @Test
     public void factory3() {
-        NacosException nacosException = new NacosException(1, "jpg");
+        NacosException nacosException = new NacosException(1, "foo");
         assertThat(nacosException.getErrorCode(), is(1));
-        assertThat(nacosException.getErrorMsg(), is("jpg"));
+        assertThat(nacosException.getErrorMsg(), is("foo"));
         assertThat(nacosException.getCause(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("jpg"));
+        assertThat(nacosException.getMessage(), is("foo"));
     }
 
     @Test
     public void factory4() {
         NacosException nacosException =
-             new NacosException(1, "jpg", new NacosException());
+             new NacosException(1, "foo", new NacosException());
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
         assertThat(nacosException.getCause().getMessage(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("jpg"));
+        assertThat(nacosException.getMessage(), is("foo"));
     }
 
     @Test

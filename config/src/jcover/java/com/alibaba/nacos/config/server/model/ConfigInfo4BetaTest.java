@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class ConfigInfo4BetaTest {
 
     @Test
-    void factory() {
+    void factory1() {
         ConfigInfo4Beta configInfo4Beta = new ConfigInfo4Beta();
         configInfo4Beta.setBetaIps("/some/path.html");
         configInfo4Beta.setAppName("Acme");
@@ -35,8 +35,29 @@ class ConfigInfo4BetaTest {
     }
 
     @Test
-    void testEquals() {
-        assertThat(new ConfigInfo4Beta("1234", "bar", "Acme", "hello", "/some/path.html").equals(new Object()), is(false));
+    void factory2() {
+        ConfigInfo4Beta configInfo4Beta =
+             new ConfigInfo4Beta("1234", "foo", "Acme", "hello", "foo");
+        configInfo4Beta.setBetaIps("/some/path.html");
+        configInfo4Beta.setAppName("Acme");
+        configInfo4Beta.setTenant("/some/path.html");
+        configInfo4Beta.setContent("hello");
+        configInfo4Beta.setDataId("1234");
+        configInfo4Beta.setGroup("/some/path.html");
+        configInfo4Beta.setId(1L);
+        configInfo4Beta.setMd5("/some/path.html");
+        assertThat(configInfo4Beta.getBetaIps(), is("/some/path.html"));
+        assertThat(configInfo4Beta.getAppName(), is("Acme"));
+        assertThat(configInfo4Beta.getTenant(), is("/some/path.html"));
+        assertThat(configInfo4Beta.getContent(), is("hello"));
+        assertThat(configInfo4Beta.getDataId(), is("1234"));
+        assertThat(configInfo4Beta.getGroup(), is("/some/path.html"));
+        assertThat(configInfo4Beta.getId(), is(1L));
+        assertThat(configInfo4Beta.getMd5(), is("/some/path.html"));
+    }
+
+    @Test
+    void equalsReturnsFalse() {
         assertThat(new ConfigInfo4Beta().equals(new Object()), is(false));
     }
 }

@@ -71,8 +71,6 @@ public class OperatorControllerTest {
 
     @Test
     public void distroStatus() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         Map<String, List<Server>> map = new HashMap<String, List<Server>>();
         map.put("action", new ArrayList<Server>());
         when(serverListManager.getDistroConfig())
@@ -82,13 +80,11 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/distro/status"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"status\":{\"action\":[]}}"));
+            .andExpect(content().json("{\"status\":{\"action\":[]}}"));
     }
 
     @Test
     public void getHealthyServerList() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         when(serverListManager.getServers())
             .thenReturn(new ArrayList<Server>());
         MockMvcBuilders.standaloneSetup(controller)
@@ -96,6 +92,6 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/servers"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"servers\":[]}"));
+            .andExpect(content().json("{\"servers\":[]}"));
     }
 }

@@ -18,10 +18,10 @@ class MergeDataTaskTest {
     @Test
     void factory() {
         MergeDataTask mergeDataTask =
-             new MergeDataTask("something", "1234", "something", "something");
+             new MergeDataTask("1234", "1234", "foo", "foo");
         mergeDataTask.setLastProcessTime(1L);
         mergeDataTask.setTaskInterval(1L);
-        assertThat(mergeDataTask.getClientIp(), is("something"));
+        assertThat(mergeDataTask.getClientIp(), is("foo"));
         assertThat(mergeDataTask.getLastProcessTime(), is(1L));
         assertThat(mergeDataTask.getTaskInterval(), is(1L));
     }

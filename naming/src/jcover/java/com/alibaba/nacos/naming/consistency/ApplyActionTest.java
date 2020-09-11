@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ApplyActionTest {
 
     @Test
-    public void valuesReturnsCHANGEDELETE() {
+    public void valuesReturnsChangeDelete() {
         ApplyAction[] result = ApplyAction.values();
         assertThat(result[0], is(ApplyAction.CHANGE));
         assertThat(result[1], is(ApplyAction.DELETE));

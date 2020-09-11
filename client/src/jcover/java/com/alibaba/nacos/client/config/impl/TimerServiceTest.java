@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class TimerServiceTest {
 
     @Test
-    void scheduleWithFixedDelayDelayIsOneAndInitialDelayIsOneAndUnitIsNANOSECONDS() {
+    void scheduleWithFixedDelayDelayIsOneAndInitialDelayIsOneAndUnitIsNanoseconds() {
         // pojo java.util.concurrent.ScheduledFuture<?>
     }
 }

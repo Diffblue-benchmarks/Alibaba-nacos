@@ -283,8 +283,8 @@ public class OverrideParameterRequestWrapperTest {
         request.setCookies(new Cookie("name", "value"));
         HashMap<String, String[]> appendParameters =
              new HashMap<String, String[]>();
-        String[] x306 = new String[] { "foo" };
-        appendParameters.put("foo", x306);
+        String[] x348 = new String[] { "foo" };
+        appendParameters.put("foo", x348);
 
         // act
         OverrideParameterRequestWrapper result =

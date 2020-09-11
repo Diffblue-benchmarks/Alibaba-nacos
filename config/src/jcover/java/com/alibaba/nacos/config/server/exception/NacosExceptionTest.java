@@ -18,21 +18,21 @@ class NacosExceptionTest {
     void factory1() {
         NacosException nacosException = new NacosException();
         nacosException.setErrCode(1);
-        nacosException.setErrMsg("jpg");
+        nacosException.setErrMsg("bar");
         assertThat(nacosException.getErrCode(), is(1));
-        assertThat(nacosException.getErrMsg(), is("jpg"));
+        assertThat(nacosException.getErrMsg(), is("bar"));
         assertThat(nacosException.getCause(), is(nullValue()));
         assertThat(nacosException.getMessage(), is(nullValue()));
     }
 
     @Test
     void factory2() {
-        NacosException nacosException = new NacosException(0, "bar");
+        NacosException nacosException = new NacosException(0, "foo");
         nacosException.setErrCode(1);
-        nacosException.setErrMsg("jpg");
+        nacosException.setErrMsg("bar");
         assertThat(nacosException.getErrCode(), is(1));
-        assertThat(nacosException.getErrMsg(), is("jpg"));
+        assertThat(nacosException.getErrMsg(), is("bar"));
         assertThat(nacosException.getCause(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("bar"));
+        assertThat(nacosException.getMessage(), is("foo"));
     }
 }

@@ -1,0 +1,67 @@
+package com.alibaba.nacos.naming.cluster;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.naming.consistency.ConsistencyService;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.cluster.ServerStatusManager
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ServerStatusManager.class})
+@RunWith(SpringRunner.class)
+public class ServerStatusManagerTest {
+
+    @MockBean(name = "consistencyService")
+    private ConsistencyService consistencyService;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private ServerStatusManager service;
+
+    @Test
+    public void getServerStatusReturnsStarting() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        when(switchDomain.getOverriddenServerStatus())
+            .thenReturn("foo");
+        assertThat(service.getServerStatus(), is(ServerStatus.STARTING));
+    }
+
+    @Test
+    public void init1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        when(switchDomain.getOverriddenServerStatus())
+            .thenReturn("foo")
+            .thenReturn("foo");
+        service.init();
+    }
+
+    @Test
+    public void init2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        when(switchDomain.getOverriddenServerStatus())
+            .thenReturn("bar")
+            .thenReturn("foo");
+        service.init();
+    }
+
+    @Test
+    public void init3() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        when(switchDomain.getOverriddenServerStatus())
+            .thenReturn("");
+        when(consistencyService.isAvailable())
+            .thenReturn(false);
+        service.init();
+    }
+}

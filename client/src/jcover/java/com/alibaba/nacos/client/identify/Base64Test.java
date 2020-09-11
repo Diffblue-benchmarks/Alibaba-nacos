@@ -16,6 +16,22 @@ import org.junit.jupiter.api.Test;
 class Base64Test {
 
     @Test
+    void factory1() {
+        // pojo Base64
+    }
+
+    @Test
+    void factory2() {
+        // pojo Base64
+    }
+
+    @Test
+    void factory3() {
+        byte[] lineSeparator = new byte[] { 1 };
+        // pojo Base64
+    }
+
+    @Test
     void encodeBase64() {
         assertArrayEquals(new byte[] { }, Base64.encodeBase64(new byte[] { }));
         assertThat(Base64.encodeBase64(null), is(nullValue()));

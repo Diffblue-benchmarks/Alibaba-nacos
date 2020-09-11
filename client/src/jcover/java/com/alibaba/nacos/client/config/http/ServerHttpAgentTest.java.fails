@@ -1,10 +1,11 @@
 package com.alibaba.nacos.client.config.http;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import com.alibaba.nacos.client.config.impl.ServerListManager;
+
+import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +18,31 @@ import org.junit.jupiter.api.Test;
 class ServerHttpAgentTest {
 
     @Test
-    void factory() {
-        assertThat(new ServerHttpAgent(new ServerListManager()).getEncode(), is(nullValue()));
+    void factory1() {
+        Properties properties2 = new Properties();
+        properties2.setProperty("key", "value");
+        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
+    }
+
+    @Test
+    void factory2() {
+        Properties properties2 = new Properties();
+        properties2.setProperty("accessKey", "value");
+        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
+    }
+
+    @Test
+    void factory3() {
+        Properties properties2 = new Properties();
+        properties2.setProperty("ramRoleName", "value");
+        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
+    }
+
+    @Test
+    void factory4() {
+        Properties properties2 = new Properties();
+        properties2.setProperty("secretKey", "value");
+        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
     }
 
     @Test

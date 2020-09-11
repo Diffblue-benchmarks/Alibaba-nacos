@@ -62,7 +62,7 @@ class EventDispatcherTest {
     }
 
     @Test
-    void getListenerListEventTypeIsInnerClassReturnsEmpty() {
+    void getListenerListEventTypeIsNestedClassReturnsEmpty() {
         assertThat(EventDispatcher.getListenerList(EventDispatcher.AbstractEvent.class), empty());
     }
 }

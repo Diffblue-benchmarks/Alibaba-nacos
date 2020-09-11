@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ServerStatusTest {
 
     @Test
-    public void valuesReturnsUPDOWNSTARTINGPAUSEDWRITE_ONLYREAD_ONLY() {
+    public void valuesReturnsUpDownStartingPausedWrite_onlyRead_only() {
         ServerStatus[] result = ServerStatus.values();
         assertThat(result[0], is(ServerStatus.UP));
         assertThat(result[1], is(ServerStatus.DOWN));

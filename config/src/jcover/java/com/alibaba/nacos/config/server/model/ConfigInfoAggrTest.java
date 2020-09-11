@@ -35,19 +35,19 @@ class ConfigInfoAggrTest {
     @Test
     void factory2() {
         ConfigInfoAggr configInfoAggr =
-             new ConfigInfoAggr("1234", "ConfigInfoAggr d", "1234", "hello");
+             new ConfigInfoAggr("1234", "foo", "1234", "hello");
         configInfoAggr.setAppName("Acme");
         configInfoAggr.setContent("hello");
         configInfoAggr.setDataId("1234");
         configInfoAggr.setDatumId("1234");
-        configInfoAggr.setGroup("/some/path.html");
+        configInfoAggr.setGroup("ConfigInfoAggr d");
         configInfoAggr.setId(1L);
         configInfoAggr.setTenant("/some/path.html");
         assertThat(configInfoAggr.getAppName(), is("Acme"));
         assertThat(configInfoAggr.getContent(), is("hello"));
         assertThat(configInfoAggr.getDataId(), is("1234"));
         assertThat(configInfoAggr.getDatumId(), is("1234"));
-        assertThat(configInfoAggr.getGroup(), is("/some/path.html"));
+        assertThat(configInfoAggr.getGroup(), is("ConfigInfoAggr d"));
         assertThat(configInfoAggr.getId(), is(1L));
         assertThat(configInfoAggr.getTenant(), is("/some/path.html"));
     }
@@ -55,7 +55,7 @@ class ConfigInfoAggrTest {
     @Test
     void factory3() {
         ConfigInfoAggr configInfoAggr =
-             new ConfigInfoAggr("1234", "ConfigInfoAggr d", "1234", "Acme", "hello");
+             new ConfigInfoAggr("ConfigInfoAggr d", "foo", "1234", "Acme", "hello");
         configInfoAggr.setAppName("Acme");
         configInfoAggr.setContent("hello");
         configInfoAggr.setDataId("1234");
@@ -73,8 +73,7 @@ class ConfigInfoAggrTest {
     }
 
     @Test
-    void testEquals() {
+    void equalsReturnsFalse() {
         assertThat(new ConfigInfoAggr().equals(new Object()), is(false));
-        assertThat(new ConfigInfoAggr().equals(null), is(false));
     }
 }

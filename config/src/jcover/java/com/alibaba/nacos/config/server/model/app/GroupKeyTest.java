@@ -14,8 +14,18 @@ import org.junit.jupiter.api.Test;
 class GroupKeyTest {
 
     @Test
-    void factory() {
-        GroupKey groupKey = new GroupKey("key");
+    void factory1() {
+        GroupKey groupKey = new GroupKey("foo");
+        groupKey.setDataId("1234");
+        groupKey.setGroup("key");
+        assertThat(groupKey.getDataId(), is("1234"));
+        assertThat(groupKey.getGroup(), is("key"));
+        assertThat(groupKey.getGroupkeyString(), is("1234+key"));
+    }
+
+    @Test
+    void factory2() {
+        GroupKey groupKey = new GroupKey("1234", "foo");
         groupKey.setDataId("1234");
         groupKey.setGroup("key");
         assertThat(groupKey.getDataId(), is("1234"));

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class ConfigTypeTest {
 
     @Test
-    void valuesReturnsPROPERTIESXMLJSONTEXTHTMLYAML() {
+    void valuesReturnsPropertiesXmlJsonTextHtmlYaml() {
         ConfigType[] result = ConfigType.values();
         assertThat(result[0], is(ConfigType.PROPERTIES));
         assertThat(result[1], is(ConfigType.XML));

@@ -60,7 +60,7 @@ class AddressServerGeneratorManagerTest {
         assertThat(result.get(0).getApp(), is("280 Broadway"));
         assertThat(result.get(0).getCheckRT(), is(-1L));
         assertThat(result.get(0).getFailCount(), equalTo(new AtomicInteger(0)));
-        assertThat(result.get(0).getLastBeat(), is(1_599_780_185_308L));
+        assertThat(result.get(0).getLastBeat()>=System.currentTimeMillis(), is(true));
         assertThat(result.get(0).getOKCount(), equalTo(new AtomicInteger(0)));
         assertThat(result.get(0).getTenant(), is("public"));
         assertThat(result.get(0).isMarked(), is(false));

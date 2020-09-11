@@ -37,8 +37,8 @@ class ResourceUtilsTest {
     void getResourceAsFile() throws java.net.MalformedURLException, java.io.IOException {
         assertThat(ResourceUtils.getResourceAsFile(new URL("http://www.test.com/")).getPath(), is("/"));
         assertThat(ResourceUtils.getResourceAsFile("Resource ").getPath(), equalTo(Paths.get("").toAbsolutePath().toString()+"/Resource%20"));
-        assertThat(ResourceUtils.getResourceAsFile("classpath:").getPath(), is("/tmp/jcover-cp-zmFQDA"));
-        assertThat(ResourceUtils.getResourceAsFile(null, "").getPath(), is("/tmp/jcover-cp-zmFQDA"));
-        assertThat(ResourceUtils.getResourceAsFile(ClassLoader.getSystemClassLoader(), "").getPath(), is("/tmp/jcover-cp-zmFQDA"));
+        assertThat(ResourceUtils.getResourceAsFile("classpath:").getPath().startsWith(System.getProperty("java.io.tmpdir")), is(true));
+        assertThat(ResourceUtils.getResourceAsFile(null, "").getPath().startsWith(System.getProperty("java.io.tmpdir")), is(true));
+        assertThat(ResourceUtils.getResourceAsFile(ClassLoader.getSystemClassLoader(), "").getPath().startsWith(System.getProperty("java.io.tmpdir")), is(true));
     }
 }

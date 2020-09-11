@@ -22,16 +22,16 @@ public class ServiceDetailInfoTest {
         ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
         HashMap<String, ClusterInfo> clusterMap =
              new HashMap<String, ClusterInfo>();
-        ClusterInfo x4 = new ClusterInfo();
-        x4.setHosts(new ArrayList<IpAddressInfo>());
-        clusterMap.put("foo", x4);
+        ClusterInfo x33 = new ClusterInfo();
+        x33.setHosts(new ArrayList<IpAddressInfo>());
+        clusterMap.put("foo", x33);
         serviceDetailInfo.setClusterMap(clusterMap);
         serviceDetailInfo.setGroupName("Acme");
         HashMap<String, String> metadata = new HashMap<String, String>();
         metadata.put("foo", "foo");
         serviceDetailInfo.setMetadata(metadata);
         serviceDetailInfo.setServiceName("Acme");
-        assertThat(serviceDetailInfo.getClusterMap().get("foo"), sameInstance(x4));
+        assertThat(serviceDetailInfo.getClusterMap().get("foo"), sameInstance(x33));
         assertThat(serviceDetailInfo.getGroupName(), is("Acme"));
         assertThat(serviceDetailInfo.getMetadata().get("foo"), is("foo"));
         assertThat(serviceDetailInfo.getServiceName(), is("Acme"));

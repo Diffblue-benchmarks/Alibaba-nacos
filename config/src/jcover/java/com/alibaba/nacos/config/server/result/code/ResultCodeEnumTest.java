@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class ResultCodeEnumTest {
 
     @Test
-    void valuesReturnsSUCCESSERRORNAMESPACE_NOT_EXISTMETADATA_ILLEGALDATA_VALIDATION_FAILEDPARSING_DATA_FAILEDDATA_EMPTY() {
+    void valuesReturnsSuccessErrorNamespace_not_existMetadata_illegalData_validation_failedParsing_data_failedData_empty() {
         ResultCodeEnum[] result = ResultCodeEnum.values();
         assertThat(result[0], is(ResultCodeEnum.SUCCESS));
         assertThat(result[1], is(ResultCodeEnum.ERROR));

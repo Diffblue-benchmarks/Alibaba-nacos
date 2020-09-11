@@ -54,8 +54,6 @@ public class DistroControllerTest {
 
     @Test
     public void getAllDatums() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
-        // inaccessible mock: SwitchDomain.clone
-        // inaccessible mock: SwitchDomain.clone
         byte[] obj = new byte[] { 1 };
         when(serializer.serialize(Mockito.<String>any()))
             .thenReturn(obj);

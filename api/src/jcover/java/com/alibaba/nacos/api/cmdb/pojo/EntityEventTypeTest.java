@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class EntityEventTypeTest {
 
     @Test
-    void valuesReturnsENTITY_ADD_OR_UPDATEENTITY_REMOVE() {
+    void valuesReturnsEntity_add_or_updateEntity_remove() {
         EntityEventType[] result = EntityEventType.values();
         assertThat(result[0], is(EntityEventType.ENTITY_ADD_OR_UPDATE));
         assertThat(result[1], is(EntityEventType.ENTITY_REMOVE));

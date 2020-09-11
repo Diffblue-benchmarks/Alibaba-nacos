@@ -15,8 +15,17 @@ import org.junit.Test;
 public class AuthInfoTest {
 
     @Test
-    public void factory() {
+    public void factory1() {
         AuthInfo authInfo = new AuthInfo();
+        authInfo.setAppKey("key");
+        authInfo.setOperator("+");
+        assertThat(authInfo.getAppKey(), is("key"));
+        assertThat(authInfo.getOperator(), is("+"));
+    }
+
+    @Test
+    public void factory2() {
+        AuthInfo authInfo = new AuthInfo("+", "key");
         authInfo.setAppKey("key");
         authInfo.setOperator("+");
         assertThat(authInfo.getAppKey(), is("key"));

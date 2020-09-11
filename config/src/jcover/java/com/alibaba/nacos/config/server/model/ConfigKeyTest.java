@@ -14,8 +14,19 @@ import org.junit.jupiter.api.Test;
 class ConfigKeyTest {
 
     @Test
-    void factory() {
+    void factory1() {
         ConfigKey configKey = new ConfigKey();
+        configKey.setAppName("Acme");
+        configKey.setDataId("1234");
+        configKey.setGroup("key");
+        assertThat(configKey.getAppName(), is("Acme"));
+        assertThat(configKey.getDataId(), is("1234"));
+        assertThat(configKey.getGroup(), is("key"));
+    }
+
+    @Test
+    void factory2() {
+        ConfigKey configKey = new ConfigKey("Acme", "1234", "foo");
         configKey.setAppName("Acme");
         configKey.setDataId("1234");
         configKey.setGroup("key");
