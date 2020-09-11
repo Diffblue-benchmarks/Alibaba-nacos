@@ -32,7 +32,7 @@ class CacheItemTest {
         SimpleReadWriteLock rwLock = new SimpleReadWriteLock();
         cacheItem.setRwLock(rwLock);
         HashMap<String, Long> tagLastModifiedTs = new HashMap<String, Long>();
-        tagLastModifiedTs.put("foo", 1L);
+        tagLastModifiedTs.put("HmacMD5", 1L);
         cacheItem.setTagLastModifiedTs(tagLastModifiedTs);
         HashMap<String, String> tagMd5 = new HashMap<String, String>();
         tagMd5.put("foo", "foo");
@@ -44,7 +44,7 @@ class CacheItemTest {
         assertThat(cacheItem.getMd5(), is("/some/path.html"));
         assertThat(cacheItem.getMd54Beta(), is("/some/path.html"));
         assertThat(cacheItem.getRwLock(), sameInstance(rwLock));
-        assertThat(cacheItem.getTagLastModifiedTs().get("foo"), is(1L));
+        assertThat(cacheItem.getTagLastModifiedTs().get("HmacMD5"), is(1L));
         assertThat(cacheItem.getTagMd5().get("foo"), is("foo"));
         assertThat(cacheItem.isBeta(), is(false));
     }

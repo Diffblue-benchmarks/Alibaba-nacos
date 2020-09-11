@@ -3,6 +3,7 @@ package com.alibaba.nacos.naming.healthcheck;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.healthcheck.extend.HealthCheckExtendProvider;
@@ -39,8 +40,12 @@ public class HealthCheckProcessorDelegateTest {
 
     @Test
     public void getType() throws org.springframework.beans.BeansException {
+        HealthCheckProcessor element = mock(HealthCheckProcessor.class);
+        when(element.getType())
+            .thenReturn("foo")
+            .thenReturn("bar");
         when(collection.stream())
-            .thenReturn(Stream.<HealthCheckProcessor>of(new HealthCheckProcessorDelegate(new HealthCheckExtendProvider())));
+            .thenReturn(Stream.<HealthCheckProcessor>of(element));
         assertThat(service.getType(), is(nullValue()));
         Mockito.verify(healthCheckExtendProvider).init();
     }

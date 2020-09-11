@@ -1,8 +1,12 @@
 package com.alibaba.nacos.naming.healthcheck;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.alibaba.nacos.naming.core.Service;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for com.alibaba.nacos.naming.healthcheck.HealthCheckReactor
@@ -28,9 +32,10 @@ public class HealthCheckReactorTest {
 
     @Test
     public void cancelCheck2() {
-        Service service = new Service();
-        service.setName("bar");
-        HealthCheckReactor.cancelCheck(new ClientBeatCheckTask(service));
+        ClientBeatCheckTask task = mock(ClientBeatCheckTask.class);
+        when(task.taskKey())
+            .thenReturn("foo");
+        HealthCheckReactor.cancelCheck(task);
     }
 
     @Test

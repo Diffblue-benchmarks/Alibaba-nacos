@@ -5,6 +5,8 @@ import static org.hamcrest.core.IsSame.sameInstance;
 import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.api.config.filter.IConfigFilter;
+import com.alibaba.nacos.api.config.filter.IConfigRequest;
+import com.alibaba.nacos.api.config.filter.IConfigResponse;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +28,8 @@ class ConfigFilterChainManagerTest {
 
     @Test
     void doFilter() throws com.alibaba.nacos.api.exception.NacosException {
-        new ConfigFilterChainManager().doFilter(new ConfigRequest(), new ConfigResponse());
+        IConfigRequest request = mock(IConfigRequest.class);
+        IConfigResponse response = mock(IConfigResponse.class);
+        new ConfigFilterChainManager().doFilter(request, response);
     }
 }

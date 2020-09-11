@@ -27,7 +27,7 @@ class ConfigInfoChangedTest {
     @Test
     void factory2() {
         ConfigInfoChanged configInfoChanged =
-             new ConfigInfoChanged("1234", "foo", "foo");
+             new ConfigInfoChanged("1234", "/some/path.html", "/some/path.html");
         configInfoChanged.setDataId("1234");
         configInfoChanged.setGroup("/some/path.html");
         configInfoChanged.setTenant("/some/path.html");

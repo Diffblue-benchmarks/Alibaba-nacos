@@ -20,21 +20,21 @@ import org.junit.jupiter.api.Test;
 class EventDispatcherTest {
 
     @Test
-    void addListenerClustersIsDE() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
+    void addListener() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
         EventDispatcher eventDispatcher = new EventDispatcher();
         ExecutorService executor = mock(ExecutorService.class);
         eventDispatcher.setExecutor(executor);
         EventListener listener = mock(EventListener.class);
-        eventDispatcher.addListener(new ServiceInfo(), "DE", listener);
+        eventDispatcher.addListener(new ServiceInfo(), "some event", listener);
     }
 
     @Test
-    void removeListenerClustersIsDEAndServiceNameIsAcme() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
+    void removeListenerServiceNameIsAcme() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
         EventDispatcher eventDispatcher = new EventDispatcher();
         ExecutorService executor = mock(ExecutorService.class);
         eventDispatcher.setExecutor(executor);
         EventListener listener = mock(EventListener.class);
-        eventDispatcher.removeListener("Acme", "DE", listener);
+        eventDispatcher.removeListener("Acme", "some event", listener);
     }
 
     @Test

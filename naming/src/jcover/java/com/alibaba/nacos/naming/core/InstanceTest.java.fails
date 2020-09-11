@@ -21,7 +21,7 @@ public class InstanceTest {
 
     @Test
     public void factory1() {
-        Instance instance = new Instance("foo", 1, "John Smith");
+        Instance instance = new Instance("DE", 1, "John Smith");
         instance.setApp("DE");
         instance.setBeingChecked(false);
         instance.setCheckRT(1L);
@@ -63,7 +63,7 @@ public class InstanceTest {
 
     @Test
     public void factory2() {
-        Instance instance = new Instance("foo", 1, "John Smith", "foo", "foo");
+        Instance instance = new Instance("DE", 1, "John Smith", "DE", "DE");
         instance.setApp("DE");
         instance.setBeingChecked(false);
         instance.setCheckRT(1L);
@@ -147,7 +147,7 @@ public class InstanceTest {
 
     @Test
     public void factory4() {
-        Instance instance = new Instance("foo", 1);
+        Instance instance = new Instance("DE", 1);
         instance.setApp("DE");
         instance.setBeingChecked(true);
         instance.setCheckRT(1L);

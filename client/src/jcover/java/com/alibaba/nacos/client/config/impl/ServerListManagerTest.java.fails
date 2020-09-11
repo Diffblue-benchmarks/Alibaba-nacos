@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.ArrayList;
-import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,28 +41,16 @@ class ServerListManagerTest {
     @Test
     void factory3() throws com.alibaba.nacos.api.exception.NacosException {
         ServerListManager serverListManager =
-             new ServerListManager("api.github.com", "foo");
+             new ServerListManager("api.github.com", "Smith");
         assertThat(serverListManager.getContentPath(), is("nacos"));
         assertThat(serverListManager.getIterator(), is(nullValue()));
-        assertThat(serverListManager.getName(), is("api.github.com-foo"));
-        assertThat(serverListManager.getNamespace(), is("foo"));
-        assertThat(serverListManager.getTenant(), is("foo"));
+        assertThat(serverListManager.getName(), is("api.github.com-Smith"));
+        assertThat(serverListManager.getNamespace(), is("Smith"));
+        assertThat(serverListManager.getTenant(), is("Smith"));
     }
 
     @Test
     void factory4() {
-        ArrayList<String> fixed = new ArrayList<String>();
-        fixed.add("foo");
-        ServerListManager serverListManager = new ServerListManager(fixed);
-        assertThat(serverListManager.getContentPath(), is("nacos"));
-        assertThat(serverListManager.getIterator(), is(nullValue()));
-        assertThat(serverListManager.getName(), is("fixed-foo_8848"));
-        assertThat(serverListManager.getNamespace(), is(""));
-        assertThat(serverListManager.getTenant(), is(""));
-    }
-
-    @Test
-    void factory5() {
         ArrayList<String> fixed = new ArrayList<String>();
         fixed.add(":");
         ServerListManager serverListManager = new ServerListManager(fixed);
@@ -75,28 +62,27 @@ class ServerListManagerTest {
     }
 
     @Test
-    void factory6() {
+    void factory5() {
         ArrayList<String> fixed = new ArrayList<String>();
         fixed.add("bar");
-        ServerListManager serverListManager =
-             new ServerListManager(fixed, "foo");
+        ServerListManager serverListManager = new ServerListManager(fixed);
         assertThat(serverListManager.getContentPath(), is("nacos"));
         assertThat(serverListManager.getIterator(), is(nullValue()));
-        assertThat(serverListManager.getName(), is("fixed-bar_8848-foo"));
-        assertThat(serverListManager.getNamespace(), is("foo"));
+        assertThat(serverListManager.getName(), is("fixed-bar_8848"));
+        assertThat(serverListManager.getNamespace(), is(""));
         assertThat(serverListManager.getTenant(), is(""));
     }
 
     @Test
-    void factory7() throws com.alibaba.nacos.api.exception.NacosException {
-        Properties properties = new Properties();
-        properties.setProperty("endpoint", "value");
+    void factory6() {
+        ArrayList<String> fixed = new ArrayList<String>();
+        fixed.add("bar");
         ServerListManager serverListManager =
-             new ServerListManager(properties);
+             new ServerListManager(fixed, "Smith");
         assertThat(serverListManager.getContentPath(), is("nacos"));
         assertThat(serverListManager.getIterator(), is(nullValue()));
-        assertThat(serverListManager.getName(), is("value"));
-        assertThat(serverListManager.getNamespace(), is(""));
+        assertThat(serverListManager.getName(), is("fixed-bar_8848-Smith"));
+        assertThat(serverListManager.getNamespace(), is("Smith"));
         assertThat(serverListManager.getTenant(), is(""));
     }
 

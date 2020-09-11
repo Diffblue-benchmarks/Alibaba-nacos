@@ -5,6 +5,8 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Random;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,27 +19,34 @@ class RandomUtilsTest {
 
     @Test
     void nextInt() {
-        assertThat(RandomUtils.nextInt(), is(595_903_845));
+        assertThat(RandomUtils.nextInt(), is(1_867_822_350));
+        assertThat(RandomUtils.nextInt(new Random(1L)), is(-1_155_869_325));
         assertThat(RandomUtils.nextInt(1), is(0));
+        assertThat(RandomUtils.nextInt(new Random(1L), 1), is(0));
     }
 
     @Test
     void nextLong() {
-        assertThat(RandomUtils.nextLong(), is(7_640_128_514_537_963_526L));
+        assertThat(RandomUtils.nextLong(), is(8_442_050_789_801_502_386L));
+        assertThat(RandomUtils.nextLong(new Random(1L)), is(-4_964_420_948_893_066_024L));
     }
 
     @Test
-    void nextBooleanReturnsTrue() {
-        assertThat(RandomUtils.nextBoolean(), is(true));
+    void nextBoolean() {
+        assertThat(RandomUtils.nextBoolean(), is(false));
+        assertThat(RandomUtils.nextBoolean(new Random(-1L)), is(false));
+        assertThat(RandomUtils.nextBoolean(new Random(1L)), is(true));
     }
 
     @Test
     void nextFloat() {
-        assertEquals(0.177284f, RandomUtils.nextFloat(), 0);
+        assertEquals(0x1.e1d80cp-2f /* 0.470551 */, RandomUtils.nextFloat(), 0);
+        assertEquals(0x1.7635aap-1f /* 0.730878 */, RandomUtils.nextFloat(new Random(1L)), 0);
     }
 
     @Test
     void nextDouble() {
-        assertThat(RandomUtils.nextDouble(), closeTo(0x1.1b7df4d00c4c9p-1 /* 0.553695 */, 0.0));
+        assertThat(RandomUtils.nextDouble(), closeTo(0x1.9915daeec1e16p-2 /* 0.399497 */, 0.0));
+        assertThat(RandomUtils.nextDouble(new Random(1L)), closeTo(0x1.7635aa8cdc4e6p-1 /* 0.730878 */, 0.0));
     }
 }

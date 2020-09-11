@@ -4,8 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertArrayEquals;
+import static org.mockito.Mockito.mock;
 
-import com.alibaba.nacos.naming.core.Instances;
+import com.alibaba.fastjson.TypeReference;
+import com.alibaba.nacos.naming.pojo.Record;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,8 +34,16 @@ public class FastJsonSerializerTest {
     }
 
     @Test
-    public void deserializeMapClazzIsInstancesAndDataIsOneReturnsNull() {
+    public void deserializeDataIsOneReturnsNull() {
         byte[] data = new byte[] { 1 };
-        assertThat(service.<Instances>deserializeMap(data, Instances.class), is(nullValue()));
+        @SuppressWarnings("unchecked")
+        TypeReference<String> clazz = mock(TypeReference.class);
+        assertThat(service.<String>deserialize(data, clazz), is(nullValue()));
+    }
+
+    @Test
+    public void deserializeMapClazzIsRecordAndDataIsOneReturnsNull() {
+        byte[] data = new byte[] { 1 };
+        assertThat(service.<Record>deserializeMap(data, Record.class), is(nullValue()));
     }
 }

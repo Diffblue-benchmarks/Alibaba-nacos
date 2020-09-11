@@ -37,8 +37,8 @@ class NamingEventTest {
         instance1.setWeight(1.0);
         instances1.add(instance1);
         NamingEvent namingEvent =
-             new NamingEvent("Acme", "Acme", "foo", instances1);
-        namingEvent.setClusters("foo");
+             new NamingEvent("Acme", "Acme", "some event", instances1);
+        namingEvent.setClusters("some event");
         namingEvent.setGroupName("Acme");
         ArrayList<Instance> instances2 = new ArrayList<Instance>();
         Instance instance2 = new Instance();
@@ -57,7 +57,7 @@ class NamingEventTest {
         instances2.add(instance2);
         namingEvent.setInstances(instances2);
         namingEvent.setServiceName("Acme");
-        assertThat(namingEvent.getClusters(), is("foo"));
+        assertThat(namingEvent.getClusters(), is("some event"));
         assertThat(namingEvent.getGroupName(), is("Acme"));
         assertThat(namingEvent.getInstances().size(), is(1));
         assertThat(namingEvent.getInstances().get(0), sameInstance(instance2));
@@ -82,7 +82,7 @@ class NamingEventTest {
         instance1.setWeight(1.0);
         instances1.add(instance1);
         NamingEvent namingEvent = new NamingEvent("Acme", instances1);
-        namingEvent.setClusters("foo");
+        namingEvent.setClusters("some event");
         namingEvent.setGroupName("Acme");
         ArrayList<Instance> instances2 = new ArrayList<Instance>();
         Instance instance2 = new Instance();
@@ -101,7 +101,7 @@ class NamingEventTest {
         instances2.add(instance2);
         namingEvent.setInstances(instances2);
         namingEvent.setServiceName("Acme");
-        assertThat(namingEvent.getClusters(), is("foo"));
+        assertThat(namingEvent.getClusters(), is("some event"));
         assertThat(namingEvent.getGroupName(), is("Acme"));
         assertThat(namingEvent.getInstances().size(), is(1));
         assertThat(namingEvent.getInstances().get(0), sameInstance(instance2));

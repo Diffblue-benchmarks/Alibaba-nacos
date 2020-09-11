@@ -1,6 +1,6 @@
 package com.alibaba.nacos.naming.consistency;
 
-import com.alibaba.nacos.naming.core.Instances;
+import com.alibaba.nacos.naming.pojo.Record;
 
 import org.junit.Test;
 
@@ -14,6 +14,6 @@ public class DatumTest {
 
     @Test
     public void factory() {
-        // pojo Datum<Instances>
+        // pojo Datum<Record>
     }
 }

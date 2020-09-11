@@ -2,8 +2,9 @@ package com.alibaba.nacos.config.server.service.notify;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
-import com.alibaba.nacos.config.server.service.dump.DumpTask;
+import com.alibaba.nacos.config.server.manager.AbstractTask;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,17 +18,18 @@ class NotifyTaskTest {
 
     @Test
     void factory() {
-        NotifyTask notifyTask = new NotifyTask("1234", "foo", "foo", 1L);
+        NotifyTask notifyTask =
+             new NotifyTask("bar", "foo", "/some/path.html", 1L);
         notifyTask.setDataId("1234");
         notifyTask.setFailCount(1);
-        notifyTask.setGroup("bar");
+        notifyTask.setGroup("/some/path.html");
         notifyTask.setLastModified(1L);
         notifyTask.setTenant("/some/path.html");
         notifyTask.setLastProcessTime(1L);
         notifyTask.setTaskInterval(1L);
         assertThat(notifyTask.getDataId(), is("1234"));
         assertThat(notifyTask.getFailCount(), is(1));
-        assertThat(notifyTask.getGroup(), is("bar"));
+        assertThat(notifyTask.getGroup(), is("/some/path.html"));
         assertThat(notifyTask.getLastModified(), is(1L));
         assertThat(notifyTask.getTenant(), is("/some/path.html"));
         assertThat(notifyTask.getLastProcessTime(), is(1L));
@@ -36,6 +38,7 @@ class NotifyTaskTest {
 
     @Test
     void merge() {
-        new NotifyTask("1234", "/some/path.html", "/some/path.html", 1L).merge(new DumpTask("key", 1L, "/some/path.html"));
+        AbstractTask task = mock(AbstractTask.class);
+        new NotifyTask("1234", "/some/path.html", "/some/path.html", 1L).merge(task);
     }
 }

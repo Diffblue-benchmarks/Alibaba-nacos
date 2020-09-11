@@ -7,11 +7,10 @@ import static org.mockito.Mockito.mock;
 import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
 import com.alibaba.nacos.naming.core.Cluster;
 import com.alibaba.nacos.naming.core.Service;
-import com.alibaba.nacos.naming.selector.LabelSelector;
+import com.alibaba.nacos.naming.selector.Selector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -45,21 +44,21 @@ public class ClientBeatProcessorTest {
         clientBeatProcessor.setRsInfo(rsInfo);
         Service service1 = new Service();
         HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        Cluster x97 = new Cluster();
-        x97.setDefCkport(1);
-        x97.setDefIPPort(1);
-        x97.setService(new Service());
-        x97.setServiceName("John Smith");
-        x97.setSitegroup("DE");
-        x97.setDefaultCheckPort(1);
-        x97.setDefaultPort(1);
+        Cluster x95 = new Cluster();
+        x95.setDefCkport(1);
+        x95.setDefIPPort(1);
+        x95.setService(new Service());
+        x95.setServiceName("John Smith");
+        x95.setSitegroup("DE");
+        x95.setDefaultCheckPort(1);
+        x95.setDefaultPort(1);
         AbstractHealthChecker healthChecker1 =
              mock(AbstractHealthChecker.class);
-        x97.setHealthChecker(healthChecker1);
-        x97.setMetadata(new HashMap<String, String>());
-        x97.setName("John Smith");
-        x97.setUseIPPort4Check(false);
-        clusterMap.put("foo", x97);
+        x95.setHealthChecker(healthChecker1);
+        x95.setMetadata(new HashMap<String, String>());
+        x95.setName("John Smith");
+        x95.setUseIPPort4Check(false);
+        clusterMap.put("HmacMD5", x95);
         service1.setClusterMap(clusterMap);
         service1.setEnabled(false);
         service1.setIpDeleteTimeout(1L);
@@ -69,9 +68,7 @@ public class ClientBeatProcessorTest {
         owners.add("foo");
         service1.setOwners(owners);
         service1.setResetWeight(false);
-        LabelSelector selector = new LabelSelector();
-        selector.setLabels(new HashSet<String>());
-        selector.setExpression("1");
+        Selector selector = mock(Selector.class);
         service1.setSelector(selector);
         service1.setToken("Bearer");
         service1.setAppName("Acme");

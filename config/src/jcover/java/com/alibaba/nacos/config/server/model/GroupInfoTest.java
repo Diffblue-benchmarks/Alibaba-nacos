@@ -28,14 +28,14 @@ class GroupInfoTest {
 
     @Test
     void factory2() {
-        GroupInfo groupInfo = new GroupInfo("280 Broadway", "1234", "foo");
+        GroupInfo groupInfo = new GroupInfo("bar", "1234", "foo");
         groupInfo.setAddress("280 Broadway");
         groupInfo.setDataId("1234");
-        groupInfo.setGroup("bar");
+        groupInfo.setGroup("/some/path.html");
         groupInfo.setId(1L);
         assertThat(groupInfo.getAddress(), is("280 Broadway"));
         assertThat(groupInfo.getDataId(), is("1234"));
-        assertThat(groupInfo.getGroup(), is("bar"));
+        assertThat(groupInfo.getGroup(), is("/some/path.html"));
         assertThat(groupInfo.getId(), is(1L));
     }
 

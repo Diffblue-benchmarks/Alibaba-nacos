@@ -20,7 +20,7 @@ class ChooserTest {
     void factory() {
         ArrayList<Pair<String>> pairs = new ArrayList<Pair<String>>();
         pairs.add(new Pair<String>("foo", 1.0));
-        assertThat(new Chooser<String, String>("key", pairs).getUniqueKey(), is("key"));
+        assertThat(new Chooser<String, String>("foo", pairs).getUniqueKey(), is("foo"));
     }
 
     @Test

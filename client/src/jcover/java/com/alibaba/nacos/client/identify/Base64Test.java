@@ -32,12 +32,6 @@ class Base64Test {
     }
 
     @Test
-    void encodeBase64() {
-        assertArrayEquals(new byte[] { }, Base64.encodeBase64(new byte[] { }));
-        assertThat(Base64.encodeBase64(null), is(nullValue()));
-    }
-
-    @Test
     void encodeBase64BinaryDataIsAllOne1() {
         byte[] binaryData = new byte[] { 1, 1 };
         assertArrayEquals(new byte[] { 65, 81, 69, 61 }, Base64.encodeBase64(binaryData));
@@ -50,9 +44,19 @@ class Base64Test {
     }
 
     @Test
+    void encodeBase64BinaryDataIsEmptyReturnsEmpty() {
+        assertThat(Base64.encodeBase64(new byte[] { }).length, is(0));
+    }
+
+    @Test
     void encodeBase64BinaryDataIsMinusOne() {
         byte[] binaryData = new byte[] { -1 };
         assertArrayEquals(new byte[] { 47, 119, 61, 61 }, Base64.encodeBase64(binaryData));
+    }
+
+    @Test
+    void encodeBase64BinaryDataIsNullReturnsNull() {
+        assertThat(Base64.encodeBase64(null), is(nullValue()));
     }
 
     @Test
@@ -62,33 +66,37 @@ class Base64Test {
     }
 
     @Test
-    void decodeBase1() {
+    void decodeBase64() {
         byte[] base64Data = new byte[] { 61 };
-        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+        assertThat(Base64.decodeBase64(base64Data).length, is(0));
     }
 
     @Test
-    void decodeBase2() {
-        assertArrayEquals(new byte[] { }, Base64.decodeBase64(new byte[] { }));
-        assertThat(Base64.decodeBase64(null), is(nullValue()));
+    void decodeBase64Base64DataIsEmpty() {
+        assertThat(Base64.decodeBase64(new byte[] { }).length, is(0));
     }
 
     @Test
     void decodeBase64Base64DataIsMinusOne() {
         byte[] base64Data = new byte[] { -1 };
-        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+        assertThat(Base64.decodeBase64(base64Data).length, is(0));
+    }
+
+    @Test
+    void decodeBase64Base64DataIsNullReturnsNull() {
+        assertThat(Base64.decodeBase64(null), is(nullValue()));
     }
 
     @Test
     void decodeBase64Base64DataIsOne() {
         byte[] base64Data = new byte[] { 1 };
-        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+        assertThat(Base64.decodeBase64(base64Data).length, is(0));
     }
 
     @Test
     void decodeBase64Base64DataIsZeroOne() {
         byte[] base64Data = new byte[] { 0, 1 };
-        assertArrayEquals(new byte[] { }, Base64.decodeBase64(base64Data));
+        assertThat(Base64.decodeBase64(base64Data).length, is(0));
     }
 
     @Test

@@ -26,7 +26,7 @@ class ConfigKeyTest {
 
     @Test
     void factory2() {
-        ConfigKey configKey = new ConfigKey("Acme", "1234", "foo");
+        ConfigKey configKey = new ConfigKey("Acme", "1234", "key");
         configKey.setAppName("Acme");
         configKey.setDataId("1234");
         configKey.setGroup("key");

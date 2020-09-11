@@ -2,6 +2,7 @@ package com.alibaba.nacos.naming.healthcheck;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,12 @@ public class NoneHealthCheckProcessorTest {
 
     @Autowired
     private NoneHealthCheckProcessor service;
+
+    @Test
+    public void process() {
+        HealthCheckTask task = mock(HealthCheckTask.class);
+        service.process(task);
+    }
 
     @Test
     public void getTypeReturnsNONE() {

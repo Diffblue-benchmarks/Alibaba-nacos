@@ -29,12 +29,7 @@ public class SelectorJsonAdapterTest {
     }
 
     @Test
-    public void write() throws java.io.IOException {
-        SelectorJsonAdapter.getInstance().write(new JSONSerializer(), new LabelSelector(), new Object(), String.class, 1);
-    }
-
-    @Test
-    public void writeObjectIsNull() throws java.io.IOException {
+    public void writeFeaturesIsOneAndFieldTypeIsStringAndObjectIsNull() throws java.io.IOException {
         SelectorJsonAdapter.getInstance().write(new JSONSerializer(), null, new Object(), String.class, 1);
     }
 }

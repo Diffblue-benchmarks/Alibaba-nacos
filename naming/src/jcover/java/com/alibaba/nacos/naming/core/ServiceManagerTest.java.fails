@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.naming.cluster.ServerListManager;
 import com.alibaba.nacos.naming.consistency.ConsistencyService;
@@ -13,9 +14,9 @@ import com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeerSet;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 import com.alibaba.nacos.naming.pojo.Record;
 import com.alibaba.nacos.naming.push.PushService;
+import com.alibaba.nacos.naming.selector.Selector;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,9 +78,8 @@ public class ServiceManagerTest {
 
         // arrange
         Service service1 = new Service();
-        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
-        clusterMap.put("foo", new Cluster());
-        service1.setClusterMap(clusterMap);
+        Selector selector = mock(Selector.class);
+        service1.setSelector(selector);
         service1.setName("Acme");
 
         // act

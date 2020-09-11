@@ -23,11 +23,11 @@ class SubInfoTest {
         subInfo.setDataId("1234");
         subInfo.setDate(Timestamp.valueOf("2019-12-31 23:10:59"));
         subInfo.setGroup("/some/path.html");
-        subInfo.setLocalIp("545321456");
+        subInfo.setLocalIp("en_GB");
         assertThat(subInfo.getAppName(), is("Acme"));
         assertThat(subInfo.getDataId(), is("1234"));
         assertThat(subInfo.getGroup(), is("/some/path.html"));
-        assertThat(subInfo.getLocalIp(), is("545321456"));
+        assertThat(subInfo.getLocalIp(), is("en_GB"));
     }
 
     @Test

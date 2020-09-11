@@ -2,12 +2,11 @@ package com.alibaba.nacos.naming.consistency;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.consistency.ephemeral.EphemeralConsistencyService;
 import com.alibaba.nacos.naming.consistency.persistent.PersistentConsistencyService;
-import com.alibaba.nacos.naming.core.Instances;
-import com.alibaba.nacos.naming.core.Service;
 import com.alibaba.nacos.naming.pojo.Record;
 
 import org.junit.Test;
@@ -40,7 +39,8 @@ public class DelegateConsistencyServiceImplTest {
 
     @Test
     public void put() throws com.alibaba.nacos.api.exception.NacosException {
-        service.put("key", new Instances());
+        Record value = mock(Record.class);
+        service.put("key", value);
         Mockito.verify(persistentConsistencyService).put(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
     }
 
@@ -58,21 +58,24 @@ public class DelegateConsistencyServiceImplTest {
     }
 
     @Test
-    public void listen1() throws com.alibaba.nacos.api.exception.NacosException {
-        service.listen("com.alibaba.nacos.naming.domains.meta.", new Service());
+    public void listen1() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        RecordListener listener = mock(RecordListener.class);
+        service.listen("key", listener);
+        Mockito.verify(persistentConsistencyService).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void listen2() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        RecordListener listener = mock(RecordListener.class);
+        service.listen("com.alibaba.nacos.naming.domains.meta.", listener);
         Mockito.verify(persistentConsistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
         Mockito.verify(ephemeralConsistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
-    public void listen2() throws com.alibaba.nacos.api.exception.NacosException {
-        service.listen("key", new Service());
-        Mockito.verify(persistentConsistencyService).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void unlisten() throws com.alibaba.nacos.api.exception.NacosException {
-        service.unlisten("key", new Service());
+    public void unlisten() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+        RecordListener listener = mock(RecordListener.class);
+        service.unlisten("key", listener);
         Mockito.verify(persistentConsistencyService).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 

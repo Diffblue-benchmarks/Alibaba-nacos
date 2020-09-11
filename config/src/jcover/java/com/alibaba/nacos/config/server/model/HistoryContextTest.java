@@ -3,6 +3,7 @@ package com.alibaba.nacos.config.server.model;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,11 +22,8 @@ class HistoryContextTest {
     void factory1() {
         HistoryContext historyContext = new HistoryContext();
         historyContext.setAppName("Acme");
-        Page<ConfigHistoryInfo> configs = new Page<ConfigHistoryInfo>();
-        configs.setPageItems(new ArrayList<ConfigHistoryInfo>());
-        configs.setPageNumber(1);
-        configs.setPagesAvailable(1);
-        configs.setTotalCount(1);
+        @SuppressWarnings("unchecked")
+        Page<ConfigHistoryInfo> configs = mock(Page.class);
         historyContext.setConfigs(configs);
         historyContext.setDataId("1234");
         historyContext.setGroup("hello");
@@ -70,7 +68,7 @@ class HistoryContextTest {
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "foo", 200, "New York", configs1);
+             new HistoryContext("1234", "1234", "hello", 200, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
         ArrayList<ConfigHistoryInfo> pageItems2 =
@@ -115,16 +113,13 @@ class HistoryContextTest {
 
     @Test
     void factory3() {
-        Page<ConfigHistoryInfo> configs1 = new Page<ConfigHistoryInfo>();
-        configs1.setPageItems(new ArrayList<ConfigHistoryInfo>());
-        configs1.setPageNumber(1);
-        configs1.setPagesAvailable(1);
-        configs1.setTotalCount(1);
+        @SuppressWarnings("unchecked")
+        Page<ConfigHistoryInfo> configs1 = mock(Page.class);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "foo", 1, "New York", configs1);
+             new HistoryContext("1234", "1234", "hello", 1, "New York", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
-        ArrayList<ConfigHistoryInfo> pageItems2 =
+        ArrayList<ConfigHistoryInfo> pageItems =
              new ArrayList<ConfigHistoryInfo>();
         ConfigHistoryInfo configHistoryInfo = new ConfigHistoryInfo();
         configHistoryInfo.setAppName("Acme");
@@ -140,8 +135,8 @@ class HistoryContextTest {
         configHistoryInfo.setSrcIp("/some/path.html");
         configHistoryInfo.setSrcUser("John Smith");
         configHistoryInfo.setTenant("/some/path.html");
-        pageItems2.add(configHistoryInfo);
-        configs2.setPageItems(pageItems2);
+        pageItems.add(configHistoryInfo);
+        configs2.setPageItems(pageItems);
         configs2.setPageNumber(1);
         configs2.setPagesAvailable(1);
         configs2.setTotalCount(1);

@@ -27,12 +27,12 @@ class NacosExceptionTest {
 
     @Test
     void factory2() {
-        NacosException nacosException = new NacosException(0, "foo");
+        NacosException nacosException = new NacosException(0, "bar");
         nacosException.setErrCode(1);
-        nacosException.setErrMsg("bar");
+        nacosException.setErrMsg("foo");
         assertThat(nacosException.getErrCode(), is(1));
-        assertThat(nacosException.getErrMsg(), is("bar"));
+        assertThat(nacosException.getErrMsg(), is("foo"));
         assertThat(nacosException.getCause(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("foo"));
+        assertThat(nacosException.getMessage(), is("bar"));
     }
 }

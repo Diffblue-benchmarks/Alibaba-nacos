@@ -45,6 +45,10 @@ class AddressServerManagerTest {
     @Test
     void splitIps() {
         assertThat(service.splitIps("280 Broadway"), Matchers.arrayContaining("280 Broadway"));
-        assertThat(service.splitIps(""), Matchers.arrayContaining());
+    }
+
+    @Test
+    void splitIpsIpsIsEmptyReturnsEmpty() {
+        assertThat(service.splitIps("").length, is(0));
     }
 }

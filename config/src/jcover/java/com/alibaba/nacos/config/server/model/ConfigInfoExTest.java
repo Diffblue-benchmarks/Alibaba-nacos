@@ -16,7 +16,7 @@ class ConfigInfoExTest {
     @Test
     void factory1() {
         ConfigInfoEx configInfoEx = new ConfigInfoEx();
-        configInfoEx.setMessage("an error has happened");
+        configInfoEx.setMessage("SHA-256");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");
         configInfoEx.setTenant("ConfigInfoEx s");
@@ -25,7 +25,7 @@ class ConfigInfoExTest {
         configInfoEx.setGroup("/some/path.html");
         configInfoEx.setId(1L);
         configInfoEx.setMd5("/some/path.html");
-        assertThat(configInfoEx.getMessage(), is("an error has happened"));
+        assertThat(configInfoEx.getMessage(), is("SHA-256"));
         assertThat(configInfoEx.getStatus(), is(1));
         assertThat(configInfoEx.getAppName(), is("Acme"));
         assertThat(configInfoEx.getTenant(), is("ConfigInfoEx s"));
@@ -38,20 +38,21 @@ class ConfigInfoExTest {
 
     @Test
     void factory2() {
-        ConfigInfoEx configInfoEx = new ConfigInfoEx("1234", "foo", "hello");
-        configInfoEx.setMessage("an error has happened");
+        ConfigInfoEx configInfoEx =
+             new ConfigInfoEx("1234", "ConfigInfoEx s", "hello");
+        configInfoEx.setMessage("SHA-256");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");
-        configInfoEx.setTenant("ConfigInfoEx s");
+        configInfoEx.setTenant("/some/path.html");
         configInfoEx.setContent("hello");
         configInfoEx.setDataId("1234");
         configInfoEx.setGroup("/some/path.html");
         configInfoEx.setId(1L);
         configInfoEx.setMd5("/some/path.html");
-        assertThat(configInfoEx.getMessage(), is("an error has happened"));
+        assertThat(configInfoEx.getMessage(), is("SHA-256"));
         assertThat(configInfoEx.getStatus(), is(1));
         assertThat(configInfoEx.getAppName(), is("Acme"));
-        assertThat(configInfoEx.getTenant(), is("ConfigInfoEx s"));
+        assertThat(configInfoEx.getTenant(), is("/some/path.html"));
         assertThat(configInfoEx.getContent(), is("hello"));
         assertThat(configInfoEx.getDataId(), is("1234"));
         assertThat(configInfoEx.getGroup(), is("/some/path.html"));
@@ -62,8 +63,8 @@ class ConfigInfoExTest {
     @Test
     void factory3() {
         ConfigInfoEx configInfoEx =
-             new ConfigInfoEx("1234", "foo", "hello", 0, "an error has happened");
-        configInfoEx.setMessage("an error has happened");
+             new ConfigInfoEx("1234", "ConfigInfoEx s", "hello", 1, "SHA-256");
+        configInfoEx.setMessage("SHA-256");
         configInfoEx.setStatus(1);
         configInfoEx.setAppName("Acme");
         configInfoEx.setTenant("/some/path.html");
@@ -72,7 +73,7 @@ class ConfigInfoExTest {
         configInfoEx.setGroup("/some/path.html");
         configInfoEx.setId(1L);
         configInfoEx.setMd5("/some/path.html");
-        assertThat(configInfoEx.getMessage(), is("an error has happened"));
+        assertThat(configInfoEx.getMessage(), is("SHA-256"));
         assertThat(configInfoEx.getStatus(), is(1));
         assertThat(configInfoEx.getAppName(), is("Acme"));
         assertThat(configInfoEx.getTenant(), is("/some/path.html"));

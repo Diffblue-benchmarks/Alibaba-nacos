@@ -1,13 +1,9 @@
 package com.alibaba.nacos.config.server.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
-import com.alibaba.nacos.config.server.model.SubscriberStatus;
-
 import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,20 +47,14 @@ class ClientTrackServiceTest {
     }
 
     @Test
-    void listSubsByGroupGroupKeyIsFoo() {
-        Map<String, SubscriberStatus> result =
-             ClientTrackService.listSubsByGroup("foo");
-        assertThat(result.get("/some/path.html").getGroupKey(), is("foo"));
-        assertThat(result.get("/some/path.html").getLastTime(), is(1L));
-        assertThat(result.get("/some/path.html").getMd5(), is("foo"));
-        assertThat(result.get("/some/path.html").getServerIp(), is(nullValue()));
-        assertThat(result.get("/some/path.html").getStatus(), is(false));
+    void listSubsByGroup() {
+        assertThat(ClientTrackService.listSubsByGroup("foo").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubsByGroup("key").isEmpty(), is(true));
     }
 
     @Test
-    void getters() {
+    void isClientUptodateIpIsBarReturnsEmpty() {
         assertThat(ClientTrackService.isClientUptodate("bar").isEmpty(), is(true));
-        assertThat(ClientTrackService.listSubsByGroup("key").isEmpty(), is(true));
     }
 
     @Test

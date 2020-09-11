@@ -15,27 +15,15 @@ import org.springframework.mock.web.MockHttpServletResponse;
 class GlobalExceptionHandlerTest {
 
     @Test
-    void handleIllegalArgumentException1() throws java.io.UnsupportedEncodingException, java.io.IOException {
+    void handleIllegalArgumentException() throws java.io.UnsupportedEncodingException, java.io.IOException {
 
         // arrange
         MockHttpServletResponse response = new MockHttpServletResponse();
+        Exception ex = new Exception();
+        ex.setStackTrace(new StackTraceElement[] { });
 
         // act
-        new GlobalExceptionHandler().handleIllegalArgumentException(response, new NacosException(1, "an error has happened"));
-
-        // assert
-        assertThat(response.getContentAsString(), is("an error has happened\n"));
-        assertThat(response.getStatus(), is(400));
-    }
-
-    @Test
-    void handleIllegalArgumentException2() throws java.io.UnsupportedEncodingException, java.io.IOException {
-
-        // arrange
-        MockHttpServletResponse response = new MockHttpServletResponse();
-
-        // act
-        new GlobalExceptionHandler().handleIllegalArgumentException(response, new NacosException());
+        new GlobalExceptionHandler().handleIllegalArgumentException(response, ex);
 
         // assert
         assertThat(response.getContentAsString(), is("invalid param\n"));

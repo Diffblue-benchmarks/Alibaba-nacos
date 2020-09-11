@@ -15,7 +15,7 @@ class GroupKeyTest {
 
     @Test
     void factory1() {
-        GroupKey groupKey = new GroupKey("foo");
+        GroupKey groupKey = new GroupKey("key");
         groupKey.setDataId("1234");
         groupKey.setGroup("key");
         assertThat(groupKey.getDataId(), is("1234"));
@@ -25,7 +25,7 @@ class GroupKeyTest {
 
     @Test
     void factory2() {
-        GroupKey groupKey = new GroupKey("1234", "foo");
+        GroupKey groupKey = new GroupKey("1234", "key");
         groupKey.setDataId("1234");
         groupKey.setGroup("key");
         assertThat(groupKey.getDataId(), is("1234"));

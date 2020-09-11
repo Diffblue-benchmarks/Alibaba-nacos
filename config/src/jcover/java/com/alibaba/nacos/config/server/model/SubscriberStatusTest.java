@@ -31,7 +31,7 @@ class SubscriberStatusTest {
     @Test
     void factory2() {
         SubscriberStatus subscriberStatus =
-             new SubscriberStatus("key", false, "foo", 1L);
+             new SubscriberStatus("key", false, "/some/path.html", 1L);
         subscriberStatus.setGroupKey("key");
         subscriberStatus.setLastTime(1L);
         subscriberStatus.setMd5("/some/path.html");

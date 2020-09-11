@@ -16,23 +16,28 @@ class LocalConfigInfoProcessorTest {
 
     @Test
     void getFailoverGroupIsBarAndServerNameIsAcmeReturnsNull() {
-        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "bar", "545321456"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "bar", "en_GB"), is(nullValue()));
     }
 
     @Test
     void getSnapshot() {
-        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "", "545321456", "545321456"), is(nullValue()));
-        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "545321456"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "", "en_GB", "en_GB"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "en_GB"), is(nullValue()));
+    }
+
+    @Test
+    void saveSnapshotConfigIsBar() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "en_GB", "en_GB", "bar");
     }
 
     @Test
     void saveSnapshotDataIdIsEmpty() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "", "545321456", "545321456", "545321456");
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "", "en_GB", "en_GB", "en_GB");
     }
 
     @Test
     void saveSnapshotGroupIsBar() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "bar", "545321456", "545321456");
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "bar", "en_GB", "en_GB");
     }
 
     @Test

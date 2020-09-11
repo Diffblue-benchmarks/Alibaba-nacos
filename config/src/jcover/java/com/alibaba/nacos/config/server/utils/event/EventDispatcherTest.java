@@ -1,9 +1,10 @@
 package com.alibaba.nacos.config.server.utils.event;
 
-import com.alibaba.nacos.config.server.service.ConfigDataChangeEvent;
-import com.alibaba.nacos.config.server.service.LongPollingService;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,35 +17,30 @@ import org.junit.jupiter.api.Test;
 class EventDispatcherTest {
 
     @Test
-    void addEventListener1() {
-        LongPollingService listener = new LongPollingService();
-        HashMap<String, Long> retainIps = new HashMap<String, Long>();
-        retainIps.put("foo", 1L);
-        listener.setRetainIps(retainIps);
+    void addEventListener() {
+        List<Class<? extends EventDispatcher.Event>> list =
+             new ArrayList<Class<? extends EventDispatcher.Event>>();
+        list.add(EventDispatcher.Event.class);
+        EventDispatcher.AbstractEventListener listener =
+             mock(EventDispatcher.AbstractEventListener.class);
+        when(listener.interest())
+            .thenReturn(list);
         EventDispatcher.addEventListener(listener);
     }
 
     @Test
-    void addEventListener2() {
-        LongPollingService listener = new LongPollingService();
-        HashMap<String, Long> retainIps = new HashMap<String, Long>();
-        retainIps.put("foo", 1L);
-        listener.setRetainIps(retainIps);
-        EventDispatcher.addEventListener(listener);
-    }
-
-    @Test
-    void fireEvent1() {
-        EventDispatcher.fireEvent(new ConfigDataChangeEvent("something", "something", 1L));
-    }
-
-    @Test
-    void fireEvent2() {
-        EventDispatcher.fireEvent(new ConfigDataChangeEvent("bar", "something", 1L));
+    void fireEvent() {
+        EventDispatcher.Event event = mock(EventDispatcher.Event.class);
+        EventDispatcher.fireEvent(event);
     }
 
     @Test
     void clear() {
         EventDispatcher.clear();
+    }
+
+    @Test
+    void getEntryEventTypeIsNestedClass() {
+        // pojo EventDispatcher.Entry
     }
 }

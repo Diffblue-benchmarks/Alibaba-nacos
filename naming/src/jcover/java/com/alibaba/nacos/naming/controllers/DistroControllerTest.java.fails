@@ -58,7 +58,7 @@ public class DistroControllerTest {
         when(serializer.serialize(Mockito.<String>any()))
             .thenReturn(obj);
         Map<String, Datum> map = new HashMap<String, Datum>();
-        map.put("foo", new Datum());
+        map.put("HmacMD5", new Datum());
         when(dataStore.getDataMap())
             .thenReturn(map);
         MockMvcBuilders.standaloneSetup(controller)

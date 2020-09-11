@@ -16,14 +16,14 @@ class ConfigInfoBaseExTest {
     @Test
     void factory1() {
         ConfigInfoBaseEx configInfoBaseEx = new ConfigInfoBaseEx();
-        configInfoBaseEx.setMessage("an error has happened");
+        configInfoBaseEx.setMessage("SHA-256");
         configInfoBaseEx.setStatus(1);
         configInfoBaseEx.setContent("hello");
         configInfoBaseEx.setDataId("1234");
         configInfoBaseEx.setGroup("ConfigInfoBaseEx s");
         configInfoBaseEx.setId(1L);
         configInfoBaseEx.setMd5("/some/path.html");
-        assertThat(configInfoBaseEx.getMessage(), is("an error has happened"));
+        assertThat(configInfoBaseEx.getMessage(), is("SHA-256"));
         assertThat(configInfoBaseEx.getStatus(), is(1));
         assertThat(configInfoBaseEx.getContent(), is("hello"));
         assertThat(configInfoBaseEx.getDataId(), is("1234"));
@@ -35,19 +35,19 @@ class ConfigInfoBaseExTest {
     @Test
     void factory2() {
         ConfigInfoBaseEx configInfoBaseEx =
-             new ConfigInfoBaseEx("1234", "foo", "hello");
-        configInfoBaseEx.setMessage("an error has happened");
+             new ConfigInfoBaseEx("1234", "ConfigInfoBaseEx s", "hello");
+        configInfoBaseEx.setMessage("SHA-256");
         configInfoBaseEx.setStatus(1);
         configInfoBaseEx.setContent("hello");
         configInfoBaseEx.setDataId("1234");
-        configInfoBaseEx.setGroup("ConfigInfoBaseEx s");
+        configInfoBaseEx.setGroup("/some/path.html");
         configInfoBaseEx.setId(1L);
         configInfoBaseEx.setMd5("/some/path.html");
-        assertThat(configInfoBaseEx.getMessage(), is("an error has happened"));
+        assertThat(configInfoBaseEx.getMessage(), is("SHA-256"));
         assertThat(configInfoBaseEx.getStatus(), is(1));
         assertThat(configInfoBaseEx.getContent(), is("hello"));
         assertThat(configInfoBaseEx.getDataId(), is("1234"));
-        assertThat(configInfoBaseEx.getGroup(), is("ConfigInfoBaseEx s"));
+        assertThat(configInfoBaseEx.getGroup(), is("/some/path.html"));
         assertThat(configInfoBaseEx.getId(), is(1L));
         assertThat(configInfoBaseEx.getMd5(), is("/some/path.html"));
     }
@@ -55,19 +55,19 @@ class ConfigInfoBaseExTest {
     @Test
     void factory3() {
         ConfigInfoBaseEx configInfoBaseEx =
-             new ConfigInfoBaseEx("1234", "foo", "hello", 1, "an error has happened");
-        configInfoBaseEx.setMessage("an error has happened");
+             new ConfigInfoBaseEx("1234", "ConfigInfoBaseEx s", "hello", 1, "SHA-256");
+        configInfoBaseEx.setMessage("SHA-256");
         configInfoBaseEx.setStatus(1);
         configInfoBaseEx.setContent("hello");
         configInfoBaseEx.setDataId("1234");
-        configInfoBaseEx.setGroup("ConfigInfoBaseEx s");
+        configInfoBaseEx.setGroup("/some/path.html");
         configInfoBaseEx.setId(1L);
         configInfoBaseEx.setMd5("/some/path.html");
-        assertThat(configInfoBaseEx.getMessage(), is("an error has happened"));
+        assertThat(configInfoBaseEx.getMessage(), is("SHA-256"));
         assertThat(configInfoBaseEx.getStatus(), is(1));
         assertThat(configInfoBaseEx.getContent(), is("hello"));
         assertThat(configInfoBaseEx.getDataId(), is("1234"));
-        assertThat(configInfoBaseEx.getGroup(), is("ConfigInfoBaseEx s"));
+        assertThat(configInfoBaseEx.getGroup(), is("/some/path.html"));
         assertThat(configInfoBaseEx.getId(), is(1L));
         assertThat(configInfoBaseEx.getMd5(), is("/some/path.html"));
     }

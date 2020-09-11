@@ -37,7 +37,7 @@ class ConfigInfo4TagTest {
     @Test
     void factory2() {
         ConfigInfo4Tag configInfo4Tag =
-             new ConfigInfo4Tag("1234", "foo", "tag", "Acme", "hello");
+             new ConfigInfo4Tag("1234", "tag", "tag", "Acme", "hello");
         configInfo4Tag.setTag("tag");
         configInfo4Tag.setAppName("Acme");
         configInfo4Tag.setTenant("tag");

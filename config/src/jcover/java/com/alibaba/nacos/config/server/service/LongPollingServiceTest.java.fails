@@ -6,8 +6,10 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.config.server.model.SampleResult;
+import com.alibaba.nacos.config.server.utils.event.EventDispatcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,7 +68,7 @@ class LongPollingServiceTest {
 
     @Test
     void interestReturnsLocalDataChangeEvent() {
-        List<Class<? extends com.alibaba.nacos.config.server.utils.event.EventDispatcher.Event>> result =
+        List<Class<? extends EventDispatcher.Event>> result =
              service.interest();
         assertThat(result.size(), is(1));
         assertThat((Class<LocalDataChangeEvent>) result.get(0), equalTo((Class) LocalDataChangeEvent.class));
@@ -74,7 +76,8 @@ class LongPollingServiceTest {
 
     @Test
     void onEvent() {
-        service.onEvent(new ConfigDataChangeEvent("something", "something", 1L));
+        EventDispatcher.Event event = mock(EventDispatcher.Event.class);
+        service.onEvent(event);
     }
 
     @Test

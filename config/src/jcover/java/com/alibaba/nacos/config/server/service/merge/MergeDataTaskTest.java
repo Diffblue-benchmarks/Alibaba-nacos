@@ -2,8 +2,9 @@ package com.alibaba.nacos.config.server.service.merge;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
-import com.alibaba.nacos.config.server.service.dump.DumpTask;
+import com.alibaba.nacos.config.server.manager.AbstractTask;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,17 +19,18 @@ class MergeDataTaskTest {
     @Test
     void factory() {
         MergeDataTask mergeDataTask =
-             new MergeDataTask("1234", "1234", "foo", "foo");
+             new MergeDataTask("something", "1234", "something", "something");
         mergeDataTask.setLastProcessTime(1L);
         mergeDataTask.setTaskInterval(1L);
-        assertThat(mergeDataTask.getClientIp(), is("foo"));
+        assertThat(mergeDataTask.getClientIp(), is("something"));
         assertThat(mergeDataTask.getLastProcessTime(), is(1L));
         assertThat(mergeDataTask.getTaskInterval(), is(1L));
     }
 
     @Test
     void merge() {
-        new MergeDataTask("something", "1234", "something", "something").merge(new DumpTask("key", 1L, "/some/path.html"));
+        AbstractTask task = mock(AbstractTask.class);
+        new MergeDataTask("something", "1234", "something", "something").merge(task);
     }
 
     @Test

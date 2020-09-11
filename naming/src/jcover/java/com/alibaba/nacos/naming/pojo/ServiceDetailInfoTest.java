@@ -33,14 +33,14 @@ public class ServiceDetailInfoTest {
         ipAddressInfo1.setWeight(1.0);
         hosts1.add(ipAddressInfo1);
         x33.setHosts(hosts1);
-        clusterMap.put("foo", x33);
+        clusterMap.put("HmacMD5", x33);
         serviceDetailInfo.setClusterMap(clusterMap);
         serviceDetailInfo.setGroupName("Acme");
         HashMap<String, String> metadata3 = new HashMap<String, String>();
         metadata3.put("foo", "foo");
         serviceDetailInfo.setMetadata(metadata3);
         serviceDetailInfo.setServiceName("Acme");
-        assertThat(serviceDetailInfo.getClusterMap().get("foo"), sameInstance(x33));
+        assertThat(serviceDetailInfo.getClusterMap().get("HmacMD5"), sameInstance(x33));
         assertThat(serviceDetailInfo.getGroupName(), is("Acme"));
         assertThat(serviceDetailInfo.getMetadata().get("foo"), is("foo"));
         assertThat(serviceDetailInfo.getServiceName(), is("Acme"));

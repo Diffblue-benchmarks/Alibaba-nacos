@@ -37,7 +37,7 @@ class ConfigInfo4BetaTest {
     @Test
     void factory2() {
         ConfigInfo4Beta configInfo4Beta =
-             new ConfigInfo4Beta("1234", "foo", "Acme", "hello", "foo");
+             new ConfigInfo4Beta("1234", "/some/path.html", "Acme", "hello", "/some/path.html");
         configInfo4Beta.setBetaIps("/some/path.html");
         configInfo4Beta.setAppName("Acme");
         configInfo4Beta.setTenant("/some/path.html");

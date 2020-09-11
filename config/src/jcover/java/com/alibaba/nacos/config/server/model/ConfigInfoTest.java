@@ -34,7 +34,8 @@ class ConfigInfoTest {
 
     @Test
     void factory2() {
-        ConfigInfo configInfo = new ConfigInfo("1234", "foo", "hello");
+        ConfigInfo configInfo =
+             new ConfigInfo("1234", "/some/path.html", "hello");
         configInfo.setAppName("Acme");
         configInfo.setTenant("/some/path.html");
         configInfo.setContent("hello");
@@ -53,7 +54,8 @@ class ConfigInfoTest {
 
     @Test
     void factory3() {
-        ConfigInfo configInfo = new ConfigInfo("1234", "foo", "Acme", "hello");
+        ConfigInfo configInfo =
+             new ConfigInfo("1234", "/some/path.html", "Acme", "hello");
         configInfo.setAppName("Acme");
         configInfo.setTenant("/some/path.html");
         configInfo.setContent("hello");
@@ -73,7 +75,7 @@ class ConfigInfoTest {
     @Test
     void factory4() {
         ConfigInfo configInfo =
-             new ConfigInfo("1234", "foo", "foo", "Acme", "hello");
+             new ConfigInfo("1234", "/some/path.html", "/some/path.html", "Acme", "hello");
         configInfo.setAppName("Acme");
         configInfo.setTenant("/some/path.html");
         configInfo.setContent("hello");

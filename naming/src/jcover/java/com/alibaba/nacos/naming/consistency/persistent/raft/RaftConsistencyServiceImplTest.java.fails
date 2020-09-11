@@ -2,12 +2,11 @@ package com.alibaba.nacos.naming.consistency.persistent.raft;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.consistency.Datum;
 import com.alibaba.nacos.naming.consistency.RecordListener;
-import com.alibaba.nacos.naming.core.Instances;
-import com.alibaba.nacos.naming.core.Service;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 import com.alibaba.nacos.naming.pojo.Record;
 
@@ -44,7 +43,8 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void put() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        service.put("key", new Instances());
+        Record value = mock(Record.class);
+        service.put("key", value);
         Mockito.verify(raftCore).signalPublish(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
     }
 
@@ -64,13 +64,15 @@ public class RaftConsistencyServiceImplTest {
 
     @Test
     public void listen() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        service.listen("key", new Service());
+        RecordListener listener = mock(RecordListener.class);
+        service.listen("key", listener);
         Mockito.verify(raftCore).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
     public void unlisten() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        service.unlisten("key", new Service());
+        RecordListener listener = mock(RecordListener.class);
+        service.unlisten("key", listener);
         Mockito.verify(raftCore).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 

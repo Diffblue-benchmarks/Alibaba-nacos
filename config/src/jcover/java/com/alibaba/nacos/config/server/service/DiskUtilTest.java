@@ -72,9 +72,13 @@ class DiskUtilTest {
     }
 
     @Test
-    void getLocalConfigMd5() throws java.io.IOException {
-        assertThat(DiskUtil.getLocalConfigMd5("", "/some/path.html", "/some/path.html"), is("d41d8cd98f00b204e9800998ecf8427e"));
-        assertThat(DiskUtil.getLocalConfigMd5("1234", "bar", "/some/path.html"), is("d41d8cd98f00b204e9800998ecf8427e"));
+    void getConfigDataIdIsEmptyReturnsEmpty() throws java.io.IOException {
+        assertThat(DiskUtil.getConfig("", "/some/path.html", "/some/path.html"), is(""));
+    }
+
+    @Test
+    void getLocalConfigMd5GroupIsBar() throws java.io.IOException {
+        assertThat(DiskUtil.getLocalConfigMd5("1234", "bar", "en_GB"), is("d41d8cd98f00b204e9800998ecf8427e"));
     }
 
     @Test

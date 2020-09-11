@@ -2,6 +2,7 @@ package com.alibaba.nacos.client.identify;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
 
@@ -94,26 +95,25 @@ class CredentialsTest {
     }
 
     @Test
+    void identical5() {
+        Credentials credentials = new Credentials();
+        credentials.setSecretKey("key");
+        Credentials other = mock(Credentials.class);
+        assertThat(credentials.identical(other), is(false));
+    }
+
+    @Test
     void identicalOtherIsNull() {
         assertThat(new Credentials().identical(null), is(false));
     }
 
     @Test
-    void identicalReturnsTrue1() {
+    void identicalReturnsTrue() {
         Credentials credentials = new Credentials();
         credentials.setAccessKey("key");
         credentials.setSecretKey("key");
         Credentials other = new Credentials();
         other.setAccessKey("key");
-        other.setSecretKey("key");
-        assertThat(credentials.identical(other), is(true));
-    }
-
-    @Test
-    void identicalReturnsTrue2() {
-        Credentials credentials = new Credentials();
-        credentials.setSecretKey("key");
-        Credentials other = new Credentials();
         other.setSecretKey("key");
         assertThat(credentials.identical(other), is(true));
     }

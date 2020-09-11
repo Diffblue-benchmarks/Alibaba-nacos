@@ -2,6 +2,9 @@ package com.alibaba.nacos.config.server.service.dump;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.config.server.manager.AbstractTask;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +18,7 @@ class DumpTaskTest {
 
     @Test
     void factory1() {
-        DumpTask dumpTask = new DumpTask("key", 1L, "foo");
+        DumpTask dumpTask = new DumpTask("key", 1L, "/some/path.html");
         dumpTask.setLastProcessTime(1L);
         dumpTask.setTaskInterval(1L);
         assertThat(dumpTask.getLastProcessTime(), is(1L));
@@ -24,7 +27,7 @@ class DumpTaskTest {
 
     @Test
     void factory2() {
-        DumpTask dumpTask = new DumpTask("key", 1L, "foo", false);
+        DumpTask dumpTask = new DumpTask("key", 1L, "/some/path.html", false);
         dumpTask.setLastProcessTime(1L);
         dumpTask.setTaskInterval(1L);
         assertThat(dumpTask.getLastProcessTime(), is(1L));
@@ -33,7 +36,8 @@ class DumpTaskTest {
 
     @Test
     void factory3() {
-        DumpTask dumpTask = new DumpTask("key", "tag", 1L, "foo", false);
+        DumpTask dumpTask =
+             new DumpTask("key", "tag", 1L, "/some/path.html", false);
         dumpTask.setLastProcessTime(1L);
         dumpTask.setTaskInterval(1L);
         assertThat(dumpTask.getLastProcessTime(), is(1L));
@@ -42,6 +46,7 @@ class DumpTaskTest {
 
     @Test
     void merge() {
-        new DumpTask("key", 1L, "/some/path.html").merge(new DumpTask("key", 1L, "/some/path.html"));
+        AbstractTask task = mock(AbstractTask.class);
+        new DumpTask("key", 1L, "/some/path.html").merge(task);
     }
 }

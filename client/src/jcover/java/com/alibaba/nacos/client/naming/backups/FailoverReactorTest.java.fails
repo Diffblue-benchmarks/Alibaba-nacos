@@ -41,14 +41,22 @@ class FailoverReactorTest {
     }
 
     @Test
-    void isFailoverSwitchReturnsFalse() {
-        assertThat(new FailoverReactor(new HostReactor(new EventDispatcher(), new NamingProxy("1234", "api.github.com", "Smith"), "OX13QD"), "foo").isFailoverSwitch(), is(false));
+    void isFailoverSwitch1() throws com.alibaba.nacos.api.exception.NacosException {
+        HostReactor hostReactor = mock(HostReactor.class);
+        assertThat(new FailoverReactor(hostReactor, "foo").isFailoverSwitch(), is(false));
     }
 
     @Test
-    void getServiceKeyIsKey() {
+    void isFailoverSwitch2() {
+        EventDispatcher eventDispatcher1 = mock(EventDispatcher.class);
+        assertThat(new FailoverReactor(new HostReactor(eventDispatcher1, new NamingProxy("1234", "api.github.com", "Smith"), "OX13QD"), "foo").isFailoverSwitch(), is(false));
+    }
+
+    @Test
+    void getServiceKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        HostReactor hostReactor = mock(HostReactor.class);
         ServiceInfo result =
-             new FailoverReactor(new HostReactor(new EventDispatcher(), new NamingProxy("1234", "api.github.com", "Smith"), "OX13QD"), "foo").getService("key");
+             new FailoverReactor(hostReactor, "foo").getService("key");
         assertThat(result.getCacheMillis(), is(1_000L));
         assertThat(result.getChecksum(), is(""));
         assertThat(result.getClusters(), is(nullValue()));

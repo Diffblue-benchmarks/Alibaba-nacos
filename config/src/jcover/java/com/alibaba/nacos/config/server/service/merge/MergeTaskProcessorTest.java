@@ -3,10 +3,11 @@ package com.alibaba.nacos.config.server.service.merge;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.config.server.model.ConfigInfo;
 import com.alibaba.nacos.config.server.model.ConfigInfoAggr;
-import com.alibaba.nacos.config.server.service.BasicDataSourceServiceImpl;
+import com.alibaba.nacos.config.server.service.DataSourceService;
 import com.alibaba.nacos.config.server.service.PersistService;
 
 import java.util.ArrayList;
@@ -22,11 +23,13 @@ import org.junit.jupiter.api.Test;
 class MergeTaskProcessorTest {
 
     @Test
-    void factory() {
+    void factory() throws java.io.IOException {
         PersistService persistService1 = new PersistService();
-        persistService1.setBasicDataSourceService(new BasicDataSourceServiceImpl());
+        DataSourceService dataSourceService1 = mock(DataSourceService.class);
+        persistService1.setBasicDataSourceService(dataSourceService1);
         PersistService persistService2 = new PersistService();
-        persistService2.setBasicDataSourceService(new BasicDataSourceServiceImpl());
+        DataSourceService dataSourceService2 = mock(DataSourceService.class);
+        persistService2.setBasicDataSourceService(dataSourceService2);
         // pojo MergeTaskProcessor
     }
 

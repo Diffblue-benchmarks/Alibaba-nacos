@@ -1,18 +1,20 @@
 package com.alibaba.nacos.naming.consistency.persistent.raft;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.consistency.Datum;
-import com.alibaba.nacos.naming.core.Service;
+import com.alibaba.nacos.naming.consistency.RecordListener;
 import com.alibaba.nacos.naming.misc.GlobalConfig;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentMap;
 
@@ -22,6 +24,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpMethod;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -60,14 +63,27 @@ public class RaftCoreTest {
     }
 
     @Test
+    public void signalDelete() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        when(peers.getLeader())
+            .thenReturn(new RaftPeer());
+        when(peers.isLeader(Mockito.<String>any()))
+            .thenReturn(false);
+        service.signalDelete("key");
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+        Mockito.verify(raftProxy).proxy(ArgumentMatchers.eq((String) null), ArgumentMatchers.eq("/v1/ns/raft/datum"), ArgumentMatchers.<Map<String, String>>any(), ArgumentMatchers.<HttpMethod>any());
+    }
+
+    @Test
     public void listen() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
-        service.listen("key", new Service());
+        RecordListener listener = mock(RecordListener.class);
+        service.listen("key", listener);
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
     }
 
     @Test
     public void unlisten() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
-        service.unlisten("key", new Service());
+        RecordListener listener = mock(RecordListener.class);
+        service.unlisten("key", listener);
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
     }
 
@@ -133,14 +149,14 @@ public class RaftCoreTest {
 
     @Test
     public void getPeerSet() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
-        assertThat(service.getPeerSet(), instanceOf(RaftPeerSet.1908865578.class));
-        // pojo RaftPeerSet.1908865578
+        assertThat(service.getPeerSet(), is(notNullValue()));
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
     }
 
     @Test
     public void setPeerSet() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
-        service.setPeerSet(new RaftPeerSet());
+        RaftPeerSet peerSet = mock(RaftPeerSet.class);
+        service.setPeerSet(peerSet);
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
     }
 
@@ -168,6 +184,28 @@ public class RaftCoreTest {
         when(peers.getTerm())
             .thenReturn(1L);
         assertThat(service.datumSize(), is(0));
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+        Mockito.verify(peers).setTerm(ArgumentMatchers.eq((Long) 0L));
+    }
+
+    @Test
+    public void loadDatum1() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        when(raftStore.load(Mockito.<String>any()))
+            .thenReturn(new Datum());
+        when(raftStore.loadMeta())
+            .thenReturn(new Properties());
+        service.loadDatum("key");
+        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
+        Mockito.verify(peers).setTerm(ArgumentMatchers.eq((Long) 0L));
+    }
+
+    @Test
+    public void loadDatum2() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
+        when(raftStore.load(Mockito.<String>any()))
+            .thenReturn(new Datum());
+        when(raftStore.loadMeta())
+            .thenReturn(new Properties());
+        service.loadDatum(null);
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
         Mockito.verify(peers).setTerm(ArgumentMatchers.eq((Long) 0L));
     }
