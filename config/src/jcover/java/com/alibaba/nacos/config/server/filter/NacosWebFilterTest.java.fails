@@ -35,6 +35,11 @@ class NacosWebFilterTest {
     }
 
     @Test
+    void setWebRootPath() {
+        NacosWebFilter.setWebRootPath("/bin/bash");
+    }
+
+    @Test
     void init() throws javax.servlet.ServletException, java.net.MalformedURLException {
         ServletContext servletContext = mock(ServletContext.class);
         when(servletContext.getRealPath(Mockito.<String>any()))

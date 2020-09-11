@@ -58,7 +58,7 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":1376,\"leaderDueMs\":4021,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":2509,\"leaderDueMs\":10426,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":2855,\"leaderDueMs\":9236,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":920,\"leaderDueMs\":3395,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
@@ -96,16 +96,16 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/leader"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":1799,\\\"leaderDueMs\\\":557,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
+            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":3662,\\\"leaderDueMs\\\":284,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
     }
 
     @Test
     public void getAllListeners() throws com.alibaba.nacos.api.exception.NacosException, Exception {
         Map<String, List<RecordListener>> map =
              new HashMap<String, List<RecordListener>>();
-        ArrayList<RecordListener> x502 = new ArrayList<RecordListener>();
-        x502.add(new Service());
-        map.put("foo", x502);
+        ArrayList<RecordListener> x466 = new ArrayList<RecordListener>();
+        x466.add(new Service());
+        map.put("foo", x466);
         when(raftCore.getListeners())
             .thenReturn(map);
         MockMvcBuilders.standaloneSetup(controller)

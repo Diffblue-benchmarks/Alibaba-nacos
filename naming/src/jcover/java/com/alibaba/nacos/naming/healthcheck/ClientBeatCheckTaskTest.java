@@ -17,9 +17,9 @@ public class ClientBeatCheckTaskTest {
 
     @Test
     public void taskKeyReturnsAcme() {
-        Service service = new Service();
-        service.setName("Acme");
-        assertThat(new ClientBeatCheckTask(service).taskKey(), is("Acme"));
+        Service service1 = new Service();
+        service1.setName("Acme");
+        assertThat(new ClientBeatCheckTask(service1).taskKey(), is("Acme"));
     }
 
     @Test

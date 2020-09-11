@@ -76,12 +76,12 @@ public class PushServiceTest {
 
     @Test
     public void serviceChanged() throws CloneNotSupportedException {
-        service.serviceChanged("1234", "Acme");
+        service.serviceChanged("1234", "N ackEntry is nullx");
     }
 
     @Test
-    public void serviceChangedNamespaceIdIsFoo() throws CloneNotSupportedException {
-        service.serviceChanged("foo", "Acme");
+    public void serviceChangedServiceNameIsAcme() throws CloneNotSupportedException {
+        service.serviceChanged("1234", "Acme");
     }
 
     @Test
