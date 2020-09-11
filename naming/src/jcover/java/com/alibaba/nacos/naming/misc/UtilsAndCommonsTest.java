@@ -18,6 +18,7 @@ public class UtilsAndCommonsTest {
     @Test
     public void getAllExceptionMsg() {
         assertThat(UtilsAndCommons.getAllExceptionMsg(new NacosException(1, "an error has happened")), is("caused: an error has happened;"));
+        assertThat(UtilsAndCommons.getAllExceptionMsg(new NacosException(1, new NacosException())), is("caused: com.alibaba.nacos.naming.exception.NacosException;"));
         assertThat(UtilsAndCommons.getAllExceptionMsg(new NacosException()), is(""));
     }
 

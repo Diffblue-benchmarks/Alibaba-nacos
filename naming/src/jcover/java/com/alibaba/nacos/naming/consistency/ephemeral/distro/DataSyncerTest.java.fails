@@ -50,8 +50,36 @@ public class DataSyncerTest {
     private DataSyncer service;
 
     @Test
-    public void buildKeyKeyIsKey() {
-        assertThat(service.buildKey("key", "/some/path.html"), is("key@@@@/some/path.html"));
+    public void submit1() {
+        SyncTask task = new SyncTask();
+        task.setKeys(new ArrayList<String>());
+        service.submit(task, 1L);
+    }
+
+    @Test
+    public void submit2() {
+        SyncTask task = new SyncTask();
+        ArrayList<String> keys = new ArrayList<String>();
+        keys.add("key");
+        task.setKeys(keys);
+        task.setLastExecuteTime(0L);
+        service.submit(task, 1L);
+    }
+
+    @Test
+    public void submit3() {
+        SyncTask task = new SyncTask();
+        task.setKeys(new ArrayList<String>());
+        service.submit(task, 1L);
+    }
+
+    @Test
+    public void submit4() {
+        SyncTask task = new SyncTask();
+        ArrayList<String> keys = new ArrayList<String>();
+        keys.add("key");
+        task.setKeys(keys);
+        service.submit(task, 1L);
     }
 
     @Test
@@ -73,29 +101,7 @@ public class DataSyncerTest {
     }
 
     @Test
-    public void submit1() {
-        SyncTask task = new SyncTask();
-        task.setKeys(new ArrayList<String>());
-        service.submit(task, 1L);
-    }
-
-    @Test
-    public void submit2() {
-        SyncTask task = new SyncTask();
-        ArrayList<String> keys = new ArrayList<String>();
-        keys.add("key");
-        task.setKeys(keys);
-        task.setTargetServer("/some/path.html");
-        service.submit(task, 1L);
-    }
-
-    @Test
-    public void submit3() {
-        SyncTask task = new SyncTask();
-        ArrayList<String> keys = new ArrayList<String>();
-        keys.add("key");
-        task.setKeys(keys);
-        task.setLastExecuteTime(1L);
-        service.submit(task, 1L);
+    public void buildKeyKeyIsKey() {
+        assertThat(service.buildKey("key", "/some/path.html"), is("key@@@@/some/path.html"));
     }
 }

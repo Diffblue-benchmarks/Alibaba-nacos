@@ -39,17 +39,22 @@ public class DelegateConsistencyServiceImplTest {
     private DelegateConsistencyServiceImpl service;
 
     @Test
+    public void put() throws com.alibaba.nacos.api.exception.NacosException {
+        service.put("key", new Instances());
+        Mockito.verify(persistentConsistencyService).put(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
+    }
+
+    @Test
+    public void remove() throws com.alibaba.nacos.api.exception.NacosException {
+        service.remove("key");
+        Mockito.verify(persistentConsistencyService).remove(ArgumentMatchers.eq("key"));
+    }
+
+    @Test
     public void getKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
         when(persistentConsistencyService.get(Mockito.<String>any()))
             .thenReturn(new Datum());
         // pojo Datum
-    }
-
-    @Test
-    public void isAvailableReturnsFalse() throws com.alibaba.nacos.api.exception.NacosException {
-        when(ephemeralConsistencyService.isAvailable())
-            .thenReturn(false);
-        assertThat(service.isAvailable(), is(false));
     }
 
     @Test
@@ -66,20 +71,33 @@ public class DelegateConsistencyServiceImplTest {
     }
 
     @Test
-    public void put() throws com.alibaba.nacos.api.exception.NacosException {
-        service.put("key", new Instances());
-        Mockito.verify(persistentConsistencyService).put(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
-    }
-
-    @Test
-    public void remove() throws com.alibaba.nacos.api.exception.NacosException {
-        service.remove("key");
-        Mockito.verify(persistentConsistencyService).remove(ArgumentMatchers.eq("key"));
-    }
-
-    @Test
     public void unlisten() throws com.alibaba.nacos.api.exception.NacosException {
         service.unlisten("key", new Service());
         Mockito.verify(persistentConsistencyService).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void isAvailable1() throws com.alibaba.nacos.api.exception.NacosException {
+        when(ephemeralConsistencyService.isAvailable())
+            .thenReturn(false);
+        assertThat(service.isAvailable(), is(false));
+    }
+
+    @Test
+    public void isAvailable2() throws com.alibaba.nacos.api.exception.NacosException {
+        when(persistentConsistencyService.isAvailable())
+            .thenReturn(false);
+        when(ephemeralConsistencyService.isAvailable())
+            .thenReturn(true);
+        assertThat(service.isAvailable(), is(false));
+    }
+
+    @Test
+    public void isAvailableReturnsTrue() throws com.alibaba.nacos.api.exception.NacosException {
+        when(persistentConsistencyService.isAvailable())
+            .thenReturn(true);
+        when(ephemeralConsistencyService.isAvailable())
+            .thenReturn(true);
+        assertThat(service.isAvailable(), is(true));
     }
 }

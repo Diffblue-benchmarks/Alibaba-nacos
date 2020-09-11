@@ -61,91 +61,6 @@ public class ServiceManagerTest {
     }
 
     @Test
-    public void containService() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.containService("1234", "Acme"), is(false));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void createEmptyService() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        service.createEmptyService("1234", "Acme", false);
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-        Mockito.verify(consistencyService).put(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.1234##Acme"), ArgumentMatchers.<Record>any());
-    }
-
-    @Test
-    public void getAllNamespaces() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getAllNamespaces(), empty());
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getAllServiceNameList() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getAllServiceNameList("root"), empty());
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getAllServiceNames() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getAllServiceNames().isEmpty(), is(true));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getInstance() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getInstance("1234", "Acme", "John Smith", "DE", 1), is(nullValue()));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getInstanceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getInstanceCount(), is(0));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getPagedClusterState() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getPagedClusterState("1234", 1, 1, "New York", "New York", new ArrayList<RaftPeer>(), new RaftPeerSet()), is(0));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getPagedService() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getPagedService("1234", 1, 1, "DE", "DE", new ArrayList<Service>()), is(0));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getResponsibleInstanceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getResponsibleInstanceCount(), is(0));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getResponsibleServiceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getResponsibleServiceCount(), is(0));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getResponsibleServices() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getResponsibleServices().isEmpty(), is(true));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getServiceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getServiceCount(), is(0));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
-    public void getServiceMap() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        assertThat(service.getServiceMap("1234"), is(nullValue()));
-        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
     public void interests() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
         assertThat(service.interests("key"), is(false));
         Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
@@ -175,6 +90,67 @@ public class ServiceManagerTest {
     }
 
     @Test
+    public void getPagedClusterState() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getPagedClusterState("1234", 1, 1, "New York", "New York", new ArrayList<RaftPeer>(), new RaftPeerSet()), is(0));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getAllServiceNames() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getAllServiceNames().isEmpty(), is(true));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getAllNamespaces() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getAllNamespaces(), empty());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getAllServiceNameList() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getAllServiceNameList("root"), empty());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getResponsibleServices() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getResponsibleServices().isEmpty(), is(true));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getResponsibleServiceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getResponsibleServiceCount(), is(0));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getResponsibleInstanceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getResponsibleInstanceCount(), is(0));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void createEmptyService() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        service.createEmptyService("1234", "Acme", false);
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).put(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.1234##Acme"), ArgumentMatchers.<Record>any());
+    }
+
+    @Test
+    public void getInstance() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getInstance("1234", "Acme", "John Smith", "DE", 1), is(nullValue()));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void containService() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.containService("1234", "Acme"), is(false));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
     public void putService() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
 
         // arrange
@@ -186,6 +162,30 @@ public class ServiceManagerTest {
         service.putService(service1);
 
         // assert
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getServiceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getServiceCount(), is(0));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getInstanceCount() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getInstanceCount(), is(0));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getServiceMap() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getServiceMap("1234"), is(nullValue()));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void getPagedService() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.getPagedService("1234", 1, 1, "DE", "DE", new ArrayList<Service>()), is(0));
         Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 }

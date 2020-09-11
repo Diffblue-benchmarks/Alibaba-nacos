@@ -2,13 +2,11 @@ package com.alibaba.nacos.console.utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -26,11 +24,8 @@ class JwtTokenUtilsTest {
     private JwtTokenUtils service;
 
     @Test
-    void createToken() throws IllegalArgumentException {
-        Authentication authentication = mock(Authentication.class);
-        when(authentication.getName())
-            .thenReturn("foo");
-        assertThat(service.createToken(authentication), is("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJhdXRoIjoiIiwiZXhwIjoxNTk5Nzg5MzYyfQ.BiQ92U38OIzgRzmbFYw51V2zlo4zU-0HbHM4fIeeyhQ"));
+    void createToken() {
+        assertThat(service.createToken(new TestingAuthenticationToken("Bearer", "Bearer")), is("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCZWFyZXIiLCJhdXRoIjoiIiwiZXhwIjoxNTk5NzkwOTEyfQ.Ra0Hos9ZN-thG5XSh0y9v0o4W2V83YE7didcxHNhEvA"));
     }
 
     @Test

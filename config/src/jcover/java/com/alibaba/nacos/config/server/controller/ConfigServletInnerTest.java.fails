@@ -39,14 +39,6 @@ class ConfigServletInnerTest {
     private ConfigServletInner service;
 
     @Test
-    void doGetConfigTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, java.io.UnsupportedEncodingException, javax.servlet.ServletException {
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        assertThat(service.doGetConfig(new MockHttpServletRequest(), response, "1234", "/some/path.html", "/some/path.html", "tag", "/some/path.html"), is("404"));
-        assertThat(response.getContentAsString(), is("config data not exist\n"));
-        assertThat(response.getStatus(), is(404));
-    }
-
-    @Test
     void doPollingConfigClientMd5MapIsEmptyAndProbeRequestSizeIsOne() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, java.io.UnsupportedEncodingException, javax.servlet.ServletException {
         MockHttpServletResponse response = new MockHttpServletResponse();
         assertThat(service.doPollingConfig(new MockHttpServletRequest(), response, new HashMap<String, String>(), 1), is("200"));
@@ -56,5 +48,13 @@ class ConfigServletInnerTest {
         assertTrue(response.getHeaderNames().contains("Pragma"));
         assertTrue(response.getHeaderNames().contains("Probe-Modify-Response"));
         assertTrue(response.getHeaderNames().contains("Probe-Modify-Response-New"));
+    }
+
+    @Test
+    void doGetConfigTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, java.io.UnsupportedEncodingException, javax.servlet.ServletException {
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        assertThat(service.doGetConfig(new MockHttpServletRequest(), response, "1234", "/some/path.html", "/some/path.html", "tag", "/some/path.html"), is("404"));
+        assertThat(response.getContentAsString(), is("config data not exist\n"));
+        assertThat(response.getStatus(), is(404));
     }
 }

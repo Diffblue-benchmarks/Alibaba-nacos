@@ -24,6 +24,13 @@ class AddressServerManagerTest {
     private AddressServerManager service;
 
     @Test
+    void getRawProductName() {
+        assertThat(service.getRawProductName("Acme"), is("Acme"));
+        assertThat(service.getRawProductName(""), is("nacos"));
+        assertThat(service.getRawProductName("nacos"), is("nacos"));
+    }
+
+    @Test
     void getDefaultClusterNameIfEmpty() {
         assertThat(service.getDefaultClusterNameIfEmpty("John Smith"), is("John Smith"));
         assertThat(service.getDefaultClusterNameIfEmpty(""), is("serverlist"));
@@ -33,13 +40,6 @@ class AddressServerManagerTest {
     @Test
     void getRawClusterName() {
         assertThat(service.getRawClusterName("John Smith"), is("John Smith"));
-    }
-
-    @Test
-    void getRawProductName() {
-        assertThat(service.getRawProductName("Acme"), is("Acme"));
-        assertThat(service.getRawProductName(""), is("nacos"));
-        assertThat(service.getRawProductName("nacos"), is("nacos"));
     }
 
     @Test

@@ -34,7 +34,7 @@ class CustomUserDetailsServiceImplTest {
     private CustomUserDetailsServiceImpl service;
 
     @Test
-    void loadUserByUsername() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, org.springframework.security.core.userdetails.UsernameNotFoundException {
+    void loadUserByUsernameUserNameIsRoot() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, org.springframework.security.core.userdetails.UsernameNotFoundException {
 
         // arrange
         User user = new User();
@@ -44,7 +44,7 @@ class CustomUserDetailsServiceImplTest {
             .thenReturn(user);
 
         // act
-        UserDetails result = service.loadUserByUsername("John Smith");
+        UserDetails result = service.loadUserByUsername("root");
 
         // assert
         assertThat(result.getAuthorities(), empty());

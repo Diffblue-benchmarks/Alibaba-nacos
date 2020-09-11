@@ -41,6 +41,26 @@ public class DistroMapperTest {
     private DistroMapper service;
 
     @Test
+    public void getHealthyList() throws CloneNotSupportedException {
+        assertThat(service.getHealthyList(), empty());
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void responsible() throws CloneNotSupportedException {
+        when(switchDomain.isHealthCheckEnabled(Mockito.<String>any()))
+            .thenReturn(false);
+        assertThat(service.responsible(new Cluster(), new Instance()), is(false));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void mapSrv() throws CloneNotSupportedException {
+        assertThat(service.mapSrv("Acme"), is("10.128.0.69:0"));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
     public void distroHash1() throws CloneNotSupportedException {
         assertThat(service.distroHash("Acme"), is(2_035_034));
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
@@ -53,14 +73,8 @@ public class DistroMapperTest {
     }
 
     @Test
-    public void getHealthyList() throws CloneNotSupportedException {
-        assertThat(service.getHealthyList(), empty());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
-    }
-
-    @Test
-    public void mapSrv() throws CloneNotSupportedException {
-        assertThat(service.mapSrv("Acme"), is("10.128.0.69:0"));
+    public void onChangeServerList() throws CloneNotSupportedException {
+        service.onChangeServerList(new ArrayList<Server>());
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
     }
 
@@ -75,20 +89,6 @@ public class DistroMapperTest {
         service.onChangeHealthyServerList(latestReachableMembers);
 
         // assert
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
-    }
-
-    @Test
-    public void onChangeServerList() throws CloneNotSupportedException {
-        service.onChangeServerList(new ArrayList<Server>());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
-    }
-
-    @Test
-    public void responsible() throws CloneNotSupportedException {
-        when(switchDomain.isHealthCheckEnabled(Mockito.<String>any()))
-            .thenReturn(false);
-        assertThat(service.responsible(new Cluster(), new Instance()), is(false));
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
     }
 }

@@ -35,44 +35,12 @@ class LongPollingServiceTest {
     private LongPollingService service;
 
     @Test
-    void collectApplicationSubscribeConfigInfosReturnsNull() {
-        assertThat(service.collectApplicationSubscribeConfigInfos(), is(nullValue()));
-    }
-
-    @Test
-    void generateResponse() throws java.io.UnsupportedEncodingException {
-
-        // arrange
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        ArrayList<String> changedGroups = new ArrayList<String>();
-        changedGroups.add("foo=bar");
-
-        // act
-        service.generateResponse(new MockHttpServletRequest(), response, changedGroups);
-
-        // assert
-        assertThat(response.getContentAsString(), is("null%02foo%3Dbar%01\n"));
-        assertThat(response.getHeaderNames(), hasSize(3));
-        assertTrue(response.getHeaderNames().contains("Cache-Control"));
-        assertTrue(response.getHeaderNames().contains("Expires"));
-        assertTrue(response.getHeaderNames().contains("Pragma"));
-    }
-
-    @Test
-    void interestReturnsLocalDataChangeEvent() {
-        List<Class<? extends com.alibaba.nacos.config.server.utils.event.EventDispatcher.Event>> result =
-             service.interest();
-        assertThat(result.size(), is(1));
-        assertThat((Class<LocalDataChangeEvent>) result.get(0), equalTo((Class) LocalDataChangeEvent.class));
-    }
-
-    @Test
     void isClientLongPollingReturnsFalse() {
         assertThat(service.isClientLongPolling("/some/path.html"), is(false));
     }
 
     @Test
-    void isEmpty() {
+    void getters() {
         assertThat(service.getClientSubConfigInfo("/some/path.html").isEmpty(), is(true));
         assertThat(service.getCollectSubscribleInfo("1234", "/some/path.html", "/some/path.html").getLisentersGroupkeyStatus().isEmpty(), is(true));
         assertThat(service.getCollectSubscribleInfoByIp("/some/path.html").getLisentersGroupkeyStatus().isEmpty(), is(true));
@@ -92,8 +60,40 @@ class LongPollingServiceTest {
     }
 
     @Test
+    void collectApplicationSubscribeConfigInfosReturnsNull() {
+        assertThat(service.collectApplicationSubscribeConfigInfos(), is(nullValue()));
+    }
+
+    @Test
+    void interestReturnsLocalDataChangeEvent() {
+        List<Class<? extends com.alibaba.nacos.config.server.utils.event.EventDispatcher.Event>> result =
+             service.interest();
+        assertThat(result.size(), is(1));
+        assertThat((Class<LocalDataChangeEvent>) result.get(0), equalTo((Class) LocalDataChangeEvent.class));
+    }
+
+    @Test
     void onEvent() {
         service.onEvent(new ConfigDataChangeEvent("something", "something", 1L));
+    }
+
+    @Test
+    void generateResponse() throws java.io.UnsupportedEncodingException {
+
+        // arrange
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        ArrayList<String> changedGroups = new ArrayList<String>();
+        changedGroups.add("foo=bar");
+
+        // act
+        service.generateResponse(new MockHttpServletRequest(), response, changedGroups);
+
+        // assert
+        assertThat(response.getContentAsString(), is("null%02foo%3Dbar%01\n"));
+        assertThat(response.getHeaderNames(), hasSize(3));
+        assertTrue(response.getHeaderNames().contains("Cache-Control"));
+        assertTrue(response.getHeaderNames().contains("Expires"));
+        assertTrue(response.getHeaderNames().contains("Pragma"));
     }
 
     @Test

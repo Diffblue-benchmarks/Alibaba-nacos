@@ -27,6 +27,7 @@ public class ServiceDetailInfoTest {
         IpAddressInfo ipAddressInfo1 = new IpAddressInfo();
         ipAddressInfo1.setEnabled(false);
         ipAddressInfo1.setIp("280 Broadway");
+        ipAddressInfo1.setMetadata(new HashMap<String, String>());
         ipAddressInfo1.setPort(1);
         ipAddressInfo1.setValid(false);
         ipAddressInfo1.setWeight(1.0);
@@ -35,9 +36,9 @@ public class ServiceDetailInfoTest {
         clusterMap.put("foo", x33);
         serviceDetailInfo.setClusterMap(clusterMap);
         serviceDetailInfo.setGroupName("Acme");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        serviceDetailInfo.setMetadata(metadata);
+        HashMap<String, String> metadata3 = new HashMap<String, String>();
+        metadata3.put("foo", "foo");
+        serviceDetailInfo.setMetadata(metadata3);
         serviceDetailInfo.setServiceName("Acme");
         assertThat(serviceDetailInfo.getClusterMap().get("foo"), sameInstance(x33));
         assertThat(serviceDetailInfo.getGroupName(), is("Acme"));

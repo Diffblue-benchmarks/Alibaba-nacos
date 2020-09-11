@@ -20,7 +20,7 @@ class CustomUserDetailsTest {
     void factory() {
         User user = new User();
         user.setPassword("secret");
-        user.setUsername("John Smith");
+        user.setUsername("root");
         CustomUserDetails customUserDetails = new CustomUserDetails(user);
         assertThat(customUserDetails.getAuthorities(), empty());
         assertThat(customUserDetails.isAccountNonExpired(), is(true));
@@ -37,9 +37,9 @@ class CustomUserDetailsTest {
     }
 
     @Test
-    void getUsername() {
+    void getUsernameReturnsRoot() {
         User user = new User();
-        user.setUsername("John Smith");
-        assertThat(new CustomUserDetails(user).getUsername(), is("John Smith"));
+        user.setUsername("root");
+        assertThat(new CustomUserDetails(user).getUsername(), is("root"));
     }
 }

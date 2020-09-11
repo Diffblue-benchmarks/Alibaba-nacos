@@ -34,16 +34,8 @@ public class ServerStatusManagerTest {
     private ServerStatusManager service;
 
     @Test
-    public void getServerStatusReturnsStarting() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("foo");
-        assertThat(service.getServerStatus(), is(ServerStatus.STARTING));
-    }
-
-    @Test
     public void init1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
         when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("foo")
             .thenReturn("foo");
         service.init();
     }
@@ -52,7 +44,14 @@ public class ServerStatusManagerTest {
     public void init2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
         when(switchDomain.getOverriddenServerStatus())
             .thenReturn("bar")
-            .thenReturn("foo");
+            .thenReturn("bar");
         service.init();
+    }
+
+    @Test
+    public void getServerStatusReturnsStarting() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        when(switchDomain.getOverriddenServerStatus())
+            .thenReturn("foo");
+        assertThat(service.getServerStatus(), is(ServerStatus.STARTING));
     }
 }

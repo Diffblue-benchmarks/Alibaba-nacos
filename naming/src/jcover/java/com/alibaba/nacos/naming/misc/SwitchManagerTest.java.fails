@@ -45,6 +45,65 @@ public class SwitchManagerTest {
     private SwitchManager service;
 
     @Test
+    public void update() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+
+        // arrange
+        SwitchDomain newSwitchDomain = new SwitchDomain();
+        newSwitchDomain.setCheckTimes(1);
+        newSwitchDomain.setClientBeatInterval(1L);
+        newSwitchDomain.setDefaultCacheMillis(1L);
+        newSwitchDomain.setDefaultInstanceEphemeral(false);
+        newSwitchDomain.setDefaultPushCacheMillis(1L);
+        newSwitchDomain.setDistroEnabled(false);
+        newSwitchDomain.setDistroServerExpiredMillis(1L);
+        newSwitchDomain.setDistroThreshold(1.0f);
+        newSwitchDomain.setEnableStandalone(false);
+        newSwitchDomain.setHealthCheckEnabled(false);
+        newSwitchDomain.setOverriddenServerStatus("/some/path.html");
+        newSwitchDomain.setPushCVersion("1.0");
+        newSwitchDomain.setPushEnabled(false);
+        newSwitchDomain.setPushGoVersion("1.0");
+        newSwitchDomain.setPushJavaVersion("1.0");
+        newSwitchDomain.setPushPythonVersion("1.0");
+        newSwitchDomain.setServerStatusSynchronizationPeriodMillis(1L);
+        newSwitchDomain.setServiceStatusSynchronizationPeriodMillis(1L);
+
+        // act
+        service.update(newSwitchDomain);
+
+        // assert
+        Mockito.verify(switchDomain).setAdWeightMap(ArgumentMatchers.<Map<String, Integer>>any());
+        Mockito.verify(switchDomain).setCheckTimes(ArgumentMatchers.eq((Integer) 1));
+        Mockito.verify(switchDomain).setClientBeatInterval(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDefaultCacheMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDefaultInstanceEphemeral(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setDefaultPushCacheMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDisableAddIP(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setDistroEnabled(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setDistroServerExpiredMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setDistroThreshold(ArgumentMatchers.eq((Float) 1.0f));
+        Mockito.verify(switchDomain).setEnableAuthentication(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setEnableStandalone(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setHealthCheckEnabled(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setHttpHealthParams(ArgumentMatchers.<SwitchDomain.HttpHealthParams>any());
+        Mockito.verify(switchDomain).setIncrementalList(ArgumentMatchers.<List<String>>any());
+        Mockito.verify(switchDomain).setLimitedUrlMap(ArgumentMatchers.<Map<String, Integer>>any());
+        Mockito.verify(switchDomain).setMasters(ArgumentMatchers.<List<String>>any());
+        Mockito.verify(switchDomain).setMysqlHealthParams(ArgumentMatchers.<SwitchDomain.MysqlHealthParams>any());
+        Mockito.verify(switchDomain).setOverriddenServerStatus(ArgumentMatchers.eq("/some/path.html"));
+        Mockito.verify(switchDomain).setPushCVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setPushEnabled(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setPushGoVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setPushJavaVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setPushPythonVersion(ArgumentMatchers.eq("1.0"));
+        Mockito.verify(switchDomain).setSendBeatOnly(ArgumentMatchers.eq((Boolean) false));
+        Mockito.verify(switchDomain).setServerStatusSynchronizationPeriodMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setServiceStatusSynchronizationPeriodMillis(ArgumentMatchers.eq((Long) 1L));
+        Mockito.verify(switchDomain).setTcpHealthParams(ArgumentMatchers.<SwitchDomain.TcpHealthParams>any());
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
     public void getSwitchDomain() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
 
         // arrange

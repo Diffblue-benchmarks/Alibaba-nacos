@@ -29,31 +29,13 @@ public class DataStoreTest {
     private DataStore service;
 
     @Test
-    public void batchGetKeysIsFoo() {
-        ArrayList<String> keys = new ArrayList<String>();
-        keys.add("foo");
-        assertThat(service.batchGet(keys).isEmpty(), is(true));
+    public void putKeyIsKey() {
+        service.put("key", new Datum());
     }
 
     @Test
-    public void containsKeyIsKeyReturnsFalse() {
-        assertThat(service.contains("key"), is(false));
-    }
-
-    @Test
-    public void getInstanceCountReturnsZero() {
-        assertThat(service.getInstanceCount(), is(0));
-    }
-
-    @Test
-    public void getKeyIsKeyReturnsNull() {
-        assertThat(service.get("key"), is(nullValue()));
-    }
-
-    @Test
-    public void isEmpty() {
-        assertThat(service.batchGet(new ArrayList<String>()).isEmpty(), is(true));
-        assertThat(service.getDataMap().isEmpty(), is(true));
+    public void removeKeyIsKeyReturnsNull() {
+        assertThat(service.remove("key"), is(nullValue()));
     }
 
     @Test
@@ -62,12 +44,30 @@ public class DataStoreTest {
     }
 
     @Test
-    public void putKeyIsKey() {
-        service.put("key", new Datum());
+    public void getKeyIsKeyReturnsNull() {
+        assertThat(service.get("key"), is(nullValue()));
     }
 
     @Test
-    public void removeKeyIsKeyReturnsNull() {
-        assertThat(service.remove("key"), is(nullValue()));
+    public void containsKeyIsKeyReturnsFalse() {
+        assertThat(service.contains("key"), is(false));
+    }
+
+    @Test
+    public void batchGetKeysIsFoo() {
+        ArrayList<String> keys = new ArrayList<String>();
+        keys.add("foo");
+        assertThat(service.batchGet(keys).isEmpty(), is(true));
+    }
+
+    @Test
+    public void getters() {
+        assertThat(service.batchGet(new ArrayList<String>()).isEmpty(), is(true));
+        assertThat(service.getDataMap().isEmpty(), is(true));
+    }
+
+    @Test
+    public void getInstanceCountReturnsZero() {
+        assertThat(service.getInstanceCount(), is(0));
     }
 }

@@ -33,24 +33,26 @@ class DumpServiceTest {
     private DumpService service;
 
     @Test
-    void dump1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
+    void dumpTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
+        service.dump("1234", "DumpService start", "/some/path.html", "tag", 1L, "/some/path.html");
+    }
+
+    @Test
+    void dump() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
         when(env.getProperty(Mockito.<String>any()))
-            .thenReturn("foo");
+            .thenReturn("true");
         service.dump("1234", "/some/path.html", "/some/path.html", 1L, "/some/path.html");
     }
 
     @Test
-    void dump2() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
-        service.dump("1234", "DumpService start", "/some/path.html", 1L, "/some/path.html");
-    }
-
-    @Test
-    void dumpAll() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
+    void dumpAll1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
         service.dumpAll();
     }
 
     @Test
-    void dumpTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
-        service.dump("1234", "DumpService start", "/some/path.html", "tag", 1L, "/some/path.html");
+    void dumpAll2() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
+        service.dumpAll();
     }
 }

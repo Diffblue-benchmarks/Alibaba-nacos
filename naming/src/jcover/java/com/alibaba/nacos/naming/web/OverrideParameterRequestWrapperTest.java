@@ -39,7 +39,7 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("John Smith"));
+        request.setUserPrincipal(new UserPrincipal("root"));
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
@@ -118,7 +118,7 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("John Smith"));
+        request.setUserPrincipal(new UserPrincipal("root"));
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
@@ -197,7 +197,7 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("John Smith"));
+        request.setUserPrincipal(new UserPrincipal("root"));
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
@@ -276,7 +276,7 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("John Smith"));
+        request.setUserPrincipal(new UserPrincipal("root"));
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");

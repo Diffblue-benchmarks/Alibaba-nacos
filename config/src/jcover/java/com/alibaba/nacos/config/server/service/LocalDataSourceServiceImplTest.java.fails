@@ -32,18 +32,13 @@ class LocalDataSourceServiceImplTest {
     private LocalDataSourceServiceImpl service;
 
     @Test
+    void reload() {
+        service.reload();
+    }
+
+    @Test
     void checkMasterWritableReturnsTrue() {
         assertThat(service.checkMasterWritable(), is(true));
-    }
-
-    @Test
-    void getCurrentDBUrl() {
-        assertThat(service.getCurrentDBUrl(), is("jdbc:derby:/home/thomas_perkins/nacos/data/derby-data;create=true"));
-    }
-
-    @Test
-    void getHealthReturnsUP() {
-        assertThat(service.getHealth(), is("UP"));
     }
 
     @Test
@@ -73,7 +68,12 @@ class LocalDataSourceServiceImplTest {
     }
 
     @Test
-    void reload() {
-        service.reload();
+    void getCurrentDBUrl() {
+        assertThat(service.getCurrentDBUrl(), is("jdbc:derby:/home/thomas_perkins/nacos/data/derby-data;create=true"));
+    }
+
+    @Test
+    void getHealthReturnsUP() {
+        assertThat(service.getHealth(), is("UP"));
     }
 }

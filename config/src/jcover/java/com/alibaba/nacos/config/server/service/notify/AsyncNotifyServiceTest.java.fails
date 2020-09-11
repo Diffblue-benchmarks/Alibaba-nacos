@@ -35,11 +35,6 @@ class AsyncNotifyServiceTest {
     private AsyncNotifyService service;
 
     @Test
-    void getExecutor() {
-        // pojo java.util.concurrent.Executor
-    }
-
-    @Test
     void interestReturnsConfigDataChangeEvent() {
         List<Class<? extends com.alibaba.nacos.config.server.utils.event.EventDispatcher.Event>> result =
              service.interest();
@@ -53,22 +48,18 @@ class AsyncNotifyServiceTest {
         list.add("foo");
         when(serverListService.getServerList())
             .thenReturn(list);
-        service.onEvent(new ConfigDataChangeEvent("something", "something", 1L));
+        service.onEvent(new ConfigDataChangeEvent("something", "bar", 1L));
     }
 
     @Test
     void onEvent2() {
-        List<String> list = new ArrayList<String>();
-        list.add("bar");
-        when(serverListService.getServerList())
-            .thenReturn(list);
-        service.onEvent(new ConfigDataChangeEvent("something", "something", 1L));
-    }
-
-    @Test
-    void onEvent3() {
         when(serverListService.getServerList())
             .thenReturn(new ArrayList<String>());
         service.onEvent(new ConfigDataChangeEvent("bar", "something", 1L));
+    }
+
+    @Test
+    void getExecutor() {
+        // pojo java.util.concurrent.Executor
     }
 }

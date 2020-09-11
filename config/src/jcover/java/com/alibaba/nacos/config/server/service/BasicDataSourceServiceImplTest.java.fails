@@ -33,20 +33,6 @@ class BasicDataSourceServiceImplTest {
     private BasicDataSourceServiceImpl service;
 
     @Test
-    void getCurrentDBUrlReturnsEmpty() throws IllegalStateException, IllegalArgumentException {
-        when(env.getProperty(Mockito.<String>any()))
-            .thenReturn("foo");
-        assertThat(service.getCurrentDBUrl(), is(""));
-    }
-
-    @Test
-    void getHealthReturnsUP() throws IllegalStateException, IllegalArgumentException {
-        when(env.getProperty(Mockito.<String>any()))
-            .thenReturn("foo");
-        assertThat(service.getHealth(), is("UP"));
-    }
-
-    @Test
     void getJdbcTemplate() throws IllegalStateException, IllegalArgumentException {
         when(env.getProperty(Mockito.<String>any()))
             .thenReturn("foo");
@@ -72,5 +58,19 @@ class BasicDataSourceServiceImplTest {
         assertThat(result.getPropagationBehavior(), is(0));
         assertThat(result.getTimeout(), is(5));
         assertThat(result.isReadOnly(), is(false));
+    }
+
+    @Test
+    void getCurrentDBUrlReturnsEmpty() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
+        assertThat(service.getCurrentDBUrl(), is(""));
+    }
+
+    @Test
+    void getHealthReturnsUP() throws IllegalStateException, IllegalArgumentException {
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
+        assertThat(service.getHealth(), is("UP"));
     }
 }

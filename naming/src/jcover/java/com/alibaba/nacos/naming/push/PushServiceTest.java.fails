@@ -35,6 +35,16 @@ public class PushServiceTest {
     private PushService service;
 
     @Test
+    public void getTotalPushReturnsZero() throws CloneNotSupportedException {
+        assertThat(service.getTotalPush(), is(0));
+    }
+
+    @Test
+    public void setTotalPushToOne() throws CloneNotSupportedException {
+        service.setTotalPush(1);
+    }
+
+    @Test
     public void addClient1() throws CloneNotSupportedException, Exception {
         DataSource dataSource = mock(DataSource.class);
         service.addClient("1234", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
@@ -53,13 +63,6 @@ public class PushServiceTest {
     }
 
     @Test
-    public void canEnablePushAgentIsFooReturnsFalse() throws CloneNotSupportedException {
-        when(switchDomain.isPushEnabled())
-            .thenReturn(false);
-        assertThat(service.canEnablePush("foo"), is(false));
-    }
-
-    @Test
     public void getClientsServiceNameIsAcme() throws CloneNotSupportedException {
         List<Subscriber> result = service.getClients("Acme", "1234");
         assertThat(result.size(), is(1));
@@ -72,27 +75,34 @@ public class PushServiceTest {
     }
 
     @Test
+    public void serviceChanged1() throws CloneNotSupportedException {
+        service.serviceChanged("1234", "Acme");
+    }
+
+    @Test
+    public void serviceChanged2() throws CloneNotSupportedException {
+        service.serviceChanged("N failed to prepare data: to client:, error:", "Acme");
+    }
+
+    @Test
+    public void serviceChanged3() throws CloneNotSupportedException {
+        service.serviceChanged("N failed to push data: to client:, error:", "Acme");
+    }
+
+    @Test
+    public void canEnablePushAgentIsFooReturnsFalse() throws CloneNotSupportedException {
+        when(switchDomain.isPushEnabled())
+            .thenReturn(false);
+        assertThat(service.canEnablePush("foo"), is(false));
+    }
+
+    @Test
     public void getFailedPushCountReturnsZero() throws CloneNotSupportedException {
         assertThat(service.getFailedPushCount(), is(0));
     }
 
     @Test
-    public void getTotalPushReturnsZero() throws CloneNotSupportedException {
-        assertThat(service.getTotalPush(), is(0));
-    }
-
-    @Test
-    public void serviceChangedServiceNameIsAcme() throws CloneNotSupportedException {
-        service.serviceChanged("1234", "Acme");
-    }
-
-    @Test
     public void setFailedPushToOne() throws CloneNotSupportedException {
         service.setFailedPush(1);
-    }
-
-    @Test
-    public void setTotalPushToOne() throws CloneNotSupportedException {
-        service.setTotalPush(1);
     }
 }

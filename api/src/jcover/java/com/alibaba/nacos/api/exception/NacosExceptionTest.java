@@ -27,6 +27,17 @@ class NacosExceptionTest {
 
     @Test
     void factory2() {
+        NacosException nacosException = new NacosException(0, "foo");
+        nacosException.setCauseThrowable(new NacosException());
+        nacosException.setErrCode(1);
+        nacosException.setErrMsg("an error has happened");
+        assertThat(nacosException.getErrCode(), is(1));
+        assertThat(nacosException.getCause(), is(nullValue()));
+        assertThat(nacosException.getMessage(), is("foo"));
+    }
+
+    @Test
+    void factory3() {
         NacosException nacosException =
              new NacosException(0, "foo", new NacosException());
         nacosException.setCauseThrowable(new NacosException());
@@ -39,7 +50,7 @@ class NacosExceptionTest {
     }
 
     @Test
-    void factory3() {
+    void factory4() {
         NacosException nacosException =
              new NacosException(0, new NacosException());
         nacosException.setCauseThrowable(new NacosException());
@@ -52,14 +63,28 @@ class NacosExceptionTest {
     }
 
     @Test
-    void factory4() {
-        NacosException nacosException = new NacosException(0, "foo");
+    void factory5() {
+        NacosException nacosException =
+             new NacosException(1, new NacosException(1, new NacosException()));
         nacosException.setCauseThrowable(new NacosException());
         nacosException.setErrCode(1);
-        nacosException.setErrMsg("bar");
+        nacosException.setErrMsg("an error has happened");
+        assertThat(nacosException.getErrCode(), is(1));
+        assertThat(nacosException.getCause().getCause().getCause(), is(nullValue()));
+        assertThat(nacosException.getCause().getCause().getMessage(), is(nullValue()));
+        assertThat(nacosException.getCause().getMessage(), is("ErrCode:0, ErrMsg:"));
+        assertThat(nacosException.getMessage(), is("ErrCode:1, ErrMsg:null"));
+    }
+
+    @Test
+    void factory6() {
+        NacosException nacosException = new NacosException();
+        nacosException.setCauseThrowable(new NacosException(0, new NacosException()));
+        nacosException.setErrCode(1);
+        nacosException.setErrMsg("an error has happened");
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getCause(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("foo"));
+        assertThat(nacosException.getMessage(), is(nullValue()));
     }
 
     @Test
@@ -68,12 +93,5 @@ class NacosExceptionTest {
         nacosException.setCauseThrowable(new NacosException());
         nacosException.setErrMsg("bar");
         assertThat(nacosException.getErrMsg(), is("bar"));
-    }
-
-    @Test
-    void getErrMsgReturnsNull() {
-        NacosException nacosException = new NacosException();
-        nacosException.setCauseThrowable(new NacosException());
-        assertThat(nacosException.getErrMsg(), is(nullValue()));
     }
 }

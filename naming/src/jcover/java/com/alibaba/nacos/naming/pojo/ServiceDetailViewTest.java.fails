@@ -46,28 +46,30 @@ public class ServiceDetailViewTest {
         Service service2 = new Service();
         HashMap<String, com.alibaba.nacos.naming.core.Cluster> clusterMap2 =
              new HashMap<String, com.alibaba.nacos.naming.core.Cluster>();
-        com.alibaba.nacos.naming.core.Cluster x140 =
+        com.alibaba.nacos.naming.core.Cluster x142 =
              new com.alibaba.nacos.naming.core.Cluster();
-        x140.setDefCkport(1);
-        x140.setDefIPPort(1);
-        x140.setServiceName("John Smith");
-        x140.setSitegroup("DE");
-        x140.setDefaultCheckPort(1);
-        x140.setDefaultPort(1);
+        x142.setDefCkport(1);
+        x142.setDefIPPort(1);
+        x142.setService(new Service());
+        x142.setServiceName("John Smith");
+        x142.setSitegroup("DE");
+        x142.setDefaultCheckPort(1);
+        x142.setDefaultPort(1);
         AbstractHealthChecker healthChecker2 =
              mock(AbstractHealthChecker.class);
-        x140.setHealthChecker(healthChecker2);
-        x140.setName("John Smith");
-        x140.setUseIPPort4Check(false);
-        clusterMap2.put("foo", x140);
+        x142.setHealthChecker(healthChecker2);
+        x142.setMetadata(new HashMap<String, String>());
+        x142.setName("John Smith");
+        x142.setUseIPPort4Check(false);
+        clusterMap2.put("foo", x142);
         service2.setClusterMap(clusterMap2);
         service2.setEnabled(false);
         service2.setIpDeleteTimeout(1L);
         service2.setLastModifiedMillis(1L);
         service2.setNamespaceId("1234");
-        ArrayList<String> owners = new ArrayList<String>();
-        owners.add("foo");
-        service2.setOwners(owners);
+        ArrayList<String> owners2 = new ArrayList<String>();
+        owners2.add("foo");
+        service2.setOwners(owners2);
         service2.setResetWeight(false);
         LabelSelector selector2 = new LabelSelector();
         selector2.setLabels(new HashSet<String>());
@@ -76,9 +78,9 @@ public class ServiceDetailViewTest {
         service2.setToken("Bearer");
         service2.setAppName("Acme");
         service2.setGroupName("Acme");
-        HashMap<String, String> metadata3 = new HashMap<String, String>();
-        metadata3.put("foo", "foo");
-        service2.setMetadata(metadata3);
+        HashMap<String, String> metadata5 = new HashMap<String, String>();
+        metadata5.put("foo", "foo");
+        service2.setMetadata(metadata5);
         service2.setName("Acme");
         service2.setProtectThreshold(1.0f);
         serviceDetailView.setService(service2);

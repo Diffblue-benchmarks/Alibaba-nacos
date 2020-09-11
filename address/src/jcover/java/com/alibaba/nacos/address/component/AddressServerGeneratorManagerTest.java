@@ -34,6 +34,13 @@ class AddressServerGeneratorManagerTest {
     private AddressServerGeneratorManager service;
 
     @Test
+    void generateProductName() {
+        assertThat(service.generateProductName("Acme"), is("nacos.as.Acme"));
+        assertThat(service.generateProductName(""), is("nacos.as.default"));
+        assertThat(service.generateProductName("nacos"), is("nacos.as.default"));
+    }
+
+    @Test
     void generateInstancesByIps() {
         assertThat(service.generateInstancesByIps("280 Broadway", "280 Broadway", "John Smith", new String[] { }), empty());
         assertThat(service.generateInstancesByIps("280 Broadway", "280 Broadway", "John Smith", null), empty());
@@ -90,19 +97,6 @@ class AddressServerGeneratorManagerTest {
     }
 
     @Test
-    void generateNacosServiceName() {
-        assertThat(service.generateNacosServiceName("DEFAULT_GROUP"), is("DEFAULT_GROUP"));
-        assertThat(service.generateNacosServiceName("Acme"), is("DEFAULT_GROUP@@Acme"));
-    }
-
-    @Test
-    void generateProductName() {
-        assertThat(service.generateProductName("Acme"), is("nacos.as.Acme"));
-        assertThat(service.generateProductName(""), is("nacos.as.default"));
-        assertThat(service.generateProductName("nacos"), is("nacos.as.default"));
-    }
-
-    @Test
     void generateResponseIps() {
         ArrayList<Instance> instanceList = new ArrayList<Instance>();
         Instance instance = new Instance();
@@ -110,5 +104,11 @@ class AddressServerGeneratorManagerTest {
         instance.setPort(1);
         instanceList.add(instance);
         assertThat(service.generateResponseIps(instanceList), is("DE:1\n"));
+    }
+
+    @Test
+    void generateNacosServiceName() {
+        assertThat(service.generateNacosServiceName("DEFAULT_GROUP"), is("DEFAULT_GROUP"));
+        assertThat(service.generateNacosServiceName("Acme"), is("DEFAULT_GROUP@@Acme"));
     }
 }

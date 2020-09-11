@@ -1,0 +1,38 @@
+package com.alibaba.nacos.config.server.service.capacity;
+
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.config.server.service.BasicDataSourceServiceImpl;
+import com.alibaba.nacos.config.server.service.DynamicDataSource;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.capacity.GroupCapacityPersistService
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {GroupCapacityPersistService.class})
+@ExtendWith(SpringExtension.class)
+class GroupCapacityPersistServiceTest {
+
+    @MockBean(name = "dynamicDataSource")
+    private DynamicDataSource dynamicDataSource;
+
+    @Autowired
+    private GroupCapacityPersistService service;
+
+    @Test
+    void init() {
+        when(dynamicDataSource.getDataSource())
+            .thenReturn(new BasicDataSourceServiceImpl())
+            .thenReturn(new BasicDataSourceServiceImpl());
+        service.init();
+    }
+}

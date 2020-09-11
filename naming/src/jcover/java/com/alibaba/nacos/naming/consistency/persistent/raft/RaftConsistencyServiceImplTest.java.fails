@@ -43,10 +43,35 @@ public class RaftConsistencyServiceImplTest {
     private RaftConsistencyServiceImpl service;
 
     @Test
+    public void put() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
+        service.put("key", new Instances());
+        Mockito.verify(raftCore).signalPublish(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
+    }
+
+    @Test
+    public void remove() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
+        service.remove("key");
+        Mockito.verify(raftCore).signalDelete(ArgumentMatchers.eq("key"));
+        Mockito.verify(raftCore).unlistenAll(ArgumentMatchers.eq("key"));
+    }
+
+    @Test
     public void getKeyIsKey() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
         when(raftCore.getDatum(Mockito.<String>any()))
             .thenReturn(new Datum<Object>());
         // pojo Datum
+    }
+
+    @Test
+    public void listen() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
+        service.listen("key", new Service());
+        Mockito.verify(raftCore).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void unlisten() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
+        service.unlisten("key", new Service());
+        Mockito.verify(raftCore).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
@@ -66,12 +91,6 @@ public class RaftConsistencyServiceImplTest {
     }
 
     @Test
-    public void listen() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        service.listen("key", new Service());
-        Mockito.verify(raftCore).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
-    }
-
-    @Test
     public void onPut() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
         service.onPut(new Datum(), new RaftPeer());
         Mockito.verify(raftCore).onPublish(ArgumentMatchers.<Datum>any(), ArgumentMatchers.<RaftPeer>any());
@@ -81,24 +100,5 @@ public class RaftConsistencyServiceImplTest {
     public void onRemove() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
         service.onRemove(new Datum(), new RaftPeer());
         Mockito.verify(raftCore).onDelete(ArgumentMatchers.eq((String) null), ArgumentMatchers.<RaftPeer>any());
-    }
-
-    @Test
-    public void put() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        service.put("key", new Instances());
-        Mockito.verify(raftCore).signalPublish(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
-    }
-
-    @Test
-    public void remove() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        service.remove("key");
-        Mockito.verify(raftCore).signalDelete(ArgumentMatchers.eq("key"));
-        Mockito.verify(raftCore).unlistenAll(ArgumentMatchers.eq("key"));
-    }
-
-    @Test
-    public void unlisten() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException, com.alibaba.nacos.api.exception.NacosException {
-        service.unlisten("key", new Service());
-        Mockito.verify(raftCore).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 }

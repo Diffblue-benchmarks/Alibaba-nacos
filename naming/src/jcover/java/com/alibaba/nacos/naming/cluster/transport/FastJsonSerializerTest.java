@@ -27,13 +27,13 @@ public class FastJsonSerializerTest {
     private FastJsonSerializer service;
 
     @Test
-    public void deserializeMapClazzIsInstancesAndDataIsOneReturnsNull() {
-        byte[] data = new byte[] { 1 };
-        assertThat(service.<Instances>deserializeMap(data, Instances.class), is(nullValue()));
+    public void serializeDataIsSomething() {
+        assertArrayEquals(new byte[] { 34, 115, 111, 109, 101, 116, 104, 105, 110, 103, 34 }, service.<String>serialize("something"));
     }
 
     @Test
-    public void serializeDataIsSomething() {
-        assertArrayEquals(new byte[] { 34, 115, 111, 109, 101, 116, 104, 105, 110, 103, 34 }, service.<String>serialize("something"));
+    public void deserializeMapClazzIsInstancesAndDataIsOneReturnsNull() {
+        byte[] data = new byte[] { 1 };
+        assertThat(service.<Instances>deserializeMap(data, Instances.class), is(nullValue()));
     }
 }

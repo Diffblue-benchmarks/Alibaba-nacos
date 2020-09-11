@@ -35,27 +35,6 @@ class ConfigSubServiceTest {
     private ConfigSubService service;
 
     @Test
-    void getCollectSampleResultSampleTimeIsOne() throws Exception {
-        List<String> list1 = new ArrayList<String>();
-        list1.add("foo");
-        List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
-        when(serverListService.getServerList())
-            .thenReturn(list2)
-            .thenReturn(list1);
-        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
-    }
-
-    @Test
-    void getCollectSampleResultSampleTimeIsZero() throws Exception {
-        List<String> list = new ArrayList<String>();
-        list.add("foo");
-        when(serverListService.getServerList())
-            .thenReturn(list);
-        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 0).getLisentersGroupkeyStatus(), is(nullValue()));
-    }
-
-    @Test
     void mergeSampleResult() {
 
         // arrange
@@ -90,5 +69,26 @@ class ConfigSubServiceTest {
         lisentersGroupkeyStatus.put("foo", "foo");
         sampleCollectResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
         assertThat(service.mergeSampleResult(sampleCollectResult, new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().get("foo"), is("foo"));
+    }
+
+    @Test
+    void getCollectSampleResultSampleTimeIsOne() throws Exception {
+        List<String> list1 = new ArrayList<String>();
+        list1.add("foo");
+        List<String> list2 = new ArrayList<String>();
+        list2.add("foo");
+        when(serverListService.getServerList())
+            .thenReturn(list2)
+            .thenReturn(list1);
+        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void getCollectSampleResultSampleTimeIsZero() throws Exception {
+        List<String> list = new ArrayList<String>();
+        list.add("foo");
+        when(serverListService.getServerList())
+            .thenReturn(list);
+        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 0).getLisentersGroupkeyStatus(), is(nullValue()));
     }
 }

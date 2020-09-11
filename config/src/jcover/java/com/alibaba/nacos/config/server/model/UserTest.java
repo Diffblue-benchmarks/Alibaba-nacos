@@ -17,8 +17,8 @@ class UserTest {
     void factory() {
         User user = new User();
         user.setPassword("secret");
-        user.setUsername("John Smith");
+        user.setUsername("root");
         assertThat(user.getPassword(), is("secret"));
-        assertThat(user.getUsername(), is("John Smith"));
+        assertThat(user.getUsername(), is("root"));
     }
 }

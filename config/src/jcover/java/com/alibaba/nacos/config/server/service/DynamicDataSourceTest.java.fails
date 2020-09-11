@@ -32,13 +32,13 @@ class DynamicDataSourceTest {
     private DynamicDataSource service;
 
     @Test
-    void getApplicationContextReturnsNull() {
-        assertThat(service.getApplicationContext(), is(nullValue()));
-    }
-
-    @Test
     void setApplicationContext() throws IllegalStateException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.beans.BeansException, org.springframework.context.NoSuchMessageException, java.io.IOException {
         ApplicationContext applicationContext = mock(ApplicationContext.class);
         service.setApplicationContext(applicationContext);
+    }
+
+    @Test
+    void getApplicationContextReturnsNull() {
+        assertThat(service.getApplicationContext(), is(nullValue()));
     }
 }
