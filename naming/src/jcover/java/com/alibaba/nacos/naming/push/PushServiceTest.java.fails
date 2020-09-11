@@ -75,18 +75,13 @@ public class PushServiceTest {
     }
 
     @Test
-    public void serviceChanged1() throws CloneNotSupportedException {
+    public void serviceChanged() throws CloneNotSupportedException {
+        service.serviceChanged("1234", "N clientMap size:");
+    }
+
+    @Test
+    public void serviceChangedServiceNameIsAcme() throws CloneNotSupportedException {
         service.serviceChanged("1234", "Acme");
-    }
-
-    @Test
-    public void serviceChanged2() throws CloneNotSupportedException {
-        service.serviceChanged("N failed to prepare data: to client:, error:", "Acme");
-    }
-
-    @Test
-    public void serviceChanged3() throws CloneNotSupportedException {
-        service.serviceChanged("N failed to push data: to client:, error:", "Acme");
     }
 
     @Test

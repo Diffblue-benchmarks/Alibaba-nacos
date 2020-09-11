@@ -101,16 +101,6 @@ public class RaftCoreTest {
     }
 
     @Test
-    public void isLeader5() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
-        when(peers.isLeader(Mockito.<String>any()))
-            .thenReturn(false);
-        when(peers.isReady())
-            .thenReturn(false);
-        assertThat(service.isLeader("N failed to handle beat entry, key:"), is(false));
-        Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
-    }
-
-    @Test
     public void isLeader1() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
         when(peers.isLeader(Mockito.<String>any()))
             .thenReturn(true);
