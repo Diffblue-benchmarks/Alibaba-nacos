@@ -35,7 +35,7 @@ class JwtAuthenticationEntryPointTest {
              new MockHttpServletResponse();
         AuthenticationException e = mock(AuthenticationException.class);
         when(e.getMessage())
-            .thenReturn("foo");
+            .thenReturn("an error has happened");
 
         // act
         service.commence(new MockHttpServletRequest(), httpServletResponse, e);

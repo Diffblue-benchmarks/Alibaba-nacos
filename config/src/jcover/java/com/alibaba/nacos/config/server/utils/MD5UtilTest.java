@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 
+import java.io.StringBufferInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -45,6 +46,12 @@ class MD5UtilTest {
     }
 
     @Test
+    void compareMd5ResultString() throws java.io.IOException {
+        assertThat(MD5Util.compareMd5ResultString(new ArrayList<String>()), is(""));
+        assertThat(MD5Util.compareMd5ResultString(null), is(""));
+    }
+
+    @Test
     void compareMd5ResultStringChangedGroupKeysIsBar() throws java.io.IOException {
         ArrayList<String> changedGroupKeys = new ArrayList<String>();
         changedGroupKeys.add("bar");
@@ -52,19 +59,16 @@ class MD5UtilTest {
     }
 
     @Test
-    void compareMd5ResultStringChangedGroupKeysIsEmptyReturnsEmpty() throws java.io.IOException {
-        assertThat(MD5Util.compareMd5ResultString(new ArrayList<String>()), is(""));
-    }
-
-    @Test
     void getClientMd5Map() {
         assertThat(MD5Util.getClientMd5Map("bar").isEmpty(), is(true));
         assertThat(MD5Util.getClientMd5Map("").isEmpty(), is(true));
+        assertThat(MD5Util.getClientMd5Map(null).isEmpty(), is(true));
     }
 
     @Test
-    void toStringReturnsFoo() throws java.io.IOException {
+    void testToString() throws java.io.IOException {
         assertThat(MD5Util.toString(new StringReader("foo")), is("foo"));
+        assertThat(MD5Util.toString(new StringBufferInputStream("foo"), null), is("foo"));
     }
 
     @Test

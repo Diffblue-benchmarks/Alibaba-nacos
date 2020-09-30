@@ -19,7 +19,7 @@ class RandomUtilsTest {
 
     @Test
     void nextInt() {
-        assertThat(RandomUtils.nextInt(), is(102_439_321));
+        assertThat(RandomUtils.nextInt(), is(699_853_669));
         assertThat(RandomUtils.nextInt(new Random(1L)), is(-1_155_869_325));
         assertThat(RandomUtils.nextInt(1), is(0));
         assertThat(RandomUtils.nextInt(new Random(1L), 1), is(0));
@@ -27,26 +27,26 @@ class RandomUtilsTest {
 
     @Test
     void nextLong() {
-        assertThat(RandomUtils.nextLong(), is(7_039_787_300_334_537_971L));
+        assertThat(RandomUtils.nextLong(), is(4_586_224_522_647_589_817L));
         assertThat(RandomUtils.nextLong(new Random(1L)), is(-4_964_420_948_893_066_024L));
     }
 
     @Test
     void nextBoolean() {
-        assertThat(RandomUtils.nextBoolean(), is(true));
-        assertThat(RandomUtils.nextBoolean(new Random(1L)), is(true));
+        assertThat(RandomUtils.nextBoolean(), is(false));
         assertThat(RandomUtils.nextBoolean(new Random(-1L)), is(false));
+        assertThat(RandomUtils.nextBoolean(new Random(1L)), is(true));
     }
 
     @Test
     void nextFloat() {
-        assertEquals(0x1.42f2fp-3f /* 0.15769 */, RandomUtils.nextFloat(), 0);
+        assertEquals(0x1.64234ap-1f /* 0.695582 */, RandomUtils.nextFloat(), 0);
         assertEquals(0x1.7635aap-1f /* 0.730878 */, RandomUtils.nextFloat(new Random(1L)), 0);
     }
 
     @Test
     void nextDouble() {
-        assertThat(RandomUtils.nextDouble(), closeTo(0x1.4ac176efb4d22p-1 /* 0.646007 */, 0.0));
+        assertThat(RandomUtils.nextDouble(), closeTo(0x1.5c4efb182506ep-2 /* 0.340145 */, 0.0));
         assertThat(RandomUtils.nextDouble(new Random(1L)), closeTo(0x1.7635aa8cdc4e6p-1 /* 0.730878 */, 0.0));
     }
 }

@@ -66,7 +66,7 @@ class CapacityServiceTest {
     @Test
     void initAllCapacity1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
         List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
+        list2.add("1234");
         when(persistService.getGroupIdList(anyInt(), anyInt()))
             .thenReturn(list2);
         when(persistService.getTenantIdList(anyInt(), anyInt()))
@@ -89,7 +89,7 @@ class CapacityServiceTest {
         when(tenantCapacityPersistService.insertTenantCapacity(Mockito.<TenantCapacity>any()))
             .thenReturn(false);
         List<String> list1 = new ArrayList<String>();
-        list1.add("foo");
+        list1.add("1234");
         when(persistService.getGroupIdList(anyInt(), anyInt()))
             .thenReturn(new ArrayList<String>());
         when(persistService.getTenantIdList(anyInt(), anyInt()))

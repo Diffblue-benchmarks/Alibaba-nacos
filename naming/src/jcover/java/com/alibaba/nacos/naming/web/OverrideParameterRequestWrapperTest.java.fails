@@ -4,9 +4,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
-import com.sun.security.auth.UserPrincipal;
-
+import java.security.Principal;
 import java.util.HashMap;
 
 import javax.servlet.DispatcherType;
@@ -39,7 +39,8 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("root"));
+        Principal userPrincipal = mock(Principal.class);
+        request.setUserPrincipal(userPrincipal);
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
@@ -118,7 +119,8 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("root"));
+        Principal userPrincipal = mock(Principal.class);
+        request.setUserPrincipal(userPrincipal);
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
@@ -197,7 +199,8 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("root"));
+        Principal userPrincipal = mock(Principal.class);
+        request.setUserPrincipal(userPrincipal);
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
@@ -276,15 +279,16 @@ public class OverrideParameterRequestWrapperTest {
         session.setNew(false);
         request.setSession(session);
         request.setQueryString("foo=bar");
-        request.setUserPrincipal(new UserPrincipal("root"));
+        Principal userPrincipal = mock(Principal.class);
+        request.setUserPrincipal(userPrincipal);
         request.setAuthType("BASIC");
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
         request.setCookies(new Cookie("name", "value"));
         HashMap<String, String[]> appendParameters =
              new HashMap<String, String[]>();
-        String[] x282 = new String[] { "foo" };
-        appendParameters.put("foo", x282);
+        String[] x273 = new String[] { "foo" };
+        appendParameters.put("foo", x273);
 
         // act
         OverrideParameterRequestWrapper result =

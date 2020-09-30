@@ -56,7 +56,7 @@ public class ServerTest {
         server1.setIp("/some/path.html");
         Server server2 = mock(Server.class);
         when(server2.getKey())
-            .thenReturn("foo");
+            .thenReturn("foo=bar");
         assertThat(server1.compareTo(server2), is(-55));
     }
 

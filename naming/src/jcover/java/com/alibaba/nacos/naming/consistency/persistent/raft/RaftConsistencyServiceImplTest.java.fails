@@ -79,7 +79,7 @@ public class RaftConsistencyServiceImplTest {
     @Test
     public void isAvailableReturnsFalse() throws CloneNotSupportedException, Exception, org.springframework.beans.BeansException {
         when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("foo");
+            .thenReturn("bar");
         when(raftCore.isInitialized())
             .thenReturn(false);
         assertThat(service.isAvailable(), is(false));

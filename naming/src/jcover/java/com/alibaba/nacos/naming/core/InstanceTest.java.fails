@@ -224,7 +224,14 @@ public class InstanceTest {
     }
 
     @Test
-    public void equalsReturnsFalse() {
+    public void equalsObjIsNull() {
+        Instance instance = new Instance();
+        instance.setCheckRT(1L);
+        assertThat(instance.equals(null), is(false));
+    }
+
+    @Test
+    public void testEquals() {
         Instance instance = new Instance();
         instance.setCheckRT(1L);
         assertThat(instance.equals(new Object()), is(false));

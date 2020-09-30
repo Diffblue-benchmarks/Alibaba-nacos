@@ -28,7 +28,7 @@ class NotifySingleServiceTest {
     @Test
     void factory2() {
         List<String> list = new ArrayList<String>();
-        list.add("foo");
+        list.add("bar");
         ServerListService serverListService = mock(ServerListService.class);
         when(serverListService.getServerList())
             .thenReturn(list);

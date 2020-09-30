@@ -16,12 +16,14 @@ class IPUtilTest {
     @Test
     void isIPV1() {
         assertThat(IPUtil.isIPV4("bar"), is(false));
+        assertThat(IPUtil.isIPV4(null), is(false));
         assertThat(IPUtil.isIPV4("250.250.250.250"), is(true));
     }
 
     @Test
     void isIPV2() {
         assertThat(IPUtil.isIPV6("250.250.250.250"), is(false));
+        assertThat(IPUtil.isIPV6(null), is(false));
         assertThat(IPUtil.isIPV6("d:d:d:d:d:d:d:d"), is(true));
     }
 }

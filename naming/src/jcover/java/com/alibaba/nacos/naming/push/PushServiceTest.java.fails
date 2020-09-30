@@ -47,31 +47,37 @@ public class PushServiceTest {
     @Test
     public void addClient1() throws CloneNotSupportedException, Exception {
         DataSource dataSource = mock(DataSource.class);
-        service.addClient("1234", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+        service.addClient("1234", "Acme", "N ackEntry is nullx", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
     }
 
     @Test
     public void addClient2() throws CloneNotSupportedException, Exception {
         DataSource dataSource = mock(DataSource.class);
-        service.addClient("1234", "Acme", "N ackEntry is nullx", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+        service.addClient("N clientMap size:", "Acme", "N ackEntry is nullx", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
     }
 
     @Test
-    public void addClient3() throws CloneNotSupportedException, Exception {
+    public void addClientClustersIsEmpty() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("N clientMap size:", "Acme", "", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+    }
+
+    @Test
+    public void addClientClustersIsFoo1() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("1234", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+    }
+
+    @Test
+    public void addClientClustersIsFoo2() throws CloneNotSupportedException, Exception {
         DataSource dataSource = mock(DataSource.class);
         service.addClient("1234", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "N ackEntry is nullx", "foo");
     }
 
     @Test
-    public void addClient4() throws CloneNotSupportedException, Exception {
+    public void addClientNamespaceIdIsEmpty() throws CloneNotSupportedException, Exception {
         DataSource dataSource = mock(DataSource.class);
-        service.addClient("N clientMap size:", "Acme", "foo", "N failed to init push service", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
-    }
-
-    @Test
-    public void addClientTenantIsEmpty() throws CloneNotSupportedException, Exception {
-        DataSource dataSource = mock(DataSource.class);
-        service.addClient("N clientMap size:", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "", "foo");
+        service.addClient("", "Acme", "N failed to init push service", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
     }
 
     @Test

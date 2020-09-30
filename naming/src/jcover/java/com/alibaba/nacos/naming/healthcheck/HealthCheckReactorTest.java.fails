@@ -25,17 +25,18 @@ public class HealthCheckReactorTest {
 
     @Test
     public void cancelCheck1() {
-        Service service = new Service();
-        service.setName("Acme");
-        HealthCheckReactor.cancelCheck(new ClientBeatCheckTask(service));
-    }
-
-    @Test
-    public void cancelCheck2() {
         ClientBeatCheckTask task = mock(ClientBeatCheckTask.class);
         when(task.taskKey())
             .thenReturn("foo");
         HealthCheckReactor.cancelCheck(task);
+    }
+
+    @Test
+    public void cancelCheck2() throws Exception {
+        Service service = mock(Service.class);
+        when(service.getName())
+            .thenReturn("Acme");
+        HealthCheckReactor.cancelCheck(new ClientBeatCheckTask(service));
     }
 
     @Test

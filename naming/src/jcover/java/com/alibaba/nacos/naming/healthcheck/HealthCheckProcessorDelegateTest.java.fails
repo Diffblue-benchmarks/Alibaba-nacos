@@ -42,7 +42,7 @@ public class HealthCheckProcessorDelegateTest {
     public void getType() throws org.springframework.beans.BeansException {
         HealthCheckProcessor element = mock(HealthCheckProcessor.class);
         when(element.getType())
-            .thenReturn("foo")
+            .thenReturn("BASIC")
             .thenReturn("bar");
         when(collection.stream())
             .thenReturn(Stream.<HealthCheckProcessor>of(element));

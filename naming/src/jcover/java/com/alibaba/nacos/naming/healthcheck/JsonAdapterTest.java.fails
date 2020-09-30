@@ -31,7 +31,7 @@ public class JsonAdapterTest {
         AbstractHealthChecker abstractHealthChecker =
              mock(AbstractHealthChecker.class);
         when(abstractHealthChecker.getType())
-            .thenReturn("foo");
+            .thenReturn("BASIC");
         JsonAdapter.getInstance().write(new JSONSerializer(), abstractHealthChecker, new Object(), String.class, 1);
         Mockito.verify(abstractHealthChecker).jsonAdapterCallback(ArgumentMatchers.<SerializeWriter>any());
     }

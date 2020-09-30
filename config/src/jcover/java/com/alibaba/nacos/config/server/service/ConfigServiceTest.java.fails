@@ -68,8 +68,9 @@ class ConfigServiceTest {
     }
 
     @Test
-    void removeGroupIsBarReturnsTrue() {
+    void remove() {
         assertThat(ConfigService.remove("1234", "bar", "/some/path.html"), is(true));
+        assertThat(ConfigService.remove("1234", "/some/path.html", ""), is(true));
     }
 
     @Test

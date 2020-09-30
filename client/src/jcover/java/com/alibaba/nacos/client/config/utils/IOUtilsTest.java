@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 
+import java.io.StringBufferInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -18,8 +19,9 @@ import org.junit.jupiter.api.Test;
 class IOUtilsTest {
 
     @Test
-    void toStringReturnsFoo() throws java.io.IOException {
+    void testToString() throws java.io.IOException {
         assertThat(IOUtils.toString(new StringReader("foo")), is("foo"));
+        assertThat(IOUtils.toString(new StringBufferInputStream("foo"), null), is("foo"));
     }
 
     @Test

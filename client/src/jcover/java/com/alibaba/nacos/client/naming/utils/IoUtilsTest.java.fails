@@ -22,8 +22,9 @@ class IoUtilsTest {
 
     @Test
     void testToString() throws java.io.IOException {
-        assertThat(IoUtils.toString(new StringBufferInputStream("NA"), "foo"), is(""));
         assertThat(IoUtils.toString(new StringReader("foo")), is("foo"));
+        assertThat(IoUtils.toString(new StringBufferInputStream("NA"), "foo"), is(""));
+        assertThat(IoUtils.toString(new StringBufferInputStream("foo"), null), is("foo"));
     }
 
     @Test

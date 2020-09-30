@@ -26,13 +26,23 @@ class LocalConfigInfoProcessorTest {
     }
 
     @Test
-    void saveSnapshot() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "bar", "en_GB", "en_GB");
+    void saveSnapshotConfigIsNull() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "en_GB", "en_GB", null);
     }
 
     @Test
     void saveSnapshotDataIdIsEmpty() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "", "bar", "en_GB", "en_GB");
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "", "en_GB", "en_GB", "en_GB");
+    }
+
+    @Test
+    void saveSnapshotEnvNameIsNullAndGroupIsBar() {
+        LocalConfigInfoProcessor.saveSnapshot(null, "1234", "bar", "en_GB", "en_GB");
+    }
+
+    @Test
+    void saveSnapshotGroupIsBar() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "bar", "en_GB", "en_GB");
     }
 
     @Test

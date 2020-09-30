@@ -53,34 +53,34 @@ class MetricsHttpAgentTest {
     }
 
     @Test
-    void getNameReturnsFoo() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getName() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getName())
-            .thenReturn("foo");
-        assertThat(new MetricsHttpAgent(httpAgent).getName(), is("foo"));
+            .thenReturn("foo=bar");
+        assertThat(new MetricsHttpAgent(httpAgent).getName(), is("foo=bar"));
     }
 
     @Test
-    void getNamespaceReturnsFoo() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getNamespace() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getNamespace())
-            .thenReturn("foo");
-        assertThat(new MetricsHttpAgent(httpAgent).getNamespace(), is("foo"));
+            .thenReturn("foo=bar");
+        assertThat(new MetricsHttpAgent(httpAgent).getNamespace(), is("foo=bar"));
     }
 
     @Test
-    void getTenantReturnsFoo() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getTenant() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getTenant())
-            .thenReturn("foo");
-        assertThat(new MetricsHttpAgent(httpAgent).getTenant(), is("foo"));
+            .thenReturn("foo=bar");
+        assertThat(new MetricsHttpAgent(httpAgent).getTenant(), is("foo=bar"));
     }
 
     @Test
-    void getEncodeReturnsFoo() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getEncode() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getEncode())
-            .thenReturn("foo");
-        assertThat(new MetricsHttpAgent(httpAgent).getEncode(), is("foo"));
+            .thenReturn("foo=bar");
+        assertThat(new MetricsHttpAgent(httpAgent).getEncode(), is("foo=bar"));
     }
 }

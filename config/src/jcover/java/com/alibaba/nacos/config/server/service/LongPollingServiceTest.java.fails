@@ -105,6 +105,11 @@ class LongPollingServiceTest {
     }
 
     @Test
+    void generateResponseChangedGroupsIsNull() throws java.io.UnsupportedEncodingException {
+        service.generateResponse(new MockHttpServletRequest(), new MockHttpServletResponse(), null);
+    }
+
+    @Test
     void setRetainIpsToEmpty() {
         service.setRetainIps(new HashMap<String, Long>());
     }

@@ -33,8 +33,8 @@ public class RunningConfigTest {
     @Test
     public void onApplicationEvent() throws javax.servlet.ServletException, java.net.MalformedURLException, org.springframework.boot.web.server.WebServerException {
         when(servletContext.getContextPath())
-            .thenReturn("foo")
-            .thenReturn("foo");
+            .thenReturn("foo=bar")
+            .thenReturn("foo=bar");
         WebServer webServer1 = mock(WebServer.class);
         when(webServer1.getPort())
             .thenReturn(1);

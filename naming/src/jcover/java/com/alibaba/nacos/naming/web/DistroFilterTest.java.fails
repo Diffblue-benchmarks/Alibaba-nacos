@@ -30,12 +30,14 @@ public class DistroFilterTest {
     public void doFilter1() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
 
         // arrange
+        MockHttpServletRequest servletRequest = new MockHttpServletRequest();
+        servletRequest.setQueryString("foo=bar");
         MockHttpServletResponse servletResponse =
              new MockHttpServletResponse();
         Servlet servlet = mock(Servlet.class);
 
         // act
-        new DistroFilter().doFilter(new MockHttpServletRequest(), servletResponse, new MockFilterChain(servlet));
+        new DistroFilter().doFilter(servletRequest, servletResponse, new MockFilterChain(servlet));
 
         // assert
         assertThat(servletResponse.getErrorMessage(), is("Server failed,"));
@@ -46,14 +48,12 @@ public class DistroFilterTest {
     public void doFilter2() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
 
         // arrange
-        MockHttpServletRequest servletRequest = new MockHttpServletRequest();
-        servletRequest.setQueryString("foo=bar");
         MockHttpServletResponse servletResponse =
              new MockHttpServletResponse();
         Servlet servlet = mock(Servlet.class);
 
         // act
-        new DistroFilter().doFilter(servletRequest, servletResponse, new MockFilterChain(servlet));
+        new DistroFilter().doFilter(new MockHttpServletRequest(), servletResponse, new MockFilterChain(servlet));
 
         // assert
         assertThat(servletResponse.getErrorMessage(), is("Server failed,"));

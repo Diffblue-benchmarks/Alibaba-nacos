@@ -38,7 +38,7 @@ class CustomAuthenticationProviderTest {
     void authenticate() throws org.springframework.security.core.userdetails.UsernameNotFoundException, org.springframework.security.core.AuthenticationException {
         UserDetails userDetails = mock(UserDetails.class);
         when(userDetails.getPassword())
-            .thenReturn("foo");
+            .thenReturn("545321456");
         when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
             .thenReturn(userDetails);
         Authentication result =
@@ -54,10 +54,10 @@ class CustomAuthenticationProviderTest {
     void authenticateReturnsNull() throws org.springframework.security.core.userdetails.UsernameNotFoundException, org.springframework.security.core.AuthenticationException {
         UserDetails userDetails = mock(UserDetails.class);
         when(userDetails.getPassword())
-            .thenReturn("foo");
+            .thenReturn("bar");
         when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
             .thenReturn(userDetails);
-        assertThat(service.authenticate(new TestingAuthenticationToken("password", "foo")), is(nullValue()));
+        assertThat(service.authenticate(new TestingAuthenticationToken("password", "bar")), is(nullValue()));
     }
 
     @Test

@@ -73,7 +73,7 @@ class ConfigSubServiceTest {
     @Test
     void getCollectSampleResultGroupIsBar() throws Exception {
         List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
+        list2.add("foo=bar");
         when(serverListService.getServerList())
             .thenReturn(list2)
             .thenReturn(new ArrayList<String>());
@@ -83,7 +83,7 @@ class ConfigSubServiceTest {
     @Test
     void getCollectSampleResultTenantIsEmpty() throws Exception {
         List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
+        list2.add("foo=bar");
         when(serverListService.getServerList())
             .thenReturn(list2)
             .thenReturn(new ArrayList<String>());
@@ -91,9 +91,9 @@ class ConfigSubServiceTest {
     }
 
     @Test
-    void getCollectSampleResultByIp() throws Exception {
+    void getCollectSampleResultByIp1() throws Exception {
         List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
+        list2.add("foo=bar");
         when(serverListService.getServerList())
             .thenReturn(list2)
             .thenReturn(new ArrayList<String>());
@@ -101,14 +101,14 @@ class ConfigSubServiceTest {
     }
 
     @Test
-    void getCollectSampleResultByIpIpIsBar() throws Exception {
+    void getCollectSampleResultByIp2() throws Exception {
         List<String> list1 = new ArrayList<String>();
-        list1.add("foo");
+        list1.add("bar");
         List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
+        list2.add("foo=bar");
         when(serverListService.getServerList())
             .thenReturn(list2)
             .thenReturn(list1);
-        assertThat(service.getCollectSampleResultByIp("bar", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
+        assertThat(service.getCollectSampleResultByIp("/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
     }
 }

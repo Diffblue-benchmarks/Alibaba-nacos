@@ -1,6 +1,7 @@
 package com.alibaba.nacos.naming.misc;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.ArrayList;
@@ -75,6 +76,11 @@ public class HttpClientTest {
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("foo", "foo");
         // pojo HttpClient.HttpResult
+    }
+
+    @Test
+    public void encodingParamsParamsIsNullReturnsNull() throws java.io.UnsupportedEncodingException {
+        assertThat(HttpClient.encodingParams(null, "/some/path.html"), is(nullValue()));
     }
 
     @Test
