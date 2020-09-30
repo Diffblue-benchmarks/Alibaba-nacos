@@ -21,90 +21,6 @@ public class InstanceTest {
 
     @Test
     public void factory1() {
-        Instance instance = new Instance("DE", 1, "John Smith");
-        instance.setApp("DE");
-        instance.setBeingChecked(false);
-        instance.setCheckRT(1L);
-        instance.setLastBeat(1L);
-        instance.setMarked(false);
-        instance.setMockValid(false);
-        instance.setTenant("DE");
-        instance.setClusterName("John Smith");
-        instance.setEnabled(false);
-        instance.setEphemeral(false);
-        instance.setHealthy(false);
-        instance.setInstanceId("1234");
-        instance.setIp("DE");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        instance.setMetadata(metadata);
-        instance.setPort(1);
-        instance.setServiceName("Acme");
-        instance.setWeight(1.0);
-        assertThat(instance.getApp(), is("DE"));
-        assertThat(instance.getCheckRT(), is(-1L));
-        assertThat(instance.getFailCount(), equalTo(new AtomicInteger(0)));
-        assertThat(instance.getLastBeat(), is(1L));
-        assertThat(instance.getOKCount(), equalTo(new AtomicInteger(0)));
-        assertThat(instance.getTenant(), is("DE"));
-        assertThat(instance.isMarked(), is(false));
-        assertThat(instance.isMockValid(), is(false));
-        assertThat(instance.getClusterName(), is("John Smith"));
-        assertThat(instance.getInstanceId(), is("1234"));
-        assertThat(instance.getIp(), is("DE"));
-        assertThat(instance.getMetadata().get("foo"), is("foo"));
-        assertThat(instance.getPort(), is(1));
-        assertThat(instance.getServiceName(), is("Acme"));
-        assertThat(instance.getWeight(), closeTo(1.0, 0.0));
-        assertThat(instance.isEnabled(), is(false));
-        assertThat(instance.isEphemeral(), is(false));
-        assertThat(instance.isHealthy(), is(false));
-    }
-
-    @Test
-    public void factory2() {
-        Instance instance = new Instance("DE", 1, "John Smith", "DE", "DE");
-        instance.setApp("DE");
-        instance.setBeingChecked(false);
-        instance.setCheckRT(1L);
-        instance.setLastBeat(1L);
-        instance.setMarked(false);
-        instance.setMockValid(false);
-        instance.setTenant("DE");
-        instance.setClusterName("John Smith");
-        instance.setEnabled(false);
-        instance.setEphemeral(false);
-        instance.setHealthy(false);
-        instance.setInstanceId("1234");
-        instance.setIp("DE");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        instance.setMetadata(metadata);
-        instance.setPort(1);
-        instance.setServiceName("Acme");
-        instance.setWeight(1.0);
-        assertThat(instance.getApp(), is("DE"));
-        assertThat(instance.getCheckRT(), is(-1L));
-        assertThat(instance.getFailCount(), equalTo(new AtomicInteger(0)));
-        assertThat(instance.getLastBeat(), is(1L));
-        assertThat(instance.getOKCount(), equalTo(new AtomicInteger(0)));
-        assertThat(instance.getTenant(), is("DE"));
-        assertThat(instance.isMarked(), is(false));
-        assertThat(instance.isMockValid(), is(false));
-        assertThat(instance.getClusterName(), is("John Smith"));
-        assertThat(instance.getInstanceId(), is("1234"));
-        assertThat(instance.getIp(), is("DE"));
-        assertThat(instance.getMetadata().get("foo"), is("foo"));
-        assertThat(instance.getPort(), is(1));
-        assertThat(instance.getServiceName(), is("Acme"));
-        assertThat(instance.getWeight(), closeTo(1.0, 0.0));
-        assertThat(instance.isEnabled(), is(false));
-        assertThat(instance.isEphemeral(), is(false));
-        assertThat(instance.isHealthy(), is(false));
-    }
-
-    @Test
-    public void factory3() {
         Instance instance = new Instance();
         instance.setApp("DE");
         instance.setBeingChecked(true);
@@ -146,8 +62,92 @@ public class InstanceTest {
     }
 
     @Test
-    public void factory4() {
+    public void factory2() {
         Instance instance = new Instance("DE", 1);
+        instance.setApp("DE");
+        instance.setBeingChecked(true);
+        instance.setCheckRT(1L);
+        instance.setLastBeat(1L);
+        instance.setMarked(false);
+        instance.setMockValid(false);
+        instance.setTenant("DE");
+        instance.setClusterName("John Smith");
+        instance.setEnabled(false);
+        instance.setEphemeral(false);
+        instance.setHealthy(false);
+        instance.setInstanceId("1234");
+        instance.setIp("DE");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        instance.setMetadata(metadata);
+        instance.setPort(1);
+        instance.setServiceName("Acme");
+        instance.setWeight(1.0);
+        assertThat(instance.getApp(), is("DE"));
+        assertThat(instance.getCheckRT(), is(-1L));
+        assertThat(instance.getFailCount(), equalTo(new AtomicInteger(0)));
+        assertThat(instance.getLastBeat(), is(1L));
+        assertThat(instance.getOKCount(), equalTo(new AtomicInteger(0)));
+        assertThat(instance.getTenant(), is("DE"));
+        assertThat(instance.isMarked(), is(false));
+        assertThat(instance.isMockValid(), is(false));
+        assertThat(instance.getClusterName(), is("John Smith"));
+        assertThat(instance.getInstanceId(), is("1234"));
+        assertThat(instance.getIp(), is("DE"));
+        assertThat(instance.getMetadata().get("foo"), is("foo"));
+        assertThat(instance.getPort(), is(1));
+        assertThat(instance.getServiceName(), is("Acme"));
+        assertThat(instance.getWeight(), closeTo(1.0, 0.0));
+        assertThat(instance.isEnabled(), is(false));
+        assertThat(instance.isEphemeral(), is(false));
+        assertThat(instance.isHealthy(), is(false));
+    }
+
+    @Test
+    public void factory3() {
+        Instance instance = new Instance("DE", 1, "John Smith");
+        instance.setApp("DE");
+        instance.setBeingChecked(true);
+        instance.setCheckRT(1L);
+        instance.setLastBeat(1L);
+        instance.setMarked(false);
+        instance.setMockValid(false);
+        instance.setTenant("DE");
+        instance.setClusterName("John Smith");
+        instance.setEnabled(false);
+        instance.setEphemeral(false);
+        instance.setHealthy(false);
+        instance.setInstanceId("1234");
+        instance.setIp("DE");
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        instance.setMetadata(metadata);
+        instance.setPort(1);
+        instance.setServiceName("Acme");
+        instance.setWeight(1.0);
+        assertThat(instance.getApp(), is("DE"));
+        assertThat(instance.getCheckRT(), is(-1L));
+        assertThat(instance.getFailCount(), equalTo(new AtomicInteger(0)));
+        assertThat(instance.getLastBeat(), is(1L));
+        assertThat(instance.getOKCount(), equalTo(new AtomicInteger(0)));
+        assertThat(instance.getTenant(), is("DE"));
+        assertThat(instance.isMarked(), is(false));
+        assertThat(instance.isMockValid(), is(false));
+        assertThat(instance.getClusterName(), is("John Smith"));
+        assertThat(instance.getInstanceId(), is("1234"));
+        assertThat(instance.getIp(), is("DE"));
+        assertThat(instance.getMetadata().get("foo"), is("foo"));
+        assertThat(instance.getPort(), is(1));
+        assertThat(instance.getServiceName(), is("Acme"));
+        assertThat(instance.getWeight(), closeTo(1.0, 0.0));
+        assertThat(instance.isEnabled(), is(false));
+        assertThat(instance.isEphemeral(), is(false));
+        assertThat(instance.isHealthy(), is(false));
+    }
+
+    @Test
+    public void factory4() {
+        Instance instance = new Instance("DE", 1, "John Smith", "DE", "DE");
         instance.setApp("DE");
         instance.setBeingChecked(true);
         instance.setCheckRT(1L);
@@ -231,12 +231,31 @@ public class InstanceTest {
     }
 
     @Test
-    public void getDefaultKey() {
+    public void getDefaultKey1() {
         Instance instance = new Instance();
         instance.setCheckRT(1L);
         instance.setIp("DE");
         instance.setPort(1);
         assertThat(instance.getDefaultKey(), is("DE:1:unknown"));
+    }
+
+    @Test
+    public void getDefaultKey2() {
+        Instance instance = new Instance();
+        instance.setCheckRT(1L);
+        instance.setIp("DE");
+        assertThat(instance.getDefaultKey(), is("DE:unknown"));
+    }
+
+    @Test
+    public void markCheckingReturnsFalse() {
+        Instance instance = new Instance();
+        instance.setCheckRT(1L);
+        instance.setClusterName("John Smith");
+        instance.setIp("DE");
+        instance.setPort(1);
+        instance.setServiceName("Acme");
+        assertThat(instance.markChecking(), is(false));
     }
 
     @Test
@@ -273,10 +292,34 @@ public class InstanceTest {
     }
 
     @Test
+    public void validateReturnsFalse() {
+        Instance instance = new Instance();
+        instance.setCheckRT(1L);
+        instance.setIp("1");
+        assertThat(instance.validate(), is(false));
+    }
+
+    @Test
     public void validateReturnsTrue() {
         Instance instance = new Instance();
         instance.setCheckRT(1L);
         instance.setIp("DE");
         assertThat(instance.validate(), is(true));
+    }
+
+    @Test
+    public void compareToReturnsZero() {
+        Instance instance1 = new Instance();
+        instance1.setClusterName("John Smith");
+        instance1.setHealthy(false);
+        instance1.setIp("DE");
+        instance1.setPort(1);
+        Instance instance2 = new Instance();
+        instance2.setCheckRT(1L);
+        instance2.setClusterName("John Smith");
+        instance2.setHealthy(false);
+        instance2.setIp("DE");
+        instance2.setPort(1);
+        assertThat(instance1.compareTo(instance2), is(0));
     }
 }

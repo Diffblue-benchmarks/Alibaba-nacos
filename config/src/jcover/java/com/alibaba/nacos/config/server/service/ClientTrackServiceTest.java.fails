@@ -17,17 +17,17 @@ class ClientTrackServiceTest {
 
     @Test
     void trackClientMd5() {
-        ClientTrackService.trackClientMd5("/some/path.html", new HashMap<String, String>());
+        ClientTrackService.trackClientMd5("RA123456789CN", new HashMap<String, String>());
     }
 
     @Test
     void trackClientMd5ClientlastPollingTSMapIsEmpty() {
-        ClientTrackService.trackClientMd5("/some/path.html", new HashMap<String, String>(), new HashMap<String, Long>());
+        ClientTrackService.trackClientMd5("RA123456789CN", new HashMap<String, String>(), new HashMap<String, Long>());
     }
 
     @Test
     void trackClientMd5GroupKeyIsKey() {
-        ClientTrackService.trackClientMd5("/some/path.html", "key", "/some/path.html");
+        ClientTrackService.trackClientMd5("RA123456789CN", "key", "RA123456789CN");
     }
 
     @Test
@@ -42,8 +42,8 @@ class ClientTrackServiceTest {
 
     @Test
     void listSubStatus() {
+        assertThat(ClientTrackService.listSubStatus("on time").isEmpty(), is(true));
         assertThat(ClientTrackService.listSubStatus("bar").isEmpty(), is(true));
-        assertThat(ClientTrackService.listSubStatus("Smith").isEmpty(), is(true));
     }
 
     @Test
@@ -59,7 +59,7 @@ class ClientTrackServiceTest {
 
     @Test
     void listSubscriberByGroup() {
-        assertThat(ClientTrackService.listSubscriberByGroup("foo").get("/some/path.html"), is(false));
+        assertThat(ClientTrackService.listSubscriberByGroup("foo").get("RA123456789CN"), is(false));
         assertThat(ClientTrackService.listSubscriberByGroup("key").isEmpty(), is(true));
     }
 

@@ -15,34 +15,39 @@ import org.junit.jupiter.api.Test;
 class LocalConfigInfoProcessorTest {
 
     @Test
-    void getFailoverGroupIsBarAndServerNameIsAcmeReturnsNull() {
-        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "bar", "en_GB"), is(nullValue()));
+    void getFailoverGroupIsBarAndServerNameIsAcmeAndTenantIsDataReturnsNull() {
+        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "bar", "data"), is(nullValue()));
     }
 
     @Test
     void getSnapshot() {
-        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "", "en_GB", "en_GB"), is(nullValue()));
-        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "en_GB"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "", "bar", "en_GB"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "foo"), is(nullValue()));
     }
 
     @Test
-    void saveSnapshotConfigIsBar() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "en_GB", "en_GB", "bar");
+    void saveSnapshot() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "bar", "en_GB", "en_GB");
     }
 
     @Test
     void saveSnapshotDataIdIsEmpty() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "", "en_GB", "en_GB", "en_GB");
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "", "bar", "en_GB", "en_GB");
     }
 
     @Test
-    void saveSnapshotGroupIsBar() {
-        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "bar", "en_GB", "en_GB");
+    void saveSnapshotEnvNameIsBarAndGroupIsFoo() {
+        LocalConfigInfoProcessor.saveSnapshot("bar", "1234", "foo", "en_GB", "en_GB");
     }
 
     @Test
     void cleanAllSnapshot() {
         LocalConfigInfoProcessor.cleanAllSnapshot();
+    }
+
+    @Test
+    void cleanEnvSnapshotEnvNameIsAcme() {
+        LocalConfigInfoProcessor.cleanEnvSnapshot("Acme");
     }
 
     @Test

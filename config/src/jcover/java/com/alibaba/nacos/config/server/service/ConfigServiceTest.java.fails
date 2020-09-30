@@ -29,9 +29,9 @@ class ConfigServiceTest {
 
     @Test
     void dump() {
-        assertThat(ConfigService.dump("1234", "bar", "/some/path.html", "hello", 1L), is(true));
+        assertThat(ConfigService.dump("1234", "bar", "d save disk errorx ", "hello", 1L), is(true));
         assertThat(ConfigService.dump("", "bar", "/some/path.html", "hello", 1L), is(false));
-        assertThat(ConfigService.dump("1234", "/some/path.html", "", "hello", 1L), is(true));
+        assertThat(ConfigService.dump("1234", "bar", "", "hello", 1L), is(true));
     }
 
     @Test

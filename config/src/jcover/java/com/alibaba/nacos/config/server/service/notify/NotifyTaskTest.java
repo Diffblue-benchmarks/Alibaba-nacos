@@ -18,8 +18,7 @@ class NotifyTaskTest {
 
     @Test
     void factory() {
-        NotifyTask notifyTask =
-             new NotifyTask("bar", "foo", "/some/path.html", 1L);
+        NotifyTask notifyTask = new NotifyTask("1234", "bar", "foo", 1L);
         notifyTask.setDataId("1234");
         notifyTask.setFailCount(1);
         notifyTask.setGroup("/some/path.html");

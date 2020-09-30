@@ -16,20 +16,20 @@ class ConfigInfoWrapperTest {
     @Test
     void factory() {
         ConfigInfoWrapper configInfoWrapper = new ConfigInfoWrapper();
-        configInfoWrapper.setLastModified(0L);
+        configInfoWrapper.setLastModified(1L);
         configInfoWrapper.setAppName("Acme");
         configInfoWrapper.setTenant("bar");
         configInfoWrapper.setContent("hello");
         configInfoWrapper.setDataId("1234");
-        configInfoWrapper.setGroup("/some/path.html");
+        configInfoWrapper.setGroup("foo");
         configInfoWrapper.setId(1L);
         configInfoWrapper.setMd5("/some/path.html");
-        assertThat(configInfoWrapper.getLastModified(), is(0L));
+        assertThat(configInfoWrapper.getLastModified(), is(1L));
         assertThat(configInfoWrapper.getAppName(), is("Acme"));
         assertThat(configInfoWrapper.getTenant(), is("bar"));
         assertThat(configInfoWrapper.getContent(), is("hello"));
         assertThat(configInfoWrapper.getDataId(), is("1234"));
-        assertThat(configInfoWrapper.getGroup(), is("/some/path.html"));
+        assertThat(configInfoWrapper.getGroup(), is("foo"));
         assertThat(configInfoWrapper.getId(), is(1L));
         assertThat(configInfoWrapper.getMd5(), is("/some/path.html"));
     }

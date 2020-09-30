@@ -32,26 +32,20 @@ class Base64Test {
     }
 
     @Test
-    void encodeBase64BinaryDataIsAllOne1() {
-        byte[] binaryData = new byte[] { 1, 1 };
-        assertArrayEquals(new byte[] { 65, 81, 69, 61 }, Base64.encodeBase64(binaryData));
-    }
-
-    @Test
-    void encodeBase64BinaryDataIsAllOne2() {
-        byte[] binaryData = new byte[] { 1, 1, 1 };
-        assertArrayEquals(new byte[] { 65, 81, 69, 66 }, Base64.encodeBase64(binaryData));
-    }
-
-    @Test
     void encodeBase64BinaryDataIsEmptyReturnsEmpty() {
         assertThat(Base64.encodeBase64(new byte[] { }).length, is(0));
     }
 
     @Test
-    void encodeBase64BinaryDataIsMinusOne() {
-        byte[] binaryData = new byte[] { -1 };
-        assertArrayEquals(new byte[] { 47, 119, 61, 61 }, Base64.encodeBase64(binaryData));
+    void encodeBase64BinaryDataIsMinusOneOne() {
+        byte[] binaryData = new byte[] { -1, 1 };
+        assertArrayEquals(new byte[] { 47, 119, 69, 61 }, Base64.encodeBase64(binaryData));
+    }
+
+    @Test
+    void encodeBase64BinaryDataIsMinusOneOneOne() {
+        byte[] binaryData = new byte[] { -1, 1, 1 };
+        assertArrayEquals(new byte[] { 47, 119, 69, 66 }, Base64.encodeBase64(binaryData));
     }
 
     @Test

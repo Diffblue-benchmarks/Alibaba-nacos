@@ -47,10 +47,26 @@ public class DistroMapperTest {
     }
 
     @Test
-    public void responsible() throws CloneNotSupportedException {
+    public void responsible1() throws CloneNotSupportedException {
         when(switchDomain.isHealthCheckEnabled(Mockito.<String>any()))
             .thenReturn(false);
         assertThat(service.responsible(new Cluster(), new Instance()), is(false));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void responsible2() throws CloneNotSupportedException {
+        when(switchDomain.isDistroEnabled())
+            .thenReturn(false);
+        assertThat(service.responsible("Acme"), is(true));
+        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+    }
+
+    @Test
+    public void responsible3() throws CloneNotSupportedException {
+        when(switchDomain.isDistroEnabled())
+            .thenReturn(true);
+        assertThat(service.responsible("Acme"), is(false));
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
     }
 

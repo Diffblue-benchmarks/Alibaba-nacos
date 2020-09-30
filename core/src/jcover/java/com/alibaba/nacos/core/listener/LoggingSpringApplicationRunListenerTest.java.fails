@@ -35,13 +35,13 @@ class LoggingSpringApplicationRunListenerTest {
 
     @Test
     void environmentPrepared() throws IllegalStateException, IllegalArgumentException, org.springframework.core.env.MissingRequiredPropertiesException {
-        Class<?>[] primarySources1 = new Class[] { String.class };
+        SpringApplication application = mock(SpringApplication.class);
         String[] args = new String[] { "DE" };
-        ConfigurableEnvironment environment2 =
+        ConfigurableEnvironment environment =
              mock(ConfigurableEnvironment.class);
-        when(environment2.containsProperty(Mockito.<String>any()))
+        when(environment.containsProperty(Mockito.<String>any()))
             .thenReturn(false);
-        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).environmentPrepared(environment2);
+        new LoggingSpringApplicationRunListener(application, args).environmentPrepared(environment);
     }
 
     @Test

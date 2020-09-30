@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 
+import com.alibaba.nacos.config.server.constant.CounterMode;
 import com.alibaba.nacos.config.server.model.capacity.Capacity;
 import com.alibaba.nacos.config.server.model.capacity.GroupCapacity;
 import com.alibaba.nacos.config.server.model.capacity.TenantCapacity;
@@ -59,6 +60,29 @@ class CapacityServiceTest {
     }
 
     @Test
+    void updateClusterUsage() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(groupCapacityPersistService.incrementUsageWithDefaultQuotaLimit(Mockito.<GroupCapacity>any()))
+            .thenReturn(false);
+        when(groupCapacityPersistService.incrementUsageWithQuotaLimit(Mockito.<GroupCapacity>any()))
+            .thenReturn(false);
+        assertThat(service.updateClusterUsage(CounterMode.INCREMENT), is(false));
+    }
+
+    @Test
+    void updateClusterUsageCounterModeIsDecrement() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(groupCapacityPersistService.decrementUsage(Mockito.<GroupCapacity>any()))
+            .thenReturn(false);
+        assertThat(service.updateClusterUsage(CounterMode.DECREMENT), is(false));
+    }
+
+    @Test
+    void updateClusterUsageReturnsTrue() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(groupCapacityPersistService.incrementUsageWithDefaultQuotaLimit(Mockito.<GroupCapacity>any()))
+            .thenReturn(true);
+        assertThat(service.updateClusterUsage(CounterMode.INCREMENT), is(true));
+    }
+
+    @Test
     void getGroupCapacityGroupIsBar() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
 
         // arrange
@@ -87,6 +111,20 @@ class CapacityServiceTest {
     }
 
     @Test
+    void updateGroupUsageCounterModeIsDecrementReturnsFalse() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(groupCapacityPersistService.decrementUsage(Mockito.<GroupCapacity>any()))
+            .thenReturn(false);
+        assertThat(service.updateGroupUsage(CounterMode.DECREMENT, "/some/path.html"), is(false));
+    }
+
+    @Test
+    void updateGroupUsageCounterModeIsIncrementReturnsTrue() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(groupCapacityPersistService.incrementUsageWithDefaultQuotaLimit(Mockito.<GroupCapacity>any()))
+            .thenReturn(true);
+        assertThat(service.updateGroupUsage(CounterMode.INCREMENT, "/some/path.html"), is(true));
+    }
+
+    @Test
     void initGroupCapacityReturnsFalse() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
         GroupCapacity groupCapacity = new GroupCapacity();
         groupCapacity.setUsage(1);
@@ -98,7 +136,7 @@ class CapacityServiceTest {
     }
 
     @Test
-    void getCapacityWithDefault1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void getCapacityGroupIsBarAndTenantIsFoo() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
 
         // arrange
         TenantCapacity tenantCapacity = new TenantCapacity();
@@ -112,8 +150,7 @@ class CapacityServiceTest {
             .thenReturn(tenantCapacity);
 
         // act
-        Capacity result =
-             service.getCapacityWithDefault("/some/path.html", "/some/path.html");
+        Capacity result = service.getCapacity("bar", "foo");
 
         // assert
         assertThat(result.getId(), is(1L));
@@ -125,7 +162,7 @@ class CapacityServiceTest {
     }
 
     @Test
-    void getCapacityWithDefault2() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void getCapacityWithDefault1() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
 
         // arrange
         TenantCapacity tenantCapacity = new TenantCapacity();
@@ -152,7 +189,7 @@ class CapacityServiceTest {
     }
 
     @Test
-    void getCapacityWithDefault3() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void getCapacityWithDefault2() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
 
         // arrange
         TenantCapacity tenantCapacity = new TenantCapacity();
@@ -179,7 +216,7 @@ class CapacityServiceTest {
     }
 
     @Test
-    void getCapacityWithDefault4() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void getCapacityWithDefault3() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
 
         // arrange
         TenantCapacity tenantCapacity = new TenantCapacity();
@@ -206,7 +243,7 @@ class CapacityServiceTest {
     }
 
     @Test
-    void getCapacityWithDefault5() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void getCapacityWithDefault4() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
 
         // arrange
         TenantCapacity tenantCapacity = new TenantCapacity();
@@ -229,6 +266,33 @@ class CapacityServiceTest {
         assertThat(result.getMaxAggrSize(), is(1));
         assertThat(result.getMaxSize(), is(1));
         assertThat(result.getQuota(), is(200));
+        assertThat(result.getUsage(), is(1));
+    }
+
+    @Test
+    void getCapacityWithDefaultGroupIsFoo() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+
+        // arrange
+        TenantCapacity tenantCapacity = new TenantCapacity();
+        tenantCapacity.setId(1L);
+        tenantCapacity.setMaxAggrCount(1);
+        tenantCapacity.setMaxAggrSize(1);
+        tenantCapacity.setMaxSize(1);
+        tenantCapacity.setQuota(1);
+        tenantCapacity.setUsage(1);
+        when(tenantCapacityPersistService.getTenantCapacity(Mockito.<String>any()))
+            .thenReturn(tenantCapacity);
+
+        // act
+        Capacity result =
+             service.getCapacityWithDefault("foo", "/some/path.html");
+
+        // assert
+        assertThat(result.getId(), is(1L));
+        assertThat(result.getMaxAggrCount(), is(1));
+        assertThat(result.getMaxAggrSize(), is(1));
+        assertThat(result.getMaxSize(), is(1));
+        assertThat(result.getQuota(), is(1));
         assertThat(result.getUsage(), is(1));
     }
 
@@ -268,6 +332,22 @@ class CapacityServiceTest {
         when(tenantCapacityPersistService.insertTenantCapacity(Mockito.<TenantCapacity>any()))
             .thenReturn(false);
         assertThat(service.initCapacity("/some/path.html", "/some/path.html"), is(false));
+    }
+
+    @Test
+    void updateTenantUsageReturnsFalse() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(tenantCapacityPersistService.incrementUsageWithDefaultQuotaLimit(Mockito.<TenantCapacity>any()))
+            .thenReturn(false);
+        when(tenantCapacityPersistService.incrementUsageWithQuotaLimit(Mockito.<TenantCapacity>any()))
+            .thenReturn(false);
+        assertThat(service.updateTenantUsage(CounterMode.INCREMENT, "/some/path.html"), is(false));
+    }
+
+    @Test
+    void updateTenantUsageReturnsTrue() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(tenantCapacityPersistService.incrementUsageWithDefaultQuotaLimit(Mockito.<TenantCapacity>any()))
+            .thenReturn(true);
+        assertThat(service.updateTenantUsage(CounterMode.INCREMENT, "/some/path.html"), is(true));
     }
 
     @Test
@@ -321,5 +401,14 @@ class CapacityServiceTest {
         assertThat(result.getMaxSize(), is(1));
         assertThat(result.getQuota(), is(1));
         assertThat(result.getUsage(), is(1));
+    }
+
+    @Test
+    void insertOrUpdateCapacityMaxAggrCountIsOneAndMaxAggrSizeIsOneAndMaxSizeIsOneAndQuotaIsOneReturnsFalse() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+        when(tenantCapacityPersistService.getTenantCapacity(Mockito.<String>any()))
+            .thenReturn(new TenantCapacity());
+        when(tenantCapacityPersistService.updateTenantCapacity(Mockito.<String>any(), Mockito.<Integer>any(), Mockito.<Integer>any(), Mockito.<Integer>any(), Mockito.<Integer>any()))
+            .thenReturn(false);
+        assertThat(service.insertOrUpdateCapacity("/some/path.html", "/some/path.html", 1, 1, 1, 1), is(false));
     }
 }

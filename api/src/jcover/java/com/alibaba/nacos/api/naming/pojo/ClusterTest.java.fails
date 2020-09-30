@@ -19,29 +19,6 @@ class ClusterTest {
 
     @Test
     void factory1() throws CloneNotSupportedException {
-        Cluster cluster = new Cluster("John Smith");
-        cluster.setDefaultCheckPort(0);
-        cluster.setDefaultPort(1);
-        AbstractHealthChecker healthChecker =
-             mock(AbstractHealthChecker.class);
-        cluster.setHealthChecker(healthChecker);
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        cluster.setMetadata(metadata);
-        cluster.setName("John Smith");
-        cluster.setServiceName("John Smith");
-        cluster.setUseIPPort4Check(false);
-        assertThat(cluster.getDefaultCheckPort(), is(0));
-        assertThat(cluster.getDefaultPort(), is(1));
-        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
-        assertThat(cluster.getMetadata().get("foo"), is("foo"));
-        assertThat(cluster.getName(), is("John Smith"));
-        assertThat(cluster.getServiceName(), is("John Smith"));
-        assertThat(cluster.isUseIPPort4Check(), is(false));
-    }
-
-    @Test
-    void factory2() throws CloneNotSupportedException {
         Cluster cluster = new Cluster();
         cluster.setDefaultCheckPort(0);
         cluster.setDefaultPort(1);
@@ -58,6 +35,29 @@ class ClusterTest {
         assertThat(cluster.getDefaultPort(), is(1));
         assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
         assertThat(cluster.getMetadata().get("bar"), is("foo"));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("John Smith"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
+    void factory2() throws CloneNotSupportedException {
+        Cluster cluster = new Cluster("bar");
+        cluster.setDefaultCheckPort(0);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("foo", "foo");
+        cluster.setMetadata(metadata);
+        cluster.setName("John Smith");
+        cluster.setServiceName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefaultCheckPort(), is(0));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getMetadata().get("foo"), is("foo"));
         assertThat(cluster.getName(), is("John Smith"));
         assertThat(cluster.getServiceName(), is("John Smith"));
         assertThat(cluster.isUseIPPort4Check(), is(false));

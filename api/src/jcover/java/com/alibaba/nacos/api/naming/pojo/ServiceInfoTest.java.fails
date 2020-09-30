@@ -6,7 +6,6 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -21,45 +20,6 @@ class ServiceInfoTest {
 
     @Test
     void factory1() {
-        ServiceInfo serviceInfo = new ServiceInfo("Acme", "foo");
-        serviceInfo.setAllIPs(false);
-        serviceInfo.setCacheMillis(1L);
-        serviceInfo.setChecksum("foo");
-        serviceInfo.setClusters("foo");
-        serviceInfo.setGroupName("Acme");
-        ArrayList<Instance> hosts = new ArrayList<Instance>();
-        Instance instance = new Instance();
-        instance.setClusterName("John Smith");
-        instance.setEnabled(false);
-        instance.setEphemeral(false);
-        instance.setHealthy(false);
-        instance.setInstanceId("1234");
-        instance.setIp("foo");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        instance.setMetadata(metadata);
-        instance.setPort(1);
-        instance.setServiceName("Acme");
-        instance.setWeight(1.0);
-        hosts.add(instance);
-        serviceInfo.setHosts(hosts);
-        serviceInfo.setJsonFromServer("\"foo\"");
-        serviceInfo.setLastRefTime(1L);
-        serviceInfo.setName("Acme");
-        assertThat(serviceInfo.getCacheMillis(), is(1L));
-        assertThat(serviceInfo.getChecksum(), is("foo"));
-        assertThat(serviceInfo.getClusters(), is("foo"));
-        assertThat(serviceInfo.getGroupName(), is("Acme"));
-        assertThat(serviceInfo.getJsonFromServer(), is("\"foo\""));
-        assertThat(serviceInfo.getKey(), is("Acme@@foo"));
-        assertThat(serviceInfo.getLastRefTime(), is(1L));
-        assertThat(serviceInfo.getName(), is("Acme"));
-        assertThat(serviceInfo.isAllIPs(), is(false));
-        assertThat(serviceInfo.isValid(), is(true));
-    }
-
-    @Test
-    void factory2() {
         ServiceInfo serviceInfo = new ServiceInfo();
         serviceInfo.setAllIPs(false);
         serviceInfo.setCacheMillis(1L);
@@ -83,7 +43,7 @@ class ServiceInfoTest {
     }
 
     @Test
-    void factory3() {
+    void factory2() {
         ServiceInfo serviceInfo = new ServiceInfo();
         serviceInfo.setAllIPs(false);
         serviceInfo.setCacheMillis(1L);
@@ -107,29 +67,14 @@ class ServiceInfoTest {
     }
 
     @Test
-    void factory4() {
+    void factory3() {
         ServiceInfo serviceInfo = new ServiceInfo("key");
-        serviceInfo.setAllIPs(true);
+        serviceInfo.setAllIPs(false);
         serviceInfo.setCacheMillis(1L);
         serviceInfo.setChecksum("foo");
         serviceInfo.setClusters("foo");
         serviceInfo.setGroupName("Acme");
-        ArrayList<Instance> hosts = new ArrayList<Instance>();
-        Instance instance = new Instance();
-        instance.setClusterName("John Smith");
-        instance.setEnabled(false);
-        instance.setEphemeral(false);
-        instance.setHealthy(false);
-        instance.setInstanceId("1234");
-        instance.setIp("foo");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        instance.setMetadata(metadata);
-        instance.setPort(1);
-        instance.setServiceName("Acme");
-        instance.setWeight(1.0);
-        hosts.add(instance);
-        serviceInfo.setHosts(hosts);
+        serviceInfo.setHosts(new ArrayList<Instance>());
         serviceInfo.setJsonFromServer("\"foo\"");
         serviceInfo.setLastRefTime(1L);
         serviceInfo.setName("Acme");
@@ -141,7 +86,31 @@ class ServiceInfoTest {
         assertThat(serviceInfo.getKey(), is("Acme@@foo"));
         assertThat(serviceInfo.getLastRefTime(), is(1L));
         assertThat(serviceInfo.getName(), is("Acme"));
-        assertThat(serviceInfo.isAllIPs(), is(true));
+        assertThat(serviceInfo.isAllIPs(), is(false));
+        assertThat(serviceInfo.isValid(), is(true));
+    }
+
+    @Test
+    void factory4() {
+        ServiceInfo serviceInfo = new ServiceInfo("Acme", "foo");
+        serviceInfo.setAllIPs(false);
+        serviceInfo.setCacheMillis(1L);
+        serviceInfo.setChecksum("foo");
+        serviceInfo.setClusters("foo");
+        serviceInfo.setGroupName("Acme");
+        serviceInfo.setHosts(new ArrayList<Instance>());
+        serviceInfo.setJsonFromServer("\"foo\"");
+        serviceInfo.setLastRefTime(1L);
+        serviceInfo.setName("Acme");
+        assertThat(serviceInfo.getCacheMillis(), is(1L));
+        assertThat(serviceInfo.getChecksum(), is("foo"));
+        assertThat(serviceInfo.getClusters(), is("foo"));
+        assertThat(serviceInfo.getGroupName(), is("Acme"));
+        assertThat(serviceInfo.getJsonFromServer(), is("\"foo\""));
+        assertThat(serviceInfo.getKey(), is("Acme@@foo"));
+        assertThat(serviceInfo.getLastRefTime(), is(1L));
+        assertThat(serviceInfo.getName(), is("Acme"));
+        assertThat(serviceInfo.isAllIPs(), is(false));
         assertThat(serviceInfo.isValid(), is(true));
     }
 
@@ -152,6 +121,11 @@ class ServiceInfoTest {
         hosts.add(new Instance());
         serviceInfo.setHosts(hosts);
         assertThat(serviceInfo.ipCount(), is(1));
+    }
+
+    @Test
+    void ipCountReturnsZero() {
+        assertThat(new ServiceInfo().ipCount(), is(0));
     }
 
     @Test
@@ -178,12 +152,33 @@ class ServiceInfoTest {
     }
 
     @Test
-    void validateReturnsTrue() {
+    void validate1() {
+        ServiceInfo serviceInfo = new ServiceInfo();
+        serviceInfo.setAllIPs(true);
+        assertThat(serviceInfo.validate(), is(true));
+    }
+
+    @Test
+    void validate2() {
+        assertThat(new ServiceInfo().validate(), is(true));
+    }
+
+    @Test
+    void validate3() {
         ServiceInfo serviceInfo = new ServiceInfo();
         ArrayList<Instance> hosts = new ArrayList<Instance>();
         Instance instance = new Instance();
         instance.setHealthy(false);
         hosts.add(instance);
+        serviceInfo.setHosts(hosts);
+        assertThat(serviceInfo.validate(), is(true));
+    }
+
+    @Test
+    void validate4() {
+        ServiceInfo serviceInfo = new ServiceInfo();
+        ArrayList<Instance> hosts = new ArrayList<Instance>();
+        hosts.add(new Instance());
         serviceInfo.setHosts(hosts);
         assertThat(serviceInfo.validate(), is(true));
     }

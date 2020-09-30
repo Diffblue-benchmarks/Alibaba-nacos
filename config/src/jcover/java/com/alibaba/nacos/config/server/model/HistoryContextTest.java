@@ -29,7 +29,7 @@ class HistoryContextTest {
         historyContext.setGroup("hello");
         historyContext.setServerId("1234");
         historyContext.setStatusCode(1);
-        historyContext.setStatusMsg("New York");
+        historyContext.setStatusMsg("on time");
         historyContext.setSuccess(false);
         historyContext.setTenant("hello");
         assertThat(historyContext.getAppName(), is("Acme"));
@@ -38,7 +38,7 @@ class HistoryContextTest {
         assertThat(historyContext.getGroup(), is("hello"));
         assertThat(historyContext.getServerId(), is("1234"));
         assertThat(historyContext.getStatusCode(), is(1));
-        assertThat(historyContext.getStatusMsg(), is("New York"));
+        assertThat(historyContext.getStatusMsg(), is("on time"));
         assertThat(historyContext.getTenant(), is("hello"));
         assertThat(historyContext.isSuccess(), is(false));
     }
@@ -68,7 +68,7 @@ class HistoryContextTest {
         configs1.setPagesAvailable(1);
         configs1.setTotalCount(1);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "hello", 200, "New York", configs1);
+             new HistoryContext("1234", "1234", "hello", 200, "on time", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
         ArrayList<ConfigHistoryInfo> pageItems2 =
@@ -97,7 +97,7 @@ class HistoryContextTest {
         historyContext.setGroup("hello");
         historyContext.setServerId("1234");
         historyContext.setStatusCode(1);
-        historyContext.setStatusMsg("New York");
+        historyContext.setStatusMsg("on time");
         historyContext.setSuccess(false);
         historyContext.setTenant("hello");
         assertThat(historyContext.getAppName(), is("Acme"));
@@ -106,7 +106,7 @@ class HistoryContextTest {
         assertThat(historyContext.getGroup(), is("hello"));
         assertThat(historyContext.getServerId(), is("1234"));
         assertThat(historyContext.getStatusCode(), is(1));
-        assertThat(historyContext.getStatusMsg(), is("New York"));
+        assertThat(historyContext.getStatusMsg(), is("on time"));
         assertThat(historyContext.getTenant(), is("hello"));
         assertThat(historyContext.isSuccess(), is(false));
     }
@@ -116,7 +116,7 @@ class HistoryContextTest {
         @SuppressWarnings("unchecked")
         Page<ConfigHistoryInfo> configs1 = mock(Page.class);
         HistoryContext historyContext =
-             new HistoryContext("1234", "1234", "hello", 1, "New York", configs1);
+             new HistoryContext("1234", "1234", "hello", 1, "on time", configs1);
         historyContext.setAppName("Acme");
         Page<ConfigHistoryInfo> configs2 = new Page<ConfigHistoryInfo>();
         ArrayList<ConfigHistoryInfo> pageItems =
@@ -145,7 +145,7 @@ class HistoryContextTest {
         historyContext.setGroup("hello");
         historyContext.setServerId("1234");
         historyContext.setStatusCode(1);
-        historyContext.setStatusMsg("New York");
+        historyContext.setStatusMsg("on time");
         historyContext.setSuccess(false);
         historyContext.setTenant("hello");
         assertThat(historyContext.getAppName(), is("Acme"));
@@ -154,7 +154,7 @@ class HistoryContextTest {
         assertThat(historyContext.getGroup(), is("hello"));
         assertThat(historyContext.getServerId(), is("1234"));
         assertThat(historyContext.getStatusCode(), is(1));
-        assertThat(historyContext.getStatusMsg(), is("New York"));
+        assertThat(historyContext.getStatusMsg(), is("on time"));
         assertThat(historyContext.getTenant(), is("hello"));
         assertThat(historyContext.isSuccess(), is(false));
     }

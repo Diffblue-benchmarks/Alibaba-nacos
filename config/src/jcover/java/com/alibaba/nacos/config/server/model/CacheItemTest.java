@@ -27,7 +27,7 @@ class CacheItemTest {
         cacheItem.setIps4Beta(new ArrayList<String>());
         cacheItem.setLastModifiedTs(1L);
         cacheItem.setLastModifiedTs4Beta(1L);
-        cacheItem.setMd5("/some/path.html");
+        cacheItem.setMd5("bar");
         cacheItem.setMd54Beta("/some/path.html");
         SimpleReadWriteLock rwLock = new SimpleReadWriteLock();
         cacheItem.setRwLock(rwLock);
@@ -41,7 +41,7 @@ class CacheItemTest {
         assertThat(cacheItem.getIps4Beta(), empty());
         assertThat(cacheItem.getLastModifiedTs(), is(1L));
         assertThat(cacheItem.getLastModifiedTs4Beta(), is(1L));
-        assertThat(cacheItem.getMd5(), is("/some/path.html"));
+        assertThat(cacheItem.getMd5(), is("bar"));
         assertThat(cacheItem.getMd54Beta(), is("/some/path.html"));
         assertThat(cacheItem.getRwLock(), sameInstance(rwLock));
         assertThat(cacheItem.getTagLastModifiedTs().get("HmacMD5"), is(1L));

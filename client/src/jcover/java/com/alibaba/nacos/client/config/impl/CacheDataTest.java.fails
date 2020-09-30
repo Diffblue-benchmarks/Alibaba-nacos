@@ -21,42 +21,6 @@ class CacheDataTest {
     @Test
     void factory1() {
         CacheData cacheData =
-             new CacheData(new ConfigFilterChainManager(), "Acme", "something", "something");
-        cacheData.setContent("hello");
-        cacheData.setInitializing(true);
-        cacheData.setLocalConfigInfoVersion(1L);
-        cacheData.setTaskId(1);
-        cacheData.setUseLocalConfigInfo(false);
-        assertThat(cacheData.getContent(), is("hello"));
-        assertThat(cacheData.getLocalConfigInfoVersion(), is(-1L));
-        assertThat(cacheData.getMd5(), is("5d41402abc4b2a76b9719d911017c592"));
-        assertThat(cacheData.getTaskId(), is(1));
-        assertThat(cacheData.getTenant(), is(""));
-        assertThat(cacheData.isInitializing(), is(true));
-        assertThat(cacheData.isUseLocalConfigInfo(), is(false));
-    }
-
-    @Test
-    void factory2() {
-        CacheData cacheData =
-             new CacheData(new ConfigFilterChainManager(), "Acme", "something", "something");
-        cacheData.setContent("hello");
-        cacheData.setInitializing(false);
-        cacheData.setLocalConfigInfoVersion(1L);
-        cacheData.setTaskId(1);
-        cacheData.setUseLocalConfigInfo(true);
-        assertThat(cacheData.getContent(), is("hello"));
-        assertThat(cacheData.getLocalConfigInfoVersion(), is(1L));
-        assertThat(cacheData.getMd5(), is("5d41402abc4b2a76b9719d911017c592"));
-        assertThat(cacheData.getTaskId(), is(1));
-        assertThat(cacheData.getTenant(), is(""));
-        assertThat(cacheData.isInitializing(), is(false));
-        assertThat(cacheData.isUseLocalConfigInfo(), is(true));
-    }
-
-    @Test
-    void factory3() {
-        CacheData cacheData =
              new CacheData(new ConfigFilterChainManager(), "Acme", "something", "something", "something");
         cacheData.setContent("hello");
         cacheData.setInitializing(true);
@@ -70,6 +34,42 @@ class CacheDataTest {
         assertThat(cacheData.getTenant(), is("something"));
         assertThat(cacheData.isInitializing(), is(true));
         assertThat(cacheData.isUseLocalConfigInfo(), is(false));
+    }
+
+    @Test
+    void factory2() {
+        CacheData cacheData =
+             new CacheData(new ConfigFilterChainManager(), "Acme", "CacheData ", "something");
+        cacheData.setContent("hello");
+        cacheData.setInitializing(true);
+        cacheData.setLocalConfigInfoVersion(1L);
+        cacheData.setTaskId(1);
+        cacheData.setUseLocalConfigInfo(false);
+        assertThat(cacheData.getContent(), is("hello"));
+        assertThat(cacheData.getLocalConfigInfoVersion(), is(-1L));
+        assertThat(cacheData.getMd5(), is("5d41402abc4b2a76b9719d911017c592"));
+        assertThat(cacheData.getTaskId(), is(1));
+        assertThat(cacheData.getTenant(), is(""));
+        assertThat(cacheData.isInitializing(), is(true));
+        assertThat(cacheData.isUseLocalConfigInfo(), is(false));
+    }
+
+    @Test
+    void factory3() {
+        CacheData cacheData =
+             new CacheData(new ConfigFilterChainManager(), "Acme", "CacheData ", "something");
+        cacheData.setContent("hello");
+        cacheData.setInitializing(false);
+        cacheData.setLocalConfigInfoVersion(1L);
+        cacheData.setTaskId(1);
+        cacheData.setUseLocalConfigInfo(true);
+        assertThat(cacheData.getContent(), is("hello"));
+        assertThat(cacheData.getLocalConfigInfoVersion(), is(1L));
+        assertThat(cacheData.getMd5(), is("5d41402abc4b2a76b9719d911017c592"));
+        assertThat(cacheData.getTaskId(), is(1));
+        assertThat(cacheData.getTenant(), is(""));
+        assertThat(cacheData.isInitializing(), is(false));
+        assertThat(cacheData.isUseLocalConfigInfo(), is(true));
     }
 
     @Test

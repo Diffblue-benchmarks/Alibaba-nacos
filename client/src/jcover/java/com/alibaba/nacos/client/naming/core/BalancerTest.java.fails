@@ -31,7 +31,7 @@ class BalancerTest {
         instance.setEnabled(false);
         instance.setEphemeral(false);
         instance.setInstanceId("1234");
-        instance.setIp("foo");
+        instance.setIp("bar");
         HashMap<String, String> metadata = new HashMap<String, String>();
         metadata.put("foo", "foo");
         instance.setMetadata(metadata);
@@ -45,7 +45,7 @@ class BalancerTest {
         // assert
         assertThat(result.getClusterName(), is("John Smith"));
         assertThat(result.getInstanceId(), is("1234"));
-        assertThat(result.getIp(), is("foo"));
+        assertThat(result.getIp(), is("bar"));
         assertThat(result.getMetadata().get("foo"), is("foo"));
         assertThat(result.getPort(), is(1));
         assertThat(result.getServiceName(), is("Acme"));

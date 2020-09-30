@@ -26,6 +26,22 @@ class RequestLogAspectTest {
     private RequestLogAspect service;
 
     @Test
+    void interfacePublishSingleContentIsHello() throws Throwable, java.io.UnsupportedEncodingException {
+        ProceedingJoinPoint pjp = mock(ProceedingJoinPoint.class);
+        when(pjp.proceed())
+            .thenReturn(new Object());
+        // pojo Object
+    }
+
+    @Test
+    void interfaceRemoveAll() throws Throwable, java.io.UnsupportedEncodingException {
+        ProceedingJoinPoint pjp = mock(ProceedingJoinPoint.class);
+        when(pjp.proceed())
+            .thenReturn(new Object());
+        // pojo Object
+    }
+
+    @Test
     void interfaceGetConfig() throws Throwable, java.io.UnsupportedEncodingException {
         ProceedingJoinPoint pjp = mock(ProceedingJoinPoint.class);
         when(pjp.proceed())

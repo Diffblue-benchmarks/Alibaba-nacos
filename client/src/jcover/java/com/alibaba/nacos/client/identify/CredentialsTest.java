@@ -62,13 +62,28 @@ class CredentialsTest {
 
     @Test
     void identical1() {
+        Credentials other = new Credentials();
+        other.setAccessKey("key");
+        assertThat(new Credentials().identical(other), is(false));
+    }
+
+    @Test
+    void identical2() {
+        Credentials credentials = new Credentials();
+        credentials.setSecretKey("key");
+        Credentials other = mock(Credentials.class);
+        assertThat(credentials.identical(other), is(false));
+    }
+
+    @Test
+    void identical3() {
         Credentials credentials = new Credentials();
         credentials.setAccessKey("bar");
         assertThat(credentials.identical(new Credentials()), is(false));
     }
 
     @Test
-    void identical2() {
+    void identical4() {
         Credentials credentials = new Credentials();
         credentials.setAccessKey("key");
         Credentials other = new Credentials();
@@ -78,7 +93,7 @@ class CredentialsTest {
     }
 
     @Test
-    void identical3() {
+    void identical5() {
         Credentials credentials = new Credentials();
         credentials.setAccessKey("key");
         credentials.setSecretKey("bar");
@@ -88,33 +103,27 @@ class CredentialsTest {
     }
 
     @Test
-    void identical4() {
-        Credentials other = new Credentials();
-        other.setAccessKey("key");
-        assertThat(new Credentials().identical(other), is(false));
-    }
-
-    @Test
-    void identical5() {
-        Credentials credentials = new Credentials();
-        credentials.setSecretKey("key");
-        Credentials other = mock(Credentials.class);
-        assertThat(credentials.identical(other), is(false));
-    }
-
-    @Test
     void identicalOtherIsNull() {
         assertThat(new Credentials().identical(null), is(false));
     }
 
     @Test
-    void identicalReturnsTrue() {
+    void identicalReturnsTrue1() {
         Credentials credentials = new Credentials();
         credentials.setAccessKey("key");
         credentials.setSecretKey("key");
         Credentials other = new Credentials();
         other.setAccessKey("key");
         other.setSecretKey("key");
+        assertThat(credentials.identical(other), is(true));
+    }
+
+    @Test
+    void identicalReturnsTrue2() {
+        Credentials credentials = new Credentials();
+        credentials.setAccessKey("key");
+        Credentials other = new Credentials();
+        other.setAccessKey("key");
         assertThat(credentials.identical(other), is(true));
     }
 }

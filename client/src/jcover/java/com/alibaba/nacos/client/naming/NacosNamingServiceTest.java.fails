@@ -47,7 +47,9 @@ class NacosNamingServiceTest {
     @Test
     void getAllInstances() throws com.alibaba.nacos.api.exception.NacosException {
         assertThat(new NacosNamingService("Smith").getAllInstances("Acme"), empty());
-        assertThat(new NacosNamingService("Smith").getAllInstances("Acme", "Acme"), empty());
+        assertThat(new NacosNamingService("Smith").getAllInstances("bar", "Acme"), empty());
+        assertThat(new NacosNamingService("Smith").getAllInstances("Acme", "Acme", true), empty());
+        assertThat(new NacosNamingService("Smith").getAllInstances("Acme", true), empty());
     }
 
     @Test
@@ -58,13 +60,14 @@ class NacosNamingServiceTest {
     }
 
     @Test
-    void subscribeServiceNameIsAcme() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribe1() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
         new NacosNamingService("Smith").subscribe("Acme", listener);
+        Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());
     }
 
     @Test
-    void subscribe() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribe2() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
         new NacosNamingService("Smith").subscribe("Acme", "Acme", listener);
         Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());
@@ -88,7 +91,8 @@ class NacosNamingServiceTest {
     }
 
     @Test
-    void getServerStatusReturnsDOWN() {
+    void getServerStatus() {
         assertThat(new NacosNamingService("Smith").getServerStatus(), is("DOWN"));
+        assertThat(new NacosNamingService(new Properties()).getServerStatus(), is("DOWN"));
     }
 }

@@ -22,6 +22,14 @@ class HttpClientTest {
     }
 
     @Test
+    void httpGetEncodingIsEmptyAndParamValuesIsFoo() {
+        HashMap<String, String> paramValues = new HashMap<String, String>();
+        paramValues.put("encoding", "foo");
+        // pojo HttpClient.HttpResult
+        assertThat(paramValues.get("encoding"), is(""));
+    }
+
+    @Test
     void httpGetParamValuesIsEmpty() {
         HashMap<String, String> paramValues = new HashMap<String, String>();
         paramValues.put("foo", "");
@@ -30,7 +38,7 @@ class HttpClientTest {
     }
 
     @Test
-    void httpGetParamValuesIsFoo() {
+    void httpGetParamValuesIsFooAndUrlIsGET() {
         HashMap<String, String> paramValues = new HashMap<String, String>();
         paramValues.put("foo", "foo");
         // pojo HttpClient.HttpResult

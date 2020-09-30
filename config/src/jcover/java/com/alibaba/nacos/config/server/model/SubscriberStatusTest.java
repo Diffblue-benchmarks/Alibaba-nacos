@@ -18,12 +18,12 @@ class SubscriberStatusTest {
         SubscriberStatus subscriberStatus = new SubscriberStatus();
         subscriberStatus.setGroupKey("key");
         subscriberStatus.setLastTime(1L);
-        subscriberStatus.setMd5("/some/path.html");
+        subscriberStatus.setMd5("on time");
         subscriberStatus.setServerIp("/some/path.html");
         subscriberStatus.setStatus(false);
         assertThat(subscriberStatus.getGroupKey(), is("key"));
         assertThat(subscriberStatus.getLastTime(), is(1L));
-        assertThat(subscriberStatus.getMd5(), is("/some/path.html"));
+        assertThat(subscriberStatus.getMd5(), is("on time"));
         assertThat(subscriberStatus.getServerIp(), is("/some/path.html"));
         assertThat(subscriberStatus.getStatus(), is(false));
     }
@@ -31,15 +31,15 @@ class SubscriberStatusTest {
     @Test
     void factory2() {
         SubscriberStatus subscriberStatus =
-             new SubscriberStatus("key", false, "/some/path.html", 1L);
+             new SubscriberStatus("key", false, "on time", 1L);
         subscriberStatus.setGroupKey("key");
         subscriberStatus.setLastTime(1L);
-        subscriberStatus.setMd5("/some/path.html");
+        subscriberStatus.setMd5("on time");
         subscriberStatus.setServerIp("/some/path.html");
         subscriberStatus.setStatus(false);
         assertThat(subscriberStatus.getGroupKey(), is("key"));
         assertThat(subscriberStatus.getLastTime(), is(1L));
-        assertThat(subscriberStatus.getMd5(), is("/some/path.html"));
+        assertThat(subscriberStatus.getMd5(), is("on time"));
         assertThat(subscriberStatus.getServerIp(), is("/some/path.html"));
         assertThat(subscriberStatus.getStatus(), is(false));
     }

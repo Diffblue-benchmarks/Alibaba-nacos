@@ -24,7 +24,7 @@ class InstanceTest {
         instance.setEphemeral(false);
         instance.setHealthy(false);
         instance.setInstanceId("1234");
-        instance.setIp("foo");
+        instance.setIp("1");
         HashMap<String, String> metadata = new HashMap<String, String>();
         metadata.put("foo", "foo");
         instance.setMetadata(metadata);
@@ -33,7 +33,7 @@ class InstanceTest {
         instance.setWeight(1.0);
         assertThat(instance.getClusterName(), is("John Smith"));
         assertThat(instance.getInstanceId(), is("1234"));
-        assertThat(instance.getIp(), is("foo"));
+        assertThat(instance.getIp(), is("1"));
         assertThat(instance.getMetadata().get("foo"), is("foo"));
         assertThat(instance.getPort(), is(1));
         assertThat(instance.getServiceName(), is("Acme"));
@@ -65,11 +65,6 @@ class InstanceTest {
     }
 
     @Test
-    void equalsReturnsFalse() {
-        assertThat(new Instance().equals(new Object()), is(false));
-    }
-
-    @Test
     void equalsReturnsTrue() {
         Instance instance1 = new Instance();
         instance1.setClusterName("John Smith");
@@ -96,6 +91,20 @@ class InstanceTest {
         instance2.setPort(1);
         instance2.setServiceName("Acme");
         assertThat(instance1.equals(instance2), is(true));
+    }
+
+    @Test
+    void testEquals1() {
+        assertThat(new Instance().equals(new Object()), is(false));
+    }
+
+    @Test
+    void testEquals2() {
+        Instance instance2 = new Instance();
+        HashMap<String, String> metadata2 = new HashMap<String, String>();
+        metadata2.put("foo", "foo");
+        instance2.setMetadata(metadata2);
+        assertThat(new Instance().equals(instance2), is(false));
     }
 
     @Test

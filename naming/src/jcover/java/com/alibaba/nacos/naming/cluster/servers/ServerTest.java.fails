@@ -2,6 +2,8 @@ package com.alibaba.nacos.naming.cluster.servers;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
@@ -16,20 +18,20 @@ public class ServerTest {
     @Test
     public void factory() {
         Server server = new Server();
-        server.setAdWeight(0);
+        server.setAdWeight(1);
         server.setAlive(false);
         server.setIp("bar");
         server.setLastRefTime(1L);
         server.setLastRefTimeStr("Smith");
         server.setServePort(1);
-        server.setSite("/some/path.html");
+        server.setSite("foo");
         server.setWeight(1);
-        assertThat(server.getAdWeight(), is(0));
+        assertThat(server.getAdWeight(), is(1));
         assertThat(server.getIp(), is("bar"));
         assertThat(server.getLastRefTime(), is(1L));
         assertThat(server.getLastRefTimeStr(), is("Smith"));
         assertThat(server.getServePort(), is(1));
-        assertThat(server.getSite(), is("/some/path.html"));
+        assertThat(server.getSite(), is("foo"));
         assertThat(server.getWeight(), is(1));
         assertThat(server.isAlive(), is(false));
     }
@@ -49,12 +51,13 @@ public class ServerTest {
     }
 
     @Test
-    public void compareTo() {
+    public void compareToReturnsMinusFour() {
         Server server1 = new Server();
         server1.setIp("bar");
-        Server server2 = new Server();
-        server2.setIp("/some/path.html");
-        assertThat(server1.compareTo(server2), is(51));
+        Server server2 = mock(Server.class);
+        when(server2.getKey())
+            .thenReturn("foo");
+        assertThat(server1.compareTo(server2), is(-4));
     }
 
     @Test

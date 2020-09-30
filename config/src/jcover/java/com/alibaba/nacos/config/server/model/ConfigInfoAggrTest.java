@@ -73,7 +73,8 @@ class ConfigInfoAggrTest {
     }
 
     @Test
-    void equalsReturnsFalse() {
+    void testEquals() {
         assertThat(new ConfigInfoAggr().equals(new Object()), is(false));
+        assertThat(new ConfigInfoAggr().equals(null), is(false));
     }
 }

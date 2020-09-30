@@ -27,19 +27,19 @@ public class NamingProxyTest {
     }
 
     @Test
-    public void reqAPI() throws Exception {
+    public void reqAPIApiIsConnection() throws Exception {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("foo", "foo");
-        assertThat(NamingProxy.reqAPI("foo", params, " msg: "), is(""));
+        assertThat(NamingProxy.reqAPI("Connection", params, " msg: "), is(""));
         assertThat(params.get("encoding"), is("UTF-8"));
         assertThat(params.get("nofix"), is("1"));
     }
 
     @Test
-    public void reqAPICurServerIsConnection() throws Exception {
+    public void reqAPIApiIsConnectionAndCurServerIsNamingProxy() throws Exception {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("foo", "foo");
-        assertThat(NamingProxy.reqAPI("foo", params, "Connection"), is(""));
+        assertThat(NamingProxy.reqAPI("Connection", params, "NamingProxy"), is(""));
         assertThat(params.get("encoding"), is("UTF-8"));
         assertThat(params.get("nofix"), is("1"));
     }

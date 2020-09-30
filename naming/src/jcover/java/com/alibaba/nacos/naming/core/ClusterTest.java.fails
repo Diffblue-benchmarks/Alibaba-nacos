@@ -180,9 +180,114 @@ public class ClusterTest {
     }
 
     @Test
+    public void factory4() throws CloneNotSupportedException {
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
+        Cluster x474 = new Cluster();
+        x474.setDefCkport(1);
+        x474.setDefIPPort(1);
+        x474.setService(new Service());
+        x474.setServiceName("John Smith");
+        x474.setSitegroup("DE");
+        x474.setDefaultCheckPort(1);
+        x474.setDefaultPort(1);
+        AbstractHealthChecker healthChecker1 =
+             mock(AbstractHealthChecker.class);
+        x474.setHealthChecker(healthChecker1);
+        x474.setMetadata(new HashMap<String, String>());
+        x474.setName("John Smith");
+        x474.setUseIPPort4Check(false);
+        clusterMap1.put("HmacMD5", x474);
+        service1.setClusterMap(clusterMap1);
+        service1.setEnabled(false);
+        service1.setIpDeleteTimeout(1L);
+        service1.setLastModifiedMillis(1L);
+        service1.setNamespaceId("1234");
+        ArrayList<String> owners1 = new ArrayList<String>();
+        owners1.add("foo");
+        service1.setOwners(owners1);
+        service1.setResetWeight(false);
+        Selector selector1 = mock(Selector.class);
+        service1.setSelector(selector1);
+        service1.setToken("Bearer");
+        service1.setAppName("Acme");
+        service1.setGroupName("Acme");
+        HashMap<String, String> metadata3 = new HashMap<String, String>();
+        metadata3.put("foo", "foo");
+        service1.setMetadata(metadata3);
+        service1.setName("Acme");
+        service1.setProtectThreshold(1.0f);
+        Cluster cluster = new Cluster("0", service1);
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(1);
+        Service service6 = new Service();
+        HashMap<String, Cluster> clusterMap2 = new HashMap<String, Cluster>();
+        Cluster x527 = new Cluster();
+        x527.setDefCkport(1);
+        x527.setDefIPPort(1);
+        x527.setService(new Service());
+        x527.setServiceName("John Smith");
+        x527.setSitegroup("DE");
+        x527.setDefaultCheckPort(1);
+        x527.setDefaultPort(1);
+        AbstractHealthChecker healthChecker3 =
+             mock(AbstractHealthChecker.class);
+        x527.setHealthChecker(healthChecker3);
+        x527.setMetadata(new HashMap<String, String>());
+        x527.setName("John Smith");
+        x527.setUseIPPort4Check(false);
+        clusterMap2.put("HmacMD5", x527);
+        service6.setClusterMap(clusterMap2);
+        service6.setEnabled(false);
+        service6.setIpDeleteTimeout(1L);
+        service6.setLastModifiedMillis(1L);
+        service6.setNamespaceId("1234");
+        ArrayList<String> owners2 = new ArrayList<String>();
+        owners2.add("foo");
+        service6.setOwners(owners2);
+        service6.setResetWeight(false);
+        Selector selector2 = mock(Selector.class);
+        service6.setSelector(selector2);
+        service6.setToken("Bearer");
+        service6.setAppName("Acme");
+        service6.setGroupName("Acme");
+        HashMap<String, String> metadata6 = new HashMap<String, String>();
+        metadata6.put("foo", "foo");
+        service6.setMetadata(metadata6);
+        service6.setName("Acme");
+        service6.setProtectThreshold(1.0f);
+        cluster.setService(service6);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker5 =
+             mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker5);
+        HashMap<String, String> metadata7 = new HashMap<String, String>();
+        metadata7.put("foo", "foo");
+        cluster.setMetadata(metadata7);
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+        assertThat(cluster.getHealthCheckTask(), is(nullValue()));
+        assertThat(cluster.getService(), sameInstance(service1));
+        assertThat(cluster.getSitegroup(), is("DE"));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker5));
+        assertThat(cluster.getMetadata().get("foo"), is("foo"));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("Acme"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
     public void allIPs() {
         assertThat(new Cluster().allIPs(), empty());
         assertThat(new Cluster().allIPs(false), empty());
+        assertThat(new Cluster().allIPs(true), empty());
     }
 
     @Test

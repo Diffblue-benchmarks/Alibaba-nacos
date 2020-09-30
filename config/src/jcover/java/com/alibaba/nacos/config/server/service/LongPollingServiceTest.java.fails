@@ -37,15 +37,15 @@ class LongPollingServiceTest {
     private LongPollingService service;
 
     @Test
-    void isClientLongPollingReturnsFalse() {
-        assertThat(service.isClientLongPolling("/some/path.html"), is(false));
+    void isClientLongPollingClientIpIsBarReturnsFalse() {
+        assertThat(service.isClientLongPolling("bar"), is(false));
     }
 
     @Test
     void getters() {
-        assertThat(service.getClientSubConfigInfo("/some/path.html").isEmpty(), is(true));
-        assertThat(service.getCollectSubscribleInfo("1234", "/some/path.html", "/some/path.html").getLisentersGroupkeyStatus().isEmpty(), is(true));
-        assertThat(service.getCollectSubscribleInfoByIp("/some/path.html").getLisentersGroupkeyStatus().isEmpty(), is(true));
+        assertThat(service.getClientSubConfigInfo("bar").isEmpty(), is(true));
+        assertThat(service.getCollectSubscribleInfoByIp("bar").getLisentersGroupkeyStatus().isEmpty(), is(true));
+        assertThat(service.getCollectSubscribleInfo("1234", "bar", "foo").getLisentersGroupkeyStatus().isEmpty(), is(true));
         assertThat(service.getRetainIps().isEmpty(), is(true));
     }
 
@@ -81,22 +81,27 @@ class LongPollingServiceTest {
     }
 
     @Test
-    void generateResponse() throws java.io.UnsupportedEncodingException {
+    void generateResponse1() throws java.io.UnsupportedEncodingException {
 
         // arrange
         MockHttpServletResponse response = new MockHttpServletResponse();
-        ArrayList<String> changedGroups = new ArrayList<String>();
-        changedGroups.add("foo=bar");
 
         // act
-        service.generateResponse(new MockHttpServletRequest(), response, changedGroups);
+        service.generateResponse(new MockHttpServletRequest(), response, new ArrayList<String>());
 
         // assert
-        assertThat(response.getContentAsString(), is("null%02foo%3Dbar%01\n"));
+        assertThat(response.getContentAsString(), is("\n"));
         assertThat(response.getHeaderNames(), hasSize(3));
         assertTrue(response.getHeaderNames().contains("Cache-Control"));
         assertTrue(response.getHeaderNames().contains("Expires"));
         assertTrue(response.getHeaderNames().contains("Pragma"));
+    }
+
+    @Test
+    void generateResponse2() throws java.io.UnsupportedEncodingException {
+        ArrayList<String> changedGroups = new ArrayList<String>();
+        changedGroups.add("");
+        service.generateResponse(new MockHttpServletRequest(), new MockHttpServletResponse(), changedGroups);
     }
 
     @Test

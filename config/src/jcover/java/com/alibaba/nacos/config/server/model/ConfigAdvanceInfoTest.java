@@ -20,7 +20,7 @@ class ConfigAdvanceInfoTest {
         configAdvanceInfo.setCreateIp("bar");
         configAdvanceInfo.setCreateTime(1L);
         configAdvanceInfo.setCreateUser("John Smith");
-        configAdvanceInfo.setDesc("/some/path.html");
+        configAdvanceInfo.setDesc("foo");
         configAdvanceInfo.setEffect("/some/path.html");
         configAdvanceInfo.setModifyTime(1L);
         configAdvanceInfo.setSchema("/some/path.html");
@@ -30,7 +30,7 @@ class ConfigAdvanceInfoTest {
         assertThat(configAdvanceInfo.getCreateIp(), is("bar"));
         assertThat(configAdvanceInfo.getCreateTime(), is(1L));
         assertThat(configAdvanceInfo.getCreateUser(), is("John Smith"));
-        assertThat(configAdvanceInfo.getDesc(), is("/some/path.html"));
+        assertThat(configAdvanceInfo.getDesc(), is("foo"));
         assertThat(configAdvanceInfo.getEffect(), is("/some/path.html"));
         assertThat(configAdvanceInfo.getModifyTime(), is(1L));
         assertThat(configAdvanceInfo.getSchema(), is("/some/path.html"));

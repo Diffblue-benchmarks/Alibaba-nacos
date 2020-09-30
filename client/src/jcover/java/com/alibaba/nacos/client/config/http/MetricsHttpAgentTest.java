@@ -45,7 +45,7 @@ class MetricsHttpAgentTest {
     }
 
     @Test
-    void httpDeleteHeadersIsEmptyAndParamValuesIsEmptyAndPathIsDELETEAndReadTimeoutMsIsOne() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void httpDeleteHeadersIsEmptyAndParamValuesIsEmptyAndReadTimeoutMsIsOne() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.httpDelete(Mockito.<String>any(), Mockito.<java.util.List<String>>any(), Mockito.<java.util.List<String>>any(), Mockito.<String>any(), anyLong()))
             .thenReturn(new HttpSimpleClient.HttpResult(1, "/some/path.html"));

@@ -44,4 +44,21 @@ class EventDispatcherTest {
         eventDispatcher.setExecutor(executor);
         assertThat(eventDispatcher.getSubscribeServices(), empty());
     }
+
+    @Test
+    void serviceChanged() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
+        ServiceInfo serviceInfo = mock(ServiceInfo.class);
+        eventDispatcher.serviceChanged(serviceInfo);
+    }
+
+    @Test
+    void serviceChangedServiceInfoIsNull() throws InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
+        eventDispatcher.serviceChanged(null);
+    }
 }

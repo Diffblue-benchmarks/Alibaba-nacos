@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.cluster.ServerStatus;
 import com.alibaba.nacos.naming.cluster.ServerStatusManager;
 import com.alibaba.nacos.naming.cluster.servers.Server;
 import com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore;
@@ -70,9 +71,65 @@ public class OperatorControllerTest {
     private OperatorController controller;
 
     @Test
+    public void pushState1() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+        when(pushService.getFailedPushCount())
+            .thenReturn(1);
+        when(pushService.getTotalPush())
+            .thenReturn(1)
+            .thenReturn(0)
+            .thenReturn(-1);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/operator/push/state"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"total\":0,\"succeed\":0,\"reset\":false,\"ratio\":0}"));
+    }
+
+    @Test
+    public void pushState2() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+        when(pushService.getFailedPushCount())
+            .thenReturn(1);
+        when(pushService.getTotalPush())
+            .thenReturn(1)
+            .thenReturn(1)
+            .thenReturn(1)
+            .thenReturn(1)
+            .thenReturn(0);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/operator/push/state"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"total\":1,\"succeed\":0,\"reset\":false,\"ratio\":\"NaN\"}"));
+    }
+
+    @Test
+    public void metrics() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+        when(serviceManager.getInstanceCount())
+            .thenReturn(1);
+        when(serviceManager.getResponsibleInstanceCount())
+            .thenReturn(0);
+        when(serviceManager.getResponsibleServiceCount())
+            .thenReturn(1);
+        when(serviceManager.getServiceCount())
+            .thenReturn(1);
+        when(serverStatusManager.getServerStatus())
+            .thenReturn(ServerStatus.UP);
+        when(raftCore.getNotifyTaskCount())
+            .thenReturn(1);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/operator/metrics"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"serviceCount\":1,\"load\":2.54,\"mem\":0.20356052,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.1576087,\"status\":\"UP\",\"responsibleInstanceCount\":0}"));
+    }
+
+    @Test
     public void distroStatus() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
         Map<String, List<Server>> map = new HashMap<String, List<Server>>();
-        map.put("foo=bar", new ArrayList<Server>());
+        map.put("action", new ArrayList<Server>());
         when(serverListManager.getDistroConfig())
             .thenReturn(map);
         MockMvcBuilders.standaloneSetup(controller)
@@ -80,7 +137,7 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/distro/status"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"status\":{\"foo=bar\":[]}}"));
+            .andExpect(content().json("{\"status\":{\"action\":[]}}"));
     }
 
     @Test

@@ -15,16 +15,16 @@ class ApplicationInfoTest {
 
     @Test
     void factory() {
-        ApplicationInfo applicationInfo = new ApplicationInfo("bar");
+        ApplicationInfo applicationInfo = new ApplicationInfo("Acme");
         applicationInfo.setAppName("Acme");
         applicationInfo.setDynamicCollectDisabled(false);
-        applicationInfo.setLastSubscribeInfoCollectedTime(1L);
+        applicationInfo.setLastSubscribeInfoCollectedTime(0L);
         applicationInfo.setSubInfoCollectLockExpireTime(1L);
-        applicationInfo.setSubInfoCollectLockOwner("foo");
+        applicationInfo.setSubInfoCollectLockOwner("bar");
         assertThat(applicationInfo.getAppName(), is("Acme"));
-        assertThat(applicationInfo.getLastSubscribeInfoCollectedTime(), is(1L));
+        assertThat(applicationInfo.getLastSubscribeInfoCollectedTime(), is(0L));
         assertThat(applicationInfo.getSubInfoCollectLockExpireTime(), is(1L));
-        assertThat(applicationInfo.getSubInfoCollectLockOwner(), is("foo"));
+        assertThat(applicationInfo.getSubInfoCollectLockOwner(), is("bar"));
         assertThat(applicationInfo.isDynamicCollectDisabled(), is(false));
         assertThat(applicationInfo.isSubInfoRecentlyCollected(), is(false));
     }

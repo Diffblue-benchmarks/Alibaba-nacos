@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 class NotifyTaskProcessorTest {
 
     @Test
-    void notifyToDumpGroupIsBarAndLastModifiedIsOneReturnsFalse() {
-        assertThat(new NotifyTaskProcessor(new ServerListService()).notifyToDump("1234", "bar", "/some/path.html", 1L, "/some/path.html"), is(false));
+    void notifyToDumpGroupIsBarAndLastModifiedIsOneAndTenantIsExceptionReturnsFalse() {
+        assertThat(new NotifyTaskProcessor(new ServerListService()).notifyToDump("1234", "bar", "exception", 1L, "/some/path.html"), is(false));
     }
 }

@@ -28,20 +28,20 @@ class GroupInfoTest {
 
     @Test
     void factory2() {
-        GroupInfo groupInfo = new GroupInfo("bar", "1234", "foo");
+        GroupInfo groupInfo = new GroupInfo("280 Broadway", "1234", "bar");
         groupInfo.setAddress("280 Broadway");
         groupInfo.setDataId("1234");
-        groupInfo.setGroup("/some/path.html");
+        groupInfo.setGroup("foo");
         groupInfo.setId(1L);
         assertThat(groupInfo.getAddress(), is("280 Broadway"));
         assertThat(groupInfo.getDataId(), is("1234"));
-        assertThat(groupInfo.getGroup(), is("/some/path.html"));
+        assertThat(groupInfo.getGroup(), is("foo"));
         assertThat(groupInfo.getId(), is(1L));
     }
 
     @Test
     void testEquals() {
-        assertThat(new GroupInfo().equals(new Object()), is(false));
+        assertThat(new GroupInfo().equals("foo"), is(false));
         assertThat(new GroupInfo().equals(null), is(false));
     }
 }

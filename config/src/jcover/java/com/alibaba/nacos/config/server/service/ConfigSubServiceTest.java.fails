@@ -66,9 +66,9 @@ class ConfigSubServiceTest {
         SampleResult sampleCollectResult = new SampleResult();
         HashMap<String, String> lisentersGroupkeyStatus =
              new HashMap<String, String>();
-        lisentersGroupkeyStatus.put("foo", "foo");
+        lisentersGroupkeyStatus.put("bar", "foo");
         sampleCollectResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
-        assertThat(service.mergeSampleResult(sampleCollectResult, new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().get("foo"), is("foo"));
+        assertThat(service.mergeSampleResult(sampleCollectResult, new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().get("bar"), is("foo"));
     }
 
     @Test
@@ -90,5 +90,36 @@ class ConfigSubServiceTest {
         when(serverListService.getServerList())
             .thenReturn(list);
         assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 0).getLisentersGroupkeyStatus(), is(nullValue()));
+    }
+
+    @Test
+    void getCollectSampleResultByIp1() throws Exception {
+        List<String> list2 = new ArrayList<String>();
+        list2.add("foo");
+        when(serverListService.getServerList())
+            .thenReturn(list2)
+            .thenReturn(new ArrayList<String>());
+        assertThat(service.getCollectSampleResultByIp("/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void getCollectSampleResultByIp2() throws Exception {
+        List<String> list1 = new ArrayList<String>();
+        list1.add("foo");
+        List<String> list2 = new ArrayList<String>();
+        list2.add("foo");
+        when(serverListService.getServerList())
+            .thenReturn(list2)
+            .thenReturn(list1);
+        assertThat(service.getCollectSampleResultByIp("bar", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void getCollectSampleResultByIpSampleTimeIsZero() throws Exception {
+        List<String> list = new ArrayList<String>();
+        list.add("foo");
+        when(serverListService.getServerList())
+            .thenReturn(list);
+        assertThat(service.getCollectSampleResultByIp("bar", 0).getLisentersGroupkeyStatus(), is(nullValue()));
     }
 }

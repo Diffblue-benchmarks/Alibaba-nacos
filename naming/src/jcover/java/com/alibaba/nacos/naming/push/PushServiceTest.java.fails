@@ -63,6 +63,18 @@ public class PushServiceTest {
     }
 
     @Test
+    public void addClient4() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("N clientMap size:", "Acme", "foo", "N clientMap size:", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+    }
+
+    @Test
+    public void addClient5() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("N clientMap size:", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "N ackEntry is nullx", "foo");
+    }
+
+    @Test
     public void getClientsServiceNameIsAcme() throws CloneNotSupportedException {
         List<Subscriber> result = service.getClients("Acme", "1234");
         assertThat(result.size(), is(1));

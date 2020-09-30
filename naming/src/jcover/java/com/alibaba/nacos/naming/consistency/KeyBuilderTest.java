@@ -60,8 +60,9 @@ public class KeyBuilderTest {
     }
 
     @Test
-    public void matchServiceNameKeyIsKeyAndNamespaceIdIsRootAndServiceNameIsAcmeReturnsFalse() {
+    public void matchServiceName() {
         assertThat(KeyBuilder.matchServiceName("key", "root", "Acme"), is(false));
+        assertThat(KeyBuilder.matchServiceName("##", "", ""), is(true));
     }
 
     @Test
