@@ -46,11 +46,6 @@ class LocalConfigInfoProcessorTest {
     }
 
     @Test
-    void cleanEnvSnapshotEnvNameIsAcme() {
-        LocalConfigInfoProcessor.cleanEnvSnapshot("Acme");
-    }
-
-    @Test
     void getFailoverFile() {
         assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "bar", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data-tenant/bin/bash/bar/1234"));
         assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "/bin/bash", "").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data/bin/bash/1234"));

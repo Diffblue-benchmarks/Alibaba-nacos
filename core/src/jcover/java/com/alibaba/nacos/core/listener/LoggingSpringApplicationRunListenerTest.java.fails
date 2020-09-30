@@ -3,10 +3,13 @@ package com.alibaba.nacos.core.listener;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * Unit tests for com.alibaba.nacos.core.listener.LoggingSpringApplicationRunListener
@@ -28,6 +31,17 @@ class LoggingSpringApplicationRunListenerTest {
         Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "DE" };
         new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).starting();
+    }
+
+    @Test
+    void environmentPrepared() throws IllegalStateException, IllegalArgumentException, org.springframework.core.env.MissingRequiredPropertiesException {
+        Class<?>[] primarySources1 = new Class[] { String.class };
+        String[] args = new String[] { "DE" };
+        ConfigurableEnvironment environment2 =
+             mock(ConfigurableEnvironment.class);
+        when(environment2.containsProperty(Mockito.<String>any()))
+            .thenReturn(false);
+        new LoggingSpringApplicationRunListener(new SpringApplication(primarySources1), args).environmentPrepared(environment2);
     }
 
     @Test

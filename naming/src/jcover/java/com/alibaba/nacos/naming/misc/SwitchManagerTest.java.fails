@@ -3,9 +3,12 @@ package com.alibaba.nacos.naming.misc;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.consistency.ConsistencyService;
+import com.alibaba.nacos.naming.consistency.Datum;
 import com.alibaba.nacos.naming.consistency.RecordListener;
+import com.alibaba.nacos.naming.pojo.Record;
 
 import java.util.List;
 import java.util.Map;
@@ -39,7 +42,18 @@ public class SwitchManagerTest {
     private SwitchManager service;
 
     @Test
-    public void update() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+    public void update2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(switchDomain.clone())
+            .thenReturn(new SwitchDomain());
+        when(consistencyService.get(Mockito.<String>any()))
+            .thenReturn(new Datum());
+        service.update("entity", "value", false);
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(consistencyService).put(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00"), ArgumentMatchers.<Record>any());
+    }
+
+    @Test
+    public void update1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
 
         // arrange
         SwitchDomain newSwitchDomain = new SwitchDomain();

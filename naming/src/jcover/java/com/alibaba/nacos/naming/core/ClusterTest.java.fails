@@ -243,28 +243,6 @@ public class ClusterTest {
     }
 
     @Test
-    public void update() throws CloneNotSupportedException {
-
-        // arrange
-        Cluster cluster1 = new Cluster();
-        cluster1.setService(new Service());
-        Cluster cluster2 = new Cluster();
-        cluster2.setDefCkport(1);
-        cluster2.setDefIPPort(1);
-        cluster2.setSitegroup("DE");
-        AbstractHealthChecker healthChecker6 =
-             mock(AbstractHealthChecker.class);
-        cluster2.setHealthChecker(healthChecker6);
-        cluster2.setUseIPPort4Check(false);
-
-        // act
-        cluster1.update(cluster2);
-
-        // assert
-        assertThat(cluster1.getHealthChecker(), sameInstance(healthChecker6));
-    }
-
-    @Test
     public void containsReturnsFalse() {
         Instance ip1 = new Instance();
         ip1.setIp("DE");

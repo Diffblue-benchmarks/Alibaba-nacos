@@ -2,7 +2,6 @@ package com.alibaba.nacos.naming.cluster;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.consistency.ConsistencyService;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
@@ -34,26 +33,12 @@ public class ServerStatusManagerTest {
     private ServerStatusManager service;
 
     @Test
-    public void init1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("foo")
-            .thenReturn("bar");
-        service.init();
-    }
-
-    @Test
-    public void init2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("");
-        when(consistencyService.isAvailable())
-            .thenReturn(true);
+    public void init() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
         service.init();
     }
 
     @Test
     public void getServerStatusReturnsStarting() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
-        when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("foo");
         assertThat(service.getServerStatus(), is(ServerStatus.STARTING));
     }
 }

@@ -58,7 +58,7 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":743,\"leaderDueMs\":12478,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":4948,\"leaderDueMs\":8196,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.69:0\",\"heartbeatDueMs\":4558,\"leaderDueMs\":260,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":109,\"leaderDueMs\":10532,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
@@ -96,17 +96,17 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/leader"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":4572,\\\"leaderDueMs\\\":9643,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
+            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":4773,\\\"leaderDueMs\\\":4826,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
     }
 
     @Test
     public void getAllListeners() throws com.alibaba.nacos.api.exception.NacosException, Exception {
         Map<String, List<RecordListener>> map =
              new HashMap<String, List<RecordListener>>();
-        ArrayList<RecordListener> x466 = new ArrayList<RecordListener>();
+        ArrayList<RecordListener> x34 = new ArrayList<RecordListener>();
         RecordListener recordListener1 = mock(RecordListener.class);
-        x466.add(recordListener1);
-        map.put("HmacMD5", x466);
+        x34.add(recordListener1);
+        map.put("HmacMD5", x34);
         when(raftCore.getListeners())
             .thenReturn(map);
         MockMvcBuilders.standaloneSetup(controller)

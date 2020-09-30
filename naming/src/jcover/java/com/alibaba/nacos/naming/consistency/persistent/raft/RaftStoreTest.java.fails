@@ -41,12 +41,13 @@ public class RaftStoreTest {
     }
 
     @Test
-    public void loadMeta() throws Exception {
-        assertThat(service.loadMeta().getProperty("term"), is("1"));
+    public void loadMetaReturnsEmpty() throws Exception {
+        assertThat(service.loadMeta().isEmpty(), is(true));
     }
 
     @Test
-    public void loadKeyIsKeyReturnsNull() throws Exception {
+    public void load() throws Exception {
+        assertThat(service.load("bar"), is(nullValue()));
         assertThat(service.load("key"), is(nullValue()));
     }
 

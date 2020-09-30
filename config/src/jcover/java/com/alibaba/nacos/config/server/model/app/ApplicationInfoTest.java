@@ -43,6 +43,6 @@ class ApplicationInfoTest {
 
     @Test
     void currentServer() {
-        assertThat(new ApplicationInfo("Acme").currentServer(), is("10.128.0.69"));
+        assertThat(new ApplicationInfo("Acme").currentServer(), is("10.128.0.86"));
     }
 }

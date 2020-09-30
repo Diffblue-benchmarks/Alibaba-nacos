@@ -56,7 +56,7 @@ public class DistroMapperTest {
 
     @Test
     public void mapSrv() throws CloneNotSupportedException {
-        assertThat(service.mapSrv("Acme"), is("10.128.0.69:0"));
+        assertThat(service.mapSrv("Acme"), is("10.128.0.86:0"));
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
     }
 
