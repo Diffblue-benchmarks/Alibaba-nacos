@@ -1,0 +1,110 @@
+package com.alibaba.nacos.naming.push;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+import com.alibaba.nacos.naming.pojo.Subscriber;
+
+import java.net.InetSocketAddress;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.push.PushService
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {PushService.class})
+@RunWith(SpringRunner.class)
+public class PushServiceTest {
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private PushService service;
+
+    @Test
+    public void getTotalPushReturnsZero() throws CloneNotSupportedException {
+        assertThat(service.getTotalPush(), is(0));
+    }
+
+    @Test
+    public void setTotalPushToOne() throws CloneNotSupportedException {
+        service.setTotalPush(1);
+    }
+
+    @Test
+    public void addClient1() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("1234", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+    }
+
+    @Test
+    public void addClient2() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("1234", "Acme", "N ackEntry is nullx", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+    }
+
+    @Test
+    public void addClient3() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("1234", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "N ackEntry is nullx", "foo");
+    }
+
+    @Test
+    public void addClient4() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("N clientMap size:", "Acme", "foo", "N clientMap size:", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+    }
+
+    @Test
+    public void addClientClustersIsBar() throws CloneNotSupportedException, Exception {
+        DataSource dataSource = mock(DataSource.class);
+        service.addClient("N clientMap size:", "Acme", "bar", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+    }
+
+    @Test
+    public void getClientsServiceNameIsAcme() throws CloneNotSupportedException {
+        List<Subscriber> result = service.getClients("Acme", "1234");
+        assertThat(result.size(), is(1));
+        assertThat(result.get(0).getAddrStr(), is("127.0.0.1:80"));
+        assertThat(result.get(0).getAgent(), is("foo"));
+        assertThat(result.get(0).getApp(), is("foo"));
+        assertThat(result.get(0).getIp(), is("127.0.0.1"));
+        assertThat(result.get(0).getNamespaceId(), is("1234"));
+        assertThat(result.get(0).getServiceName(), is("Acme"));
+    }
+
+    @Test
+    public void serviceChangedServiceNameIsAcme() throws CloneNotSupportedException {
+        service.serviceChanged("1234", "Acme");
+    }
+
+    @Test
+    public void canEnablePushAgentIsFooReturnsFalse() throws CloneNotSupportedException {
+        when(switchDomain.isPushEnabled())
+            .thenReturn(false);
+        assertThat(service.canEnablePush("foo"), is(false));
+    }
+
+    @Test
+    public void getFailedPushCountReturnsZero() throws CloneNotSupportedException {
+        assertThat(service.getFailedPushCount(), is(0));
+    }
+
+    @Test
+    public void setFailedPushToOne() throws CloneNotSupportedException {
+        service.setFailedPush(1);
+    }
+}

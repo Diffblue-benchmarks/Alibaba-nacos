@@ -89,9 +89,9 @@ public class DataSyncerTest {
         server.setAlive(false);
         server.setIp("/some/path.html");
         server.setLastRefTime(1L);
-        server.setLastRefTimeStr("foo");
+        server.setLastRefTimeStr("Smith");
         server.setServePort(1);
-        server.setSite("/some/path.html");
+        server.setSite("");
         server.setWeight(1);
         list.add(server);
         when(serverListManager.getHealthyServers())

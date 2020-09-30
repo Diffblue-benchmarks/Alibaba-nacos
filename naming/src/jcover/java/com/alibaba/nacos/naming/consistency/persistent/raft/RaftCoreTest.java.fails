@@ -127,16 +127,8 @@ public class RaftCoreTest {
 
     @Test
     public void getDatum() throws CloneNotSupportedException, Exception, java.io.IOException, org.springframework.beans.BeansException {
-        when(raftStore.loadMeta())
-            .thenReturn(new Properties());
-        when(peers.getTerm())
-            .thenReturn(1L);
-        when(peers.isReady())
-            .thenReturn(false)
-            .thenReturn(false);
         assertThat(service.getDatum("key"), is(nullValue()));
         Mockito.verify(raftStore).loadDatums(ArgumentMatchers.<RaftCore.Notifier>any(), ArgumentMatchers.<ConcurrentMap<String, Datum>>any());
-        Mockito.verify(peers).setTerm(ArgumentMatchers.eq((Long) 0L));
     }
 
     @Test

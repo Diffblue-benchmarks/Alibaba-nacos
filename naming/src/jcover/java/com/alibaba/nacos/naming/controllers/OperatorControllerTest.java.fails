@@ -76,6 +76,24 @@ public class OperatorControllerTest {
             .thenReturn(1);
         when(pushService.getTotalPush())
             .thenReturn(1)
+            .thenReturn(1)
+            .thenReturn(1)
+            .thenReturn(1)
+            .thenReturn(1);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/operator/push/state"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"total\":1,\"succeed\":0,\"reset\":false,\"ratio\":0.0}"));
+    }
+
+    @Test
+    public void pushState2() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+        when(pushService.getFailedPushCount())
+            .thenReturn(1);
+        when(pushService.getTotalPush())
+            .thenReturn(1)
             .thenReturn(0)
             .thenReturn(-1);
         MockMvcBuilders.standaloneSetup(controller)
@@ -87,29 +105,11 @@ public class OperatorControllerTest {
     }
 
     @Test
-    public void pushState2() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
-        when(pushService.getFailedPushCount())
-            .thenReturn(1);
-        when(pushService.getTotalPush())
-            .thenReturn(1)
-            .thenReturn(1)
-            .thenReturn(1)
-            .thenReturn(1)
-            .thenReturn(0);
-        MockMvcBuilders.standaloneSetup(controller)
-            .build().perform(
-            MockMvcRequestBuilders.get("/v1/ns/operator/push/state"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"total\":1,\"succeed\":0,\"reset\":false,\"ratio\":\"NaN\"}"));
-    }
-
-    @Test
     public void metrics() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
         when(serviceManager.getInstanceCount())
             .thenReturn(1);
         when(serviceManager.getResponsibleInstanceCount())
-            .thenReturn(0);
+            .thenReturn(1);
         when(serviceManager.getResponsibleServiceCount())
             .thenReturn(1);
         when(serviceManager.getServiceCount())
@@ -123,7 +123,7 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/metrics"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"serviceCount\":1,\"load\":2.31,\"mem\":0.20485364,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.17195767,\"status\":\"UP\",\"responsibleInstanceCount\":0}"));
+            .andExpect(content().json("{\"serviceCount\":1,\"load\":2.41,\"mem\":0.20658886,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.017659595,\"status\":\"UP\",\"responsibleInstanceCount\":1}"));
     }
 
     @Test
