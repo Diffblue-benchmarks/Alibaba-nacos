@@ -63,19 +63,31 @@ public class ServiceManagerTest {
     }
 
     @Test
-    public void interests() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+    public void interests1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
         assertThat(service.interests("key"), is(false));
         Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
-    public void matchUnlistenKey() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+    public void interests2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.interests("com.alibaba.nacos.naming.domains.meta."), is(true));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void matchUnlistenKey1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
         assertThat(service.matchUnlistenKey("key"), is(false));
         Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
-    public void onChange() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void matchUnlistenKey2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+        assertThat(service.matchUnlistenKey("com.alibaba.nacos.naming.domains.meta."), is(true));
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void onChange1() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
 
         // arrange
         Service service1 = new Service();
@@ -87,6 +99,12 @@ public class ServiceManagerTest {
         service.onChange("key", service1);
 
         // assert
+        Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+    }
+
+    @Test
+    public void onChange2() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        service.onChange("key", (Service) null);
         Mockito.verify(consistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 

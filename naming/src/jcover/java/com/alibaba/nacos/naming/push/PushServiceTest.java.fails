@@ -65,13 +65,13 @@ public class PushServiceTest {
     @Test
     public void addClient4() throws CloneNotSupportedException, Exception {
         DataSource dataSource = mock(DataSource.class);
-        service.addClient("N clientMap size:", "Acme", "foo", "N clientMap size:", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+        service.addClient("N clientMap size:", "Acme", "foo", "N failed to init push service", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
     }
 
     @Test
-    public void addClientClustersIsBar() throws CloneNotSupportedException, Exception {
+    public void addClientTenantIsEmpty() throws CloneNotSupportedException, Exception {
         DataSource dataSource = mock(DataSource.class);
-        service.addClient("N clientMap size:", "Acme", "bar", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "foo", "foo");
+        service.addClient("N clientMap size:", "Acme", "foo", "foo", new InetSocketAddress("127.0.0.1", 80), dataSource, "", "foo");
     }
 
     @Test

@@ -18,11 +18,11 @@ class TimeUtilsTest {
 
     @Test
     void getCurrentTime() {
-        assertThat(TimeUtils.getCurrentTime(), equalTo(Timestamp.valueOf("2020-09-30 12:43:45.789")));
+        assertThat(TimeUtils.getCurrentTime(), equalTo(Timestamp.valueOf("2020-09-30 13:17:10.624")));
     }
 
     @Test
     void getCurrentTimeStr() {
-        assertThat(TimeUtils.getCurrentTimeStr(), is("2020-09-30 12:43:45"));
+        assertThat(TimeUtils.getCurrentTimeStr(), is("2020-09-30 13:17:10"));
     }
 }

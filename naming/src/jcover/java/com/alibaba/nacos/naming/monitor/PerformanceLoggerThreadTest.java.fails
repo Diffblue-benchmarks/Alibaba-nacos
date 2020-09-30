@@ -1,6 +1,9 @@
 package com.alibaba.nacos.naming.monitor;
 
+import static org.mockito.Mockito.when;
+
 import com.alibaba.nacos.naming.consistency.persistent.raft.RaftCore;
+import com.alibaba.nacos.naming.consistency.persistent.raft.RaftPeerSet;
 import com.alibaba.nacos.naming.core.ServiceManager;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 import com.alibaba.nacos.naming.push.PushService;
@@ -49,5 +52,20 @@ public class PerformanceLoggerThreadTest {
         service.refreshMetrics();
         Mockito.verify(pushService).setFailedPush(ArgumentMatchers.eq((Integer) 0));
         Mockito.verify(pushService).setTotalPush(ArgumentMatchers.eq((Integer) 0));
+    }
+
+    @Test
+    public void collectMetrics() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+        when(serviceManager.getInstanceCount())
+            .thenReturn(0);
+        when(serviceManager.getServiceCount())
+            .thenReturn(1);
+        when(raftCore.isLeader())
+            .thenReturn(true);
+        when(pushService.getFailedPushCount())
+            .thenReturn(1);
+        when(pushService.getTotalPush())
+            .thenReturn(1);
+        service.collectMetrics();
     }
 }

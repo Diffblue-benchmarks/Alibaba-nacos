@@ -37,7 +37,7 @@ public class RunningConfigTest {
             .thenReturn("foo");
         WebServer webServer1 = mock(WebServer.class);
         when(webServer1.getPort())
-            .thenReturn(0);
+            .thenReturn(1);
         WebServer webServer2 = mock(WebServer.class);
         when(webServer2.getPort())
             .thenReturn(1);

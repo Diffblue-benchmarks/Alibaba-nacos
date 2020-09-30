@@ -3,6 +3,7 @@ package com.alibaba.nacos.naming.core;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.alibaba.nacos.naming.cluster.ServerListManager;
@@ -47,15 +48,16 @@ public class DistroMapperTest {
     }
 
     @Test
-    public void responsible1() throws CloneNotSupportedException {
+    public void responsible2() throws CloneNotSupportedException {
         when(switchDomain.isHealthCheckEnabled(Mockito.<String>any()))
             .thenReturn(false);
-        assertThat(service.responsible(new Cluster(), new Instance()), is(false));
+        Instance instance = mock(Instance.class);
+        assertThat(service.responsible(new Cluster(), instance), is(false));
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
     }
 
     @Test
-    public void responsible2() throws CloneNotSupportedException {
+    public void responsible1() throws CloneNotSupportedException {
         when(switchDomain.isDistroEnabled())
             .thenReturn(false);
         assertThat(service.responsible("Acme"), is(true));

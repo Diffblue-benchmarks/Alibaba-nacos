@@ -1,5 +1,8 @@
 package com.alibaba.nacos.config.server.aspect;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,10 +20,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 class CapacityManagementAspectTest {
 
     @Test
-    void aroundSyncUpdateConfigAllAppNameIsAcmeAndContentIsHelloAndTagIsTag() throws Throwable, java.io.UnsupportedEncodingException {
+    void aroundSyncUpdateConfigAllAppNameIsAcmeAndContentIsHelloAndTagIsTagReturnsFoo() throws Throwable, java.io.UnsupportedEncodingException {
         ProceedingJoinPoint pjp = mock(ProceedingJoinPoint.class);
         when(pjp.proceed())
-            .thenReturn(new Object());
-        // pojo Object
+            .thenReturn("foo");
+        assertThat(new CapacityManagementAspect().aroundSyncUpdateConfigAll(pjp, new MockHttpServletRequest(), new MockHttpServletResponse(), "1234", "/some/path.html", "hello", "Acme", "John Smith", "/some/path.html", "tag"), instanceOf(String.class));
+        assertThat((String) new CapacityManagementAspect().aroundSyncUpdateConfigAll(pjp, new MockHttpServletRequest(), new MockHttpServletResponse(), "1234", "/some/path.html", "hello", "Acme", "John Smith", "/some/path.html", "tag"), is("foo"));
     }
 }

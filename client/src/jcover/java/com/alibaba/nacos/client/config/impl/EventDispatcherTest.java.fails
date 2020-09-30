@@ -31,31 +31,6 @@ class EventDispatcherTest {
     }
 
     @Test
-    void fireEvent1() {
-        EventDispatcher.AbstractEvent abstractEvent =
-             mock(EventDispatcher.AbstractEvent.class);
-        when(abstractEvent.implyEvents())
-            .thenReturn(new ArrayList<EventDispatcher.AbstractEvent>());
-        EventDispatcher.fireEvent(abstractEvent);
-    }
-
-    @Test
-    void fireEvent2() {
-        List<EventDispatcher.AbstractEvent> list1 =
-             new ArrayList<EventDispatcher.AbstractEvent>();
-        EventDispatcher.AbstractEvent abstractEvent1 =
-             mock(EventDispatcher.AbstractEvent.class);
-        when(abstractEvent1.implyEvents())
-            .thenReturn(new ArrayList<EventDispatcher.AbstractEvent>());
-        list1.add(abstractEvent1);
-        EventDispatcher.AbstractEvent abstractEvent2 =
-             mock(EventDispatcher.AbstractEvent.class);
-        when(abstractEvent2.implyEvents())
-            .thenReturn(list1);
-        EventDispatcher.fireEvent(abstractEvent2);
-    }
-
-    @Test
     void getListenerListEventTypeIsNestedClassReturnsEmpty() {
         assertThat(EventDispatcher.getListenerList(EventDispatcher.AbstractEvent.class), empty());
     }

@@ -51,13 +51,13 @@ public class ServerTest {
     }
 
     @Test
-    public void compareToReturnsMinusFour() {
+    public void compareTo() {
         Server server1 = new Server();
-        server1.setIp("bar");
+        server1.setIp("/some/path.html");
         Server server2 = mock(Server.class);
         when(server2.getKey())
             .thenReturn("foo");
-        assertThat(server1.compareTo(server2), is(-4));
+        assertThat(server1.compareTo(server2), is(-55));
     }
 
     @Test

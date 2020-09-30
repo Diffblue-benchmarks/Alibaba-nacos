@@ -1,7 +1,6 @@
 package com.alibaba.nacos.config.server.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 
@@ -72,28 +71,27 @@ class ConfigSubServiceTest {
     }
 
     @Test
-    void getCollectSampleResultSampleTimeIsOne() throws Exception {
-        List<String> list1 = new ArrayList<String>();
-        list1.add("foo");
+    void getCollectSampleResultGroupIsBar() throws Exception {
         List<String> list2 = new ArrayList<String>();
         list2.add("foo");
         when(serverListService.getServerList())
             .thenReturn(list2)
-            .thenReturn(list1);
-        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
+            .thenReturn(new ArrayList<String>());
+        assertThat(service.getCollectSampleResult("1234", "bar", "/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
     }
 
     @Test
-    void getCollectSampleResultSampleTimeIsZero() throws Exception {
-        List<String> list = new ArrayList<String>();
-        list.add("foo");
+    void getCollectSampleResultTenantIsEmpty() throws Exception {
+        List<String> list2 = new ArrayList<String>();
+        list2.add("foo");
         when(serverListService.getServerList())
-            .thenReturn(list);
-        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 0).getLisentersGroupkeyStatus(), is(nullValue()));
+            .thenReturn(list2)
+            .thenReturn(new ArrayList<String>());
+        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
     }
 
     @Test
-    void getCollectSampleResultByIp1() throws Exception {
+    void getCollectSampleResultByIp() throws Exception {
         List<String> list2 = new ArrayList<String>();
         list2.add("foo");
         when(serverListService.getServerList())
@@ -103,7 +101,7 @@ class ConfigSubServiceTest {
     }
 
     @Test
-    void getCollectSampleResultByIp2() throws Exception {
+    void getCollectSampleResultByIpIpIsBar() throws Exception {
         List<String> list1 = new ArrayList<String>();
         list1.add("foo");
         List<String> list2 = new ArrayList<String>();
@@ -112,14 +110,5 @@ class ConfigSubServiceTest {
             .thenReturn(list2)
             .thenReturn(list1);
         assertThat(service.getCollectSampleResultByIp("bar", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
-    }
-
-    @Test
-    void getCollectSampleResultByIpSampleTimeIsZero() throws Exception {
-        List<String> list = new ArrayList<String>();
-        list.add("foo");
-        when(serverListService.getServerList())
-            .thenReturn(list);
-        assertThat(service.getCollectSampleResultByIp("bar", 0).getLisentersGroupkeyStatus(), is(nullValue()));
     }
 }

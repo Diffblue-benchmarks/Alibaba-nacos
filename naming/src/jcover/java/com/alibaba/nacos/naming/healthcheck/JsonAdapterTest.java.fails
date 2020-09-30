@@ -1,0 +1,43 @@
+package com.alibaba.nacos.naming.healthcheck;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.fastjson.serializer.JSONSerializer;
+import com.alibaba.fastjson.serializer.SerializeWriter;
+import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
+
+import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.healthcheck.JsonAdapter
+ *
+ * @author Diffblue Cover
+ */
+
+public class JsonAdapterTest {
+
+    @Test
+    public void getInstance() {
+        assertThat(JsonAdapter.getInstance().getFastMatchToken(), is(0));
+    }
+
+    @Test
+    public void write() throws CloneNotSupportedException, java.io.IOException {
+        AbstractHealthChecker abstractHealthChecker =
+             mock(AbstractHealthChecker.class);
+        when(abstractHealthChecker.getType())
+            .thenReturn("foo");
+        JsonAdapter.getInstance().write(new JSONSerializer(), abstractHealthChecker, new Object(), String.class, 1);
+        Mockito.verify(abstractHealthChecker).jsonAdapterCallback(ArgumentMatchers.<SerializeWriter>any());
+    }
+
+    @Test
+    public void writeIIsOneAndOIsNullAndTypeIsString() throws java.io.IOException {
+        JsonAdapter.getInstance().write(new JSONSerializer(), null, new Object(), String.class, 1);
+    }
+}

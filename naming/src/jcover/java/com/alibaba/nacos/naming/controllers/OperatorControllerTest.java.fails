@@ -78,14 +78,14 @@ public class OperatorControllerTest {
             .thenReturn(1)
             .thenReturn(1)
             .thenReturn(1)
-            .thenReturn(1)
-            .thenReturn(1);
+            .thenReturn(0)
+            .thenReturn(-1);
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/operator/push/state"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"total\":1,\"succeed\":0,\"reset\":false,\"ratio\":0.0}"));
+            .andExpect(content().json("{\"total\":1,\"succeed\":0,\"reset\":false,\"ratio\":1.0}"));
     }
 
     @Test
@@ -94,14 +94,14 @@ public class OperatorControllerTest {
             .thenReturn(1);
         when(pushService.getTotalPush())
             .thenReturn(1)
-            .thenReturn(0)
-            .thenReturn(-1);
+            .thenReturn(1)
+            .thenReturn(0);
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/operator/push/state"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"total\":0,\"succeed\":0,\"reset\":false,\"ratio\":0}"));
+            .andExpect(content().json("{\"total\":1,\"succeed\":0,\"reset\":false,\"ratio\":0}"));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/metrics"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"serviceCount\":1,\"load\":2.41,\"mem\":0.20658886,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.017659595,\"status\":\"UP\",\"responsibleInstanceCount\":1}"));
+            .andExpect(content().json("{\"serviceCount\":1,\"load\":2.33,\"mem\":0.19357239,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.022269364,\"status\":\"UP\",\"responsibleInstanceCount\":1}"));
     }
 
     @Test
