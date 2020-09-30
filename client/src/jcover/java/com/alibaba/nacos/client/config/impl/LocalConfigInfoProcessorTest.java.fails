@@ -36,11 +36,6 @@ class LocalConfigInfoProcessorTest {
     }
 
     @Test
-    void saveSnapshotEnvNameIsBarAndGroupIsFoo() {
-        LocalConfigInfoProcessor.saveSnapshot("bar", "1234", "foo", "en_GB", "en_GB");
-    }
-
-    @Test
     void cleanAllSnapshot() {
         LocalConfigInfoProcessor.cleanAllSnapshot();
     }

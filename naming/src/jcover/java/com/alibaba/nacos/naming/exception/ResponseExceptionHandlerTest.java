@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
@@ -20,6 +21,7 @@ public class ResponseExceptionHandlerTest {
     public void handleParameterError() {
         ResponseEntity<String> result =
              new ResponseExceptionHandler().handleParameterError(new IllegalArgumentException());
+        assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
         assertThat(result.getBody(), is(nullValue()));
         assertThat(result.getHeaders().isEmpty(), is(true));
     }
@@ -28,6 +30,7 @@ public class ResponseExceptionHandlerTest {
     public void handleMissingParams() {
         ResponseEntity<String> result =
              new ResponseExceptionHandler().handleMissingParams(new MissingServletRequestParameterException("name", "data"));
+        assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
         assertThat(result.getBody(), is("Parameter 'name' is missing"));
         assertThat(result.getHeaders().isEmpty(), is(true));
     }

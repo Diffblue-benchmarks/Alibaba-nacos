@@ -60,14 +60,13 @@ class NacosNamingServiceTest {
     }
 
     @Test
-    void subscribe1() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribeServiceNameIsAcme() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
         new NacosNamingService("Smith").subscribe("Acme", listener);
-        Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());
     }
 
     @Test
-    void subscribe2() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribe() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
         new NacosNamingService("Smith").subscribe("Acme", "Acme", listener);
         Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());

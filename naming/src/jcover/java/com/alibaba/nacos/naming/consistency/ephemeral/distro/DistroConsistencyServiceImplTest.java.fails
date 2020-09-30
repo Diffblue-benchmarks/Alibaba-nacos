@@ -120,7 +120,9 @@ public class DistroConsistencyServiceImplTest {
     @Test
     public void onPutKeyIsKey() throws CloneNotSupportedException {
         List<Server> list = new ArrayList<Server>();
-        list.add(new Server());
+        Server server = new Server();
+        server.setWeight(1);
+        list.add(server);
         when(serverListManager.getHealthyServers())
             .thenReturn(list);
         Record value = mock(Record.class);
@@ -176,6 +178,25 @@ public class DistroConsistencyServiceImplTest {
     public void unlistenKeyIsBar() throws CloneNotSupportedException, Exception, com.alibaba.nacos.api.exception.NacosException {
         RecordListener listener = mock(RecordListener.class);
         service.unlisten("bar", listener);
+    }
+
+    @Test
+    public void unlistenKeyIsKey() throws CloneNotSupportedException, Exception, com.alibaba.nacos.api.exception.NacosException {
+        List<Server> list = new ArrayList<Server>();
+        Server server = new Server();
+        server.setAdWeight(1);
+        server.setAlive(false);
+        server.setIp("/some/path.html");
+        server.setLastRefTime(1L);
+        server.setLastRefTimeStr("Smith");
+        server.setServePort(1);
+        server.setSite("/some/path.html");
+        server.setWeight(1);
+        list.add(server);
+        when(serverListManager.getHealthyServers())
+            .thenReturn(list);
+        RecordListener listener = mock(RecordListener.class);
+        service.unlisten("key", listener);
     }
 
     @Test

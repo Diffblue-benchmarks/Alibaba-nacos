@@ -58,7 +58,7 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":4021,\"leaderDueMs\":5081,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":3930,\"leaderDueMs\":9589,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":4054,\"leaderDueMs\":6755,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":1983,\"leaderDueMs\":11867,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/leader"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":3038,\\\"leaderDueMs\\\":3825,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
+            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":4058,\\\"leaderDueMs\\\":14540,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
     }
 
     @Test
