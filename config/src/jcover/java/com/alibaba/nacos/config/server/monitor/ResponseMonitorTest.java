@@ -1,8 +1,5 @@
 package com.alibaba.nacos.config.server.monitor;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -56,10 +53,5 @@ class ResponseMonitorTest {
     @Test
     void addConfigTimeTimeIsOneThousand() {
         ResponseMonitor.addConfigTime(1_000L);
-    }
-
-    @Test
-    void getStringForPrint() {
-        assertThat(ResponseMonitor.getStringForPrint(), is("getConfig monitor:\r\n0-50ms:39.0%\r\n100-200ms:8.0%\r\n200-500ms:8.0%\r\n500-1000ms:8.0%\r\n1000-2000ms:8.0%\r\n2000-3000ms:8.0%\r\n3000以上ms:8.0%\r\n"));
     }
 }

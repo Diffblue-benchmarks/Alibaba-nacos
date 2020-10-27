@@ -1,7 +1,10 @@
 package com.alibaba.nacos.config.server.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+
+import com.alibaba.nacos.config.server.model.SubscriberStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,39 +30,40 @@ class ClientTrackServiceTest {
     }
 
     @Test
-    void trackClientMd5GroupKeyIsKeyAndIpIsBar() {
-        ClientTrackService.trackClientMd5("bar", "key", "RA123456789CN");
+    void trackClientMd5GroupKeyIsKey() {
+        ClientTrackService.trackClientMd5("RA123456789CN", "key", "RA123456789CN");
     }
 
     @Test
-    void subscribeClientCountReturnsZero() {
-        assertThat(ClientTrackService.subscribeClientCount(), is(0));
+    void subscribeClientCountReturnsOne() {
+        assertThat(ClientTrackService.subscribeClientCount(), is(1));
     }
 
     @Test
-    void subscriberCountReturnsZero() {
-        assertThat(ClientTrackService.subscriberCount(), is(0L));
+    void subscriberCountReturnsTwo() {
+        assertThat(ClientTrackService.subscriberCount(), is(2L));
+    }
+
+    @Test
+    void listSubsByGroupGroupKeyIsKey() {
+        Map<String, SubscriberStatus> result =
+             ClientTrackService.listSubsByGroup("key");
+        assertThat(result.get("RA123456789CN").getGroupKey(), is("key"));
+        assertThat(result.get("RA123456789CN").getLastTime(), is(1_603_781_757_162L));
+        assertThat(result.get("RA123456789CN").getMd5(), is("RA123456789CN"));
+        assertThat(result.get("RA123456789CN").getServerIp(), is(nullValue()));
+        assertThat(result.get("RA123456789CN").getStatus(), is(false));
     }
 
     @Test
     void getters() {
-        assertThat(ClientTrackService.listSubsByGroup("key").isEmpty(), is(true));
+        assertThat(ClientTrackService.isClientUptodate("bar").isEmpty(), is(true));
         assertThat(ClientTrackService.listSubStatus("on time").isEmpty(), is(true));
     }
 
     @Test
-    void isClientUptodateIpIsBarReturnsFalse() {
-        assertThat(ClientTrackService.isClientUptodate("bar").get("key"), is(false));
-    }
-
-    @Test
-    void listSubscriberByGroupGroupKeyIsKeyReturnsFalseFalseFalseFalse() {
-        Map<String, Boolean> result =
-             ClientTrackService.listSubscriberByGroup("key");
-        assertThat(result.get(""), is(false));
-        assertThat(result.get("RA123456789CN"), is(false));
-        assertThat(result.get("bar"), is(false));
-        assertThat(result.get("foo"), is(false));
+    void listSubscriberByGroupGroupKeyIsKeyReturnsFalse() {
+        assertThat(ClientTrackService.listSubscriberByGroup("key").get("RA123456789CN"), is(false));
     }
 
     @Test

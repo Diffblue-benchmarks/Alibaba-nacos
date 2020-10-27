@@ -57,8 +57,7 @@ class ConfigInfo4TagTest {
     }
 
     @Test
-    void testEquals() {
-        assertThat(new ConfigInfo4Tag().equals(new Object()), is(false));
+    void equalsReturnsFalse() {
         assertThat(new ConfigInfo4Tag().equals(new Object()), is(false));
     }
 }

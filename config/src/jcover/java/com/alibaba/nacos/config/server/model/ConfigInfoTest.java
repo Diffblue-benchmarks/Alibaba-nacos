@@ -93,8 +93,7 @@ class ConfigInfoTest {
     }
 
     @Test
-    void testEquals() {
-        assertThat(new ConfigInfo().equals(new Object()), is(false));
+    void equalsReturnsFalse() {
         assertThat(new ConfigInfo().equals(new Object()), is(false));
     }
 }

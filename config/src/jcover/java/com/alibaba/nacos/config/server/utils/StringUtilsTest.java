@@ -25,19 +25,19 @@ class StringUtilsTest {
     void isNotEmpty() {
         assertThat(StringUtils.isNotEmpty("bar"), is(true));
         assertThat(StringUtils.isNotEmpty(""), is(false));
-        assertThat(StringUtils.isNotEmpty(null), is(false));
     }
 
     @Test
     void isEmpty() {
         assertThat(StringUtils.isEmpty("bar"), is(false));
         assertThat(StringUtils.isEmpty(""), is(true));
+        assertThat(StringUtils.isEmpty(null), is(true));
     }
 
     @Test
     void defaultIfEmpty() {
-        assertThat(StringUtils.defaultIfEmpty("", "bar"), is("bar"));
-        assertThat(StringUtils.defaultIfEmpty("bar", "foo"), is("bar"));
+        assertThat(StringUtils.defaultIfEmpty("bar", "foo=bar"), is("bar"));
+        assertThat(StringUtils.defaultIfEmpty("", "foo=bar"), is("foo=bar"));
     }
 
     @Test
