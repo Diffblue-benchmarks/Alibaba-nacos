@@ -109,8 +109,36 @@ public class DistroConsistencyServiceImplTest {
     }
 
     @Test
-    public void syncAllDataFromRemoteReturnsFalse() {
+    public void syncAllDataFromRemote1() {
         assertThat(service.syncAllDataFromRemote(new Server()), is(false));
+    }
+
+    @Test
+    public void syncAllDataFromRemote2() {
+        Server server = new Server();
+        server.setAdWeight(0);
+        server.setAlive(false);
+        server.setIp("/some/path.html");
+        server.setLastRefTime(1L);
+        server.setLastRefTimeStr("bar");
+        server.setServePort(1);
+        server.setSite("/some/path.html");
+        server.setWeight(1);
+        assertThat(service.syncAllDataFromRemote(server), is(false));
+    }
+
+    @Test
+    public void syncAllDataFromRemote3() {
+        Server server = new Server();
+        server.setAdWeight(0);
+        server.setAlive(false);
+        server.setIp("/some/path.html");
+        server.setLastRefTime(1L);
+        server.setLastRefTimeStr("Smith");
+        server.setServePort(-1);
+        server.setSite("/some/path.html");
+        server.setWeight(1);
+        assertThat(service.syncAllDataFromRemote(server), is(false));
     }
 
     @Test
@@ -134,16 +162,7 @@ public class DistroConsistencyServiceImplTest {
     }
 
     @Test
-    public void isAvailable1() {
-        when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("");
-        when(globalConfig.isDataWarmup())
-            .thenReturn(true);
-        assertThat(service.isAvailable(), is(false));
-    }
-
-    @Test
-    public void isAvailable2() {
+    public void isAvailableReturnsFalse() {
         when(switchDomain.getOverriddenServerStatus())
             .thenReturn("bar");
         when(globalConfig.isDataWarmup())

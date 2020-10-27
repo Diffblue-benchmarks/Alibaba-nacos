@@ -30,75 +30,45 @@ class ClientTrackServiceTest {
     }
 
     @Test
-    void trackClientMd5GroupKeyIsKeyAndIpIsBar() {
-        ClientTrackService.trackClientMd5("bar", "key", "RA123456789CN");
+    void trackClientMd5GroupKeyIsKey() {
+        ClientTrackService.trackClientMd5("RA123456789CN", "key", "RA123456789CN");
     }
 
     @Test
-    void subscribeClientCountReturnsZero() {
-        assertThat(ClientTrackService.subscribeClientCount(), is(0));
+    void subscribeClientCountReturnsFour() {
+        assertThat(ClientTrackService.subscribeClientCount(), is(4));
     }
 
     @Test
-    void subscriberCountReturnsSeven() {
-        assertThat(ClientTrackService.subscriberCount(), is(7L));
+    void subscriberCountReturnsOne() {
+        assertThat(ClientTrackService.subscriberCount(), is(1L));
     }
 
     @Test
-    void listSubStatusIpIsBar() {
-        Map<String, SubscriberStatus> result =
-             ClientTrackService.listSubStatus("bar");
-        assertThat(result.get("key").getGroupKey(), is("key"));
-        assertThat(result.get("key").getLastTime(), is(1_603_767_381_420L));
-        assertThat(result.get("key").getMd5(), is("RA123456789CN"));
-        assertThat(result.get("key").getServerIp(), is(nullValue()));
-        assertThat(result.get("key").getStatus(), is(false));
-    }
-
-    @Test
-    void listSubStatusReturnsEmpty() {
+    void listSubStatus() {
         assertThat(ClientTrackService.listSubStatus("on time").isEmpty(), is(true));
+        assertThat(ClientTrackService.listSubStatus("bar").isEmpty(), is(true));
     }
 
     @Test
     void listSubsByGroupGroupKeyIsKey() {
         Map<String, SubscriberStatus> result =
              ClientTrackService.listSubsByGroup("key");
-        assertThat(result.get("").getGroupKey(), is("key"));
-        assertThat(result.get("").getLastTime(), is(1_603_767_381_420L));
-        assertThat(result.get("").getMd5(), is("RA123456789CN"));
-        assertThat(result.get("").getServerIp(), is(nullValue()));
-        assertThat(result.get("").getStatus(), is(false));
         assertThat(result.get("RA123456789CN").getGroupKey(), is("key"));
-        assertThat(result.get("RA123456789CN").getLastTime(), is(1_603_767_381_427L));
-        assertThat(result.get("RA123456789CN").getMd5(), is("foo"));
+        assertThat(result.get("RA123456789CN").getLastTime(), is(1_603_769_369_346L));
+        assertThat(result.get("RA123456789CN").getMd5(), is("RA123456789CN"));
         assertThat(result.get("RA123456789CN").getServerIp(), is(nullValue()));
         assertThat(result.get("RA123456789CN").getStatus(), is(false));
-        assertThat(result.get("bar").getGroupKey(), is("key"));
-        assertThat(result.get("bar").getLastTime(), is(1_603_767_381_420L));
-        assertThat(result.get("bar").getMd5(), is("RA123456789CN"));
-        assertThat(result.get("bar").getServerIp(), is(nullValue()));
-        assertThat(result.get("bar").getStatus(), is(false));
-        assertThat(result.get("foo").getGroupKey(), is("key"));
-        assertThat(result.get("foo").getLastTime(), is(1_603_767_381_421L));
-        assertThat(result.get("foo").getMd5(), is("RA123456789CN"));
-        assertThat(result.get("foo").getServerIp(), is(nullValue()));
-        assertThat(result.get("foo").getStatus(), is(false));
     }
 
     @Test
-    void isClientUptodateIpIsBarReturnsFalse() {
-        assertThat(ClientTrackService.isClientUptodate("bar").get("key"), is(false));
+    void isClientUptodateIpIsBarReturnsEmpty() {
+        assertThat(ClientTrackService.isClientUptodate("bar").isEmpty(), is(true));
     }
 
     @Test
-    void listSubscriberByGroupGroupKeyIsKeyReturnsFalseFalseFalseFalse() {
-        Map<String, Boolean> result =
-             ClientTrackService.listSubscriberByGroup("key");
-        assertThat(result.get(""), is(false));
-        assertThat(result.get("RA123456789CN"), is(false));
-        assertThat(result.get("bar"), is(false));
-        assertThat(result.get("foo"), is(false));
+    void listSubscriberByGroupGroupKeyIsKeyReturnsFalse() {
+        assertThat(ClientTrackService.listSubscriberByGroup("key").get("RA123456789CN"), is(false));
     }
 
     @Test
