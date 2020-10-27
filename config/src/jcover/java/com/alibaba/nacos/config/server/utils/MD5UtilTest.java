@@ -2,6 +2,7 @@ package com.alibaba.nacos.config.server.utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 
 import java.io.StringBufferInputStream;
@@ -23,8 +24,23 @@ import org.springframework.mock.web.MockHttpServletResponse;
 class MD5UtilTest {
 
     @Test
-    void compareMd5ReturnsEmpty() throws java.io.UnsupportedEncodingException {
+    void compareMd1() throws java.io.UnsupportedEncodingException {
         assertThat(MD5Util.compareMd5(new MockHttpServletRequest(), new MockHttpServletResponse(), new HashMap<String, String>()), empty());
+    }
+
+    @Test
+    void compareMd2() throws java.io.UnsupportedEncodingException {
+        HashMap<String, String> clientMd5Map = new HashMap<String, String>();
+        clientMd5Map.put("", "foo");
+        assertThat(MD5Util.compareMd5(new MockHttpServletRequest(), new MockHttpServletResponse(), clientMd5Map), hasSize(1));
+        assertThat(MD5Util.compareMd5(new MockHttpServletRequest(), new MockHttpServletResponse(), clientMd5Map).get(0), is(""));
+    }
+
+    @Test
+    void compareMd3() throws java.io.UnsupportedEncodingException {
+        HashMap<String, String> clientMd5Map = new HashMap<String, String>();
+        clientMd5Map.put("", "");
+        assertThat(MD5Util.compareMd5(new MockHttpServletRequest(), new MockHttpServletResponse(), clientMd5Map), empty());
     }
 
     @Test

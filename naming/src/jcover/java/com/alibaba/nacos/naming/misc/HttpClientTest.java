@@ -44,24 +44,53 @@ public class HttpClientTest {
     }
 
     @Test
-    public void httpPostHeadersIsEmptyAndUrlIsBar() {
-        // pojo HttpClient.HttpResult HttpClient.httpPost("bar", new ArrayList<String>(), new HashMap<String, String>())
+    public void httpPost1() {
+        // pojo HttpClient.HttpResult HttpClient.httpPost("/some/path.html", new ArrayList<String>(), new HashMap<String, String>())
     }
 
     @Test
-    public void httpPutLargeContentIsOneAndUrlIsBar() {
+    public void httpPost2() {
+        HashMap<String, String> paramValues = new HashMap<String, String>();
+        paramValues.put("", "foo");
+        // pojo HttpClient.HttpResult HttpClient.httpPost("/some/path.html", new ArrayList<String>(), paramValues)
+    }
+
+    @Test
+    public void httpPutLarge1() {
         byte[] content = new byte[] { 1 };
-        // pojo HttpClient.HttpResult HttpClient.httpPutLarge("bar", new HashMap<String, String>(), content)
+        // pojo HttpClient.HttpResult HttpClient.httpPutLarge("/some/path.html", new HashMap<String, String>(), content)
     }
 
     @Test
-    public void httpGetLargeContentIsFooAndUrlIsBar() {
-        // pojo HttpClient.HttpResult HttpClient.httpGetLarge("bar", new HashMap<String, String>(), "foo")
+    public void httpPutLarge2() {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("", "foo");
+        byte[] content = new byte[] { 1 };
+        // pojo HttpClient.HttpResult HttpClient.httpPutLarge("/some/path.html", headers, content)
     }
 
     @Test
-    public void httpPostLargeContentIsFooAndUrlIsBar() {
-        // pojo HttpClient.HttpResult HttpClient.httpPostLarge("bar", new HashMap<String, String>(), "foo")
+    public void httpGetLarge1() {
+        // pojo HttpClient.HttpResult HttpClient.httpGetLarge("/some/path.html", new HashMap<String, String>(), "/some/path.html")
+    }
+
+    @Test
+    public void httpGetLarge2() {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("", "foo");
+        // pojo HttpClient.HttpResult HttpClient.httpGetLarge("/some/path.html", headers, "/some/path.html")
+    }
+
+    @Test
+    public void httpPostLarge1() {
+        // pojo HttpClient.HttpResult HttpClient.httpPostLarge("/some/path.html", new HashMap<String, String>(), "/some/path.html")
+    }
+
+    @Test
+    public void httpPostLarge2() {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("", "foo");
+        // pojo HttpClient.HttpResult HttpClient.httpPostLarge("/some/path.html", headers, "/some/path.html")
     }
 
     @Test

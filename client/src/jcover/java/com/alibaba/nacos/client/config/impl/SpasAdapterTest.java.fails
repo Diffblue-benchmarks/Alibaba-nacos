@@ -21,18 +21,18 @@ class SpasAdapterTest {
     void getSignHeaders() {
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key"), hasSize(4));
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(0), is("Timestamp"));
-        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(1), is("1603774942952"));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(1), is("1603777076723"));
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(2), is("Spas-Signature"));
-        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(3), is("nOhObjFcAe/zjzrgk82mbTY8yKY="));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(3), is("MJg20/KxvrL2SArhKcEQDXwOxFw="));
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), null), hasSize(2));
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), null).get(0), is("Timestamp"));
-        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), null).get(1), is("1603774942981"));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), null).get(1), is("1603777076752"));
         assertThat(SpasAdapter.getSignHeaders((ArrayList<String>) null, "key"), is(nullValue()));
         assertThat(SpasAdapter.getSignHeaders("foo", "key"), hasSize(4));
         assertThat(SpasAdapter.getSignHeaders("foo", "key").get(0), is("Timestamp"));
-        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(1), is("1603774943081"));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(1), is("1603777076850"));
         assertThat(SpasAdapter.getSignHeaders("foo", "key").get(2), is("Spas-Signature"));
-        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(3), is("AQmxHm/7qdywxutwQ9XHlP+bQcU="));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(3), is("9Wn6tetakrNC1wMP3PruMJ0pkmg="));
     }
 
     @Test

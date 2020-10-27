@@ -48,7 +48,7 @@ public class DistroMapperTest {
     }
 
     @Test
-    public void responsible3() {
+    public void responsible1() {
         when(switchDomain.isHealthCheckEnabled(Mockito.<String>any()))
             .thenReturn(false);
         Instance instance = mock(Instance.class);
@@ -57,7 +57,7 @@ public class DistroMapperTest {
     }
 
     @Test
-    public void responsible1() {
+    public void responsible2() {
         when(switchDomain.isDistroEnabled())
             .thenReturn(false);
         assertThat(service.responsible("Acme"), is(true));
@@ -65,7 +65,7 @@ public class DistroMapperTest {
     }
 
     @Test
-    public void responsible2() {
+    public void responsible3() {
         when(switchDomain.isDistroEnabled())
             .thenReturn(true);
         assertThat(service.responsible("Acme"), is(false));

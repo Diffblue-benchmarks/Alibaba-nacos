@@ -49,7 +49,18 @@ class LongPollingServiceTest {
         assertThat(service.getRetainIps().isEmpty(), is(true));
         assertThat(service.getSubscribleInfoByIp("bar").getLisentersGroupkeyStatus().isEmpty(), is(true));
         assertThat(service.getSubscribleInfo("1234", "bar", "foo").getLisentersGroupkeyStatus().isEmpty(), is(true));
-        assertThat(service.mergeSampleResult(new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void mergeSampleResult() {
+        ArrayList<SampleResult> sampleResults = new ArrayList<SampleResult>();
+        SampleResult sampleResult = new SampleResult();
+        HashMap<String, String> lisentersGroupkeyStatus =
+             new HashMap<String, String>();
+        lisentersGroupkeyStatus.put("", "foo");
+        sampleResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
+        sampleResults.add(sampleResult);
+        assertThat(service.mergeSampleResult(sampleResults).getLisentersGroupkeyStatus().get(""), is("foo"));
     }
 
     @Test

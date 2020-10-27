@@ -35,7 +35,7 @@ class ConfigSubServiceTest {
     private ConfigSubService service;
 
     @Test
-    void mergeSampleResult() {
+    void mergeSampleResult1() {
         SampleResult sampleCollectResult = new SampleResult();
         sampleCollectResult.setLisentersGroupkeyStatus(new HashMap<String, String>());
         ArrayList<SampleResult> sampleResults = new ArrayList<SampleResult>();
@@ -43,6 +43,18 @@ class ConfigSubServiceTest {
         sampleResult.setLisentersGroupkeyStatus(new HashMap<String, String>());
         sampleResults.add(sampleResult);
         assertThat(service.mergeSampleResult(sampleCollectResult, sampleResults).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void mergeSampleResult2() {
+        ArrayList<SampleResult> sampleResults = new ArrayList<SampleResult>();
+        SampleResult sampleResult = new SampleResult();
+        HashMap<String, String> lisentersGroupkeyStatus2 =
+             new HashMap<String, String>();
+        lisentersGroupkeyStatus2.put("", "foo");
+        sampleResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus2);
+        sampleResults.add(sampleResult);
+        assertThat(service.mergeSampleResult(new SampleResult(), sampleResults).getLisentersGroupkeyStatus().get(""), is("foo"));
     }
 
     @Test

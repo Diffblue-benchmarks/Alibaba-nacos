@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
 import com.alibaba.nacos.naming.healthcheck.RsInfo;
 import com.alibaba.nacos.naming.selector.Selector;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 /**
@@ -124,27 +126,74 @@ public class ServiceTest {
     }
 
     @Test
-    public void meetProtectThresholdReturnsFalse() {
+    public void meetProtectThreshold1() {
         assertThat(new Service().meetProtectThreshold(), is(false));
     }
 
     @Test
-    public void init() {
+    public void meetProtectThreshold2() {
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
+        clusterMap1.put("", new Cluster());
+        service1.setClusterMap(clusterMap1);
+        assertThat(service1.meetProtectThreshold(), is(false));
+    }
+
+    @Test
+    public void init1() {
         Service service = new Service();
         service.setName("Acme");
         service.init();
     }
 
     @Test
-    public void destroy() throws Exception {
+    public void init2() {
+
+        // arrange
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster cluster = mock(Cluster.class);
+        clusterMap.put("", cluster);
+        service.setClusterMap(clusterMap);
+        service.setName("Acme");
+
+        // act
+        service.init();
+
+        // assert
+        Mockito.verify(cluster).init();
+        Mockito.verify(cluster).setService(ArgumentMatchers.<Service>any());
+    }
+
+    @Test
+    public void destroy1() throws Exception {
         Service service = new Service();
         service.setName("Acme");
         service.destroy();
     }
 
     @Test
-    public void allIPsEphemeralIsFalse() {
+    public void destroy2() throws Exception {
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
+        clusterMap1.put("", new Cluster());
+        service1.setClusterMap(clusterMap1);
+        service1.setName("Acme");
+        service1.destroy();
+    }
+
+    @Test
+    public void allIPs1() {
         assertThat(new Service().allIPs(false), empty());
+    }
+
+    @Test
+    public void allIPs2() {
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
+        clusterMap1.put("", new Cluster());
+        service1.setClusterMap(clusterMap1);
+        assertThat(service1.allIPs(false), empty());
     }
 
     @Test
@@ -172,25 +221,67 @@ public class ServiceTest {
 
     @Test
     public void toJSON() {
-        Service service = new Service();
-        service.setClusterMap(new HashMap<String, Cluster>());
-        service.setEnabled(false);
-        service.setIpDeleteTimeout(1L);
-        service.setLastModifiedMillis(1L);
-        service.setNamespaceId("1234");
-        service.setOwners(new ArrayList<String>());
-        service.setResetWeight(false);
-        Selector selector = mock(Selector.class);
-        when(selector.getType())
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(1);
+        Service service3 = new Service();
+        service3.setClusterMap(new HashMap<String, Cluster>());
+        service3.setEnabled(false);
+        service3.setIpDeleteTimeout(1L);
+        service3.setLastModifiedMillis(1L);
+        service3.setNamespaceId("1234");
+        ArrayList<String> owners2 = new ArrayList<String>();
+        owners2.add("DE");
+        service3.setOwners(owners2);
+        service3.setResetWeight(false);
+        Selector selector2 = mock(Selector.class);
+        service3.setSelector(selector2);
+        service3.setToken("Bearer");
+        service3.setAppName("Acme");
+        service3.setGroupName("Acme");
+        service3.setMetadata(new HashMap<String, String>());
+        service3.setName("Acme");
+        service3.setProtectThreshold(1.0f);
+        cluster.setService(service3);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
+        when(healthChecker.getType())
+            .thenReturn("BASIC")
+            .thenReturn("BASIC")
             .thenReturn("BASIC");
-        service.setSelector(selector);
-        service.setToken("Bearer");
-        service.setAppName("Acme");
-        service.setGroupName("Acme");
-        service.setMetadata(new HashMap<String, String>());
-        service.setName("Acme");
-        service.setProtectThreshold(1.0f);
-        assertThat(service.toJSON(), is("{\"appName\":\"Acme\",\"checksum\":\"13d6ffa27e9b63449a6be5e1226e20c7\",\"clusterMap\":{},\"enabled\":false,\"groupName\":\"Acme\",\"ipDeleteTimeout\":1,\"lastModifiedMillis\":1,\"metadata\":{},\"name\":\"Acme\",\"namespaceId\":\"1234\",\"owners\":[],\"protectThreshold\":1.0,\"resetWeight\":false,\"selector\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.naming.selector.Selector\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.naming.selector.Selector\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1025,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.selector\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":true,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":\"INSTANCE\",\"sequenceNumber\":3152,\"verified\":false},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[],\"stubbingsAscending\":[{\"invocation\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.naming.selector.Selector\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"token\":\"Bearer\"}"));
+        cluster.setHealthChecker(healthChecker);
+        HashMap<String, String> metadata3 = new HashMap<String, String>();
+        metadata3.put("", "foo");
+        cluster.setMetadata(metadata3);
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        clusterMap1.put("", cluster);
+        service1.setClusterMap(clusterMap1);
+        service1.setEnabled(false);
+        service1.setIpDeleteTimeout(1L);
+        service1.setLastModifiedMillis(1L);
+        service1.setNamespaceId("1234");
+        ArrayList<String> owners3 = new ArrayList<String>();
+        owners3.add("DE");
+        service1.setOwners(owners3);
+        service1.setResetWeight(false);
+        Selector selector3 = mock(Selector.class);
+        when(selector3.getType())
+            .thenReturn("BASIC");
+        service1.setSelector(selector3);
+        service1.setToken("Bearer");
+        service1.setAppName("Acme");
+        service1.setGroupName("Acme");
+        service1.setMetadata(new HashMap<String, String>());
+        service1.setName("Acme");
+        service1.setProtectThreshold(1.0f);
+        assertThat(service1.toJSON(), is("{\"appName\":\"Acme\",\"checksum\":\"93c1fca73a6467b8cf308f3e10779445\",\"clusterMap\":{\"\":{\"defCkport\":1,\"defIPPort\":1,\"defaultCheckPort\":1,\"defaultPort\":1,\"healthChecker\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"MapSerializer.java\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":2898,\"verified\":false},\"location\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"MapSerializer.java\"},\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":2895,\"verified\":false},{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"}],\"stubbingsAscending\":[{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":2888,\"verified\":false},\"location\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0].invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"metadata\":{\"\":\"foo\"},\"name\":\"John Smith\",\"serviceName\":\"Acme\",\"sitegroup\":\"DE\",\"useIPPort4Check\":false}},\"enabled\":false,\"groupName\":\"Acme\",\"ipDeleteTimeout\":1,\"lastModifiedMillis\":1,\"metadata\":{},\"name\":\"Acme\",\"namespaceId\":\"1234\",\"owners\":[\"DE\"],\"protectThreshold\":1.0,\"resetWeight\":false,\"selector\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.naming.selector.Selector\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.naming.selector.Selector\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1025,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.selector\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":true,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":\"INSTANCE\",\"sequenceNumber\":2891,\"verified\":false},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[],\"stubbingsAscending\":[{\"invocation\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.naming.selector.Selector\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"token\":\"Bearer\"}"));
     }
 
     @Test
@@ -212,7 +303,6 @@ public class ServiceTest {
         service.update(vDom);
 
         // assert
-        assertThat(service.getEnabled(), is(false));
         assertThat(service.getSelector(), sameInstance(selector2));
     }
 
@@ -220,80 +310,81 @@ public class ServiceTest {
     public void update2() {
 
         // arrange
-        Service service = new Service();
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
+        clusterMap1.put("", new Cluster());
+        clusterMap1.put("John Smith", new Cluster());
+        service1.setClusterMap(clusterMap1);
         Service vDom = new Service();
         vDom.setEnabled(false);
-        ArrayList<String> owners2 = new ArrayList<String>();
-        owners2.add("DE");
-        vDom.setOwners(owners2);
-        Selector selector2 = mock(Selector.class);
-        vDom.setSelector(selector2);
+        ArrayList<String> owners5 = new ArrayList<String>();
+        owners5.add("DE");
+        vDom.setOwners(owners5);
+        Selector selector5 = mock(Selector.class);
+        vDom.setSelector(selector5);
         vDom.setToken("Bearer");
         vDom.setProtectThreshold(1.0f);
 
         // act
-        service.update(vDom);
+        service1.update(vDom);
 
         // assert
-        assertThat(service.getOwners(), hasSize(1));
-        assertThat(service.getOwners().get(0), is("DE"));
-        assertThat(service.getSelector(), sameInstance(selector2));
+        assertThat(service1.getSelector(), sameInstance(selector5));
     }
 
     @Test
-    public void update3() {
-
-        // arrange
+    public void getChecksum1() {
         Service service = new Service();
-        service.setResetWeight(true);
-        Service vDom = new Service();
-        vDom.setEnabled(false);
-        ArrayList<String> owners2 = new ArrayList<String>();
-        owners2.add("DE");
-        vDom.setOwners(owners2);
-        Selector selector2 = mock(Selector.class);
-        vDom.setSelector(selector2);
-        vDom.setToken("Bearer");
-        vDom.setProtectThreshold(1.0f);
-
-        // act
-        service.update(vDom);
-
-        // assert
-        assertThat(service.getResetWeight(), is(false));
-        assertThat(service.getSelector(), sameInstance(selector2));
-    }
-
-    @Test
-    public void update4() {
-
-        // arrange
-        Service service = new Service();
-        Service vDom = new Service();
-        vDom.setEnabled(false);
-        ArrayList<String> owners2 = new ArrayList<String>();
-        owners2.add("DE");
-        vDom.setOwners(owners2);
-        Selector selector2 = mock(Selector.class);
-        vDom.setSelector(selector2);
-        vDom.setToken("Bearer");
-        vDom.setProtectThreshold(1.0f);
-
-        // act
-        service.update(vDom);
-
-        // assert
-        assertThat(service.getSelector(), sameInstance(selector2));
-        assertThat(service.getToken(), is("Bearer"));
-    }
-
-    @Test
-    public void getChecksum() {
-        Service service = new Service();
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("DE");
+        service.setOwners(owners);
         service.setToken("Bearer");
         service.setName("Acme");
         service.setProtectThreshold(1.0f);
-        assertThat(service.getChecksum(), is("13d6ffa27e9b63449a6be5e1226e20c7"));
+        assertThat(service.getChecksum(), is("4fd69caa2fd8fb16b6ea0390d9e65d31"));
+    }
+
+    @Test
+    public void getChecksum2() {
+        Service service1 = new Service();
+        HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(1);
+        Service service3 = mock(Service.class);
+        cluster.setService(service3);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
+        when(healthChecker.getType())
+            .thenReturn("BASIC")
+            .thenReturn("BASIC");
+        cluster.setHealthChecker(healthChecker);
+        cluster.setMetadata(new HashMap<String, String>());
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        clusterMap1.put("", cluster);
+        service1.setClusterMap(clusterMap1);
+        service1.setEnabled(false);
+        service1.setIpDeleteTimeout(1L);
+        service1.setLastModifiedMillis(1L);
+        service1.setNamespaceId("1234");
+        ArrayList<String> owners2 = new ArrayList<String>();
+        owners2.add("DE");
+        service1.setOwners(owners2);
+        service1.setResetWeight(false);
+        Selector selector2 = mock(Selector.class);
+        service1.setSelector(selector2);
+        service1.setToken("Bearer");
+        service1.setAppName("Acme");
+        service1.setGroupName("Acme");
+        service1.setMetadata(new HashMap<String, String>());
+        service1.setName("Acme");
+        service1.setProtectThreshold(1.0f);
+        assertThat(service1.getChecksum(), is("9fe0dd69d15f40fe6daeef07989490b3"));
     }
 
     @Test
