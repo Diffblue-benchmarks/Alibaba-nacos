@@ -21,7 +21,7 @@ class PushReceiverTest {
     @Test
     void getUDPPort1() {
         HostReactor hostReactor = mock(HostReactor.class);
-        assertThat(new PushReceiver(hostReactor).getUDPPort(), is(51_019));
+        assertThat(new PushReceiver(hostReactor).getUDPPort(), is(41_583));
     }
 
     @Test
@@ -30,6 +30,6 @@ class PushReceiverTest {
         ExecutorService executor1 = mock(ExecutorService.class);
         eventDispatcher1.setExecutor(executor1);
         NamingProxy serverProxy1 = mock(NamingProxy.class);
-        assertThat(new PushReceiver(new HostReactor(eventDispatcher1, serverProxy1, "OX13QD")).getUDPPort(), is(56_603));
+        assertThat(new PushReceiver(new HostReactor(eventDispatcher1, serverProxy1, "OX13QD")).getUDPPort(), is(47_194));
     }
 }
