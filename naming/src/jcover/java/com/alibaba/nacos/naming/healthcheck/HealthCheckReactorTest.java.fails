@@ -24,19 +24,11 @@ public class HealthCheckReactorTest {
     }
 
     @Test
-    public void cancelCheck1() {
+    public void cancelCheck() {
         ClientBeatCheckTask task = mock(ClientBeatCheckTask.class);
         when(task.taskKey())
             .thenReturn("foo");
         HealthCheckReactor.cancelCheck(task);
-    }
-
-    @Test
-    public void cancelCheck2() {
-        Service service = mock(Service.class);
-        when(service.getName())
-            .thenReturn("Acme");
-        HealthCheckReactor.cancelCheck(new ClientBeatCheckTask(service));
     }
 
     @Test
