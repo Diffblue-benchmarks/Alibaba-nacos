@@ -1,0 +1,54 @@
+package com.alibaba.nacos.api.naming.pojo;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.api.naming.pojo.Service
+ *
+ * @author Diffblue Cover
+ */
+
+class ServiceTest {
+
+    @Test
+    void factory1() {
+        Service service = new Service();
+        service.setAppName("bar");
+        service.setGroupName("foo");
+        service.setMetadata(new HashMap<String, String>());
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        assertThat(service.getAppName(), is("bar"));
+        assertThat(service.getGroupName(), is("foo"));
+        assertThat(service.getMetadata(), is(notNullValue()));
+        assertThat(service.getName(), is("Acme"));
+        assertEquals(1.0f, service.getProtectThreshold(), 0);
+    }
+
+    @Test
+    void factory2() {
+        Service service = new Service("bar");
+        service.setAppName("foo");
+        service.setGroupName("Acme");
+        service.setMetadata(new HashMap<String, String>());
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        assertThat(service.getAppName(), is("foo"));
+        assertThat(service.getGroupName(), is("Acme"));
+        assertThat(service.getMetadata(), is(notNullValue()));
+        assertThat(service.getName(), is("Acme"));
+        assertEquals(1.0f, service.getProtectThreshold(), 0);
+    }
+
+    @Test
+    void addMetadataKeyIsKeyAndValueIsValue() {
+        new Service().addMetadata("key", "value");
+    }
+}

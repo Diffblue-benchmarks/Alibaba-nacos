@@ -1,0 +1,221 @@
+package com.alibaba.nacos.naming.core;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker;
+import com.alibaba.nacos.naming.selector.Selector;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import org.junit.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.core.Cluster
+ *
+ * @author Diffblue Cover
+ */
+
+public class ClusterTest {
+
+    @Test
+    public void factory1() {
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(-1);
+        Service service = new Service();
+        service.setClusterMap(new HashMap<String, Cluster>());
+        service.setEnabled(false);
+        service.setIpDeleteTimeout(1L);
+        service.setLastModifiedMillis(1L);
+        service.setNamespaceId("1234");
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("foo");
+        service.setOwners(owners);
+        service.setResetWeight(false);
+        Selector selector = mock(Selector.class);
+        service.setSelector(selector);
+        service.setToken("Bearer");
+        service.setAppName("Acme");
+        service.setGroupName("Acme");
+        service.setMetadata(new HashMap<String, String>());
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        cluster.setService(service);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        cluster.setMetadata(new HashMap<String, String>());
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+        assertThat(cluster.getHealthCheckTask(), is(nullValue()));
+        assertThat(cluster.getService(), sameInstance(service));
+        assertThat(cluster.getSitegroup(), is("DE"));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getMetadata(), is(notNullValue()));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("Acme"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
+    public void factory2() {
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(1);
+        cluster.setService(null);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        cluster.setMetadata(new HashMap<String, String>());
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+        assertThat(cluster.getHealthCheckTask(), is(nullValue()));
+        assertThat(cluster.getService(), is(nullValue()));
+        assertThat(cluster.getSitegroup(), is("DE"));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getMetadata(), is(notNullValue()));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("John Smith"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
+    public void factory3() {
+        Cluster cluster = new Cluster();
+        cluster.setDefCkport(1);
+        cluster.setDefIPPort(1);
+        Service service = new Service();
+        service.setClusterMap(new HashMap<String, Cluster>());
+        service.setEnabled(false);
+        service.setIpDeleteTimeout(1L);
+        service.setLastModifiedMillis(1L);
+        service.setNamespaceId("1234");
+        service.setOwners(new ArrayList<String>());
+        service.setResetWeight(false);
+        Selector selector = mock(Selector.class);
+        service.setSelector(selector);
+        service.setToken("Bearer");
+        service.setAppName("Acme");
+        service.setGroupName("Acme");
+        service.setMetadata(new HashMap<String, String>());
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        cluster.setService(service);
+        cluster.setServiceName("John Smith");
+        cluster.setSitegroup("DE");
+        cluster.setDefaultCheckPort(1);
+        cluster.setDefaultPort(1);
+        AbstractHealthChecker healthChecker =
+             mock(AbstractHealthChecker.class);
+        cluster.setHealthChecker(healthChecker);
+        cluster.setMetadata(new HashMap<String, String>());
+        cluster.setName("John Smith");
+        cluster.setUseIPPort4Check(false);
+        assertThat(cluster.getDefCkport(), is(1));
+        assertThat(cluster.getDefIPPort(), is(1));
+        assertThat(cluster.getHealthCheckTask(), is(nullValue()));
+        assertThat(cluster.getService(), sameInstance(service));
+        assertThat(cluster.getSitegroup(), is("DE"));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
+        assertThat(cluster.getDefaultPort(), is(1));
+        assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
+        assertThat(cluster.getMetadata(), is(notNullValue()));
+        assertThat(cluster.getName(), is("John Smith"));
+        assertThat(cluster.getServiceName(), is("Acme"));
+        assertThat(cluster.isUseIPPort4Check(), is(false));
+    }
+
+    @Test
+    public void allIPs() {
+        assertThat(new Cluster().allIPs(), empty());
+        assertThat(new Cluster().allIPs(false), empty());
+    }
+
+    @Test
+    public void destroy() {
+        new Cluster().destroy();
+    }
+
+    @Test
+    public void updateIPsEphemeralIsFalse() {
+        Cluster cluster = new Cluster();
+        cluster.setService(new Service());
+        ArrayList<Instance> ips = new ArrayList<Instance>();
+        Instance instance = new Instance();
+        instance.setIp("DE");
+        ips.add(instance);
+        cluster.updateIPs(ips, false);
+    }
+
+    @Test
+    public void updatedIPsReturnsEmpty() {
+        LinkedList<Instance> a = new LinkedList<Instance>();
+        Instance instance1 = new Instance();
+        instance1.setClusterName("John Smith");
+        instance1.setEphemeral(false);
+        instance1.setHealthy(false);
+        instance1.setIp("DE");
+        instance1.setPort(1);
+        a.add(instance1);
+        LinkedList<Instance> b = new LinkedList<Instance>();
+        Instance instance2 = new Instance();
+        instance2.setClusterName("John Smith");
+        instance2.setEphemeral(false);
+        instance2.setHealthy(false);
+        instance2.setIp("DE");
+        instance2.setPort(1);
+        b.add(instance2);
+        assertThat(new Cluster().updatedIPs(a, b), empty());
+    }
+
+    @Test
+    public void subtractReturnsEmpty() {
+        LinkedList<Instance> a = new LinkedList<Instance>();
+        Instance instance1 = new Instance();
+        instance1.setIp("DE");
+        instance1.setPort(1);
+        a.add(instance1);
+        LinkedList<Instance> b = new LinkedList<Instance>();
+        Instance instance2 = new Instance();
+        instance2.setIp("DE");
+        instance2.setPort(1);
+        b.add(instance2);
+        assertThat(new Cluster().subtract(a, b), empty());
+    }
+
+    @Test
+    public void equalsReturnsFalse() {
+        assertThat(new Cluster().equals(new Object()), is(false));
+    }
+
+    @Test
+    public void containsReturnsFalse() {
+        Instance ip1 = new Instance();
+        ip1.setIp("DE");
+        assertThat(new Cluster().contains(ip1), is(false));
+    }
+}

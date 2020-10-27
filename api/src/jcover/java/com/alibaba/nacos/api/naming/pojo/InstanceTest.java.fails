@@ -1,0 +1,130 @@
+package com.alibaba.nacos.api.naming.pojo;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.api.naming.pojo.Instance
+ *
+ * @author Diffblue Cover
+ */
+
+class InstanceTest {
+
+    @Test
+    void factory() {
+        Instance instance = new Instance();
+        instance.setClusterName("John Smith");
+        instance.setEnabled(true);
+        instance.setEphemeral(false);
+        instance.setHealthy(false);
+        instance.setInstanceId("1234");
+        instance.setIp("foo");
+        instance.setMetadata(new HashMap<String, String>());
+        instance.setPort(1);
+        instance.setServiceName("Acme");
+        instance.setWeight(1.0);
+        assertThat(instance.getClusterName(), is("John Smith"));
+        assertThat(instance.getInstanceId(), is("1234"));
+        assertThat(instance.getIp(), is("foo"));
+        assertThat(instance.getMetadata(), is(notNullValue()));
+        assertThat(instance.getPort(), is(1));
+        assertThat(instance.getServiceName(), is("Acme"));
+        assertThat(instance.getWeight(), closeTo(1.0, 0.0));
+        assertThat(instance.isEnabled(), is(true));
+        assertThat(instance.isEphemeral(), is(false));
+        assertThat(instance.isHealthy(), is(false));
+    }
+
+    @Test
+    void addMetadataKeyIsKeyAndValueIsValue() {
+        new Instance().addMetadata("key", "value");
+    }
+
+    @Test
+    void toInetAddr() {
+        Instance instance = new Instance();
+        instance.setIp("foo");
+        instance.setPort(1);
+        assertThat(instance.toInetAddr(), is("foo:1"));
+    }
+
+    @Test
+    void equalsReturnsFalse() {
+        assertThat(new Instance().equals(new Object()), is(false));
+    }
+
+    @Test
+    void equalsReturnsTrue() {
+        Instance instance1 = new Instance();
+        instance1.setClusterName("John Smith");
+        instance1.setEnabled(false);
+        instance1.setEphemeral(false);
+        instance1.setHealthy(false);
+        instance1.setInstanceId("1234");
+        instance1.setIp("foo");
+        instance1.setPort(1);
+        instance1.setServiceName("Acme");
+        Instance instance2 = new Instance();
+        instance2.setClusterName("John Smith");
+        instance2.setEnabled(false);
+        instance2.setEphemeral(false);
+        instance2.setHealthy(false);
+        instance2.setInstanceId("1234");
+        instance2.setIp("foo");
+        instance2.setPort(1);
+        instance2.setServiceName("Acme");
+        assertThat(instance1.equals(instance2), is(true));
+    }
+
+    @Test
+    void getInstanceHeartBeatInterval1() {
+        Instance instance = new Instance();
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("", "foo");
+        instance.setMetadata(metadata);
+        assertThat(instance.getInstanceHeartBeatInterval(), is(5_000L));
+    }
+
+    @Test
+    void getInstanceHeartBeatInterval2() {
+        Instance instance = new Instance();
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("", "foo");
+        metadata.put("preserved.heart.beat.interval", "foo");
+        instance.setMetadata(metadata);
+        assertThat(instance.getInstanceHeartBeatInterval(), is(5_000L));
+    }
+
+    @Test
+    void getInstanceHeartBeatInterval3() {
+        assertThat(new Instance().getInstanceHeartBeatInterval(), is(5_000L));
+        assertThat(new Instance().getInstanceHeartBeatInterval(), is(5_000L));
+    }
+
+    @Test
+    void getInstanceHeartBeatIntervalReturnsOne() {
+        Instance instance = new Instance();
+        HashMap<String, String> metadata = new HashMap<String, String>();
+        metadata.put("", "foo");
+        metadata.put("preserved.heart.beat.interval", "1");
+        instance.setMetadata(metadata);
+        assertThat(instance.getInstanceHeartBeatInterval(), is(1L));
+    }
+
+    @Test
+    void getInstanceHeartBeatTimeOut() {
+        assertThat(new Instance().getInstanceHeartBeatTimeOut(), is(15_000L));
+    }
+
+    @Test
+    void getIpDeleteTimeout() {
+        assertThat(new Instance().getIpDeleteTimeout(), is(30_000L));
+    }
+}

@@ -1,7 +1,6 @@
 package com.alibaba.nacos.config.server.filter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,8 +29,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 class NacosWebFilterTest {
 
     @Test
-    void rootPathReturnsNull() {
-        assertThat(NacosWebFilter.rootPath(), is(nullValue()));
+    void rootPath() {
+        assertThat(NacosWebFilter.rootPath(), is("/bin/bash"));
     }
 
     @Test
