@@ -28,16 +28,16 @@ class IoUtilsTest {
     }
 
     @Test
+    void copy() throws java.io.IOException {
+        assertThat(IoUtils.copy(new StringReader(""), new StringWriter()), is(0L));
+        assertThat(IoUtils.copy(new StringBufferInputStream(""), new ByteArrayOutputStream()), is(0L));
+    }
+
+    @Test
     void copyReturnsThree2() throws java.io.IOException {
         StringWriter output = new StringWriter();
         assertThat(IoUtils.copy(new StringReader("foo"), output), is(3L));
         assertThat(output.getBuffer().toString(), is("foo"));
-    }
-
-    @Test
-    void copy() throws java.io.IOException {
-        assertThat(IoUtils.copy(new StringBufferInputStream(""), new ByteArrayOutputStream()), is(0L));
-        assertThat(IoUtils.copy(new StringReader(""), new StringWriter()), is(0L));
     }
 
     @Test

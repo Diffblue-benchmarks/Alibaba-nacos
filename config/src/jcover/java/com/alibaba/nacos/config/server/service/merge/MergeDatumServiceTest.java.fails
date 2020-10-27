@@ -32,17 +32,17 @@ class MergeDatumServiceTest {
     private MergeDatumService service;
 
     @Test
-    void addMergeTaskTagIsTag() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void addMergeTaskTagIsTag() {
         service.addMergeTask("1234", "1234", "/some/path.html", "tag", "/some/path.html");
     }
 
     @Test
-    void addMergeTask() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void addMergeTask() {
         service.addMergeTask("1234", "1234", "/some/path.html", "/some/path.html");
     }
 
     @Test
-    void mergeAll() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException {
+    void mergeAll() {
         List<ConfigInfoChanged> list = new ArrayList<ConfigInfoChanged>();
         list.add(new ConfigInfoChanged());
         when(persistService.findAllAggrGroup())

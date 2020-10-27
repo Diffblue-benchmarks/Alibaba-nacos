@@ -15,34 +15,34 @@ class ApplicationInfoTest {
 
     @Test
     void factory() {
-        ApplicationInfo applicationInfo = new ApplicationInfo("Acme");
+        ApplicationInfo applicationInfo = new ApplicationInfo("bar");
         applicationInfo.setAppName("Acme");
         applicationInfo.setDynamicCollectDisabled(false);
-        applicationInfo.setLastSubscribeInfoCollectedTime(0L);
+        applicationInfo.setLastSubscribeInfoCollectedTime(1L);
         applicationInfo.setSubInfoCollectLockExpireTime(1L);
-        applicationInfo.setSubInfoCollectLockOwner("bar");
+        applicationInfo.setSubInfoCollectLockOwner("foo");
         assertThat(applicationInfo.getAppName(), is("Acme"));
-        assertThat(applicationInfo.getLastSubscribeInfoCollectedTime(), is(0L));
+        assertThat(applicationInfo.getLastSubscribeInfoCollectedTime(), is(1L));
         assertThat(applicationInfo.getSubInfoCollectLockExpireTime(), is(1L));
-        assertThat(applicationInfo.getSubInfoCollectLockOwner(), is("bar"));
+        assertThat(applicationInfo.getSubInfoCollectLockOwner(), is("foo"));
         assertThat(applicationInfo.isDynamicCollectDisabled(), is(false));
         assertThat(applicationInfo.isSubInfoRecentlyCollected(), is(false));
     }
 
     @Test
     void canCurrentServerOwnTheLock1() {
-        assertThat(new ApplicationInfo("Acme").canCurrentServerOwnTheLock(), is(true));
+        assertThat(new ApplicationInfo("bar").canCurrentServerOwnTheLock(), is(true));
     }
 
     @Test
     void canCurrentServerOwnTheLock2() {
-        ApplicationInfo applicationInfo = new ApplicationInfo("Acme");
-        applicationInfo.setSubInfoCollectLockOwner("bar");
+        ApplicationInfo applicationInfo = new ApplicationInfo("bar");
+        applicationInfo.setSubInfoCollectLockOwner("foo");
         assertThat(applicationInfo.canCurrentServerOwnTheLock(), is(true));
     }
 
     @Test
     void currentServer() {
-        assertThat(new ApplicationInfo("Acme").currentServer(), is("10.128.0.86"));
+        assertThat(new ApplicationInfo("Acme").currentServer(), is("10.128.0.5"));
     }
 }

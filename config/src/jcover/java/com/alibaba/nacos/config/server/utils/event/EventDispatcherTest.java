@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class EventDispatcherTest {
 
     @Test
-    void addEventListener() {
+    void addEventListener1() {
         List<Class<? extends EventDispatcher.Event>> list =
              new ArrayList<Class<? extends EventDispatcher.Event>>();
         list.add(EventDispatcher.Event.class);
@@ -25,6 +25,15 @@ class EventDispatcherTest {
              mock(EventDispatcher.AbstractEventListener.class);
         when(listener.interest())
             .thenReturn(list);
+        EventDispatcher.addEventListener(listener);
+    }
+
+    @Test
+    void addEventListener2() {
+        EventDispatcher.AbstractEventListener listener =
+             mock(EventDispatcher.AbstractEventListener.class);
+        when(listener.interest())
+            .thenReturn(new ArrayList<Class<? extends EventDispatcher.Event>>());
         EventDispatcher.addEventListener(listener);
     }
 
@@ -41,6 +50,6 @@ class EventDispatcherTest {
 
     @Test
     void getEntryEventTypeIsNestedClass() {
-        // pojo EventDispatcher.Entry
+        // pojo EventDispatcher.Entry (EventDispatcher.Entry) EventDispatcher.getEntry(EventDispatcher.Event.class)
     }
 }

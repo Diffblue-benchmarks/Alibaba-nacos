@@ -26,12 +26,12 @@ import org.springframework.mock.web.MockHttpSession;
 public class OverrideParameterRequestWrapperTest {
 
     @Test
-    public void buildRequest() throws java.io.IOException {
+    public void buildRequest1() throws java.io.IOException {
 
         // arrange
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
-        request.addUserRole("/some/path.html");
+        request.addUserRole("admin");
         request.setRequestURI("/some/path.html");
         request.setRequestedSessionId("1234");
         MockHttpSession session = new MockHttpSession();
@@ -111,8 +111,8 @@ public class OverrideParameterRequestWrapperTest {
         // arrange
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
-        request.addUserRole("bar");
-        request.setRequestURI("/some/path.html");
+        request.addUserRole("admin");
+        request.setRequestURI("bar");
         request.setRequestedSessionId("1234");
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("name", new Object());
@@ -191,7 +191,7 @@ public class OverrideParameterRequestWrapperTest {
         // arrange
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
-        request.addUserRole("/some/path.html");
+        request.addUserRole("admin");
         request.setRequestURI("/some/path.html");
         request.setRequestedSessionId("1234");
         MockHttpSession session = new MockHttpSession();
@@ -266,12 +266,12 @@ public class OverrideParameterRequestWrapperTest {
     }
 
     @Test
-    public void buildRequestAppendParametersIsFoo() throws java.io.IOException {
+    public void buildRequest2() throws java.io.IOException {
 
         // arrange
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
-        request.addUserRole("/some/path.html");
+        request.addUserRole("admin");
         request.setRequestURI("/some/path.html");
         request.setRequestedSessionId("1234");
         MockHttpSession session = new MockHttpSession();
@@ -285,17 +285,13 @@ public class OverrideParameterRequestWrapperTest {
         request.setSecure(false);
         request.setProtocol("HTTP/1.1");
         request.setCookies(new Cookie("name", "value"));
-        HashMap<String, String[]> appendParameters =
-             new HashMap<String, String[]>();
-        String[] x273 = new String[] { "foo" };
-        appendParameters.put("foo", x273);
 
         // act
         OverrideParameterRequestWrapper result =
-             OverrideParameterRequestWrapper.buildRequest(request, appendParameters);
+             OverrideParameterRequestWrapper.buildRequest(request, new HashMap<String, String[]>());
 
         // assert
-        assertThat(result.getParameterMap().get("foo"), Matchers.arrayContaining("foo"));
+        assertThat(result.getParameterMap().isEmpty(), is(true));
         assertThat(result.getRequest().getAsyncContext(), is(nullValue()));
         assertThat(result.getRequest().getAttributeNames().hasMoreElements(), is(false));
         assertThat(result.getRequest().getCharacterEncoding(), is(nullValue()));

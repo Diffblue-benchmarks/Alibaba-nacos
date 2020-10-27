@@ -2,6 +2,7 @@ package com.alibaba.nacos.config.server.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
 
@@ -31,12 +32,8 @@ class CacheItemTest {
         cacheItem.setMd54Beta("/some/path.html");
         SimpleReadWriteLock rwLock = new SimpleReadWriteLock();
         cacheItem.setRwLock(rwLock);
-        HashMap<String, Long> tagLastModifiedTs = new HashMap<String, Long>();
-        tagLastModifiedTs.put("HmacMD5", 1L);
-        cacheItem.setTagLastModifiedTs(tagLastModifiedTs);
-        HashMap<String, String> tagMd5 = new HashMap<String, String>();
-        tagMd5.put("foo", "foo");
-        cacheItem.setTagMd5(tagMd5);
+        cacheItem.setTagLastModifiedTs(new HashMap<String, Long>());
+        cacheItem.setTagMd5(new HashMap<String, String>());
         assertThat(cacheItem.getGroupKey(), is("key"));
         assertThat(cacheItem.getIps4Beta(), empty());
         assertThat(cacheItem.getLastModifiedTs(), is(1L));
@@ -44,8 +41,8 @@ class CacheItemTest {
         assertThat(cacheItem.getMd5(), is("bar"));
         assertThat(cacheItem.getMd54Beta(), is("/some/path.html"));
         assertThat(cacheItem.getRwLock(), sameInstance(rwLock));
-        assertThat(cacheItem.getTagLastModifiedTs().get("HmacMD5"), is(1L));
-        assertThat(cacheItem.getTagMd5().get("foo"), is("foo"));
+        assertThat(cacheItem.getTagLastModifiedTs(), is(notNullValue()));
+        assertThat(cacheItem.getTagMd5(), is(notNullValue()));
         assertThat(cacheItem.isBeta(), is(false));
     }
 }

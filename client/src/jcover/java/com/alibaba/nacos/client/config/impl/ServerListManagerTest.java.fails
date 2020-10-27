@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.ArrayList;
-import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
@@ -55,43 +54,10 @@ class ServerListManagerTest {
     }
 
     @Test
-    void factory4() throws com.alibaba.nacos.api.exception.NacosException {
-        Properties properties = new Properties();
-        properties.setProperty("endpoint", "value");
-        ServerListManager serverListManager =
-             new ServerListManager(properties);
-        assertThat(serverListManager.getContentPath(), is("nacos"));
-        assertThat(serverListManager.getIterator(), is(nullValue()));
-        assertThat(serverListManager.getName(), is("value"));
-        assertThat(serverListManager.getNamespace(), is(""));
-        assertThat(serverListManager.getTenant(), is(""));
-    }
-
-    @Test
-    void factory5() throws com.alibaba.nacos.api.exception.NacosException {
-        Properties properties = new Properties();
-        properties.setProperty("serverAddr", "value");
-        ServerListManager serverListManager =
-             new ServerListManager(properties);
-        assertThat(serverListManager.getContentPath(), is("nacos"));
-        assertThat(serverListManager.getIterator(), is(nullValue()));
-        assertThat(serverListManager.getName(), is("fixed-value_8848"));
-        assertThat(serverListManager.getNamespace(), is(""));
-        assertThat(serverListManager.getTenant(), is(""));
-    }
-
-    @Test
-    void start1() throws com.alibaba.nacos.api.exception.NacosException {
+    void start() throws com.alibaba.nacos.api.exception.NacosException {
         ArrayList<String> fixed = new ArrayList<String>();
         fixed.add("foo=bar");
         new ServerListManager(fixed).start();
-    }
-
-    @Test
-    void start2() throws com.alibaba.nacos.api.exception.NacosException {
-        Properties properties = new Properties();
-        properties.setProperty("serverAddr", "value");
-        new ServerListManager(properties).start();
     }
 
     @Test
@@ -109,17 +75,16 @@ class ServerListManagerTest {
         assertThat(new ServerListManager().contain("Smith"), is(false));
         assertThat(new ServerListManager("api.github.com").contain("Smith"), is(false));
         assertThat(new ServerListManager("OX13QD", 1).contain("Smith"), is(false));
-        assertThat(new ServerListManager("api.github.com", "bar").contain("Smith"), is(false));
+        assertThat(new ServerListManager("api.github.com", "Smith").contain("Smith"), is(false));
     }
 
     @Test
-    void refreshCurrentServerAddr() throws com.alibaba.nacos.api.exception.NacosException {
+    void refreshCurrentServerAddr() {
 
         // arrange
-        Properties properties = new Properties();
-        properties.setProperty("serverAddr", "value");
-        ServerListManager serverListManager =
-             new ServerListManager(properties);
+        ArrayList<String> fixed = new ArrayList<String>();
+        fixed.add("foo=bar");
+        ServerListManager serverListManager = new ServerListManager(fixed);
 
         // act
         serverListManager.refreshCurrentServerAddr();

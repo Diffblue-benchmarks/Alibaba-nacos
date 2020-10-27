@@ -71,7 +71,7 @@ public class OperatorControllerTest {
     private OperatorController controller;
 
     @Test
-    public void pushState1() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+    public void pushState1() throws Exception {
         when(pushService.getFailedPushCount())
             .thenReturn(1);
         when(pushService.getTotalPush())
@@ -89,7 +89,7 @@ public class OperatorControllerTest {
     }
 
     @Test
-    public void pushState2() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+    public void pushState2() throws Exception {
         when(pushService.getFailedPushCount())
             .thenReturn(1);
         when(pushService.getTotalPush())
@@ -105,7 +105,7 @@ public class OperatorControllerTest {
     }
 
     @Test
-    public void metrics() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+    public void metrics() throws Exception {
         when(serviceManager.getInstanceCount())
             .thenReturn(1);
         when(serviceManager.getResponsibleInstanceCount())
@@ -123,25 +123,23 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/metrics"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"serviceCount\":1,\"load\":2.82,\"mem\":0.19286259,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.026823327,\"status\":\"UP\",\"responsibleInstanceCount\":1}"));
+            .andExpect(content().json("{\"serviceCount\":1,\"load\":1.96,\"mem\":0.062334992,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.13792436,\"status\":\"UP\",\"responsibleInstanceCount\":1}"));
     }
 
     @Test
-    public void distroStatus() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
-        Map<String, List<Server>> map = new HashMap<String, List<Server>>();
-        map.put("action", new ArrayList<Server>());
+    public void distroStatus() throws Exception {
         when(serverListManager.getDistroConfig())
-            .thenReturn(map);
+            .thenReturn(new HashMap<String, List<Server>>());
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/operator/distro/status"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"status\":{\"action\":[]}}"));
+            .andExpect(content().json("{\"status\":{}}"));
     }
 
     @Test
-    public void getHealthyServerList() throws Exception, CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, org.springframework.beans.BeansException {
+    public void getHealthyServerList() throws Exception {
         when(serverListManager.getServers())
             .thenReturn(new ArrayList<Server>());
         MockMvcBuilders.standaloneSetup(controller)

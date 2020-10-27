@@ -1,10 +1,9 @@
 package com.alibaba.nacos.naming.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsSame.sameInstance;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
@@ -20,29 +19,13 @@ public class ServiceDetailInfoTest {
     @Test
     public void factory() {
         ServiceDetailInfo serviceDetailInfo = new ServiceDetailInfo();
-        HashMap<String, ClusterInfo> clusterMap =
-             new HashMap<String, ClusterInfo>();
-        ClusterInfo x33 = new ClusterInfo();
-        ArrayList<IpAddressInfo> hosts1 = new ArrayList<IpAddressInfo>();
-        IpAddressInfo ipAddressInfo1 = new IpAddressInfo();
-        ipAddressInfo1.setEnabled(false);
-        ipAddressInfo1.setIp("280 Broadway");
-        ipAddressInfo1.setMetadata(new HashMap<String, String>());
-        ipAddressInfo1.setPort(1);
-        ipAddressInfo1.setValid(false);
-        ipAddressInfo1.setWeight(1.0);
-        hosts1.add(ipAddressInfo1);
-        x33.setHosts(hosts1);
-        clusterMap.put("HmacMD5", x33);
-        serviceDetailInfo.setClusterMap(clusterMap);
+        serviceDetailInfo.setClusterMap(new HashMap<String, ClusterInfo>());
         serviceDetailInfo.setGroupName("Acme");
-        HashMap<String, String> metadata3 = new HashMap<String, String>();
-        metadata3.put("foo", "foo");
-        serviceDetailInfo.setMetadata(metadata3);
+        serviceDetailInfo.setMetadata(new HashMap<String, String>());
         serviceDetailInfo.setServiceName("Acme");
-        assertThat(serviceDetailInfo.getClusterMap().get("HmacMD5"), sameInstance(x33));
+        assertThat(serviceDetailInfo.getClusterMap(), is(notNullValue()));
         assertThat(serviceDetailInfo.getGroupName(), is("Acme"));
-        assertThat(serviceDetailInfo.getMetadata().get("foo"), is("foo"));
+        assertThat(serviceDetailInfo.getMetadata(), is(notNullValue()));
         assertThat(serviceDetailInfo.getServiceName(), is("Acme"));
     }
 }

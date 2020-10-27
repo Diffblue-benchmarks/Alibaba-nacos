@@ -21,7 +21,7 @@ class ZipUtilsTest {
     @Test
     void zip() {
         ArrayList<ZipUtils.ZipItem> source = new ArrayList<ZipUtils.ZipItem>();
-        source.add(new ZipUtils.ZipItem("10007", "10007"));
+        source.add(new ZipUtils.ZipItem("bar", "10007"));
         byte[] result = ZipUtils.zip(source);
     }
 

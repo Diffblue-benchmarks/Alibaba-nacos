@@ -40,7 +40,7 @@ class NacosWebFilterTest {
     }
 
     @Test
-    void init() throws javax.servlet.ServletException, java.net.MalformedURLException {
+    void init() throws javax.servlet.ServletException {
         ServletContext servletContext = mock(ServletContext.class);
         when(servletContext.getRealPath(Mockito.<String>any()))
             .thenReturn("foo=bar");

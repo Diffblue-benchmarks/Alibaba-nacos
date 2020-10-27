@@ -1,8 +1,5 @@
 package com.alibaba.nacos.client.logging.log4j2;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class Log4J2NacosLoggingTest {
 
     @Test
-    void getLocationDefaultLocationIsDEReturnsDE() {
-        assertThat(new Log4J2NacosLogging().getLocation("DE"), is("DE"));
+    void factory() {
+        // pojo Log4J2NacosLogging new Log4J2NacosLogging()
     }
 }

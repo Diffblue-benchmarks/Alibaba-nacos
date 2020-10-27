@@ -14,6 +14,6 @@ public class DatumTest {
 
     @Test
     public void factory() {
-        // pojo Datum<Record>
+        // pojo Datum<Record> new Datum<Record>()
     }
 }

@@ -15,14 +15,20 @@ import org.junit.jupiter.api.Test;
 class LocalConfigInfoProcessorTest {
 
     @Test
-    void getFailoverGroupIsBarAndServerNameIsAcmeAndTenantIsDataReturnsNull() {
-        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "bar", "data"), is(nullValue()));
+    void getFailover() {
+        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "bar", "en_GB"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getFailover("Acme", "1234", "en_GB", ""), is(nullValue()));
     }
 
     @Test
     void getSnapshot() {
-        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "", "bar", "en_GB"), is(nullValue()));
-        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "foo"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "en_GB"), is(nullValue()));
+        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "en_GB", ""), is(nullValue()));
+    }
+
+    @Test
+    void saveSnapshotConfigIsBar() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "en_GB", "en_GB", "bar");
     }
 
     @Test
@@ -33,11 +39,6 @@ class LocalConfigInfoProcessorTest {
     @Test
     void saveSnapshotDataIdIsEmpty() {
         LocalConfigInfoProcessor.saveSnapshot("Acme", "", "en_GB", "en_GB", "en_GB");
-    }
-
-    @Test
-    void saveSnapshotEnvNameIsNullAndGroupIsBar() {
-        LocalConfigInfoProcessor.saveSnapshot(null, "1234", "bar", "en_GB", "en_GB");
     }
 
     @Test
@@ -56,14 +57,8 @@ class LocalConfigInfoProcessorTest {
     }
 
     @Test
-    void getFailoverFile() {
-        assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "bar", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data-tenant/bin/bash/bar/1234"));
-        assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "/bin/bash", "").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data/bin/bash/1234"));
-    }
-
-    @Test
-    void getSnapshotFile() {
-        assertThat(LocalConfigInfoProcessor.getSnapshotFile("data.txt", "1234", "bar", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/snapshot-tenant/bin/bash/bar/1234"));
-        assertThat(LocalConfigInfoProcessor.getSnapshotFile("data.txt", "1234", "/bin/bash", "").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/snapshot/bin/bash/1234"));
+    void getters() {
+        assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "/bin/bash", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data-tenant/bin/bash/bin/bash/1234"));
+        assertThat(LocalConfigInfoProcessor.getSnapshotFile("data.txt", "1234", "/bin/bash", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/snapshot-tenant/bin/bash/bin/bash/1234"));
     }
 }

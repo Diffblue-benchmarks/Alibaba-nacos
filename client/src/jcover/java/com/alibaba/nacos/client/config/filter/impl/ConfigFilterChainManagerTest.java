@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 class ConfigFilterChainManagerTest {
 
     @Test
-    void addFilter() throws com.alibaba.nacos.api.exception.NacosException {
+    void addFilter() {
         ConfigFilterChainManager configFilterChainManager =
              new ConfigFilterChainManager();
         IConfigFilter filter = mock(IConfigFilter.class);

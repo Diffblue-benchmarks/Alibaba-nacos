@@ -19,12 +19,12 @@ class ThreadLocalRandomTest {
     }
 
     @Test
-    void getInitialSeedUniquifier() {
-        assertThat(ThreadLocalRandom.getInitialSeedUniquifier(), is(4_237_093_713_157_838_134L));
+    void getInitialSeedUniquifierReturnsOne() {
+        assertThat(ThreadLocalRandom.getInitialSeedUniquifier(), is(1L));
     }
 
     @Test
     void current() {
-        // pojo ThreadLocalRandom
+        // pojo ThreadLocalRandom ThreadLocalRandom.current()
     }
 }

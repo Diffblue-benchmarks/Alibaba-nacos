@@ -2,10 +2,8 @@ package com.alibaba.nacos.common.util;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
 
 import java.net.URL;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +16,16 @@ import org.junit.jupiter.api.Test;
 class ResourceUtilsTest {
 
     @Test
-    void getResourceURLResourceIsFoo() throws java.io.IOException {
-        assertThat(ResourceUtils.getResourceURL("foo").toString(), is("file:/home/thomas_perkins/JVD/projects/Alibaba-nacos/common/foo"));
+    void getResourceURL() throws java.io.IOException {
+        assertThat(ResourceUtils.getResourceURL("classpath:").toString(), is("file:/tmp/jcover-cp-outJjr/"));
+        assertThat(ResourceUtils.getResourceURL(null, "").toString(), is("file:/tmp/jcover-cp-outJjr/"));
+        assertThat(ResourceUtils.getResourceURL(ClassLoader.getSystemClassLoader(), "").toString(), is("file:/tmp/jcover-cp-outJjr/"));
+        assertThat(ResourceUtils.getResourceURL("foo").toString(), is("file:/home/thomas_perkins/product/JVD/projects/Alibaba-nacos/common/foo"));
     }
 
     @Test
     void getResourceAsStreamResourceIsEmpty() throws java.io.IOException {
-        // pojo java.io.InputStream
+        // pojo java.io.InputStream ResourceUtils.getResourceAsStream("")
     }
 
     @Test
@@ -34,11 +35,9 @@ class ResourceUtilsTest {
     }
 
     @Test
-    void getResourceAsFile() throws java.net.MalformedURLException, java.io.IOException {
+    void getResourceAsFile() throws java.io.IOException, java.net.MalformedURLException {
+        assertThat(ResourceUtils.getResourceAsFile("/bin/bash").getPath(), is("/bin/bash"));
         assertThat(ResourceUtils.getResourceAsFile(new URL("http://www.test.com/")).getPath(), is("/"));
-        assertThat(ResourceUtils.getResourceAsFile("Resource ").getPath(), equalTo(Paths.get("").toAbsolutePath().toString()+"/Resource%20"));
-        assertThat(ResourceUtils.getResourceAsFile("classpath:").getPath().startsWith(System.getProperty("java.io.tmpdir")), is(true));
-        assertThat(ResourceUtils.getResourceAsFile(null, "").getPath().startsWith(System.getProperty("java.io.tmpdir")), is(true));
         assertThat(ResourceUtils.getResourceAsFile(ClassLoader.getSystemClassLoader(), "").getPath().startsWith(System.getProperty("java.io.tmpdir")), is(true));
     }
 }

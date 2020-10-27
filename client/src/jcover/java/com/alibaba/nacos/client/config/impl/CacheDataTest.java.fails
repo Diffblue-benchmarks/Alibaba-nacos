@@ -75,7 +75,7 @@ class CacheDataTest {
     @Test
     void addListener() {
         CacheData cacheData =
-             new CacheData(new ConfigFilterChainManager(), "Acme", "CacheData ", "something");
+             new CacheData(new ConfigFilterChainManager(), "Acme", "something", "something");
         cacheData.setContent("hello");
         Listener listener = mock(Listener.class);
         cacheData.addListener(listener);

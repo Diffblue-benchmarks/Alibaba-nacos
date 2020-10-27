@@ -29,7 +29,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 class JwtAuthenticationTokenFilterTest {
 
     @Test
-    void factory() throws IllegalStateException, IllegalArgumentException, javax.servlet.ServletException, java.net.MalformedURLException {
+    void factory() {
         JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter =
              new JwtAuthenticationTokenFilter(new JwtTokenUtils());
         jwtAuthenticationTokenFilter.setBeanName("data.txt");

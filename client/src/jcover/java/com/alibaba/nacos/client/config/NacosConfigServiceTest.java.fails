@@ -1,0 +1,149 @@
+package com.alibaba.nacos.client.config;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.api.config.listener.Listener;
+
+import java.util.Properties;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.config.NacosConfigService
+ *
+ * @author Diffblue Cover
+ */
+
+class NacosConfigServiceTest {
+
+    @Test
+    void getConfig() throws com.alibaba.nacos.api.exception.NacosException {
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("encode", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        assertThat(new NacosConfigService(properties).getConfig("1234", "foo", 1L), is(nullValue()));
+        Mockito.verify(properties).rehash();
+    }
+
+    @Test
+    void getConfigAndSignListener() throws com.alibaba.nacos.api.exception.NacosException {
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("encode", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        Listener listener = mock(Listener.class);
+        assertThat(new NacosConfigService(properties).getConfigAndSignListener("1234", "foo", 1L, listener), is(nullValue()));
+        Mockito.verify(properties).rehash();
+    }
+
+    @Test
+    void addListener() throws com.alibaba.nacos.api.exception.NacosException {
+
+        // arrange
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("encode", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        Listener listener = mock(Listener.class);
+
+        // act
+        new NacosConfigService(properties).addListener("1234", "foo", listener);
+
+        // assert
+        Mockito.verify(properties).rehash();
+    }
+
+    @Test
+    void publishConfig() throws com.alibaba.nacos.api.exception.NacosException {
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("encode", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        assertThat(new NacosConfigService(properties).publishConfig("1234", "foo", "hello"), is(false));
+        Mockito.verify(properties).rehash();
+    }
+
+    @Test
+    void removeConfig() throws com.alibaba.nacos.api.exception.NacosException {
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("encode", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        assertThat(new NacosConfigService(properties).removeConfig("1234", "foo"), is(false));
+        Mockito.verify(properties).rehash();
+    }
+
+    @Test
+    void removeListener() throws com.alibaba.nacos.api.exception.NacosException {
+
+        // arrange
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("encode", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        Listener listener = mock(Listener.class);
+
+        // act
+        new NacosConfigService(properties).removeListener("1234", "foo", listener);
+
+        // assert
+        Mockito.verify(properties).rehash();
+    }
+
+    @Test
+    void getServerStatus() throws com.alibaba.nacos.api.exception.NacosException {
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("encode", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        assertThat(new NacosConfigService(properties).getServerStatus(), is("UP"));
+        Mockito.verify(properties).rehash();
+    }
+}

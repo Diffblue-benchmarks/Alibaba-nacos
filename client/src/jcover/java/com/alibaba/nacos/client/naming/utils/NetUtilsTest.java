@@ -15,6 +15,6 @@ class NetUtilsTest {
 
     @Test
     void localIP() {
-        assertThat(NetUtils.localIP(), is("10.128.0.86"));
+        assertThat(NetUtils.localIP(), is("10.128.0.5"));
     }
 }

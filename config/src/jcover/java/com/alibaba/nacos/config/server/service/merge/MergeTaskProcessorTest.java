@@ -23,14 +23,14 @@ import org.junit.jupiter.api.Test;
 class MergeTaskProcessorTest {
 
     @Test
-    void factory() throws java.io.IOException {
+    void factory() {
         PersistService persistService1 = new PersistService();
         DataSourceService dataSourceService1 = mock(DataSourceService.class);
         persistService1.setBasicDataSourceService(dataSourceService1);
         PersistService persistService2 = new PersistService();
         DataSourceService dataSourceService2 = mock(DataSourceService.class);
         persistService2.setBasicDataSourceService(dataSourceService2);
-        // pojo MergeTaskProcessor
+        // pojo MergeTaskProcessor new MergeTaskProcessor(persistService1, new MergeDatumService(persistService2))
     }
 
     @Test

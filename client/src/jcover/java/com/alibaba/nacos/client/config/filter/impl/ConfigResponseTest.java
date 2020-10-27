@@ -21,7 +21,7 @@ class ConfigResponseTest {
         configResponse.setDataId("1234");
         configResponse.setGroup("/bin/bash");
         configResponse.setTenant("/bin/bash");
-        // pojo ConfigResponse
+        // pojo ConfigResponse configResponse
     }
 
     @Test

@@ -29,6 +29,39 @@ class NacosExceptionTest {
 
     @Test
     void factory2() {
+        Exception throwable1 = new Exception();
+        throwable1.setStackTrace(new StackTraceElement[] { });
+        NacosException nacosException =
+             new NacosException(0, "an error has happened", throwable1);
+        Exception throwable2 = new Exception();
+        throwable2.setStackTrace(new StackTraceElement[] { });
+        nacosException.setCauseThrowable(throwable2);
+        nacosException.setErrCode(1);
+        nacosException.setErrMsg("an error has happened");
+        assertThat(nacosException.getErrCode(), is(1));
+        assertThat(nacosException.getCause().getCause(), is(nullValue()));
+        assertThat(nacosException.getCause().getMessage(), is(nullValue()));
+        assertThat(nacosException.getMessage(), is("an error has happened"));
+    }
+
+    @Test
+    void factory3() {
+        Exception throwable1 = new Exception();
+        throwable1.setStackTrace(new StackTraceElement[] { });
+        NacosException nacosException = new NacosException(0, throwable1);
+        Exception throwable2 = new Exception();
+        throwable2.setStackTrace(new StackTraceElement[] { });
+        nacosException.setCauseThrowable(throwable2);
+        nacosException.setErrCode(1);
+        nacosException.setErrMsg("an error has happened");
+        assertThat(nacosException.getErrCode(), is(1));
+        assertThat(nacosException.getCause().getCause(), is(nullValue()));
+        assertThat(nacosException.getCause().getMessage(), is(nullValue()));
+        assertThat(nacosException.getMessage(), is("java.lang.Exception"));
+    }
+
+    @Test
+    void factory4() {
         NacosException nacosException = new NacosException(0, "bar");
         Exception throwable = new Exception();
         throwable.setStackTrace(new StackTraceElement[] { });
@@ -38,39 +71,6 @@ class NacosExceptionTest {
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getCause(), is(nullValue()));
         assertThat(nacosException.getMessage(), is("bar"));
-    }
-
-    @Test
-    void factory3() {
-        Exception throwable1 = new Exception();
-        throwable1.setStackTrace(new StackTraceElement[] { });
-        NacosException nacosException =
-             new NacosException(0, "bar", throwable1);
-        Exception throwable2 = new Exception();
-        throwable2.setStackTrace(new StackTraceElement[] { });
-        nacosException.setCauseThrowable(throwable2);
-        nacosException.setErrCode(1);
-        nacosException.setErrMsg("an error has happened");
-        assertThat(nacosException.getErrCode(), is(1));
-        assertThat(nacosException.getCause().getCause(), is(nullValue()));
-        assertThat(nacosException.getCause().getMessage(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("bar"));
-    }
-
-    @Test
-    void factory4() {
-        Exception throwable1 = new Exception();
-        throwable1.setStackTrace(new StackTraceElement[] { });
-        NacosException nacosException = new NacosException(0, throwable1);
-        Exception throwable2 = new Exception();
-        throwable2.setStackTrace(new StackTraceElement[] { });
-        nacosException.setCauseThrowable(throwable2);
-        nacosException.setErrCode(1);
-        nacosException.setErrMsg("bar");
-        assertThat(nacosException.getErrCode(), is(1));
-        assertThat(nacosException.getCause().getCause(), is(nullValue()));
-        assertThat(nacosException.getCause().getMessage(), is(nullValue()));
-        assertThat(nacosException.getMessage(), is("java.lang.Exception"));
     }
 
     @Test

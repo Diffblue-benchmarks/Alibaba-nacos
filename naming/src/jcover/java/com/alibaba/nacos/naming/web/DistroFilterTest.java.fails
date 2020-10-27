@@ -27,7 +27,7 @@ public class DistroFilterTest {
     }
 
     @Test
-    public void doFilter1() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
+    public void doFilter1() throws java.io.UnsupportedEncodingException, java.io.IOException, javax.servlet.ServletException {
 
         // arrange
         MockHttpServletRequest servletRequest = new MockHttpServletRequest();
@@ -45,7 +45,7 @@ public class DistroFilterTest {
     }
 
     @Test
-    public void doFilter2() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
+    public void doFilter2() throws java.io.UnsupportedEncodingException, java.io.IOException, javax.servlet.ServletException {
 
         // arrange
         MockHttpServletResponse servletResponse =

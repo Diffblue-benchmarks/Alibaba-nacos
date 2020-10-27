@@ -31,7 +31,7 @@ class RunningConfigUtilsTest {
     private RunningConfigUtils service;
 
     @Test
-    void onApplicationEvent() throws javax.servlet.ServletException, java.net.MalformedURLException, org.springframework.boot.web.server.WebServerException {
+    void onApplicationEvent() {
         when(servletContext.getContextPath())
             .thenReturn("foo=bar");
         WebServer webServer = mock(WebServer.class);

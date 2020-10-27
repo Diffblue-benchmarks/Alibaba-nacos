@@ -37,7 +37,7 @@ class TemplateUtilsTest {
     }
 
     @Test
-    void stringEmptyAndThenExecuteSourceIsFoo() throws Exception {
+    void stringEmptyAndThenExecuteSourceIsFoo() {
         @SuppressWarnings("unchecked")
         Callable<String> callable = mock(Callable.class);
         assertThat(TemplateUtils.stringEmptyAndThenExecute("foo", callable), is("foo"));
@@ -53,7 +53,7 @@ class TemplateUtilsTest {
     }
 
     @Test
-    void stringBlankAndThenExecuteSourceIsFoo() throws Exception {
+    void stringBlankAndThenExecuteSourceIsFoo() {
         @SuppressWarnings("unchecked")
         Callable<String> callable = mock(Callable.class);
         assertThat(TemplateUtils.stringBlankAndThenExecute("foo", callable), is("foo"));

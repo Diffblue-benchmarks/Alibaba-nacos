@@ -1,6 +1,7 @@
 package com.alibaba.nacos.naming.healthcheck;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 
@@ -26,9 +27,7 @@ public class RsInfoTest {
         rsInfo.setIp("foo");
         rsInfo.setLoad(1.0);
         rsInfo.setMem(1.0);
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        rsInfo.setMetadata(metadata);
+        rsInfo.setMetadata(new HashMap<String, String>());
         rsInfo.setPort(1);
         rsInfo.setQps(1.0);
         rsInfo.setRt(1.0);
@@ -40,7 +39,7 @@ public class RsInfoTest {
         assertThat(rsInfo.getIp(), is("foo"));
         assertThat(rsInfo.getLoad(), closeTo(1.0, 0.0));
         assertThat(rsInfo.getMem(), closeTo(1.0, 0.0));
-        assertThat(rsInfo.getMetadata().get("foo"), is("foo"));
+        assertThat(rsInfo.getMetadata(), is(notNullValue()));
         assertThat(rsInfo.getPort(), is(1));
         assertThat(rsInfo.getQps(), closeTo(1.0, 0.0));
         assertThat(rsInfo.getRt(), closeTo(1.0, 0.0));

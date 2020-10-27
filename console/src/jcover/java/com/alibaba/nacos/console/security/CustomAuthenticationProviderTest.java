@@ -61,12 +61,12 @@ class CustomAuthenticationProviderTest {
     }
 
     @Test
-    void supportsAClassIsStringReturnsFalse() throws org.springframework.security.core.userdetails.UsernameNotFoundException {
+    void supportsAClassIsStringReturnsFalse() {
         assertThat(service.supports(String.class), is(false));
     }
 
     @Test
-    void supportsAClassIsUsernamePasswordAuthenticationTokenReturnsTrue() throws org.springframework.security.core.userdetails.UsernameNotFoundException {
+    void supportsAClassIsUsernamePasswordAuthenticationTokenReturnsTrue() {
         assertThat(service.supports(org.springframework.security.authentication.UsernamePasswordAuthenticationToken.class), is(true));
     }
 }

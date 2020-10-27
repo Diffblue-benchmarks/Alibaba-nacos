@@ -27,7 +27,7 @@ class ConfigHistoryInfoTest {
         configHistoryInfo.setId(1L);
         configHistoryInfo.setLastId(1L);
         configHistoryInfo.setLastModifiedTime(Timestamp.valueOf("2019-12-31 23:10:59"));
-        configHistoryInfo.setMd5("foo");
+        configHistoryInfo.setMd5("/some/path.html");
         configHistoryInfo.setOpType("BASIC");
         configHistoryInfo.setSrcIp("/some/path.html");
         configHistoryInfo.setSrcUser("John Smith");
@@ -38,7 +38,7 @@ class ConfigHistoryInfoTest {
         assertThat(configHistoryInfo.getGroup(), is("bar"));
         assertThat(configHistoryInfo.getId(), is(1L));
         assertThat(configHistoryInfo.getLastId(), is(1L));
-        assertThat(configHistoryInfo.getMd5(), is("foo"));
+        assertThat(configHistoryInfo.getMd5(), is("/some/path.html"));
         assertThat(configHistoryInfo.getOpType(), is("BASIC"));
         assertThat(configHistoryInfo.getSrcIp(), is("/some/path.html"));
         assertThat(configHistoryInfo.getSrcUser(), is("John Smith"));

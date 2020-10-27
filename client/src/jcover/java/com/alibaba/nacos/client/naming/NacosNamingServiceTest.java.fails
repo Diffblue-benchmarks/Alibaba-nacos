@@ -2,7 +2,6 @@ package com.alibaba.nacos.client.naming;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.api.naming.listener.Event;
@@ -24,28 +23,33 @@ import org.mockito.Mockito;
 class NacosNamingServiceTest {
 
     @Test
-    void factory1() {
-        Properties properties = new Properties();
-        properties.setProperty("key", "value");
-        // pojo NacosNamingService
+    void factory() {
+        // pojo NacosNamingService new NacosNamingService("Smith")
     }
 
     @Test
-    void factory2() {
-        Properties properties = new Properties();
-        properties.setProperty("com.alibaba.nacos.naming.log.filename", "value");
-        // pojo NacosNamingService
+    void getAllInstances1() throws com.alibaba.nacos.api.exception.NacosException {
+        assertThat(new NacosNamingService(new Properties()).getAllInstances("Acme"), empty());
     }
 
     @Test
-    void factory3() {
+    void getAllInstances2() throws com.alibaba.nacos.api.exception.NacosException {
         Properties properties = new Properties();
-        properties.setProperty("namingLoadCacheAtStart", "value");
-        // pojo NacosNamingService
+        properties.put("com.alibaba.nacos.naming.log.filename", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("namingClientBeatThreadCount", "foo");
+        properties.put("namingLoadCacheAtStart", "foo");
+        properties.put("namingPollingThreadCount", "foo");
+        properties.put("serverAddr", "foo");
+        assertThat(new NacosNamingService(properties).getAllInstances("Acme"), empty());
+        Mockito.verify(properties).rehash();
     }
 
     @Test
-    void getAllInstances() throws com.alibaba.nacos.api.exception.NacosException {
+    void getAllInstances3() throws com.alibaba.nacos.api.exception.NacosException {
         assertThat(new NacosNamingService("Smith").getAllInstances("Acme"), empty());
         assertThat(new NacosNamingService("Smith").getAllInstances("bar", "Acme"), empty());
         assertThat(new NacosNamingService("Smith").getAllInstances("Acme", "Acme", true), empty());
@@ -54,44 +58,22 @@ class NacosNamingServiceTest {
 
     @Test
     void selectInstances() throws com.alibaba.nacos.api.exception.NacosException {
-        assertThat(new NacosNamingService("Smith").selectInstances("Acme", "Acme", false), empty());
         assertThat(new NacosNamingService("Smith").selectInstances("Acme", false), empty());
         assertThat(new NacosNamingService("Smith").selectInstances("Acme", "Acme", new ArrayList<String>(), false), empty());
+        assertThat(new NacosNamingService("Smith").selectInstances("Acme", false, true), empty());
     }
 
     @Test
-    void subscribeServiceNameIsAcme() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribe1() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
         new NacosNamingService("Smith").subscribe("Acme", listener);
-    }
-
-    @Test
-    void subscribe() throws com.alibaba.nacos.api.exception.NacosException {
-        EventListener listener = mock(EventListener.class);
-        new NacosNamingService("Smith").subscribe("Acme", "Acme", listener);
         Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());
     }
 
     @Test
-    void unsubscribe() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribe2() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
-        new NacosNamingService("Smith").unsubscribe("Acme", listener);
-    }
-
-    @Test
-    void unsubscribeGroupNameIsAcme() throws com.alibaba.nacos.api.exception.NacosException {
-        EventListener listener = mock(EventListener.class);
-        new NacosNamingService("Smith").unsubscribe("Acme", "Acme", listener);
-    }
-
-    @Test
-    void getSubscribeServicesReturnsEmpty() {
-        assertThat(new NacosNamingService("Smith").getSubscribeServices(), empty());
-    }
-
-    @Test
-    void getServerStatus() {
-        assertThat(new NacosNamingService("Smith").getServerStatus(), is("DOWN"));
-        assertThat(new NacosNamingService(new Properties()).getServerStatus(), is("DOWN"));
+        new NacosNamingService("Smith").subscribe("bar", "Acme", listener);
+        Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());
     }
 }

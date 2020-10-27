@@ -39,7 +39,7 @@ public class HealthCheckProcessorDelegateTest {
     private HealthCheckProcessorDelegate service;
 
     @Test
-    public void getType() throws org.springframework.beans.BeansException {
+    public void getType() {
         HealthCheckProcessor element = mock(HealthCheckProcessor.class);
         when(element.getType())
             .thenReturn("BASIC")

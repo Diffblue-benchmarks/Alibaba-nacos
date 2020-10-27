@@ -47,18 +47,9 @@ class LongPollingServiceTest {
         assertThat(service.getCollectSubscribleInfoByIp("bar").getLisentersGroupkeyStatus().isEmpty(), is(true));
         assertThat(service.getCollectSubscribleInfo("1234", "bar", "foo").getLisentersGroupkeyStatus().isEmpty(), is(true));
         assertThat(service.getRetainIps().isEmpty(), is(true));
-    }
-
-    @Test
-    void mergeSampleResult() {
-        ArrayList<SampleResult> sampleResults = new ArrayList<SampleResult>();
-        SampleResult sampleResult = new SampleResult();
-        HashMap<String, String> lisentersGroupkeyStatus =
-             new HashMap<String, String>();
-        lisentersGroupkeyStatus.put("foo", "foo");
-        sampleResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
-        sampleResults.add(sampleResult);
-        assertThat(service.mergeSampleResult(sampleResults).getLisentersGroupkeyStatus().get("foo"), is("foo"));
+        assertThat(service.getSubscribleInfoByIp("bar").getLisentersGroupkeyStatus().isEmpty(), is(true));
+        assertThat(service.getSubscribleInfo("1234", "bar", "foo").getLisentersGroupkeyStatus().isEmpty(), is(true));
+        assertThat(service.mergeSampleResult(new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().isEmpty(), is(true));
     }
 
     @Test
@@ -110,7 +101,7 @@ class LongPollingServiceTest {
     }
 
     @Test
-    void setRetainIpsToEmpty() {
+    void setRetainIps() {
         service.setRetainIps(new HashMap<String, Long>());
     }
 }

@@ -24,9 +24,7 @@ public class ClusterInfoTest {
         IpAddressInfo ipAddressInfo = new IpAddressInfo();
         ipAddressInfo.setEnabled(false);
         ipAddressInfo.setIp("280 Broadway");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("foo", "foo");
-        ipAddressInfo.setMetadata(metadata);
+        ipAddressInfo.setMetadata(new HashMap<String, String>());
         ipAddressInfo.setPort(1);
         ipAddressInfo.setValid(false);
         ipAddressInfo.setWeight(1.0);

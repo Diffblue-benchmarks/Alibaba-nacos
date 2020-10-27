@@ -2,7 +2,7 @@ package com.alibaba.nacos.client.naming.utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsSame.sameInstance;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
 
@@ -17,67 +17,58 @@ import org.junit.jupiter.api.Test;
 class CollectionUtilsTest {
 
     @Test
-    void subtract() {
-        LinkedList a = new LinkedList();
-        Object object1 = new Object();
-        a.add(object1);
-        LinkedList b = new LinkedList();
-        b.add(new Object());
-        assertThat(CollectionUtils.subtract(a, b).size(), is(1));
-    }
-
-    @Test
-    void getCardinalityMap() {
-        LinkedList coll = new LinkedList();
-        Object object = 1;
-        coll.add(object);
-        assertThat(CollectionUtils.getCardinalityMap(coll).get(object), sameInstance(object));
+    void subtractAIsEmptyAndBIsFooReturnsEmpty() {
+        LinkedList<String> b = new LinkedList<String>();
+        b.add("foo");
+        assertTrue((CollectionUtils.subtract(new LinkedList<String>(), b)).isEmpty());
     }
 
     @Test
     void getCardinalityMapCollIsEmptyReturnsEmpty() {
-        assertThat(CollectionUtils.getCardinalityMap(new LinkedList()).isEmpty(), is(true));
+        assertThat(CollectionUtils.getCardinalityMap(new LinkedList<String>()).isEmpty(), is(true));
     }
 
     @Test
-    void isEqualCollectionAIsEmptyAndBIsEmptyReturnsTrue() {
-        assertThat(CollectionUtils.isEqualCollection(new LinkedList(), new LinkedList()), is(true));
+    void getCardinalityMapCollIsFooReturnsOne() {
+        LinkedList<String> coll = new LinkedList<String>();
+        coll.add("foo");
+        assertThat((Integer) CollectionUtils.getCardinalityMap(coll).get("foo"), is(1));
     }
 
     @Test
-    void isEqualCollectionAIsEmptyReturnsFalse() {
-        LinkedList b = new LinkedList();
-        b.add("foo");
-        assertThat(CollectionUtils.isEqualCollection(new LinkedList(), b), is(false));
-    }
-
-    @Test
-    void isEqualCollectionReturnsFalse() {
-        LinkedList a = new LinkedList();
-        a.add(1);
-        LinkedList b = new LinkedList();
+    void isEqualCollectionAIsBar() {
+        LinkedList<String> a = new LinkedList<String>();
+        a.add("bar");
+        LinkedList<String> b = new LinkedList<String>();
         b.add("foo");
         assertThat(CollectionUtils.isEqualCollection(a, b), is(false));
     }
 
     @Test
-    void isEqualCollectionReturnsTrue() {
-        LinkedList a = new LinkedList();
+    void isEqualCollectionAIsEmpty() {
+        LinkedList<String> b = new LinkedList<String>();
+        b.add("foo");
+        assertThat(CollectionUtils.isEqualCollection(new LinkedList<String>(), b), is(false));
+    }
+
+    @Test
+    void isEqualCollectionAIsFooReturnsTrue() {
+        LinkedList<String> a = new LinkedList<String>();
         a.add("foo");
-        LinkedList b = new LinkedList();
+        LinkedList<String> b = new LinkedList<String>();
         b.add("foo");
         assertThat(CollectionUtils.isEqualCollection(a, b), is(true));
     }
 
     @Test
     void isEmpty() {
-        assertThat(CollectionUtils.isEmpty(new LinkedList()), is(true));
+        assertThat(CollectionUtils.isEmpty(new LinkedList<String>()), is(true));
         assertThat(CollectionUtils.isEmpty(null), is(true));
     }
 
     @Test
-    void isEmptyReturnsFalse() {
-        LinkedList coll = new LinkedList();
+    void isEmptyCollIsFooReturnsFalse() {
+        LinkedList<String> coll = new LinkedList<String>();
         coll.add("foo");
         assertThat(CollectionUtils.isEmpty(coll), is(false));
     }

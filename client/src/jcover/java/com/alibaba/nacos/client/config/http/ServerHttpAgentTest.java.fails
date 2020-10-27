@@ -1,10 +1,12 @@
 package com.alibaba.nacos.client.config.http;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import com.alibaba.nacos.client.config.impl.ServerListManager;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
@@ -20,30 +22,36 @@ class ServerHttpAgentTest {
 
     @Test
     void factory1() {
-        Properties properties2 = new Properties();
-        properties2.setProperty("key", "value");
-        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
+        assertThat(new ServerHttpAgent(new ServerListManager()).getEncode(), is(nullValue()));
     }
 
     @Test
     void factory2() {
-        Properties properties2 = new Properties();
-        properties2.setProperty("accessKey", "value");
-        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
+        assertThat(new ServerHttpAgent(new ServerListManager(), new Properties()).getEncode(), is("UTF-8"));
     }
 
     @Test
     void factory3() {
         Properties properties2 = new Properties();
-        properties2.setProperty("ramRoleName", "value");
-        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
+        properties2.put("accessKey", "foo");
+        properties2.put("encode", "foo");
+        properties2.put("maxRetry", "foo");
+        properties2.put("ramRoleName", "foo");
+        properties2.put("secretKey", "foo");
+        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("foo"));
     }
 
     @Test
-    void factory4() {
-        Properties properties2 = new Properties();
-        properties2.setProperty("secretKey", "value");
-        assertThat(new ServerHttpAgent(new ServerListManager(), properties2).getEncode(), is("UTF-8"));
+    void factory4() throws com.alibaba.nacos.api.exception.NacosException {
+        Properties properties = new Properties();
+        properties.put("clusterName", "foo");
+        properties.put("contextPath", "foo");
+        properties.put("endpoint", "foo");
+        properties.put("endpointPort", "");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        assertThat(new ServerHttpAgent(properties).getEncode(), is("UTF-8"));
     }
 
     @Test
@@ -53,7 +61,7 @@ class ServerHttpAgentTest {
 
     @Test
     void start() throws com.alibaba.nacos.api.exception.NacosException {
-        new ServerHttpAgent(new ServerListManager(new java.util.ArrayList<String>())).start();
+        new ServerHttpAgent(new ServerListManager(new ArrayList<String>())).start();
     }
 
     @Test

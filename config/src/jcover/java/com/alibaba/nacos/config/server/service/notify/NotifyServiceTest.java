@@ -14,6 +14,6 @@ class NotifyServiceTest {
 
     @Test
     void factory() {
-        // pojo NotifyService
+        // pojo NotifyService new NotifyService(new ServerListService())
     }
 }

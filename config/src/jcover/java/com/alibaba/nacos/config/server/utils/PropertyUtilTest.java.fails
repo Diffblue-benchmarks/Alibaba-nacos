@@ -30,7 +30,7 @@ class PropertyUtilTest {
     private PropertyUtil service;
 
     @Test
-    void getProperty() throws IllegalStateException, IllegalArgumentException {
+    void getProperty() {
         when(env.getProperty(Mockito.<String>any()))
             .thenReturn("foo");
         when(env.getProperty(Mockito.<String>any(), Mockito.<String>any()))
@@ -39,7 +39,7 @@ class PropertyUtilTest {
     }
 
     @Test
-    void getPropertyDefaultValueIsValue() throws IllegalStateException, IllegalArgumentException {
+    void getPropertyDefaultValueIsValue() {
         when(env.getProperty(Mockito.<String>any(), Mockito.<String>any()))
             .thenReturn("foo")
             .thenReturn("foo");

@@ -55,8 +55,8 @@ class ParamUtilTest {
     }
 
     @Test
-    void getConnectTimeoutReturnsOneThousand() {
-        assertThat(ParamUtil.getConnectTimeout(), is(1_000));
+    void getConnectTimeoutReturnsOne() {
+        assertThat(ParamUtil.getConnectTimeout(), is(1));
     }
 
     @Test

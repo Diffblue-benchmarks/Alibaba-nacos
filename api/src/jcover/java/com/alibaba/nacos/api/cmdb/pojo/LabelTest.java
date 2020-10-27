@@ -1,7 +1,7 @@
 package com.alibaba.nacos.api.cmdb.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.HashSet;
@@ -24,6 +24,6 @@ class LabelTest {
         label.setValues(new HashSet<String>());
         assertThat(label.getDescription(), is("some text"));
         assertThat(label.getName(), is("Acme"));
-        assertThat(label.getValues(), empty());
+        assertThat(label.getValues(), is(notNullValue()));
     }
 }

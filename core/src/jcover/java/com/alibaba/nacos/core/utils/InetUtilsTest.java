@@ -17,12 +17,12 @@ class InetUtilsTest {
 
     @Test
     void getSelfIp() {
-        assertThat(InetUtils.getSelfIp(), is("10.128.0.86"));
+        assertThat(InetUtils.getSelfIp(), is("10.128.0.5"));
     }
 
     @Test
     void findFirstNonLoopbackAddress() {
-        assertThat(InetUtils.findFirstNonLoopbackAddress().getHostAddress(), is("10.128.0.86"));
+        assertThat(InetUtils.findFirstNonLoopbackAddress().getHostAddress(), is("10.128.0.5"));
     }
 
     @Test

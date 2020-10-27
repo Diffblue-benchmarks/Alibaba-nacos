@@ -32,7 +32,7 @@ class GroupCapacityPersistServiceTest {
     private GroupCapacityPersistService service;
 
     @Test
-    void init() throws java.io.IOException {
+    void init() {
         DataSourceService dataSourceService1 = mock(DataSourceService.class);
         when(dataSourceService1.getJdbcTemplate())
             .thenReturn(new JdbcTemplate());

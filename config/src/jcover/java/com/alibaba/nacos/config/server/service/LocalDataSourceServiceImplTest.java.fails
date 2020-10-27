@@ -51,8 +51,8 @@ class LocalDataSourceServiceImplTest {
         assertThat(result.isResultsMapCaseInsensitive(), is(false));
         assertThat(result.isSkipResultsProcessing(), is(false));
         assertThat(result.isSkipUndeclaredResults(), is(false));
-        // pojo String
-        // pojo String
+        // pojo String result.getDataSource().getConnection().getMetaData().getDriverName()
+        // pojo String result.getDataSource().getConnection().getMetaData().getURL()
         assertThat(result.getDataSource().getConnection().isClosed(), is(false));
         assertThat(result.isLazyInit(), is(true));
     }

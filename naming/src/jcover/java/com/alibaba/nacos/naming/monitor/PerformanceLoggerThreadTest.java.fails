@@ -43,19 +43,19 @@ public class PerformanceLoggerThreadTest {
     private PerformanceLoggerThread service;
 
     @Test
-    public void init() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void init() {
         service.init();
     }
 
     @Test
-    public void refreshMetrics() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void refreshMetrics() {
         service.refreshMetrics();
         Mockito.verify(pushService).setFailedPush(ArgumentMatchers.eq((Integer) 0));
         Mockito.verify(pushService).setTotalPush(ArgumentMatchers.eq((Integer) 0));
     }
 
     @Test
-    public void collectMetrics() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void collectMetrics() {
         when(serviceManager.getInstanceCount())
             .thenReturn(0);
         when(serviceManager.getServiceCount())

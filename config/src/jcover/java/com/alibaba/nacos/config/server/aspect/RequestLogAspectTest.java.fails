@@ -38,19 +38,11 @@ class RequestLogAspectTest {
     }
 
     @Test
-    void interfacePublishSingleContentIsNull() throws Throwable, java.io.UnsupportedEncodingException {
-        ProceedingJoinPoint pjp = mock(ProceedingJoinPoint.class);
-        when(pjp.proceed())
-            .thenReturn(new Object());
-        // pojo Object
-    }
-
-    @Test
     void interfaceRemoveAll() throws Throwable, java.io.UnsupportedEncodingException {
         ProceedingJoinPoint pjp = mock(ProceedingJoinPoint.class);
         when(pjp.proceed())
             .thenReturn(new Object());
-        // pojo Object
+        // pojo Object service.interfaceRemoveAll(pjp, new MockHttpServletRequest(), new MockHttpServletResponse(), "1234", "/some/path.html", "/some/path.html")
     }
 
     @Test
@@ -58,6 +50,6 @@ class RequestLogAspectTest {
         ProceedingJoinPoint pjp = mock(ProceedingJoinPoint.class);
         when(pjp.proceed())
             .thenReturn(new Object());
-        // pojo Object
+        // pojo Object service.interfaceGetConfig(pjp, new MockHttpServletRequest(), new MockHttpServletResponse(), "1234", "/some/path.html", "/some/path.html")
     }
 }

@@ -47,50 +47,7 @@ class ParamUtilsTest {
     }
 
     @Test
-    void checkParam1() throws com.alibaba.nacos.config.server.exception.NacosException {
-        HashMap<String, Object> configAdvanceInfo =
-             new HashMap<String, Object>();
-        configAdvanceInfo.put("config_tags", "foo");
-        ParamUtils.checkParam(configAdvanceInfo);
-    }
-
-    @Test
-    void checkParam2() throws com.alibaba.nacos.config.server.exception.NacosException {
-        HashMap<String, Object> configAdvanceInfo =
-             new HashMap<String, Object>();
-        configAdvanceInfo.put("desc", "foo");
-        ParamUtils.checkParam(configAdvanceInfo);
-    }
-
-    @Test
-    void checkParam3() throws com.alibaba.nacos.config.server.exception.NacosException {
-        HashMap<String, Object> configAdvanceInfo =
-             new HashMap<String, Object>();
-        configAdvanceInfo.put("effect", "foo");
-        ParamUtils.checkParam(configAdvanceInfo);
-    }
-
-    @Test
-    void checkParam4() throws com.alibaba.nacos.config.server.exception.NacosException {
-        HashMap<String, Object> configAdvanceInfo =
-             new HashMap<String, Object>();
-        configAdvanceInfo.put("schema", "foo");
-        ParamUtils.checkParam(configAdvanceInfo);
-    }
-
-    @Test
-    void checkParam5() throws com.alibaba.nacos.config.server.exception.NacosException {
-        HashMap<String, Object> configAdvanceInfo =
-             new HashMap<String, Object>();
-        configAdvanceInfo.put("type", "foo");
-        ParamUtils.checkParam(configAdvanceInfo);
-    }
-
-    @Test
-    void checkParam6() throws com.alibaba.nacos.config.server.exception.NacosException {
-        HashMap<String, Object> configAdvanceInfo =
-             new HashMap<String, Object>();
-        configAdvanceInfo.put("use", "foo");
-        ParamUtils.checkParam(configAdvanceInfo);
+    void checkParam() throws com.alibaba.nacos.config.server.exception.NacosException {
+        ParamUtils.checkParam(new HashMap<String, Object>());
     }
 }

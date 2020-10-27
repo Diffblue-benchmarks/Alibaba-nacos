@@ -40,7 +40,7 @@ public class RaftPeerSetTest {
     private RaftPeerSet service;
 
     @Test
-    public void setApplicationContext() throws IllegalStateException, org.springframework.beans.factory.NoSuchBeanDefinitionException, org.springframework.beans.BeansException, org.springframework.context.NoSuchMessageException, java.io.IOException {
+    public void setApplicationContext() throws org.springframework.beans.BeansException {
         ApplicationContext applicationContext = mock(ApplicationContext.class);
         service.setApplicationContext(applicationContext);
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());

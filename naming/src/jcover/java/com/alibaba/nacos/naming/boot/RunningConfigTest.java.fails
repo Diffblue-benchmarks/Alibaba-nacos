@@ -31,7 +31,7 @@ public class RunningConfigTest {
     private RunningConfig service;
 
     @Test
-    public void onApplicationEvent() throws javax.servlet.ServletException, java.net.MalformedURLException, org.springframework.boot.web.server.WebServerException {
+    public void onApplicationEvent() {
         when(servletContext.getContextPath())
             .thenReturn("foo=bar")
             .thenReturn("foo=bar");

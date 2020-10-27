@@ -1,6 +1,5 @@
 package com.alibaba.nacos.naming.controllers;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,7 +47,7 @@ public class RaftControllerTest {
     private RaftController controller;
 
     @Test
-    public void getPeer1() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void getPeer1() throws Exception {
         List<RaftPeer> list = new ArrayList<RaftPeer>();
         list.add(new RaftPeer());
         when(raftCore.getPeers())
@@ -58,11 +57,11 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":1743,\"leaderDueMs\":7494,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.5:0\",\"heartbeatDueMs\":2353,\"leaderDueMs\":3430,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
-    public void getPeer2() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void getPeer2() throws Exception {
         when(raftCore.getPeers())
             .thenReturn(new ArrayList<RaftPeer>());
         MockMvcBuilders.standaloneSetup(controller)
@@ -70,11 +69,11 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/peer"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"ip\":\"10.128.0.86:0\",\"heartbeatDueMs\":2774,\"leaderDueMs\":7638,\"term\":0,\"state\":\"FOLLOWER\"}"));
+            .andExpect(content().json("{\"ip\":\"10.128.0.5:0\",\"heartbeatDueMs\":2876,\"leaderDueMs\":3665,\"term\":0,\"state\":\"FOLLOWER\"}"));
     }
 
     @Test
-    public void state() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void state() throws Exception {
         when(serviceManager.getServiceCount())
             .thenReturn(1);
         when(raftCore.getPeers())
@@ -88,7 +87,7 @@ public class RaftControllerTest {
     }
 
     @Test
-    public void getLeader() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void getLeader() throws Exception {
         when(raftCore.getLeader())
             .thenReturn(new RaftPeer());
         MockMvcBuilders.standaloneSetup(controller)
@@ -96,24 +95,18 @@ public class RaftControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/raft/leader"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":4348,\\\"leaderDueMs\\\":10250,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
+            .andExpect(content().json("{\"leader\":\"{\\\"heartbeatDueMs\\\":4694,\\\"leaderDueMs\\\":12288,\\\"state\\\":\\\"FOLLOWER\\\",\\\"term\\\":0}\"}"));
     }
 
     @Test
-    public void getAllListeners() throws com.alibaba.nacos.api.exception.NacosException, Exception {
-        Map<String, List<RecordListener>> map =
-             new HashMap<String, List<RecordListener>>();
-        ArrayList<RecordListener> x34 = new ArrayList<RecordListener>();
-        RecordListener recordListener1 = mock(RecordListener.class);
-        x34.add(recordListener1);
-        map.put("HmacMD5", x34);
+    public void getAllListeners() throws Exception {
         when(raftCore.getListeners())
-            .thenReturn(map);
+            .thenReturn(new HashMap<String, List<RecordListener>>());
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/raft/listeners"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"listeners\":[\"HmacMD5\"]}"));
+            .andExpect(content().json("{\"listeners\":[]}"));
     }
 }

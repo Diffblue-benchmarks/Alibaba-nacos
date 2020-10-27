@@ -34,7 +34,7 @@ class CustomUserDetailsServiceImplTest {
     private CustomUserDetailsServiceImpl service;
 
     @Test
-    void loadUserByUsernameUserNameIsRoot() throws com.alibaba.nacos.config.server.exception.NacosException, java.io.IOException, org.springframework.security.core.userdetails.UsernameNotFoundException {
+    void loadUserByUsernameUserNameIsRoot() throws org.springframework.security.core.userdetails.UsernameNotFoundException {
 
         // arrange
         User user = new User();

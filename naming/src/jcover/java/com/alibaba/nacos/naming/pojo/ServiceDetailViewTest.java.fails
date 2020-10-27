@@ -23,7 +23,7 @@ import org.junit.Test;
 public class ServiceDetailViewTest {
 
     @Test
-    public void factory() throws CloneNotSupportedException {
+    public void factory() {
         ServiceDetailView serviceDetailView = new ServiceDetailView();
         ArrayList<Cluster> clusters = new ArrayList<Cluster>();
         Cluster cluster = new Cluster();
@@ -32,9 +32,7 @@ public class ServiceDetailViewTest {
         AbstractHealthChecker healthChecker =
              mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
-        HashMap<String, String> metadata1 = new HashMap<String, String>();
-        metadata1.put("foo", "foo");
-        cluster.setMetadata(metadata1);
+        cluster.setMetadata(new HashMap<String, String>());
         cluster.setName("John Smith");
         cluster.setServiceName("John Smith");
         cluster.setUseIPPort4Check(false);
@@ -43,9 +41,7 @@ public class ServiceDetailViewTest {
         Service service = new Service();
         service.setAppName("Acme");
         service.setGroupName("Acme");
-        HashMap<String, String> metadata2 = new HashMap<String, String>();
-        metadata2.put("foo", "foo");
-        service.setMetadata(metadata2);
+        service.setMetadata(new HashMap<String, String>());
         service.setName("Acme");
         service.setProtectThreshold(1.0f);
         serviceDetailView.setService(service);

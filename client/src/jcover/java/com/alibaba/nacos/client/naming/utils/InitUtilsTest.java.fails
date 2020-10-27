@@ -16,8 +16,15 @@ import org.junit.jupiter.api.Test;
 class InitUtilsTest {
 
     @Test
-    void initNamespaceForNaming() {
-        assertThat(InitUtils.initNamespaceForNaming(new Properties()), is("public"));
+    void initNamespaceForNamingReturnsFoo() {
+        Properties properties = new Properties();
+        properties.put("isUseCloudNamespaceParsing", "bar");
+        properties.put("namespace", "foo");
+        assertThat(InitUtils.initNamespaceForNaming(properties), is("foo"));
+    }
+
+    @Test
+    void initNamespaceForNamingReturnsPublic() {
         assertThat(InitUtils.initNamespaceForNaming(new Properties()), is("public"));
     }
 
@@ -27,22 +34,29 @@ class InitUtilsTest {
     }
 
     @Test
-    void initEndpoint() {
+    void initEndpoint1() {
         assertThat(InitUtils.initEndpoint(new Properties()), is(""));
+    }
+
+    @Test
+    void initEndpoint2() {
+        Properties properties = new Properties();
+        properties.put("endpoint", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        assertThat(InitUtils.initEndpoint(properties), is("foo:8080"));
+    }
+
+    @Test
+    void initEndpoint3() {
         assertThat(InitUtils.initEndpoint(null), is(""));
     }
 
     @Test
-    void initEndpointPropertiesIsValue1() {
+    void initEndpoint4() {
         Properties properties = new Properties();
-        properties.setProperty("endpoint", "value");
-        assertThat(InitUtils.initEndpoint(properties), is("value:8080"));
-    }
-
-    @Test
-    void initEndpointPropertiesIsValue2() {
-        Properties properties = new Properties();
-        properties.setProperty("isUseEndpointParsingRule", "value");
+        properties.put("endpoint", "");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("endpointPort", "foo");
         assertThat(InitUtils.initEndpoint(properties), is(""));
     }
 }

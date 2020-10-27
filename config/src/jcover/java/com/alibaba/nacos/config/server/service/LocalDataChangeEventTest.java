@@ -14,20 +14,20 @@ class LocalDataChangeEventTest {
 
     @Test
     void factory1() {
-        // pojo LocalDataChangeEvent
+        // pojo LocalDataChangeEvent new LocalDataChangeEvent("key")
     }
 
     @Test
     void factory2() {
         ArrayList<String> betaIps = new ArrayList<String>();
         betaIps.add("foo=bar");
-        // pojo LocalDataChangeEvent
+        // pojo LocalDataChangeEvent new LocalDataChangeEvent("key", false, betaIps)
     }
 
     @Test
     void factory3() {
         ArrayList<String> betaIps = new ArrayList<String>();
         betaIps.add("foo=bar");
-        // pojo LocalDataChangeEvent
+        // pojo LocalDataChangeEvent new LocalDataChangeEvent("key", false, betaIps, "tag")
     }
 }

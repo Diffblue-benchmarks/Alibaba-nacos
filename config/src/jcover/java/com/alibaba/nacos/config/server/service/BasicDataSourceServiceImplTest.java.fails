@@ -33,7 +33,7 @@ class BasicDataSourceServiceImplTest {
     private BasicDataSourceServiceImpl service;
 
     @Test
-    void getJdbcTemplate() throws IllegalStateException, IllegalArgumentException {
+    void getJdbcTemplate() {
         when(env.getProperty(Mockito.<String>any()))
             .thenReturn("foo");
         JdbcTemplate result = service.getJdbcTemplate();
@@ -49,7 +49,7 @@ class BasicDataSourceServiceImplTest {
     }
 
     @Test
-    void getTransactionTemplate() throws IllegalStateException, IllegalArgumentException {
+    void getTransactionTemplate() {
         when(env.getProperty(Mockito.<String>any()))
             .thenReturn("foo");
         TransactionTemplate result = service.getTransactionTemplate();
@@ -61,14 +61,14 @@ class BasicDataSourceServiceImplTest {
     }
 
     @Test
-    void getCurrentDBUrlReturnsEmpty() throws IllegalStateException, IllegalArgumentException {
+    void getCurrentDBUrlReturnsEmpty() {
         when(env.getProperty(Mockito.<String>any()))
             .thenReturn("foo");
         assertThat(service.getCurrentDBUrl(), is(""));
     }
 
     @Test
-    void getHealthReturnsUP() throws IllegalStateException, IllegalArgumentException {
+    void getHealthReturnsUP() {
         when(env.getProperty(Mockito.<String>any()))
             .thenReturn("foo");
         assertThat(service.getHealth(), is("UP"));

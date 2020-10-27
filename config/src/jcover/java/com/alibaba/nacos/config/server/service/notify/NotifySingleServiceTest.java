@@ -32,6 +32,6 @@ class NotifySingleServiceTest {
         ServerListService serverListService = mock(ServerListService.class);
         when(serverListService.getServerList())
             .thenReturn(list);
-        // pojo java.util.concurrent.Executor
+        // pojo java.util.concurrent.Executor new NotifySingleService(serverListService).getExecutors().get("bar")
     }
 }

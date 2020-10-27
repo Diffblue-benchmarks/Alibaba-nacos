@@ -1,18 +1,27 @@
 package com.alibaba.nacos.naming.controllers;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.core.Cluster;
 import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.core.Service;
 import com.alibaba.nacos.naming.core.ServiceManager;
 import com.alibaba.nacos.naming.core.SubscribeManager;
+import com.alibaba.nacos.naming.selector.Selector;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
@@ -46,7 +55,7 @@ public class ServiceControllerTest {
     private ServiceController controller;
 
     @Test
-    public void searchService() throws InterruptedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void searchService1() throws Exception {
         when(serviceManager.getAllNamespaces())
             .thenReturn(new HashSet<String>());
         MockMvcBuilders.standaloneSetup(controller)
@@ -55,5 +64,95 @@ public class ServiceControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
             .andExpect(content().json("{\"count\":0,\"services\":{}}"));
+    }
+
+    @Test
+    public void searchService2() throws Exception {
+        Set<String> set = new HashSet<String>();
+        set.add("");
+        when(serviceManager.getAllNamespaces())
+            .thenReturn(set);
+        when(serviceManager.searchServices(Mockito.<String>any(), Mockito.<String>any()))
+            .thenReturn(new ArrayList<Service>());
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/service/names"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"count\":1,\"services\":{\"\":[]}}"));
+    }
+
+    @Test
+    public void searchService3() throws Exception {
+        List<Service> list = new ArrayList<Service>();
+        Service service = new Service();
+        service.setClusterMap(new HashMap<String, Cluster>());
+        service.setEnabled(false);
+        service.setIpDeleteTimeout(1L);
+        service.setLastModifiedMillis(1L);
+        service.setNamespaceId("1234");
+        service.setOwners(new ArrayList<String>());
+        service.setResetWeight(false);
+        Selector selector = mock(Selector.class);
+        service.setSelector(selector);
+        service.setToken("Bearer");
+        service.setAppName("Acme");
+        service.setGroupName("Acme");
+        service.setMetadata(new HashMap<String, String>());
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        list.add(service);
+        Set<String> set = new HashSet<String>();
+        set.add("");
+        when(serviceManager.getAllNamespaces())
+            .thenReturn(set);
+        when(serviceManager.searchServices(Mockito.<String>any(), Mockito.<String>any()))
+            .thenReturn(list);
+        when(distroMapper.responsible(Mockito.<String>any()))
+            .thenReturn(false);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/service/names"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"count\":1,\"services\":{\"\":[\"Acme\"]}}"));
+    }
+
+    @Test
+    public void searchService4() throws Exception {
+        List<Service> list = new ArrayList<Service>();
+        Service service = new Service();
+        service.setClusterMap(new HashMap<String, Cluster>());
+        service.setEnabled(false);
+        service.setIpDeleteTimeout(1L);
+        service.setLastModifiedMillis(1L);
+        service.setNamespaceId("1234");
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("foo");
+        service.setOwners(owners);
+        service.setResetWeight(false);
+        Selector selector = mock(Selector.class);
+        service.setSelector(selector);
+        service.setToken("Bearer");
+        service.setAppName("Acme");
+        service.setGroupName("Acme");
+        service.setMetadata(new HashMap<String, String>());
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        list.add(service);
+        Set<String> set = new HashSet<String>();
+        set.add("");
+        when(serviceManager.getAllNamespaces())
+            .thenReturn(set);
+        when(serviceManager.searchServices(Mockito.<String>any(), Mockito.<String>any()))
+            .thenReturn(list);
+        when(distroMapper.responsible(Mockito.<String>any()))
+            .thenReturn(true);
+        MockMvcBuilders.standaloneSetup(controller)
+            .build().perform(
+            MockMvcRequestBuilders.get("/v1/ns/service/names"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(content().json("{\"count\":1,\"services\":{\"\":[\"Acme\"]}}"));
     }
 }

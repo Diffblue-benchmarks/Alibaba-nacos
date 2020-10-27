@@ -24,6 +24,6 @@ class GenericPollerTest {
 
     @Test
     void refreshItemsIsEmpty() {
-        // pojo Poller<String>
+        // pojo Poller<String> new GenericPoller<String>(new ArrayList<String>()).refresh(new ArrayList<String>())
     }
 }

@@ -1,6 +1,7 @@
 package com.alibaba.nacos.naming.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 
@@ -21,14 +22,12 @@ public class IpAddressInfoTest {
         IpAddressInfo ipAddressInfo = new IpAddressInfo();
         ipAddressInfo.setEnabled(true);
         ipAddressInfo.setIp("280 Broadway");
-        HashMap<String, String> metadata = new HashMap<String, String>();
-        metadata.put("bar", "foo");
-        ipAddressInfo.setMetadata(metadata);
+        ipAddressInfo.setMetadata(new HashMap<String, String>());
         ipAddressInfo.setPort(1);
         ipAddressInfo.setValid(false);
         ipAddressInfo.setWeight(1.0);
         assertThat(ipAddressInfo.getIp(), is("280 Broadway"));
-        assertThat(ipAddressInfo.getMetadata().get("bar"), is("foo"));
+        assertThat(ipAddressInfo.getMetadata(), is(notNullValue()));
         assertThat(ipAddressInfo.getPort(), is(1));
         assertThat(ipAddressInfo.getWeight(), closeTo(1.0, 0.0));
         assertThat(ipAddressInfo.isEnabled(), is(true));

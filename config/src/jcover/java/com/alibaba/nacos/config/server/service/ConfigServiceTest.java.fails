@@ -1,11 +1,14 @@
 package com.alibaba.nacos.config.server.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 
+import com.alibaba.nacos.config.server.model.CacheItem;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +21,8 @@ import org.junit.jupiter.api.Test;
 class ConfigServiceTest {
 
     @Test
-    void groupCountReturnsTwo() {
-        assertThat(ConfigService.groupCount(), is(2));
+    void groupCountReturnsZero() {
+        assertThat(ConfigService.groupCount(), is(0));
     }
 
     @Test
@@ -29,9 +32,9 @@ class ConfigServiceTest {
 
     @Test
     void dump() {
-        assertThat(ConfigService.dump("1234", "bar", "d save disk errorx ", "hello", 1L), is(true));
+        assertThat(ConfigService.dump("1234", "bar", "/some/path.html", "hello", 1L), is(true));
         assertThat(ConfigService.dump("", "bar", "/some/path.html", "hello", 1L), is(false));
-        assertThat(ConfigService.dump("1234", "bar", "", "hello", 1L), is(true));
+        assertThat(ConfigService.dump("1234", "/some/path.html", "", "hello", 1L), is(true));
     }
 
     @Test
@@ -63,24 +66,26 @@ class ConfigServiceTest {
     }
 
     @Test
-    void checkMd5ReturnsEmpty() {
-        assertThat(ConfigService.checkMd5(), empty());
+    void checkMd5() {
+        List<String> result = ConfigService.checkMd5();
     }
 
     @Test
     void remove() {
+        assertThat(ConfigService.remove("bar", "d save disk errorx ", "/some/path.html"), is(true));
         assertThat(ConfigService.remove("1234", "bar", "/some/path.html"), is(true));
-        assertThat(ConfigService.remove("1234", "/some/path.html", ""), is(true));
     }
 
     @Test
-    void removeBetaGroupIsBarReturnsTrue() {
+    void removeBeta() {
+        assertThat(ConfigService.removeBeta("bar", "d save disk errorx ", "/some/path.html"), is(true));
         assertThat(ConfigService.removeBeta("1234", "bar", "/some/path.html"), is(true));
     }
 
     @Test
-    void removeTagGroupIsBarAndTagIsTagAndTenantIsTagReturnsTrue() {
+    void removeTag() {
         assertThat(ConfigService.removeTag("1234", "bar", "tag", "tag"), is(true));
+        assertThat(ConfigService.removeTag("", "bar", "tag", "tag"), is(true));
     }
 
     @Test
@@ -94,49 +99,79 @@ class ConfigServiceTest {
     }
 
     @Test
-    void getContentBetaMd5GroupKeyIsKeyReturnsEmpty() {
-        assertThat(ConfigService.getContentBetaMd5("key"), is(""));
+    void getContentBetaMd5GroupKeyIsKey() {
+        assertThat(ConfigService.getContentBetaMd5("key"), is("/some/path.html"));
     }
 
     @Test
-    void getContentTagMd5GroupKeyIsKeyAndTagIsTagReturnsEmpty() {
-        assertThat(ConfigService.getContentTagMd5("key", "tag"), is(""));
+    void getContentTagMd5GroupKeyIsKeyAndTagIsTagReturnsTag() {
+        assertThat(ConfigService.getContentTagMd5("key", "tag"), is("tag"));
     }
 
     @Test
-    void getBetaIpsGroupKeyIsKeyReturnsEmpty() {
-        assertThat(ConfigService.getBetaIps("key"), empty());
+    void getBetaIpsGroupKeyIsBar() {
+        assertThat(ConfigService.getBetaIps("bar"), hasSize(1));
+        assertThat(ConfigService.getBetaIps("bar").get(0), is("foo=bar"));
     }
 
     @Test
-    void getContentCacheGroupKeyIsKeyReturnsNull() {
-        assertThat(ConfigService.getContentCache("key"), is(nullValue()));
+    void getContentCacheGroupKeyIsKey() {
+        CacheItem result = ConfigService.getContentCache("key");
+        assertThat(result.getGroupKey(), is("key"));
+        assertThat(result.getIps4Beta(), is(nullValue()));
+        assertThat(result.getLastModifiedTs(), is(-1L));
+        assertThat(result.getLastModifiedTs4Beta(), is(1L));
+        assertThat(result.getMd5(), is("/some/path.html"));
+        assertThat(result.getMd54Beta(), is("/some/path.html"));
+        assertThat(result.getTagLastModifiedTs().get(null), is(1L));
+        assertThat(result.getTagLastModifiedTs().get(""), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("bar"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("d ignore to save cache filex groupKey, md5, lastModifiedOld, lastModifiedNew"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("d save disk errorx "), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("d write lock failedx"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("foo"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("m dataId,group"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("r failed,,"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("r not existx"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("r write lock failedx"), is(1L));
+        assertThat(result.getTagLastModifiedTs().get("tag"), is(-1L));
+        assertThat(result.getTagLastModifiedTs().get("w failed,,"), is(1L));
+        assertThat(result.getTagMd5().get(null), is("tag"));
+        assertThat(result.getTagMd5().get(""), is("tag"));
+        assertThat(result.getTagMd5().get("bar"), is("tag"));
+        assertThat(result.getTagMd5().get("d ignore to save cache filex groupKey, md5, lastModifiedOld, lastModifiedNew"), is("tag"));
+        assertThat(result.getTagMd5().get("d save disk errorx "), is("tag"));
+        assertThat(result.getTagMd5().get("d write lock failedx"), is("tag"));
+        assertThat(result.getTagMd5().get("foo"), is("tag"));
+        assertThat(result.getTagMd5().get("m dataId,group"), is("tag"));
+        assertThat(result.getTagMd5().get("r failed,,"), is("tag"));
+        assertThat(result.getTagMd5().get("r not existx"), is("tag"));
+        assertThat(result.getTagMd5().get("r write lock failedx"), is("tag"));
+        assertThat(result.getTagMd5().get("tag"), is("tag"));
+        assertThat(result.getTagMd5().get("w failed,,"), is("tag"));
+        assertThat(result.isBeta(), is(true));
     }
 
     @Test
     void getContentMd5() {
-        assertThat(ConfigService.getContentMd5("key", "bar", "tag"), is("tag"));
-        assertThat(ConfigService.getContentMd5("key"), is(""));
-        assertThat(ConfigService.getContentMd5("key", "hello", "bar"), is("/some/path.html"));
-        assertThat(ConfigService.getContentMd5("key", "hello", ""), is("/some/path.html"));
-        assertThat(ConfigService.getContentMd5("key", "hello", "tag"), is(""));
+        assertThat(ConfigService.getContentMd5("bar", "hello", ""), is("/some/path.html"));
+        assertThat(ConfigService.getContentMd5("bar", "hello", "tag"), is("tag"));
     }
 
     @Test
-    void getLastModifiedTsGroupKeyIsKeyReturnsZero() {
-        assertThat(ConfigService.getLastModifiedTs("key"), is(0L));
+    void getLastModifiedTsGroupKeyIsFooReturnsOne() {
+        assertThat(ConfigService.getLastModifiedTs("foo"), is(1L));
     }
 
     @Test
     void isUptodate() {
         assertThat(ConfigService.isUptodate("key", "bar"), is(false));
-        assertThat(ConfigService.isUptodate("key", "/some/path.html", "/some/path.html", "bar"), is(true));
-        assertThat(ConfigService.isUptodate("key", "bar", "/some/path.html", "tag"), is(false));
+        assertThat(ConfigService.isUptodate("", "bar", "/some/path.html", "tag"), is(false));
+        assertThat(ConfigService.isUptodate("key", "/some/path.html"), is(true));
     }
 
     @Test
-    void tryReadLock() {
-        assertThat(ConfigService.tryReadLock("bar"), is(-1));
+    void tryReadLockGroupKeyIsKeyReturnsOne() {
         assertThat(ConfigService.tryReadLock("key"), is(1));
     }
 
@@ -146,8 +181,7 @@ class ConfigServiceTest {
     }
 
     @Test
-    void tryWriteLock() {
-        assertThat(ConfigService.tryWriteLock("key"), is(-1));
-        assertThat(ConfigService.tryWriteLock("[write-lock] failed, {}, {}"), is(0));
+    void tryWriteLockGroupKeyIsKeyReturnsOne() {
+        assertThat(ConfigService.tryWriteLock("key"), is(1));
     }
 }

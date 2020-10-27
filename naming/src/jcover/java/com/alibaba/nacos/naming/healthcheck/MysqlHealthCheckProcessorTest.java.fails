@@ -32,7 +32,7 @@ public class MysqlHealthCheckProcessorTest {
     private MysqlHealthCheckProcessor service;
 
     @Test
-    public void getTypeReturnsMYSQL() throws CloneNotSupportedException {
+    public void getTypeReturnsMYSQL() {
         assertThat(service.getType(), is("MYSQL"));
     }
 }

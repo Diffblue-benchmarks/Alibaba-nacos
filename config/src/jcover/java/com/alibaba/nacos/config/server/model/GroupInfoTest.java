@@ -31,17 +31,17 @@ class GroupInfoTest {
         GroupInfo groupInfo = new GroupInfo("280 Broadway", "1234", "bar");
         groupInfo.setAddress("280 Broadway");
         groupInfo.setDataId("1234");
-        groupInfo.setGroup("foo");
+        groupInfo.setGroup("/some/path.html");
         groupInfo.setId(1L);
         assertThat(groupInfo.getAddress(), is("280 Broadway"));
         assertThat(groupInfo.getDataId(), is("1234"));
-        assertThat(groupInfo.getGroup(), is("foo"));
+        assertThat(groupInfo.getGroup(), is("/some/path.html"));
         assertThat(groupInfo.getId(), is(1L));
     }
 
     @Test
     void testEquals() {
-        assertThat(new GroupInfo().equals("foo"), is(false));
+        assertThat(new GroupInfo().equals(new Object()), is(false));
         assertThat(new GroupInfo().equals(null), is(false));
     }
 }

@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import com.alibaba.nacos.naming.consistency.Datum;
+import com.alibaba.nacos.naming.pojo.Record;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class DataStoreTest {
 
     @Test
     public void putKeyIsKey() {
-        service.put("key", new Datum());
+        service.put("key", new Datum<Record>());
     }
 
     @Test

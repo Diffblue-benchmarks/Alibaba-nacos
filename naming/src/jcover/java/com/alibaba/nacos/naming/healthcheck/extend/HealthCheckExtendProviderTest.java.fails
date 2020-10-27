@@ -28,7 +28,7 @@ public class HealthCheckExtendProviderTest {
     }
 
     @Test
-    public void setBeanFactory() throws org.springframework.beans.BeansException, org.springframework.beans.factory.NoSuchBeanDefinitionException {
+    public void setBeanFactory() throws org.springframework.beans.BeansException {
         BeanFactory beanFactory = mock(BeanFactory.class);
         service.setBeanFactory(beanFactory);
     }

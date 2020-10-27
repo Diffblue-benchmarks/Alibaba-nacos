@@ -21,18 +21,18 @@ class SpasAdapterTest {
     void getSignHeaders() {
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key"), hasSize(4));
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(0), is("Timestamp"));
-        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(1), is("1601474883297"));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(1), is("1603760792033"));
         assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(2), is("Spas-Signature"));
-        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(3), is("oXChPdkDFtLaFWRJML05MNmkm7U="));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), "key").get(3), is("8I7ZcDZo6mih8r+Ti5SJKIfrR6A="));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), null), hasSize(2));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), null).get(0), is("Timestamp"));
+        assertThat(SpasAdapter.getSignHeaders(new ArrayList<String>(), null).get(1), is("1603760792060"));
         assertThat(SpasAdapter.getSignHeaders((ArrayList<String>) null, "key"), is(nullValue()));
         assertThat(SpasAdapter.getSignHeaders("foo", "key"), hasSize(4));
         assertThat(SpasAdapter.getSignHeaders("foo", "key").get(0), is("Timestamp"));
-        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(1), is("1601474883237"));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(1), is("1603760792156"));
         assertThat(SpasAdapter.getSignHeaders("foo", "key").get(2), is("Spas-Signature"));
-        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(3), is("5MrkhB4YG+aeQoYW9dFcEgwTvG8="));
-        assertThat(SpasAdapter.getSignHeaders("foo", null), hasSize(2));
-        assertThat(SpasAdapter.getSignHeaders("foo", null).get(0), is("Timestamp"));
-        assertThat(SpasAdapter.getSignHeaders("foo", null).get(1), is("1601474883286"));
+        assertThat(SpasAdapter.getSignHeaders("foo", "key").get(3), is("qz0GxFMOMlGv4kJiOLgfrNEgwAQ="));
     }
 
     @Test

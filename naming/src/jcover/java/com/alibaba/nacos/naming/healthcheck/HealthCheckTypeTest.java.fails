@@ -1,7 +1,6 @@
 package com.alibaba.nacos.naming.healthcheck;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -25,17 +24,18 @@ public class HealthCheckTypeTest {
     }
 
     @Test
-    public void ofHealthCheckerClassTypeIsBASICReturnsNull() {
-        assertThat(HealthCheckType.ofHealthCheckerClass("BASIC"), is(nullValue()));
+    public void ofHealthCheckerClassTypeIsBASICReturnsString() {
+        assertThat(HealthCheckType.ofHealthCheckerClass("BASIC"), equalTo((Class) String.class));
     }
 
     @Test
-    public void getLoadedHealthCheckerClassesReturnsNestedClassNestedClassNestedClassNestedClass() {
+    public void getLoadedHealthCheckerClassesReturnsNestedClassNestedClassNestedClassNestedClassString() {
         List<Class> result = HealthCheckType.getLoadedHealthCheckerClasses();
-        assertThat(result.size(), is(4));
+        assertThat(result.size(), is(5));
         assertThat((Class<AbstractHealthChecker.Tcp>) result.get(0), equalTo((Class) AbstractHealthChecker.Tcp.class));
         assertThat((Class<AbstractHealthChecker.Http>) result.get(1), equalTo((Class) AbstractHealthChecker.Http.class));
         assertThat((Class<AbstractHealthChecker.Mysql>) result.get(2), equalTo((Class) AbstractHealthChecker.Mysql.class));
         assertThat((Class<AbstractHealthChecker.None>) result.get(3), equalTo((Class) AbstractHealthChecker.None.class));
+        assertThat((Class<String>) result.get(4), equalTo((Class) String.class));
     }
 }

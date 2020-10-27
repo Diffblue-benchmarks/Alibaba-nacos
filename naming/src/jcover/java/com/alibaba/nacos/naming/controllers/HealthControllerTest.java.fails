@@ -40,7 +40,7 @@ public class HealthControllerTest {
     private HealthController controller;
 
     @Test
-    public void server() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void server() throws Exception {
         when(serviceManager.getServiceCount())
             .thenReturn(1);
         MockMvcBuilders.standaloneSetup(controller)
@@ -52,7 +52,7 @@ public class HealthControllerTest {
     }
 
     @Test
-    public void checkers() throws com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void checkers() throws Exception {
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/health/checkers"))

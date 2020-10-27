@@ -16,7 +16,7 @@ import org.junit.Test;
 public class NamingProxyTest {
 
     @Test
-    public void syncCheckSumsChecksumMapIsEmpty() {
+    public void syncCheckSums() {
         NamingProxy.syncCheckSums(new HashMap<String, String>(), "/some/path.html");
     }
 
@@ -27,43 +27,33 @@ public class NamingProxyTest {
     }
 
     @Test
-    public void reqAPIApiIsConnection() throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("foo", "foo");
-        assertThat(NamingProxy.reqAPI("Connection", params, " msg: "), is(""));
-        assertThat(params.get("encoding"), is("UTF-8"));
-        assertThat(params.get("nofix"), is("1"));
+    public void reqAPI1() throws Exception {
+        assertThat(NamingProxy.reqAPI("foo", new HashMap<String, String>(), "/some/path.html"), is(""));
     }
 
     @Test
-    public void reqAPIApiIsConnectionAndCurServerIsNamingProxy() throws Exception {
+    public void reqAPI2() throws Exception {
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("foo", "foo");
-        assertThat(NamingProxy.reqAPI("Connection", params, "NamingProxy"), is(""));
-        assertThat(params.get("encoding"), is("UTF-8"));
-        assertThat(params.get("nofix"), is("1"));
+        params.put("", "foo");
+        assertThat(NamingProxy.reqAPI("foo", params, " msg: "), is(""));
     }
 
     @Test
-    public void reqAPICurServerIsConnectionAndIsPostIsFalse() throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("foo", "foo");
-        assertThat(NamingProxy.reqAPI("foo", params, "Connection", false), is(""));
-        assertThat(params.get("encoding"), is("UTF-8"));
-        assertThat(params.get("nofix"), is("1"));
+    public void reqAPIIsPostIsFalse1() throws Exception {
+        assertThat(NamingProxy.reqAPI("foo", new HashMap<String, String>(), "/some/path.html", false), is(""));
     }
 
     @Test
-    public void reqAPIIsPostIsFalse() throws Exception {
+    public void reqAPIIsPostIsFalse2() throws Exception {
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("foo", "foo");
+        params.put("", "foo");
         assertThat(NamingProxy.reqAPI("foo", params, " msg: ", false), is(""));
-        assertThat(params.get("encoding"), is("UTF-8"));
-        assertThat(params.get("nofix"), is("1"));
     }
 
     @Test
-    public void reqAPIIsPostIsTrueAndParamsIsEmpty() throws Exception {
-        assertThat(NamingProxy.reqAPI("foo", new HashMap<String, String>(), "/some/path.html", true), is(""));
+    public void reqAPIIsPostIsTrue() throws Exception {
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("", "foo");
+        assertThat(NamingProxy.reqAPI("foo", params, "/some/path.html", true), is(""));
     }
 }

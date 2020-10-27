@@ -14,13 +14,17 @@ class NacosNamingMaintainServiceTest {
 
     @Test
     void factory1() {
-        // pojo NacosNamingMaintainService
+        // pojo NacosNamingMaintainService new NacosNamingMaintainService("Smith")
     }
 
     @Test
     void factory2() {
         Properties properties = new Properties();
-        properties.setProperty("key", "value");
-        // pojo NacosNamingMaintainService
+        properties.put("endpoint", "foo");
+        properties.put("isUseCloudNamespaceParsing", "foo");
+        properties.put("isUseEndpointParsingRule", "foo");
+        properties.put("namespace", "foo");
+        properties.put("serverAddr", "foo");
+        // pojo NacosNamingMaintainService new NacosNamingMaintainService(properties)
     }
 }

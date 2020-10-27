@@ -16,22 +16,6 @@ import org.junit.jupiter.api.Test;
 class Base64Test {
 
     @Test
-    void factory1() {
-        // pojo Base64
-    }
-
-    @Test
-    void factory2() {
-        // pojo Base64
-    }
-
-    @Test
-    void factory3() {
-        byte[] lineSeparator = new byte[] { 1 };
-        // pojo Base64
-    }
-
-    @Test
     void encodeBase64BinaryDataIsEmptyReturnsEmpty() {
         assertThat(Base64.encodeBase64(new byte[] { }).length, is(0));
     }
@@ -95,13 +79,21 @@ class Base64Test {
 
     @Test
     void isInAlphabet1() {
-        byte[] lineSeparator = new byte[] { 1 };
+        byte[] lineSeparator = new byte[] { 0 };
         assertThat(new Base64(1, lineSeparator, false).isInAlphabet((byte) 1), is(false));
     }
 
     @Test
     void isInAlphabet2() {
+        byte[] lineSeparator = new byte[] { 1 };
+        assertThat(new Base64(1, lineSeparator, true).isInAlphabet((byte) 1), is(false));
+    }
+
+    @Test
+    void isInAlphabet3() {
         assertThat(new Base64().isInAlphabet((byte) 1), is(false));
+        assertThat(new Base64(1, null, false).isInAlphabet((byte) 1), is(false));
+        assertThat(new Base64(1, new byte[] { }, false).isInAlphabet((byte) 1), is(false));
         assertThat(new Base64().isInAlphabet((byte) -1), is(false));
     }
 }

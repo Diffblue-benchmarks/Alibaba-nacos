@@ -1,6 +1,7 @@
 package com.alibaba.nacos.api.cmdb.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.HashMap;
@@ -18,12 +19,10 @@ class EntityTest {
     @Test
     void factory() {
         Entity entity = new Entity();
-        HashMap<String, String> labels = new HashMap<String, String>();
-        labels.put("foo", "foo");
-        entity.setLabels(labels);
+        entity.setLabels(new HashMap<String, String>());
         entity.setName("entity");
         entity.setType("BASIC");
-        assertThat(entity.getLabels().get("foo"), is("foo"));
+        assertThat(entity.getLabels(), is(notNullValue()));
         assertThat(entity.getName(), is("entity"));
         assertThat(entity.getType(), is("BASIC"));
     }

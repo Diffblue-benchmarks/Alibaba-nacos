@@ -17,14 +17,25 @@ class STSConfigTest {
     @Test
     void getInstance() {
         STSConfig result = STSConfig.getInstance();
-        assertThat(result.getRamRoleName(), is(nullValue()));
-        assertThat(result.getSecurityCredentials(), is(nullValue()));
-        assertThat(result.getTimeToRefreshInMillisecond(), is(180_000));
-        assertThat(result.isCacheSecurityCredentials(), is(true));
+        assertThat(result.getRamRoleName(), is("data"));
+        assertThat(result.getSecurityCredentials(), is("545321456"));
+        assertThat(result.getTimeToRefreshInMillisecond(), is(2));
+        assertThat(result.isCacheSecurityCredentials(), is(false));
     }
 
     @Test
-    void getSecurityCredentialsUrl() {
+    void getSecurityCredentialsUrl1() {
+        STSConfig obj = STSConfig.getInstance();
+        obj.setCacheSecurityCredentials(false);
+        obj.setRamRoleName("data");
+        obj.setSecurityCredentials("545321456");
+        obj.setSecurityCredentialsUrl("545321456");
+        obj.setTimeToRefreshInMillisecond(1);
+        assertThat(obj.getSecurityCredentialsUrl(), is("545321456"));
+    }
+
+    @Test
+    void getSecurityCredentialsUrl2() {
         assertThat(STSConfig.getInstance().getSecurityCredentialsUrl(), is("545321456"));
         assertThat(STSConfig.getInstance().getSecurityCredentialsUrl(), is(nullValue()));
     }

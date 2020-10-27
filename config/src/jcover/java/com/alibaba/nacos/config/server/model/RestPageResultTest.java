@@ -16,14 +16,14 @@ class RestPageResultTest {
     @Test
     void factory() {
         RestPageResult<String> restPageResult = new RestPageResult<String>();
-        restPageResult.setCode(-1);
-        restPageResult.setCurrentPage(0);
+        restPageResult.setCode(0);
+        restPageResult.setCurrentPage(1);
         restPageResult.setData("something");
         restPageResult.setMessage("bar");
         restPageResult.setPageSize(1);
         restPageResult.setTotal(1);
-        assertThat(restPageResult.getCode(), is(-1));
-        assertThat(restPageResult.getCurrentPage(), is(0));
+        assertThat(restPageResult.getCode(), is(0));
+        assertThat(restPageResult.getCurrentPage(), is(1));
         assertThat(restPageResult.getData(), is("something"));
         assertThat(restPageResult.getMessage(), is("bar"));
         assertThat(restPageResult.getPageSize(), is(1));

@@ -21,7 +21,7 @@ class ConfigRequestTest {
         configRequest.setDataId("1234");
         configRequest.setGroup("/some/path.html");
         configRequest.setTenant("/some/path.html");
-        // pojo ConfigRequest
+        // pojo ConfigRequest configRequest
     }
 
     @Test

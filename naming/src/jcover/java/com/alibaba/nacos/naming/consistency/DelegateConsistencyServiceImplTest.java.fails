@@ -53,41 +53,44 @@ public class DelegateConsistencyServiceImplTest {
     @Test
     public void getKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
         when(persistentConsistencyService.get(Mockito.<String>any()))
-            .thenReturn(new Datum());
-        // pojo Datum
+            .thenReturn(new Datum<Record>());
+        // pojo Datum service.get("key")
     }
 
     @Test
-    public void listen1() throws com.alibaba.nacos.api.exception.NacosException, Exception {
-        RecordListener listener = mock(RecordListener.class);
+    public void listen1() throws com.alibaba.nacos.api.exception.NacosException {
+        @SuppressWarnings("unchecked")
+        RecordListener<Record> listener = mock(RecordListener.class);
         service.listen("key", listener);
         Mockito.verify(persistentConsistencyService).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
-    public void listen2() throws com.alibaba.nacos.api.exception.NacosException, Exception {
-        RecordListener listener = mock(RecordListener.class);
+    public void listen2() throws com.alibaba.nacos.api.exception.NacosException {
+        @SuppressWarnings("unchecked")
+        RecordListener<Record> listener = mock(RecordListener.class);
         service.listen("com.alibaba.nacos.naming.domains.meta.", listener);
         Mockito.verify(persistentConsistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
         Mockito.verify(ephemeralConsistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
-    public void unlisten() throws com.alibaba.nacos.api.exception.NacosException, Exception {
-        RecordListener listener = mock(RecordListener.class);
+    public void unlisten() throws com.alibaba.nacos.api.exception.NacosException {
+        @SuppressWarnings("unchecked")
+        RecordListener<Record> listener = mock(RecordListener.class);
         service.unlisten("key", listener);
         Mockito.verify(persistentConsistencyService).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
     }
 
     @Test
-    public void isAvailable1() throws com.alibaba.nacos.api.exception.NacosException {
+    public void isAvailable1() {
         when(ephemeralConsistencyService.isAvailable())
             .thenReturn(false);
         assertThat(service.isAvailable(), is(false));
     }
 
     @Test
-    public void isAvailable2() throws com.alibaba.nacos.api.exception.NacosException {
+    public void isAvailable2() {
         when(persistentConsistencyService.isAvailable())
             .thenReturn(false);
         when(ephemeralConsistencyService.isAvailable())
@@ -96,7 +99,7 @@ public class DelegateConsistencyServiceImplTest {
     }
 
     @Test
-    public void isAvailableReturnsTrue() throws com.alibaba.nacos.api.exception.NacosException {
+    public void isAvailableReturnsTrue() {
         when(persistentConsistencyService.isAvailable())
             .thenReturn(true);
         when(ephemeralConsistencyService.isAvailable())

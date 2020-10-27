@@ -33,12 +33,12 @@ public class ServerStatusManagerTest {
     private ServerStatusManager service;
 
     @Test
-    public void init() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+    public void init() {
         service.init();
     }
 
     @Test
-    public void getServerStatusReturnsStarting() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException {
+    public void getServerStatusReturnsStarting() {
         assertThat(service.getServerStatus(), is(ServerStatus.STARTING));
     }
 }

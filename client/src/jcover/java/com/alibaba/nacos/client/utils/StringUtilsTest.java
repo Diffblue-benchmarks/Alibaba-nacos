@@ -33,13 +33,13 @@ class StringUtilsTest {
     void isNotEmpty() {
         assertThat(StringUtils.isNotEmpty(""), is(false));
         assertThat(StringUtils.isNotEmpty("foo"), is(true));
+        assertThat(StringUtils.isNotEmpty(null), is(false));
     }
 
     @Test
     void isEmpty() {
         assertThat(StringUtils.isEmpty(""), is(true));
         assertThat(StringUtils.isEmpty("foo"), is(false));
-        assertThat(StringUtils.isEmpty(null), is(true));
     }
 
     @Test
@@ -68,13 +68,13 @@ class StringUtilsTest {
 
     @Test
     void join() {
-        assertThat(StringUtils.join(new LinkedList(), "bar"), is(""));
+        assertThat(StringUtils.join(new LinkedList<String>(), "bar"), is(""));
         assertThat(StringUtils.join(null, "bar"), is(nullValue()));
     }
 
     @Test
-    void joinReturnsFoo() {
-        LinkedList collection = new LinkedList();
+    void joinCollectionIsFooReturnsFoo() {
+        LinkedList<String> collection = new LinkedList<String>();
         collection.add("foo");
         assertThat(StringUtils.join(collection, "bar"), is("foo"));
     }

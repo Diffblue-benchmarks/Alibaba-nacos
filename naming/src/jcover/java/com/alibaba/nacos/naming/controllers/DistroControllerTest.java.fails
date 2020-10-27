@@ -53,14 +53,12 @@ public class DistroControllerTest {
     private DistroController controller;
 
     @Test
-    public void getAllDatums() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void getAllDatums() throws Exception {
         byte[] obj = new byte[] { 1 };
         when(serializer.serialize(Mockito.<String>any()))
             .thenReturn(obj);
-        Map<String, Datum> map = new HashMap<String, Datum>();
-        map.put("HmacMD5", new Datum());
         when(dataStore.getDataMap())
-            .thenReturn(map);
+            .thenReturn(new HashMap<String, Datum>());
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/distro/datums"))

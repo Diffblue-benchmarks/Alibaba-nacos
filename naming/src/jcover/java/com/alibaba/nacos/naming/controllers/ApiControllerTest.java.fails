@@ -10,7 +10,6 @@ import com.alibaba.nacos.naming.misc.SwitchDomain;
 import com.alibaba.nacos.naming.push.PushService;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,21 +48,19 @@ public class ApiControllerTest {
     private ApiController controller;
 
     @Test
-    public void allDomNames() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
-        Map<String, Set<String>> map = new HashMap<String, Set<String>>();
-        map.put("foo", new HashSet<String>());
+    public void allDomNames() throws Exception {
         when(serviceManager.getAllServiceNames())
-            .thenReturn(map);
+            .thenReturn(new HashMap<String, Set<String>>());
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/api/allDomNames"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"count\":0,\"doms\":{\"foo\":[]}}"));
+            .andExpect(content().json("{\"count\":0,\"doms\":{}}"));
     }
 
     @Test
-    public void hello() throws CloneNotSupportedException, com.alibaba.nacos.api.exception.NacosException, Exception {
+    public void hello() throws Exception {
         MockMvcBuilders.standaloneSetup(controller)
             .build().perform(
             MockMvcRequestBuilders.get("/v1/ns/api/hello"))

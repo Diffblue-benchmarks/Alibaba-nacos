@@ -22,38 +22,38 @@ import org.mockito.Mockito;
 class MetricsHttpAgentTest {
 
     @Test
-    void start() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void start() throws com.alibaba.nacos.api.exception.NacosException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         new MetricsHttpAgent(httpAgent).start();
         Mockito.verify(httpAgent).start();
     }
 
     @Test
-    void httpGetHeadersIsEmptyAndParamValuesIsEmptyAndReadTimeoutMsIsOne() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void httpGetHeadersIsEmptyAndParamValuesIsEmptyAndReadTimeoutMsIsOne() throws java.io.IOException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.httpGet(Mockito.<String>any(), Mockito.<java.util.List<String>>any(), Mockito.<java.util.List<String>>any(), Mockito.<String>any(), anyLong()))
             .thenReturn(new HttpSimpleClient.HttpResult(1, "/some/path.html"));
-        // pojo HttpSimpleClient.HttpResult
+        // pojo HttpSimpleClient.HttpResult new MetricsHttpAgent(httpAgent).httpGet("/some/path.html", new ArrayList<String>(), new ArrayList<String>(), "/some/path.html", 1L)
     }
 
     @Test
-    void httpPostHeadersIsEmptyAndParamValuesIsEmptyAndReadTimeoutMsIsOne() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void httpPostHeadersIsEmptyAndParamValuesIsEmptyAndReadTimeoutMsIsOne() throws java.io.IOException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.httpPost(Mockito.<String>any(), Mockito.<java.util.List<String>>any(), Mockito.<java.util.List<String>>any(), Mockito.<String>any(), anyLong()))
             .thenReturn(new HttpSimpleClient.HttpResult(1, "/some/path.html"));
-        // pojo HttpSimpleClient.HttpResult
+        // pojo HttpSimpleClient.HttpResult new MetricsHttpAgent(httpAgent).httpPost("/some/path.html", new ArrayList<String>(), new ArrayList<String>(), "/some/path.html", 1L)
     }
 
     @Test
-    void httpDeleteHeadersIsEmptyAndParamValuesIsEmptyAndReadTimeoutMsIsOne() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void httpDeleteHeadersIsEmptyAndParamValuesIsEmptyAndReadTimeoutMsIsOne() throws java.io.IOException {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.httpDelete(Mockito.<String>any(), Mockito.<java.util.List<String>>any(), Mockito.<java.util.List<String>>any(), Mockito.<String>any(), anyLong()))
             .thenReturn(new HttpSimpleClient.HttpResult(1, "/some/path.html"));
-        // pojo HttpSimpleClient.HttpResult
+        // pojo HttpSimpleClient.HttpResult new MetricsHttpAgent(httpAgent).httpDelete("/some/path.html", new ArrayList<String>(), new ArrayList<String>(), "/some/path.html", 1L)
     }
 
     @Test
-    void getName() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getName() {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getName())
             .thenReturn("foo=bar");
@@ -61,7 +61,7 @@ class MetricsHttpAgentTest {
     }
 
     @Test
-    void getNamespace() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getNamespace() {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getNamespace())
             .thenReturn("foo=bar");
@@ -69,7 +69,7 @@ class MetricsHttpAgentTest {
     }
 
     @Test
-    void getTenant() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getTenant() {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getTenant())
             .thenReturn("foo=bar");
@@ -77,7 +77,7 @@ class MetricsHttpAgentTest {
     }
 
     @Test
-    void getEncode() throws java.io.IOException, com.alibaba.nacos.api.exception.NacosException {
+    void getEncode() {
         HttpAgent httpAgent = mock(HttpAgent.class);
         when(httpAgent.getEncode())
             .thenReturn("foo=bar");

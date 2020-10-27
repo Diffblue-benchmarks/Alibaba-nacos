@@ -39,7 +39,7 @@ public class HealthCheckCommonTest {
     private HealthCheckCommon service;
 
     @Test
-    public void init() throws CloneNotSupportedException {
+    public void init() {
         service.init();
     }
 }

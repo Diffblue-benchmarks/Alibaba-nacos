@@ -27,7 +27,7 @@ public class AuthFilterTest {
     }
 
     @Test
-    public void doFilter() throws javax.servlet.ServletException, java.io.IOException, java.io.UnsupportedEncodingException {
+    public void doFilter() throws java.io.UnsupportedEncodingException, java.io.IOException, javax.servlet.ServletException {
 
         // arrange
         MockHttpServletResponse servletResponse =

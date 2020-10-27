@@ -18,20 +18,20 @@ public class ServerTest {
     @Test
     public void factory() {
         Server server = new Server();
-        server.setAdWeight(1);
+        server.setAdWeight(0);
         server.setAlive(false);
         server.setIp("bar");
         server.setLastRefTime(1L);
         server.setLastRefTimeStr("Smith");
         server.setServePort(1);
-        server.setSite("foo");
+        server.setSite("/some/path.html");
         server.setWeight(1);
-        assertThat(server.getAdWeight(), is(1));
+        assertThat(server.getAdWeight(), is(0));
         assertThat(server.getIp(), is("bar"));
         assertThat(server.getLastRefTime(), is(1L));
         assertThat(server.getLastRefTimeStr(), is("Smith"));
         assertThat(server.getServePort(), is(1));
-        assertThat(server.getSite(), is("foo"));
+        assertThat(server.getSite(), is("/some/path.html"));
         assertThat(server.getWeight(), is(1));
         assertThat(server.isAlive(), is(false));
     }

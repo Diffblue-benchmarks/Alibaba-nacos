@@ -2,10 +2,17 @@ package com.alibaba.nacos.core.listener;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -21,6 +28,41 @@ class StandaloneProfileApplicationListenerTest {
 
     @Autowired
     private StandaloneProfileApplicationListener service;
+
+    @Test
+    void onApplicationEvent1() {
+        SpringApplication application = mock(SpringApplication.class);
+        String[] args = new String[] { "some event" };
+        String[] obj = new String[] { "DE" };
+        ConfigurableEnvironment environment =
+             mock(ConfigurableEnvironment.class);
+        when(environment.getActiveProfiles())
+            .thenReturn(obj);
+        when(environment.getProperty(Mockito.<String>any(), Mockito.<Class<Boolean>>any(), Mockito.<Boolean>any()))
+            .thenReturn(false);
+        service.onApplicationEvent(new ApplicationEnvironmentPreparedEvent(application, args, environment));
+    }
+
+    @Test
+    void onApplicationEvent2() {
+
+        // arrange
+        SpringApplication application = mock(SpringApplication.class);
+        String[] args = new String[] { "some event" };
+        String[] obj = new String[] { "DE" };
+        ConfigurableEnvironment environment =
+             mock(ConfigurableEnvironment.class);
+        when(environment.getActiveProfiles())
+            .thenReturn(obj);
+        when(environment.getProperty(Mockito.<String>any(), Mockito.<Class<Boolean>>any(), Mockito.<Boolean>any()))
+            .thenReturn(true);
+
+        // act
+        service.onApplicationEvent(new ApplicationEnvironmentPreparedEvent(application, args, environment));
+
+        // assert
+        Mockito.verify(environment).addActiveProfile(ArgumentMatchers.eq("standalone"));
+    }
 
     @Test
     void getOrderReturnsIntMin() {

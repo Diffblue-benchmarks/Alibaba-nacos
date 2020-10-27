@@ -1,12 +1,11 @@
 package com.alibaba.nacos.client.config.impl;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,7 @@ import org.junit.jupiter.api.Test;
 class EventDispatcherTest {
 
     @Test
-    void addEventListener() {
+    void addEventListener1() {
         List<Class<? extends EventDispatcher.AbstractEvent>> list =
              new ArrayList<Class<? extends EventDispatcher.AbstractEvent>>();
         list.add(EventDispatcher.AbstractEvent.class);
@@ -31,7 +30,17 @@ class EventDispatcherTest {
     }
 
     @Test
-    void getListenerListEventTypeIsNestedClassReturnsEmpty() {
-        assertThat(EventDispatcher.getListenerList(EventDispatcher.AbstractEvent.class), empty());
+    void addEventListener2() {
+        EventDispatcher.AbstractEventListener listener =
+             mock(EventDispatcher.AbstractEventListener.class);
+        when(listener.interest())
+            .thenReturn(new ArrayList<Class<? extends EventDispatcher.AbstractEvent>>());
+        EventDispatcher.addEventListener(listener);
+    }
+
+    @Test
+    void getListenerListEventTypeIsNestedClass() {
+        CopyOnWriteArrayList<EventDispatcher.AbstractEventListener> result =
+             EventDispatcher.getListenerList(EventDispatcher.AbstractEvent.class);
     }
 }

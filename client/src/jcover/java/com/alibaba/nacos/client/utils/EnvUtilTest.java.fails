@@ -1,7 +1,6 @@
 package com.alibaba.nacos.client.utils;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.ArrayList;
@@ -20,31 +19,27 @@ class EnvUtilTest {
 
     @Test
     void setSelfEnv1() {
-        HashMap<String, List<String>> headers =
-             new HashMap<String, List<String>>();
-        ArrayList<String> x104 = new ArrayList<String>();
-        x104.add("foo");
-        headers.put("Amory-Tag", x104);
-        EnvUtil.setSelfEnv(headers);
+        EnvUtil.setSelfEnv(new HashMap<String, List<String>>());
     }
 
     @Test
     void setSelfEnv2() {
-        HashMap<String, List<String>> headers =
-             new HashMap<String, List<String>>();
-        ArrayList<String> x104 = new ArrayList<String>();
-        x104.add("foo");
-        headers.put("Location-Tag", x104);
-        EnvUtil.setSelfEnv(headers);
+        EnvUtil.setSelfEnv(null);
     }
 
     @Test
     void setSelfEnv3() {
         HashMap<String, List<String>> headers =
              new HashMap<String, List<String>>();
-        ArrayList<String> x104 = new ArrayList<String>();
-        x104.add("foo");
-        headers.put("Vipserver-Tag", x104);
+        List<String> list1 = new ArrayList<String>();
+        list1.add("bar");
+        headers.put("Amory-Tag", list1);
+        List<String> list2 = new ArrayList<String>();
+        list2.add("foo");
+        headers.put("Location-Tag", list2);
+        List<String> list3 = new ArrayList<String>();
+        list3.add("foo");
+        headers.put("Vipserver-Tag", list3);
         EnvUtil.setSelfEnv(headers);
     }
 
@@ -52,34 +47,46 @@ class EnvUtilTest {
     void setSelfEnv4() {
         HashMap<String, List<String>> headers =
              new HashMap<String, List<String>>();
-        ArrayList<String> x104 = new ArrayList<String>();
-        x104.add("foo");
-        headers.put("bar", x104);
+        List<String> list1 = new ArrayList<String>();
+        list1.add("foo");
+        headers.put("Amory-Tag", list1);
+        List<String> list2 = new ArrayList<String>();
+        list2.add("bar");
+        headers.put("Location-Tag", list2);
+        List<String> list3 = new ArrayList<String>();
+        list3.add("foo");
+        headers.put("Vipserver-Tag", list3);
         EnvUtil.setSelfEnv(headers);
     }
 
     @Test
-    void setSelfEnvHeadersIsEmpty() {
-        EnvUtil.setSelfEnv(new HashMap<String, List<String>>());
+    void setSelfEnv5() {
+        HashMap<String, List<String>> headers =
+             new HashMap<String, List<String>>();
+        List<String> list1 = new ArrayList<String>();
+        list1.add("foo");
+        headers.put("Amory-Tag", list1);
+        List<String> list2 = new ArrayList<String>();
+        list2.add("foo");
+        headers.put("Location-Tag", list2);
+        List<String> list3 = new ArrayList<String>();
+        list3.add("bar");
+        headers.put("Vipserver-Tag", list3);
+        EnvUtil.setSelfEnv(headers);
     }
 
     @Test
-    void setSelfEnvHeadersIsNull() {
-        EnvUtil.setSelfEnv(null);
+    void getSelfAmorayTag() {
+        assertThat(EnvUtil.getSelfAmorayTag(), is("Location-Tag"));
     }
 
     @Test
-    void getSelfAmorayTagReturnsNull() {
-        assertThat(EnvUtil.getSelfAmorayTag(), is(nullValue()));
+    void getSelfVipserverTagReturnsFoo() {
+        assertThat(EnvUtil.getSelfVipserverTag(), is("foo"));
     }
 
     @Test
-    void getSelfVipserverTagReturnsNull() {
-        assertThat(EnvUtil.getSelfVipserverTag(), is(nullValue()));
-    }
-
-    @Test
-    void getSelfLocationTagReturnsNull() {
-        assertThat(EnvUtil.getSelfLocationTag(), is(nullValue()));
+    void getSelfLocationTag() {
+        assertThat(EnvUtil.getSelfLocationTag(), is("selfAmoryTag:{}"));
     }
 }

@@ -29,9 +29,7 @@ class NamingEventTest {
         instance1.setHealthy(false);
         instance1.setInstanceId("1234");
         instance1.setIp("foo");
-        HashMap<String, String> metadata1 = new HashMap<String, String>();
-        metadata1.put("foo", "foo");
-        instance1.setMetadata(metadata1);
+        instance1.setMetadata(new HashMap<String, String>());
         instance1.setPort(1);
         instance1.setServiceName("Acme");
         instance1.setWeight(1.0);
@@ -48,9 +46,7 @@ class NamingEventTest {
         instance2.setHealthy(false);
         instance2.setInstanceId("1234");
         instance2.setIp("foo");
-        HashMap<String, String> metadata2 = new HashMap<String, String>();
-        metadata2.put("foo", "foo");
-        instance2.setMetadata(metadata2);
+        instance2.setMetadata(new HashMap<String, String>());
         instance2.setPort(1);
         instance2.setServiceName("Acme");
         instance2.setWeight(1.0);
@@ -74,9 +70,7 @@ class NamingEventTest {
         instance1.setHealthy(false);
         instance1.setInstanceId("1234");
         instance1.setIp("foo");
-        HashMap<String, String> metadata1 = new HashMap<String, String>();
-        metadata1.put("foo", "foo");
-        instance1.setMetadata(metadata1);
+        instance1.setMetadata(new HashMap<String, String>());
         instance1.setPort(1);
         instance1.setServiceName("Acme");
         instance1.setWeight(1.0);
@@ -92,9 +86,7 @@ class NamingEventTest {
         instance2.setHealthy(false);
         instance2.setInstanceId("1234");
         instance2.setIp("foo");
-        HashMap<String, String> metadata2 = new HashMap<String, String>();
-        metadata2.put("foo", "foo");
-        instance2.setMetadata(metadata2);
+        instance2.setMetadata(new HashMap<String, String>());
         instance2.setPort(1);
         instance2.setServiceName("Acme");
         instance2.setWeight(1.0);

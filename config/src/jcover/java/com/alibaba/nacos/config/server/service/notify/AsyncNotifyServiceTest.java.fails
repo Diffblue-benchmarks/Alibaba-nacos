@@ -50,6 +50,6 @@ class AsyncNotifyServiceTest {
 
     @Test
     void getExecutor() {
-        // pojo java.util.concurrent.Executor
+        // pojo java.util.concurrent.Executor service.getExecutor()
     }
 }

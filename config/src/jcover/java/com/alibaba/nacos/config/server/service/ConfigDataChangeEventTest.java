@@ -12,11 +12,11 @@ class ConfigDataChangeEventTest {
 
     @Test
     void factory1() {
-        // pojo ConfigDataChangeEvent
+        // pojo ConfigDataChangeEvent new ConfigDataChangeEvent("something", "some event", 1L)
     }
 
     @Test
     void factory2() {
-        // pojo ConfigDataChangeEvent
+        // pojo ConfigDataChangeEvent new ConfigDataChangeEvent(false, "something", "bar", "some event", "tag", 1L)
     }
 }

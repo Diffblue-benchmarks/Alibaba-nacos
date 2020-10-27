@@ -32,7 +32,7 @@ public class HttpHealthCheckProcessorTest {
     private HttpHealthCheckProcessor service;
 
     @Test
-    public void getTypeReturnsHTTP() throws CloneNotSupportedException {
+    public void getTypeReturnsHTTP() {
         assertThat(service.getType(), is("HTTP"));
     }
 }

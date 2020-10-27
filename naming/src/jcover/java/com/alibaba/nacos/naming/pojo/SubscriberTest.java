@@ -34,6 +34,6 @@ public class SubscriberTest {
     @Test
     public void testEquals() {
         assertThat(new Subscriber("bar", "foo", "foo", "foo", "1234", "Acme").equals(new Object()), is(false));
-        assertThat(new Subscriber("bar", "foo", "foo", "foo", "1234", "Acme").equals(null), is(false));
+        assertThat(new Subscriber("foo", "foo", "foo", "foo", "1234", "Acme").equals(null), is(false));
     }
 }
