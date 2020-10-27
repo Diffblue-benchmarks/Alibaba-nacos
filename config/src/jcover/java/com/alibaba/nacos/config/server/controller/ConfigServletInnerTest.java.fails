@@ -39,7 +39,7 @@ class ConfigServletInnerTest {
     private ConfigServletInner service;
 
     @Test
-    void doPollingConfigProbeRequestSizeIsOne() throws java.io.UnsupportedEncodingException, java.io.IOException, javax.servlet.ServletException {
+    void doPollingConfigClientMd5MapIsEmptyAndProbeRequestSizeIsOne() throws java.io.UnsupportedEncodingException, java.io.IOException, javax.servlet.ServletException {
         MockHttpServletResponse response = new MockHttpServletResponse();
         assertThat(service.doPollingConfig(new MockHttpServletRequest(), response, new HashMap<String, String>(), 1), is("200"));
         assertThat(response.getHeaderNames(), hasSize(5));

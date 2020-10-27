@@ -1,7 +1,6 @@
 package com.alibaba.nacos.api.naming.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 
@@ -21,7 +20,7 @@ class InstanceTest {
     void factory() {
         Instance instance = new Instance();
         instance.setClusterName("John Smith");
-        instance.setEnabled(true);
+        instance.setEnabled(false);
         instance.setEphemeral(false);
         instance.setHealthy(false);
         instance.setInstanceId("1234");
@@ -33,18 +32,26 @@ class InstanceTest {
         assertThat(instance.getClusterName(), is("John Smith"));
         assertThat(instance.getInstanceId(), is("1234"));
         assertThat(instance.getIp(), is("foo"));
-        assertThat(instance.getMetadata(), is(notNullValue()));
+        assertThat(instance.getMetadata().isEmpty(), is(true));
         assertThat(instance.getPort(), is(1));
         assertThat(instance.getServiceName(), is("Acme"));
         assertThat(instance.getWeight(), closeTo(1.0, 0.0));
-        assertThat(instance.isEnabled(), is(true));
+        assertThat(instance.isEnabled(), is(false));
         assertThat(instance.isEphemeral(), is(false));
         assertThat(instance.isHealthy(), is(false));
     }
 
     @Test
     void addMetadataKeyIsKeyAndValueIsValue() {
-        new Instance().addMetadata("key", "value");
+
+        // arrange
+        Instance instance = new Instance();
+
+        // act
+        instance.addMetadata("key", "value");
+
+        // assert
+        assertThat(instance.getMetadata().get("key"), is("value"));
     }
 
     @Test
@@ -56,31 +63,17 @@ class InstanceTest {
     }
 
     @Test
-    void equalsReturnsFalse() {
+    void testEquals1() {
         assertThat(new Instance().equals(new Object()), is(false));
     }
 
     @Test
-    void equalsReturnsTrue() {
+    void testEquals2() {
         Instance instance1 = new Instance();
-        instance1.setClusterName("John Smith");
-        instance1.setEnabled(false);
-        instance1.setEphemeral(false);
-        instance1.setHealthy(false);
-        instance1.setInstanceId("1234");
-        instance1.setIp("foo");
-        instance1.setPort(1);
-        instance1.setServiceName("Acme");
-        Instance instance2 = new Instance();
-        instance2.setClusterName("John Smith");
-        instance2.setEnabled(false);
-        instance2.setEphemeral(false);
-        instance2.setHealthy(false);
-        instance2.setInstanceId("1234");
-        instance2.setIp("foo");
-        instance2.setPort(1);
-        instance2.setServiceName("Acme");
-        assertThat(instance1.equals(instance2), is(true));
+        HashMap<String, String> metadata1 = new HashMap<String, String>();
+        metadata1.put("", "foo");
+        instance1.setMetadata(metadata1);
+        assertThat(instance1.equals(new Instance()), is(false));
     }
 
     @Test

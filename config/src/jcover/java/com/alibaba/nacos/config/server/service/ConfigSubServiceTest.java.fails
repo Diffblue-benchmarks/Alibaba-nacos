@@ -1,7 +1,6 @@
 package com.alibaba.nacos.config.server.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 
@@ -64,7 +63,7 @@ class ConfigSubServiceTest {
              new HashMap<String, String>();
         lisentersGroupkeyStatus.put("", "foo");
         sampleCollectResult.setLisentersGroupkeyStatus(lisentersGroupkeyStatus);
-        assertThat(service.mergeSampleResult(sampleCollectResult, new ArrayList<SampleResult>()).getLisentersGroupkeyStatus(), is(notNullValue()));
+        assertThat(service.mergeSampleResult(sampleCollectResult, new ArrayList<SampleResult>()).getLisentersGroupkeyStatus().get(""), is("foo"));
     }
 
     @Test

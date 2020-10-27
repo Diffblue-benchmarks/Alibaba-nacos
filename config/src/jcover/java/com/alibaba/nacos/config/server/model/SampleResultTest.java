@@ -1,7 +1,6 @@
 package com.alibaba.nacos.config.server.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.HashMap;
@@ -20,6 +19,6 @@ class SampleResultTest {
     void factory() {
         SampleResult sampleResult = new SampleResult();
         sampleResult.setLisentersGroupkeyStatus(new HashMap<String, String>());
-        assertThat(sampleResult.getLisentersGroupkeyStatus(), is(notNullValue()));
+        assertThat(sampleResult.getLisentersGroupkeyStatus().isEmpty(), is(true));
     }
 }

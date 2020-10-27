@@ -57,7 +57,8 @@ class ConfigInfo4BetaTest {
     }
 
     @Test
-    void equalsReturnsFalse() {
+    void testEquals() {
+        assertThat(new ConfigInfo4Beta().equals(new Object()), is(false));
         assertThat(new ConfigInfo4Beta().equals(new Object()), is(false));
     }
 }

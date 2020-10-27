@@ -2,7 +2,6 @@ package com.alibaba.nacos.naming.core;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
@@ -31,6 +30,43 @@ public class ServiceTest {
 
     @Test
     public void factory1() {
+        Service service = new Service();
+        service.setClusterMap(new HashMap<String, Cluster>());
+        service.setEnabled(false);
+        service.setIpDeleteTimeout(1L);
+        service.setLastModifiedMillis(1L);
+        service.setNamespaceId("1234");
+        ArrayList<String> owners = new ArrayList<String>();
+        owners.add("DE");
+        service.setOwners(owners);
+        service.setResetWeight(false);
+        Selector selector = mock(Selector.class);
+        service.setSelector(selector);
+        service.setToken("Bearer");
+        service.setAppName("Acme");
+        service.setGroupName("Acme");
+        service.setMetadata(new HashMap<String, String>());
+        service.setName("Acme");
+        service.setProtectThreshold(1.0f);
+        assertThat(service.getClusterMap().isEmpty(), is(true));
+        assertThat(service.getEnabled(), is(false));
+        assertThat(service.getIpDeleteTimeout(), is(1L));
+        assertThat(service.getLastModifiedMillis(), is(1L));
+        assertThat(service.getNamespaceId(), is("1234"));
+        assertThat(service.getOwners(), hasSize(1));
+        assertThat(service.getOwners().get(0), is("DE"));
+        assertThat(service.getResetWeight(), is(false));
+        assertThat(service.getSelector(), sameInstance(selector));
+        assertThat(service.getToken(), is("Bearer"));
+        assertThat(service.getAppName(), is("Acme"));
+        assertThat(service.getGroupName(), is("Acme"));
+        assertThat(service.getMetadata().isEmpty(), is(true));
+        assertThat(service.getName(), is("Acme"));
+        assertEquals(1.0f, service.getProtectThreshold(), 0);
+    }
+
+    @Test
+    public void factory2() {
         Service service = new Service("Acme");
         service.setClusterMap(new HashMap<String, Cluster>());
         service.setEnabled(false);
@@ -49,7 +85,7 @@ public class ServiceTest {
         service.setMetadata(new HashMap<String, String>());
         service.setName("Acme");
         service.setProtectThreshold(1.0f);
-        assertThat(service.getClusterMap(), is(notNullValue()));
+        assertThat(service.getClusterMap().isEmpty(), is(true));
         assertThat(service.getEnabled(), is(false));
         assertThat(service.getIpDeleteTimeout(), is(1L));
         assertThat(service.getLastModifiedMillis(), is(1L));
@@ -61,41 +97,7 @@ public class ServiceTest {
         assertThat(service.getToken(), is("Bearer"));
         assertThat(service.getAppName(), is("Acme"));
         assertThat(service.getGroupName(), is("Acme"));
-        assertThat(service.getMetadata(), is(notNullValue()));
-        assertThat(service.getName(), is("Acme"));
-        assertEquals(1.0f, service.getProtectThreshold(), 0);
-    }
-
-    @Test
-    public void factory2() {
-        Service service = new Service();
-        service.setClusterMap(new HashMap<String, Cluster>());
-        service.setEnabled(false);
-        service.setIpDeleteTimeout(1L);
-        service.setLastModifiedMillis(1L);
-        service.setNamespaceId("1234");
-        service.setOwners(new ArrayList<String>());
-        service.setResetWeight(false);
-        Selector selector = mock(Selector.class);
-        service.setSelector(selector);
-        service.setToken("Bearer");
-        service.setAppName("Acme");
-        service.setGroupName("Acme");
-        service.setMetadata(new HashMap<String, String>());
-        service.setName("Acme");
-        service.setProtectThreshold(1.0f);
-        assertThat(service.getClusterMap(), is(notNullValue()));
-        assertThat(service.getEnabled(), is(false));
-        assertThat(service.getIpDeleteTimeout(), is(1L));
-        assertThat(service.getLastModifiedMillis(), is(1L));
-        assertThat(service.getNamespaceId(), is("1234"));
-        assertThat(service.getOwners(), empty());
-        assertThat(service.getResetWeight(), is(false));
-        assertThat(service.getSelector(), sameInstance(selector));
-        assertThat(service.getToken(), is("Bearer"));
-        assertThat(service.getAppName(), is("Acme"));
-        assertThat(service.getGroupName(), is("Acme"));
-        assertThat(service.getMetadata(), is(notNullValue()));
+        assertThat(service.getMetadata().isEmpty(), is(true));
         assertThat(service.getName(), is("Acme"));
         assertEquals(1.0f, service.getProtectThreshold(), 0);
     }
@@ -281,7 +283,7 @@ public class ServiceTest {
         service1.setMetadata(new HashMap<String, String>());
         service1.setName("Acme");
         service1.setProtectThreshold(1.0f);
-        assertThat(service1.toJSON(), is("{\"appName\":\"Acme\",\"checksum\":\"93c1fca73a6467b8cf308f3e10779445\",\"clusterMap\":{\"\":{\"defCkport\":1,\"defIPPort\":1,\"defaultCheckPort\":1,\"defaultPort\":1,\"healthChecker\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"MapSerializer.java\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":2898,\"verified\":false},\"location\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"MapSerializer.java\"},\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":2895,\"verified\":false},{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"}],\"stubbingsAscending\":[{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":2888,\"verified\":false},\"location\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0].invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"metadata\":{\"\":\"foo\"},\"name\":\"John Smith\",\"serviceName\":\"Acme\",\"sitegroup\":\"DE\",\"useIPPort4Check\":false}},\"enabled\":false,\"groupName\":\"Acme\",\"ipDeleteTimeout\":1,\"lastModifiedMillis\":1,\"metadata\":{},\"name\":\"Acme\",\"namespaceId\":\"1234\",\"owners\":[\"DE\"],\"protectThreshold\":1.0,\"resetWeight\":false,\"selector\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.naming.selector.Selector\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.naming.selector.Selector\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1025,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.selector\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":true,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":\"INSTANCE\",\"sequenceNumber\":2891,\"verified\":false},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[],\"stubbingsAscending\":[{\"invocation\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.naming.selector.Selector\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"token\":\"Bearer\"}"));
+        assertThat(service1.toJSON(), is("{\"appName\":\"Acme\",\"checksum\":\"a791c92c20f6cdbfefee121a7976c54a\",\"clusterMap\":{\"\":{\"defCkport\":1,\"defIPPort\":1,\"defaultCheckPort\":1,\"defaultPort\":1,\"healthChecker\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"MapSerializer.java\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":7383,\"verified\":false},\"location\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"MapSerializer.java\"},\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":7380,\"verified\":false},{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"}],\"stubbingsAscending\":[{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"mock\":{\"$ref\":\"$.clusterMap..healthChecker\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":false,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":{\"invokable\":true},\"sequenceNumber\":7371,\"verified\":false},\"location\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0].invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.clusterMap..healthChecker.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.api.naming.pojo.AbstractHealthChecker\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"metadata\":{\"\":\"foo\"},\"name\":\"John Smith\",\"serviceName\":\"Acme\",\"sitegroup\":\"DE\",\"useIPPort4Check\":false}},\"enabled\":false,\"groupName\":\"Acme\",\"ipDeleteTimeout\":1,\"lastModifiedMillis\":1,\"metadata\":{},\"name\":\"Acme\",\"namespaceId\":\"1234\",\"owners\":[\"DE\"],\"protectThreshold\":1.0,\"resetWeight\":false,\"selector\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.naming.selector.Selector\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.naming.selector.Selector\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1025,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.selector\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":true,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":\"INSTANCE\",\"sequenceNumber\":7374,\"verified\":false},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[],\"stubbingsAscending\":[{\"invocation\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.naming.selector.Selector\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"token\":\"Bearer\"}"));
     }
 
     @Test
@@ -317,11 +319,11 @@ public class ServiceTest {
         service1.setClusterMap(clusterMap1);
         Service vDom = new Service();
         vDom.setEnabled(false);
-        ArrayList<String> owners5 = new ArrayList<String>();
-        owners5.add("DE");
-        vDom.setOwners(owners5);
-        Selector selector5 = mock(Selector.class);
-        vDom.setSelector(selector5);
+        ArrayList<String> owners6 = new ArrayList<String>();
+        owners6.add("DE");
+        vDom.setOwners(owners6);
+        Selector selector6 = mock(Selector.class);
+        vDom.setSelector(selector6);
         vDom.setToken("Bearer");
         vDom.setProtectThreshold(1.0f);
 
@@ -329,7 +331,7 @@ public class ServiceTest {
         service1.update(vDom);
 
         // assert
-        assertThat(service1.getSelector(), sameInstance(selector5));
+        assertThat(service1.getSelector(), sameInstance(selector6));
     }
 
     @Test
@@ -381,21 +383,51 @@ public class ServiceTest {
         service1.setToken("Bearer");
         service1.setAppName("Acme");
         service1.setGroupName("Acme");
-        service1.setMetadata(new HashMap<String, String>());
+        HashMap<String, String> metadata3 = new HashMap<String, String>();
+        metadata3.put("", "foo");
+        service1.setMetadata(metadata3);
         service1.setName("Acme");
         service1.setProtectThreshold(1.0f);
-        assertThat(service1.getChecksum(), is("9fe0dd69d15f40fe6daeef07989490b3"));
+        assertThat(service1.getChecksum(), is("11942f1e253bae9a2c031e9160bff2ea"));
     }
 
     @Test
     public void addCluster() {
-        new Service().addCluster(new Cluster());
+
+        // arrange
+        Service service1 = new Service();
+        Cluster cluster = new Cluster();
+        cluster.setName("John Smith");
+
+        // act
+        service1.addCluster(cluster);
+
+        // assert
+        assertThat(service1.getClusterMap().get("John Smith"), sameInstance(cluster));
     }
 
     @Test
-    public void validate() {
+    public void validate1() {
         Service service = new Service();
         service.setName("Acme");
         service.validate();
+    }
+
+    @Test
+    public void validate2() {
+
+        // arrange
+        Service service = new Service();
+        HashMap<String, Cluster> clusterMap = new HashMap<String, Cluster>();
+        Cluster cluster = mock(Cluster.class);
+        clusterMap.put("", cluster);
+        service.setClusterMap(clusterMap);
+        service.setName("Acme");
+
+        // act
+        service.validate();
+
+        // assert
+        Mockito.verify(cluster).validate();
     }
 }

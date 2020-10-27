@@ -1,7 +1,6 @@
 package com.alibaba.nacos.naming.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 
 import java.util.HashMap;
@@ -23,9 +22,9 @@ public class ServiceDetailInfoTest {
         serviceDetailInfo.setGroupName("Acme");
         serviceDetailInfo.setMetadata(new HashMap<String, String>());
         serviceDetailInfo.setServiceName("Acme");
-        assertThat(serviceDetailInfo.getClusterMap(), is(notNullValue()));
+        assertThat(serviceDetailInfo.getClusterMap().isEmpty(), is(true));
         assertThat(serviceDetailInfo.getGroupName(), is("Acme"));
-        assertThat(serviceDetailInfo.getMetadata(), is(notNullValue()));
+        assertThat(serviceDetailInfo.getMetadata().isEmpty(), is(true));
         assertThat(serviceDetailInfo.getServiceName(), is("Acme"));
     }
 }

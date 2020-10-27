@@ -3,7 +3,6 @@ package com.alibaba.nacos.naming.selector;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
 
@@ -27,7 +26,7 @@ public class LabelSelectorTest {
         LabelSelector labelSelector = new LabelSelector();
         labelSelector.setLabels(new HashSet<String>());
         labelSelector.setExpression("1");
-        assertThat(labelSelector.getLabels(), is(notNullValue()));
+        assertThat(labelSelector.getLabels(), empty());
         assertThat(labelSelector.getExpression(), is("1"));
         assertThat(labelSelector.getType(), is("label"));
     }

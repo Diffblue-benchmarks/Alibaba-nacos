@@ -1,7 +1,6 @@
 package com.alibaba.nacos.client.naming.core;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
@@ -10,7 +9,6 @@ import static org.hamcrest.number.IsCloseTo.closeTo;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +31,6 @@ class BalancerTest {
         instance.setEphemeral(false);
         instance.setInstanceId("1234");
         instance.setIp("foo");
-        instance.setMetadata(new HashMap<String, String>());
         instance.setPort(1);
         instance.setServiceName("Acme");
         hosts.add(instance);
@@ -45,7 +42,7 @@ class BalancerTest {
         assertThat(result.getClusterName(), is("John Smith"));
         assertThat(result.getInstanceId(), is("1234"));
         assertThat(result.getIp(), is("foo"));
-        assertThat(result.getMetadata(), is(notNullValue()));
+        assertThat(result.getMetadata().isEmpty(), is(true));
         assertThat(result.getPort(), is(1));
         assertThat(result.getServiceName(), is("Acme"));
         assertThat(result.getWeight(), closeTo(1.0, 0.0));

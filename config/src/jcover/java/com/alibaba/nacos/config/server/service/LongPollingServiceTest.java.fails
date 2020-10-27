@@ -112,7 +112,7 @@ class LongPollingServiceTest {
     }
 
     @Test
-    void setRetainIps() {
+    void setRetainIpsToEmpty() {
         service.setRetainIps(new HashMap<String, Long>());
     }
 }

@@ -1,7 +1,6 @@
 package com.alibaba.nacos.api.naming.pojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
 import static org.mockito.Mockito.mock;
@@ -20,8 +19,8 @@ class ClusterTest {
 
     @Test
     void factory1() {
-        Cluster cluster = new Cluster("John Smith");
-        cluster.setDefaultCheckPort(0);
+        Cluster cluster = new Cluster();
+        cluster.setDefaultCheckPort(1);
         cluster.setDefaultPort(1);
         AbstractHealthChecker healthChecker =
              mock(AbstractHealthChecker.class);
@@ -30,10 +29,10 @@ class ClusterTest {
         cluster.setName("John Smith");
         cluster.setServiceName("John Smith");
         cluster.setUseIPPort4Check(false);
-        assertThat(cluster.getDefaultCheckPort(), is(0));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
         assertThat(cluster.getDefaultPort(), is(1));
         assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
-        assertThat(cluster.getMetadata(), is(notNullValue()));
+        assertThat(cluster.getMetadata().isEmpty(), is(true));
         assertThat(cluster.getName(), is("John Smith"));
         assertThat(cluster.getServiceName(), is("John Smith"));
         assertThat(cluster.isUseIPPort4Check(), is(false));
@@ -41,21 +40,21 @@ class ClusterTest {
 
     @Test
     void factory2() {
-        Cluster cluster = new Cluster();
-        cluster.setDefaultCheckPort(0);
+        Cluster cluster = new Cluster("John Smith");
+        cluster.setDefaultCheckPort(1);
         cluster.setDefaultPort(1);
         AbstractHealthChecker healthChecker =
              mock(AbstractHealthChecker.class);
         cluster.setHealthChecker(healthChecker);
         cluster.setMetadata(new HashMap<String, String>());
-        cluster.setName("bar");
+        cluster.setName("John Smith");
         cluster.setServiceName("John Smith");
         cluster.setUseIPPort4Check(false);
-        assertThat(cluster.getDefaultCheckPort(), is(0));
+        assertThat(cluster.getDefaultCheckPort(), is(1));
         assertThat(cluster.getDefaultPort(), is(1));
         assertThat(cluster.getHealthChecker(), sameInstance(healthChecker));
-        assertThat(cluster.getMetadata(), is(notNullValue()));
-        assertThat(cluster.getName(), is("bar"));
+        assertThat(cluster.getMetadata().isEmpty(), is(true));
+        assertThat(cluster.getName(), is("John Smith"));
         assertThat(cluster.getServiceName(), is("John Smith"));
         assertThat(cluster.isUseIPPort4Check(), is(false));
     }

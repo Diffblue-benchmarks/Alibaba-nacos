@@ -1,7 +1,6 @@
 package com.alibaba.nacos.client.naming.beat;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 
@@ -25,18 +24,18 @@ class BeatInfoTest {
         beatInfo.setMetadata(new HashMap<String, String>());
         beatInfo.setPeriod(1L);
         beatInfo.setPort(1);
-        beatInfo.setScheduled(true);
+        beatInfo.setScheduled(false);
         beatInfo.setServiceName("Acme");
         beatInfo.setStopped(false);
         beatInfo.setWeight(1.0);
         assertThat(beatInfo.getCluster(), is("John Smith"));
         assertThat(beatInfo.getIp(), is("foo"));
-        assertThat(beatInfo.getMetadata(), is(notNullValue()));
+        assertThat(beatInfo.getMetadata().isEmpty(), is(true));
         assertThat(beatInfo.getPeriod(), is(1L));
         assertThat(beatInfo.getPort(), is(1));
         assertThat(beatInfo.getServiceName(), is("Acme"));
         assertThat(beatInfo.getWeight(), closeTo(1.0, 0.0));
-        assertThat(beatInfo.isScheduled(), is(true));
+        assertThat(beatInfo.isScheduled(), is(false));
         assertThat(beatInfo.isStopped(), is(false));
     }
 }
