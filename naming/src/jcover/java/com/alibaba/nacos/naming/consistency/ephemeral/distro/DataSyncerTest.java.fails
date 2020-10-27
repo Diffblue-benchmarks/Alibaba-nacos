@@ -65,17 +65,19 @@ public class DataSyncerTest {
     @Test
     public void submit2() {
         SyncTask task = new SyncTask();
-        task.setKeys(new ArrayList<String>());
+        ArrayList<String> keys = new ArrayList<String>();
+        keys.add("key");
+        task.setKeys(keys);
         service.submit(task, 1L);
     }
 
     @Test
     public void submit3() {
         SyncTask task = new SyncTask();
-        ArrayList<String> keys = new ArrayList<String>();
-        keys.add("key");
-        task.setKeys(keys);
-        task.setTargetServer("bar");
+        task.setKeys(new ArrayList<String>());
+        task.setLastExecuteTime(1L);
+        task.setRetryCount(0);
+        task.setTargetServer("foo");
         service.submit(task, 1L);
     }
 

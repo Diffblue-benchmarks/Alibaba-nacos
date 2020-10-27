@@ -47,8 +47,11 @@ class EventDispatcherTest {
 
     @Test
     void serviceChanged() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
         ServiceInfo serviceInfo = mock(ServiceInfo.class);
-        new EventDispatcher().serviceChanged(serviceInfo);
+        eventDispatcher.serviceChanged(serviceInfo);
     }
 
     @Test
