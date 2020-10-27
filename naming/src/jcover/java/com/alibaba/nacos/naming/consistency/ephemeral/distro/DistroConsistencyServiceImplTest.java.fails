@@ -1,0 +1,193 @@
+package com.alibaba.nacos.naming.consistency.ephemeral.distro;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import com.alibaba.nacos.naming.cluster.ServerListManager;
+import com.alibaba.nacos.naming.cluster.servers.Server;
+import com.alibaba.nacos.naming.cluster.transport.Serializer;
+import com.alibaba.nacos.naming.consistency.Datum;
+import com.alibaba.nacos.naming.consistency.RecordListener;
+import com.alibaba.nacos.naming.core.DistroMapper;
+import com.alibaba.nacos.naming.core.Instances;
+import com.alibaba.nacos.naming.misc.GlobalConfig;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+import com.alibaba.nacos.naming.pojo.Record;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.consistency.ephemeral.distro.DistroConsistencyServiceImpl
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {DistroConsistencyServiceImpl.class})
+@RunWith(SpringRunner.class)
+public class DistroConsistencyServiceImplTest {
+
+    @MockBean(name = "dataStore")
+    private DataStore dataStore;
+
+    @MockBean(name = "dataSyncer")
+    private DataSyncer dataSyncer;
+
+    @MockBean(name = "distroMapper")
+    private DistroMapper distroMapper;
+
+    @MockBean(name = "globalConfig")
+    private GlobalConfig globalConfig;
+
+    @MockBean(name = "serializer")
+    private Serializer serializer;
+
+    @MockBean(name = "serverListManager")
+    private ServerListManager serverListManager;
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @MockBean(name = "taskDispatcher")
+    private TaskDispatcher taskDispatcher;
+
+    @Autowired
+    private DistroConsistencyServiceImpl service;
+
+    @Test
+    public void put() throws com.alibaba.nacos.api.exception.NacosException {
+        Record value = mock(Record.class);
+        service.put("key", value);
+        Mockito.verify(taskDispatcher).addTask(ArgumentMatchers.eq("key"));
+    }
+
+    @Test
+    public void removeKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        when(dataStore.remove(Mockito.<String>any()))
+            .thenReturn(new Datum<Record>());
+        service.remove("key");
+    }
+
+    @Test
+    public void getKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        when(dataStore.get(Mockito.<String>any()))
+            .thenReturn(new Datum<Record>());
+        // pojo Datum service.get("key")
+    }
+
+    @Test
+    public void onPutKeyIsKey() {
+        Record value = mock(Record.class);
+        service.onPut("key", value);
+    }
+
+    @Test
+    public void onRemoveKeyIsKey() {
+        when(dataStore.remove(Mockito.<String>any()))
+            .thenReturn(new Datum<Record>());
+        service.onRemove("key");
+    }
+
+    @Test
+    public void onReceiveChecksums() {
+        when(dataStore.keys())
+            .thenReturn(new HashSet<String>());
+        service.onReceiveChecksums(new HashMap<String, String>(), "/some/path.html");
+    }
+
+    @Test
+    public void syncAllDataFromRemote1() {
+        Server server = new Server();
+        server.setAdWeight(1);
+        server.setAlive(false);
+        server.setIp("/some/path.html");
+        server.setLastRefTime(1L);
+        server.setLastRefTimeStr("Smith");
+        server.setServePort(1);
+        server.setSite("foo");
+        server.setWeight(1);
+        assertThat(service.syncAllDataFromRemote(server), is(false));
+    }
+
+    @Test
+    public void syncAllDataFromRemote2() {
+        assertThat(service.syncAllDataFromRemote(new Server()), is(false));
+    }
+
+    @Test
+    public void syncAllDataFromRemote3() {
+        Server server = new Server();
+        server.setAdWeight(0);
+        server.setAlive(false);
+        server.setIp("/some/path.html");
+        server.setLastRefTime(1L);
+        server.setLastRefTimeStr("foo");
+        server.setServePort(1);
+        server.setSite("/some/path.html");
+        server.setWeight(1);
+        assertThat(service.syncAllDataFromRemote(server), is(false));
+    }
+
+    @Test
+    public void processDataDataIsEmpty() throws Exception {
+        service.processData(new byte[] { });
+    }
+
+    @Test
+    public void processDataDataIsOne() throws Exception {
+        when(serializer.deserializeMap(Mockito.<byte[]>any(), Mockito.<Class<Instances>>any()))
+            .thenReturn(new HashMap<String, Datum<Instances>>());
+        byte[] data = new byte[] { 1 };
+        service.processData(data);
+    }
+
+    @Test
+    public void unlistenKeyIsKey() throws com.alibaba.nacos.api.exception.NacosException {
+        @SuppressWarnings("unchecked")
+        RecordListener<Record> listener = mock(RecordListener.class);
+        service.unlisten("key", listener);
+    }
+
+    @Test
+    public void isAvailableReturnsFalse() {
+        when(switchDomain.getOverriddenServerStatus())
+            .thenReturn("bar");
+        when(globalConfig.isDataWarmup())
+            .thenReturn(true);
+        assertThat(service.isAvailable(), is(false));
+    }
+
+    @Test
+    public void isAvailableReturnsTrue() {
+        when(globalConfig.isDataWarmup())
+            .thenReturn(false);
+        assertThat(service.isAvailable(), is(true));
+    }
+
+    @Test
+    public void isInitializedReturnsFalse() {
+        when(globalConfig.isDataWarmup())
+            .thenReturn(true);
+        assertThat(service.isInitialized(), is(false));
+    }
+
+    @Test
+    public void isInitializedReturnsTrue() {
+        when(globalConfig.isDataWarmup())
+            .thenReturn(false);
+        assertThat(service.isInitialized(), is(true));
+    }
+}

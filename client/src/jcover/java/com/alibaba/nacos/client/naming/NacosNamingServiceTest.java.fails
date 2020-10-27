@@ -64,13 +64,14 @@ class NacosNamingServiceTest {
     }
 
     @Test
-    void subscribeServiceNameIsNamingClientBeatThreadCount() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribe1() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
-        new NacosNamingService("Smith").subscribe("namingClientBeatThreadCount", listener);
+        new NacosNamingService("Smith").subscribe("Acme", listener);
+        Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());
     }
 
     @Test
-    void subscribe() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribe2() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
         new NacosNamingService("Smith").subscribe("bar", "Acme", listener);
         Mockito.verify(listener).onEvent(ArgumentMatchers.<Event>any());
