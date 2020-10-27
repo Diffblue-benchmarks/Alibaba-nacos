@@ -110,17 +110,12 @@ public class DistroConsistencyServiceImplTest {
 
     @Test
     public void syncAllDataFromRemote1() {
-        assertThat(service.syncAllDataFromRemote(new Server()), is(false));
-    }
-
-    @Test
-    public void syncAllDataFromRemote2() {
         Server server = new Server();
-        server.setAdWeight(0);
+        server.setAdWeight(1_001);
         server.setAlive(false);
         server.setIp("/some/path.html");
         server.setLastRefTime(1L);
-        server.setLastRefTimeStr("bar");
+        server.setLastRefTimeStr("Smith");
         server.setServePort(1);
         server.setSite("/some/path.html");
         server.setWeight(1);
@@ -128,17 +123,8 @@ public class DistroConsistencyServiceImplTest {
     }
 
     @Test
-    public void syncAllDataFromRemote3() {
-        Server server = new Server();
-        server.setAdWeight(0);
-        server.setAlive(false);
-        server.setIp("/some/path.html");
-        server.setLastRefTime(1L);
-        server.setLastRefTimeStr("Smith");
-        server.setServePort(-1);
-        server.setSite("/some/path.html");
-        server.setWeight(1);
-        assertThat(service.syncAllDataFromRemote(server), is(false));
+    public void syncAllDataFromRemote2() {
+        assertThat(service.syncAllDataFromRemote(new Server()), is(false));
     }
 
     @Test

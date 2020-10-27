@@ -31,14 +31,14 @@ class EnvUtilTest {
     void setSelfEnv3() {
         HashMap<String, List<String>> headers =
              new HashMap<String, List<String>>();
-        List<String> list1 = new ArrayList<String>();
+        ArrayList<String> list1 = new ArrayList<String>();
         list1.add("bar");
         headers.put("Amory-Tag", list1);
-        List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
+        ArrayList<String> list2 = new ArrayList<String>();
+        list2.add("Smith");
         headers.put("Location-Tag", list2);
-        List<String> list3 = new ArrayList<String>();
-        list3.add("foo");
+        ArrayList<String> list3 = new ArrayList<String>();
+        list3.add("Smith");
         headers.put("Vipserver-Tag", list3);
         EnvUtil.setSelfEnv(headers);
     }
@@ -47,14 +47,14 @@ class EnvUtilTest {
     void setSelfEnv4() {
         HashMap<String, List<String>> headers =
              new HashMap<String, List<String>>();
-        List<String> list1 = new ArrayList<String>();
-        list1.add("foo");
+        ArrayList<String> list1 = new ArrayList<String>();
+        list1.add("Smith");
         headers.put("Amory-Tag", list1);
-        List<String> list2 = new ArrayList<String>();
+        ArrayList<String> list2 = new ArrayList<String>();
         list2.add("bar");
         headers.put("Location-Tag", list2);
-        List<String> list3 = new ArrayList<String>();
-        list3.add("foo");
+        ArrayList<String> list3 = new ArrayList<String>();
+        list3.add("Smith");
         headers.put("Vipserver-Tag", list3);
         EnvUtil.setSelfEnv(headers);
     }
@@ -63,13 +63,13 @@ class EnvUtilTest {
     void setSelfEnv5() {
         HashMap<String, List<String>> headers =
              new HashMap<String, List<String>>();
-        List<String> list1 = new ArrayList<String>();
-        list1.add("foo");
+        ArrayList<String> list1 = new ArrayList<String>();
+        list1.add("Smith");
         headers.put("Amory-Tag", list1);
-        List<String> list2 = new ArrayList<String>();
-        list2.add("foo");
+        ArrayList<String> list2 = new ArrayList<String>();
+        list2.add("Smith");
         headers.put("Location-Tag", list2);
-        List<String> list3 = new ArrayList<String>();
+        ArrayList<String> list3 = new ArrayList<String>();
         list3.add("bar");
         headers.put("Vipserver-Tag", list3);
         EnvUtil.setSelfEnv(headers);
@@ -77,16 +77,16 @@ class EnvUtilTest {
 
     @Test
     void getSelfAmorayTag() {
-        assertThat(EnvUtil.getSelfAmorayTag(), is("Location-Tag"));
+        assertThat(EnvUtil.getSelfAmorayTag(), is("Amory-Tag"));
     }
 
     @Test
-    void getSelfVipserverTagReturnsFoo() {
-        assertThat(EnvUtil.getSelfVipserverTag(), is("foo"));
+    void getSelfVipserverTag() {
+        assertThat(EnvUtil.getSelfVipserverTag(), is("selfAmoryTag:{}"));
     }
 
     @Test
-    void getSelfLocationTag() {
-        assertThat(EnvUtil.getSelfLocationTag(), is("selfAmoryTag:{}"));
+    void getSelfLocationTagReturnsSmith() {
+        assertThat(EnvUtil.getSelfLocationTag(), is("Smith"));
     }
 }

@@ -42,11 +42,11 @@ class CustomAuthenticationProviderTest {
         when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
             .thenReturn(userDetails);
         Authentication result =
-             service.authenticate(new TestingAuthenticationToken("bar", "password"));
+             service.authenticate(new TestingAuthenticationToken("root", "password"));
         assertThat(result.getAuthorities(), empty());
         assertThat(result.getCredentials(), is(nullValue()));
         assertThat(result.getDetails(), is(nullValue()));
-        assertThat((String) result.getPrincipal(), is("bar"));
+        assertThat((String) result.getPrincipal(), is("root"));
         assertThat(result.isAuthenticated(), is(true));
     }
 
@@ -57,7 +57,7 @@ class CustomAuthenticationProviderTest {
             .thenReturn("bar");
         when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
             .thenReturn(userDetails);
-        assertThat(service.authenticate(new TestingAuthenticationToken("password", "bar")), is(nullValue()));
+        assertThat(service.authenticate(new TestingAuthenticationToken("root", "bar")), is(nullValue()));
     }
 
     @Test

@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -132,7 +133,8 @@ class ServiceInfoTest {
     void ipCountReturnsOne() {
         ServiceInfo serviceInfo = new ServiceInfo();
         ArrayList<Instance> hosts = new ArrayList<Instance>();
-        hosts.add(new Instance());
+        Instance instance = mock(Instance.class);
+        hosts.add(instance);
         serviceInfo.setHosts(hosts);
         assertThat(serviceInfo.ipCount(), is(1));
     }

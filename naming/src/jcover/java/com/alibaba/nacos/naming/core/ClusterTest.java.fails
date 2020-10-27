@@ -37,7 +37,7 @@ public class ClusterTest {
         service.setLastModifiedMillis(1L);
         service.setNamespaceId("1234");
         ArrayList<String> owners = new ArrayList<String>();
-        owners.add("foo");
+        owners.add("DE");
         service.setOwners(owners);
         service.setResetWeight(false);
         Selector selector = mock(Selector.class);

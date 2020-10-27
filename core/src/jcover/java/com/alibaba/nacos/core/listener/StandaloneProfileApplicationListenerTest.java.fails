@@ -33,11 +33,11 @@ class StandaloneProfileApplicationListenerTest {
     void onApplicationEvent1() {
         SpringApplication application = mock(SpringApplication.class);
         String[] args = new String[] { "some event" };
-        String[] obj = new String[] { "DE" };
+        String[] stringArray = new String[] { "foo" };
         ConfigurableEnvironment environment =
              mock(ConfigurableEnvironment.class);
         when(environment.getActiveProfiles())
-            .thenReturn(obj);
+            .thenReturn(stringArray);
         when(environment.getProperty(Mockito.<String>any(), Mockito.<Class<Boolean>>any(), Mockito.<Boolean>any()))
             .thenReturn(false);
         service.onApplicationEvent(new ApplicationEnvironmentPreparedEvent(application, args, environment));
@@ -49,11 +49,11 @@ class StandaloneProfileApplicationListenerTest {
         // arrange
         SpringApplication application = mock(SpringApplication.class);
         String[] args = new String[] { "some event" };
-        String[] obj = new String[] { "DE" };
+        String[] stringArray = new String[] { "foo" };
         ConfigurableEnvironment environment =
              mock(ConfigurableEnvironment.class);
         when(environment.getActiveProfiles())
-            .thenReturn(obj);
+            .thenReturn(stringArray);
         when(environment.getProperty(Mockito.<String>any(), Mockito.<Class<Boolean>>any(), Mockito.<Boolean>any()))
             .thenReturn(true);
 

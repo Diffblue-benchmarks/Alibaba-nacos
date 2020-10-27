@@ -40,12 +40,13 @@ public class HealthCheckProcessorDelegateTest {
 
     @Test
     public void getType() {
-        HealthCheckProcessor element = mock(HealthCheckProcessor.class);
-        when(element.getType())
+        HealthCheckProcessor healthCheckProcessor1 =
+             mock(HealthCheckProcessor.class);
+        when(healthCheckProcessor1.getType())
             .thenReturn("BASIC")
             .thenReturn("bar");
         when(collection.stream())
-            .thenReturn(Stream.<HealthCheckProcessor>of(element));
+            .thenReturn(Stream.<HealthCheckProcessor>of(healthCheckProcessor1));
         assertThat(service.getType(), is(nullValue()));
         Mockito.verify(healthCheckExtendProvider).init();
     }

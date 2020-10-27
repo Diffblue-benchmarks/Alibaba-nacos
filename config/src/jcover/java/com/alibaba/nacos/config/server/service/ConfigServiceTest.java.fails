@@ -111,7 +111,7 @@ class ConfigServiceTest {
     @Test
     void getBetaIpsGroupKeyIsBar() {
         assertThat(ConfigService.getBetaIps("bar"), hasSize(1));
-        assertThat(ConfigService.getBetaIps("bar").get(0), is("foo=bar"));
+        assertThat(ConfigService.getBetaIps("bar").get(0), is("/some/path.html"));
     }
 
     @Test
@@ -165,8 +165,9 @@ class ConfigServiceTest {
 
     @Test
     void isUptodate() {
-        assertThat(ConfigService.isUptodate("key", "bar"), is(false));
+        assertThat(ConfigService.isUptodate("bar", "/some/path.html", "/some/path.html", "tag"), is(true));
         assertThat(ConfigService.isUptodate("", "bar", "/some/path.html", "tag"), is(false));
+        assertThat(ConfigService.isUptodate("key", "bar"), is(false));
         assertThat(ConfigService.isUptodate("key", "/some/path.html"), is(true));
     }
 

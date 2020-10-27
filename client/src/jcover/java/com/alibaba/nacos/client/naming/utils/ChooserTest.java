@@ -3,6 +3,8 @@ package com.alibaba.nacos.client.naming.utils;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
@@ -36,9 +38,23 @@ class ChooserTest {
     }
 
     @Test
-    void randomWithWeightReturnsFoo() {
+    void randomWithWeight1() {
         ArrayList<Pair<String>> pairs = new ArrayList<Pair<String>>();
         pairs.add(new Pair<String>("foo", 1.0));
+        assertThat(new Chooser<String, String>("bar", pairs).randomWithWeight(), is("foo"));
+    }
+
+    @Test
+    void randomWithWeight2() {
+        ArrayList<Pair<String>> pairs = new ArrayList<Pair<String>>();
+        @SuppressWarnings("unchecked")
+        Pair<String> pair = mock(Pair.class);
+        when(pair.item())
+            .thenReturn("foo");
+        when(pair.weight())
+            .thenReturn(1.0)
+            .thenReturn(0.0);
+        pairs.add(pair);
         assertThat(new Chooser<String, String>("bar", pairs).randomWithWeight(), is("foo"));
     }
 

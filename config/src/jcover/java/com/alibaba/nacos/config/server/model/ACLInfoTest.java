@@ -20,11 +20,11 @@ class ACLInfoTest {
     void factory() {
         ACLInfo obj = new ACLInfo();
         ArrayList<String> ips = new ArrayList<String>();
-        ips.add("foo=bar");
+        ips.add("/some/path.html");
         obj.setIps(ips);
         obj.setIsOpen(false);
         assertThat(obj.getIps(), hasSize(1));
-        assertThat(obj.getIps().get(0), is("foo=bar"));
+        assertThat(obj.getIps().get(0), is("/some/path.html"));
         assertThat(obj.getIsOpen(), is(false));
     }
 }

@@ -55,9 +55,9 @@ public class DataStoreTest {
     }
 
     @Test
-    public void batchGetKeysIsFoo() {
+    public void batchGetKeysIsKey() {
         ArrayList<String> keys = new ArrayList<String>();
-        keys.add("foo");
+        keys.add("key");
         assertThat(service.batchGet(keys).isEmpty(), is(true));
     }
 

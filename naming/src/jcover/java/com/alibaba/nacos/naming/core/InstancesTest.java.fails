@@ -4,9 +4,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -50,28 +53,12 @@ public class InstancesTest {
     @Test
     public void getChecksum1() {
         Instances instances = new Instances();
-        ArrayList<Instance> instanceList = new ArrayList<Instance>();
-        Instance instance = new Instance();
-        instance.setClusterName("John Smith");
-        instance.setEnabled(false);
-        instance.setHealthy(false);
-        instance.setIp("DE");
-        instance.setPort(1);
-        instanceList.add(instance);
-        instances.setInstanceList(instanceList);
-        assertThat(instances.getChecksum(), is("3561899f56475a79cca1831d871614d8"));
-        assertThat(instances.getCachedChecksum(), is("3561899f56475a79cca1831d871614d8"));
-    }
-
-    @Test
-    public void getChecksum2() {
-        Instances instances = new Instances();
         assertThat(instances.getChecksum(), is("d41d8cd98f00b204e9800998ecf8427e"));
         assertThat(instances.getCachedChecksum(), is("d41d8cd98f00b204e9800998ecf8427e"));
     }
 
     @Test
-    public void getChecksum3() {
+    public void getChecksum2() {
         Instances instances = new Instances();
         ArrayList<Instance> instanceList = new ArrayList<Instance>();
         Instance instance = new Instance();
@@ -90,7 +77,7 @@ public class InstancesTest {
     }
 
     @Test
-    public void getChecksum4() {
+    public void getChecksum3() {
         Instances instances = new Instances();
         ArrayList<Instance> instanceList = new ArrayList<Instance>();
         Instance instance = new Instance();
@@ -103,5 +90,30 @@ public class InstancesTest {
         instances.setInstanceList(instanceList);
         assertThat(instances.getChecksum(), is("3561899f56475a79cca1831d871614d8"));
         assertThat(instances.getCachedChecksum(), is("3561899f56475a79cca1831d871614d8"));
+    }
+
+    @Test
+    public void getChecksum4() {
+        Instances instances = new Instances();
+        ArrayList<Instance> instanceList = new ArrayList<Instance>();
+        Instance instance = mock(Instance.class);
+        when(instance.getClusterName())
+            .thenReturn("John Smith");
+        when(instance.getIp())
+            .thenReturn("foo");
+        when(instance.getMetadata())
+            .thenReturn(new HashMap<String, String>());
+        when(instance.getPort())
+            .thenReturn(1);
+        when(instance.getWeight())
+            .thenReturn(1.0);
+        when(instance.isEnabled())
+            .thenReturn(false);
+        when(instance.isHealthy())
+            .thenReturn(false);
+        instanceList.add(instance);
+        instances.setInstanceList(instanceList);
+        assertThat(instances.getChecksum(), is("4c7eb9bfb7b7f432389a3d653fa0270e"));
+        assertThat(instances.getCachedChecksum(), is("4c7eb9bfb7b7f432389a3d653fa0270e"));
     }
 }

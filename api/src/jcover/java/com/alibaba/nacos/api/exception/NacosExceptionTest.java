@@ -22,6 +22,9 @@ class NacosExceptionTest {
         nacosException.setCauseThrowable(throwable);
         nacosException.setErrCode(1);
         nacosException.setErrMsg("bar");
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getCause(), is(nullValue()));
         assertThat(nacosException.getMessage(), is(nullValue()));
@@ -38,6 +41,9 @@ class NacosExceptionTest {
         nacosException.setCauseThrowable(throwable2);
         nacosException.setErrCode(1);
         nacosException.setErrMsg("an error has happened");
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
         assertThat(nacosException.getCause().getMessage(), is(nullValue()));
@@ -54,6 +60,9 @@ class NacosExceptionTest {
         nacosException.setCauseThrowable(throwable2);
         nacosException.setErrCode(1);
         nacosException.setErrMsg("an error has happened");
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
         assertThat(nacosException.getCause().getMessage(), is(nullValue()));
@@ -68,6 +77,9 @@ class NacosExceptionTest {
         nacosException.setCauseThrowable(throwable);
         nacosException.setErrCode(1);
         nacosException.setErrMsg("an error has happened");
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getCause(), is(nullValue()));
         assertThat(nacosException.getMessage(), is("bar"));

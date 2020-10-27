@@ -19,6 +19,9 @@ class NacosExceptionTest {
         NacosException nacosException = new NacosException();
         nacosException.setErrCode(1);
         nacosException.setErrMsg("bar");
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getErrMsg(), is("bar"));
         assertThat(nacosException.getCause(), is(nullValue()));
@@ -30,6 +33,9 @@ class NacosExceptionTest {
         NacosException nacosException = new NacosException(0, "bar");
         nacosException.setErrCode(1);
         nacosException.setErrMsg("foo");
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrCode(), is(1));
         assertThat(nacosException.getErrMsg(), is("foo"));
         assertThat(nacosException.getCause(), is(nullValue()));

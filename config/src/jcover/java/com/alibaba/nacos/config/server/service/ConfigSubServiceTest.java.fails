@@ -56,19 +56,19 @@ class ConfigSubServiceTest {
     }
 
     @Test
-    void getCollectSampleResultGroupIsBar() throws Exception {
+    void getCollectSampleResult() throws Exception {
         List<String> list2 = new ArrayList<String>();
-        list2.add("foo=bar");
+        list2.add("bar");
         when(serverListService.getServerList())
             .thenReturn(list2)
             .thenReturn(new ArrayList<String>());
-        assertThat(service.getCollectSampleResult("1234", "bar", "/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
+        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
     }
 
     @Test
     void getCollectSampleResultTenantIsEmpty() throws Exception {
         List<String> list2 = new ArrayList<String>();
-        list2.add("foo=bar");
+        list2.add("/some/path.html");
         when(serverListService.getServerList())
             .thenReturn(list2)
             .thenReturn(new ArrayList<String>());
@@ -77,23 +77,23 @@ class ConfigSubServiceTest {
 
     @Test
     void getCollectSampleResultByIp1() throws Exception {
-        List<String> list1 = new ArrayList<String>();
-        list1.add("bar");
-        List<String> list2 = new ArrayList<String>();
-        list2.add("foo=bar");
-        when(serverListService.getServerList())
-            .thenReturn(list2)
-            .thenReturn(list1);
-        assertThat(service.getCollectSampleResultByIp("/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
-    }
-
-    @Test
-    void getCollectSampleResultByIp2() throws Exception {
         List<String> list2 = new ArrayList<String>();
         list2.add("bar");
         when(serverListService.getServerList())
             .thenReturn(list2)
             .thenReturn(new ArrayList<String>());
+        assertThat(service.getCollectSampleResultByIp("/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
+    }
+
+    @Test
+    void getCollectSampleResultByIp2() throws Exception {
+        List<String> list1 = new ArrayList<String>();
+        list1.add("");
+        List<String> list2 = new ArrayList<String>();
+        list2.add("bar");
+        when(serverListService.getServerList())
+            .thenReturn(list2)
+            .thenReturn(list1);
         assertThat(service.getCollectSampleResultByIp("/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
     }
 }

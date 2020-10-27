@@ -221,7 +221,14 @@ public class InstanceTest {
     }
 
     @Test
-    public void testEquals() {
+    public void testEquals1() {
+        Instance instance = new Instance();
+        instance.setCheckRT(1L);
+        assertThat(instance.equals(new Object()), is(false));
+    }
+
+    @Test
+    public void testEquals2() {
         Instance instance = new Instance();
         instance.setCheckRT(1L);
         assertThat(instance.equals(new Object()), is(false));

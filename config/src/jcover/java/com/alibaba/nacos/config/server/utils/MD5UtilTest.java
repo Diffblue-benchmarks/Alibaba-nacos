@@ -28,10 +28,10 @@ class MD5UtilTest {
     }
 
     @Test
-    void compareMd5OldResult() {
+    void compareMd5OldResultChangedGroupKeysIsKey() {
         ArrayList<String> changedGroupKeys = new ArrayList<String>();
-        changedGroupKeys.add("foo=bar");
-        assertThat(MD5Util.compareMd5OldResult(changedGroupKeys), is("null:foo=bar;"));
+        changedGroupKeys.add("key");
+        assertThat(MD5Util.compareMd5OldResult(changedGroupKeys), is("null:key;"));
     }
 
     @Test

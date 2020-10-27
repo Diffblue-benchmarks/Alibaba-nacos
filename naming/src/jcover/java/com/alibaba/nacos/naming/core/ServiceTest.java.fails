@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for com.alibaba.nacos.naming.core.Service
@@ -35,7 +36,7 @@ public class ServiceTest {
         service.setLastModifiedMillis(1L);
         service.setNamespaceId("1234");
         ArrayList<String> owners = new ArrayList<String>();
-        owners.add("foo");
+        owners.add("DE");
         service.setOwners(owners);
         service.setResetWeight(false);
         Selector selector = mock(Selector.class);
@@ -52,7 +53,7 @@ public class ServiceTest {
         assertThat(service.getLastModifiedMillis(), is(1L));
         assertThat(service.getNamespaceId(), is("1234"));
         assertThat(service.getOwners(), hasSize(1));
-        assertThat(service.getOwners().get(0), is("foo"));
+        assertThat(service.getOwners().get(0), is("DE"));
         assertThat(service.getResetWeight(), is(false));
         assertThat(service.getSelector(), sameInstance(selector));
         assertThat(service.getToken(), is("Bearer"));
@@ -147,26 +148,26 @@ public class ServiceTest {
     }
 
     @Test
-    public void allIPsClustersIsFoo() {
+    public void allIPsClustersIsDE() {
         ArrayList<String> clusters = new ArrayList<String>();
-        clusters.add("foo");
+        clusters.add("DE");
         assertThat(new Service().allIPs(clusters), empty());
+    }
+
+    @Test
+    public void srvIPsClustersIsDE() {
+        ArrayList<String> clusters = new ArrayList<String>();
+        clusters.add("DE");
+        assertThat(new Service().srvIPs(clusters), empty());
     }
 
     @Test
     public void srvIPsClustersIsEmpty() {
         Service service1 = new Service();
         HashMap<String, Cluster> clusterMap1 = new HashMap<String, Cluster>();
-        clusterMap1.put("foo", new Cluster());
+        clusterMap1.put("DE", new Cluster());
         service1.setClusterMap(clusterMap1);
         assertThat(service1.srvIPs(new ArrayList<String>()), empty());
-    }
-
-    @Test
-    public void srvIPsClustersIsFoo() {
-        ArrayList<String> clusters = new ArrayList<String>();
-        clusters.add("foo");
-        assertThat(new Service().srvIPs(clusters), empty());
     }
 
     @Test
@@ -189,7 +190,7 @@ public class ServiceTest {
         service.setMetadata(new HashMap<String, String>());
         service.setName("Acme");
         service.setProtectThreshold(1.0f);
-        assertThat(service.toJSON(), is("{\"appName\":\"Acme\",\"checksum\":\"13d6ffa27e9b63449a6be5e1226e20c7\",\"clusterMap\":{},\"enabled\":false,\"groupName\":\"Acme\",\"ipDeleteTimeout\":1,\"lastModifiedMillis\":1,\"metadata\":{},\"name\":\"Acme\",\"namespaceId\":\"1234\",\"owners\":[],\"protectThreshold\":1.0,\"resetWeight\":false,\"selector\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.naming.selector.Selector\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.naming.selector.Selector\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1025,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.selector\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":true,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":\"INSTANCE\",\"sequenceNumber\":3240,\"verified\":false},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[],\"stubbingsAscending\":[{\"invocation\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.naming.selector.Selector\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"token\":\"Bearer\"}"));
+        assertThat(service.toJSON(), is("{\"appName\":\"Acme\",\"checksum\":\"13d6ffa27e9b63449a6be5e1226e20c7\",\"clusterMap\":{},\"enabled\":false,\"groupName\":\"Acme\",\"ipDeleteTimeout\":1,\"lastModifiedMillis\":1,\"metadata\":{},\"name\":\"Acme\",\"namespaceId\":\"1234\",\"owners\":[],\"protectThreshold\":1.0,\"resetWeight\":false,\"selector\":{\"mockitoInterceptor\":{\"mockHandler\":{\"invocationContainer\":{\"invocationForStubbing\":{\"invocation\":{\"arguments\":[],\"argumentsAsMatchers\":[],\"ignoredForVerification\":false,\"location\":{\"sourceFile\":\"<unknown source file>\"},\"method\":{\"accessible\":false,\"annotatedExceptionTypes\":[],\"annotatedParameterTypes\":[],\"annotatedReceiverType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"com.alibaba.nacos.naming.selector.Selector\"},\"annotatedReturnType\":{\"annotations\":[],\"declaredAnnotations\":[],\"type\":\"java.lang.String\"},\"annotations\":[],\"bridge\":false,\"declaringClass\":\"com.alibaba.nacos.naming.selector.Selector\",\"default\":false,\"exceptionTypes\":[],\"genericExceptionTypes\":[],\"genericParameterTypes\":[],\"genericReturnType\":\"java.lang.String\",\"modifiers\":1025,\"name\":\"getType\",\"parameterAnnotations\":[],\"parameterCount\":0,\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"synthetic\":false,\"typeParameters\":[],\"varArgs\":false},\"mock\":{\"$ref\":\"$.selector\"},\"mockRef\":{},\"mockitoMethod\":{\"abstract\":true,\"exceptionTypes\":[],\"javaMethod\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"},\"name\":\"getType\",\"parameterTypes\":[],\"returnType\":\"java.lang.String\",\"varArgs\":false},\"rawArguments\":[],\"rawReturnType\":\"java.lang.String\",\"realMethod\":\"INSTANCE\",\"sequenceNumber\":3152,\"verified\":false},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}},\"invocations\":[],\"stubbingsAscending\":[{\"invocation\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation\"},\"location\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.location\"},\"matchers\":[],\"method\":{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.invocationForStubbing.invocation.method\"}}],\"stubbingsDescending\":[{\"$ref\":\"$.selector.mockitoInterceptor.mockHandler.invocationContainer.stubbingsAscending[0]\"}]},\"mockSettings\":{\"defaultAnswer\":{},\"extraInterfaces\":[],\"invocationListeners\":[],\"lenient\":false,\"mockName\":{\"default\":true},\"serializable\":false,\"serializableMode\":\"NONE\",\"stripAnnotations\":false,\"stubOnly\":false,\"stubbingLookupListeners\":[],\"typeToMock\":\"com.alibaba.nacos.naming.selector.Selector\",\"usingConstructor\":false,\"verificationStartedListeners\":[]}},\"serializationSupport\":{}},\"type\":\"BASIC\"},\"token\":\"Bearer\"}"));
     }
 
     @Test
@@ -200,7 +201,7 @@ public class ServiceTest {
         Service vDom = new Service();
         vDom.setEnabled(false);
         ArrayList<String> owners2 = new ArrayList<String>();
-        owners2.add("foo");
+        owners2.add("DE");
         vDom.setOwners(owners2);
         Selector selector2 = mock(Selector.class);
         vDom.setSelector(selector2);
@@ -223,7 +224,7 @@ public class ServiceTest {
         Service vDom = new Service();
         vDom.setEnabled(false);
         ArrayList<String> owners2 = new ArrayList<String>();
-        owners2.add("foo");
+        owners2.add("DE");
         vDom.setOwners(owners2);
         Selector selector2 = mock(Selector.class);
         vDom.setSelector(selector2);
@@ -235,7 +236,7 @@ public class ServiceTest {
 
         // assert
         assertThat(service.getOwners(), hasSize(1));
-        assertThat(service.getOwners().get(0), is("foo"));
+        assertThat(service.getOwners().get(0), is("DE"));
         assertThat(service.getSelector(), sameInstance(selector2));
     }
 
@@ -248,7 +249,7 @@ public class ServiceTest {
         Service vDom = new Service();
         vDom.setEnabled(false);
         ArrayList<String> owners2 = new ArrayList<String>();
-        owners2.add("foo");
+        owners2.add("DE");
         vDom.setOwners(owners2);
         Selector selector2 = mock(Selector.class);
         vDom.setSelector(selector2);
@@ -271,7 +272,7 @@ public class ServiceTest {
         Service vDom = new Service();
         vDom.setEnabled(false);
         ArrayList<String> owners2 = new ArrayList<String>();
-        owners2.add("foo");
+        owners2.add("DE");
         vDom.setOwners(owners2);
         Selector selector2 = mock(Selector.class);
         vDom.setSelector(selector2);

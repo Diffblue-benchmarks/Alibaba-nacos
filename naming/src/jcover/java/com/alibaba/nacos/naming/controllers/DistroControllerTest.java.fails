@@ -54,9 +54,9 @@ public class DistroControllerTest {
 
     @Test
     public void getAllDatums() throws Exception {
-        byte[] obj = new byte[] { 1 };
+        byte[] valueArray = new byte[] { 1 };
         when(serializer.serialize(Mockito.<String>any()))
-            .thenReturn(obj);
+            .thenReturn(valueArray);
         when(dataStore.getDataMap())
             .thenReturn(new HashMap<String, Datum>());
         MockMvcBuilders.standaloneSetup(controller)

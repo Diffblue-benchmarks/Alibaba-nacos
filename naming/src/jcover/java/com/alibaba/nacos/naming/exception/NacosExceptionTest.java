@@ -16,8 +16,11 @@ public class NacosExceptionTest {
 
     @Test
     public void factory1() {
-        NacosException nacosException = new NacosException(1);
-        assertThat(nacosException.getErrorCode(), is(1));
+        NacosException nacosException = new NacosException();
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
+        assertThat(nacosException.getErrorCode(), is(0));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause(), is(nullValue()));
         assertThat(nacosException.getMessage(), is(nullValue()));
@@ -25,9 +28,24 @@ public class NacosExceptionTest {
 
     @Test
     public void factory2() {
+        NacosException nacosException = new NacosException(1);
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
+        assertThat(nacosException.getErrorCode(), is(1));
+        assertThat(nacosException.getErrorMsg(), is(nullValue()));
+        assertThat(nacosException.getCause(), is(nullValue()));
+        assertThat(nacosException.getMessage(), is(nullValue()));
+    }
+
+    @Test
+    public void factory3() {
         Exception cause = new Exception();
         cause.setStackTrace(new StackTraceElement[] { });
         NacosException nacosException = new NacosException(1, cause);
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
@@ -36,8 +54,11 @@ public class NacosExceptionTest {
     }
 
     @Test
-    public void factory3() {
+    public void factory4() {
         NacosException nacosException = new NacosException(1, "bar");
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is("bar"));
         assertThat(nacosException.getCause(), is(nullValue()));
@@ -45,10 +66,13 @@ public class NacosExceptionTest {
     }
 
     @Test
-    public void factory4() {
+    public void factory5() {
         Exception cause = new Exception();
         cause.setStackTrace(new StackTraceElement[] { });
         NacosException nacosException = new NacosException(1, "bar", cause);
+        StackTraceElement[] stackTrace =
+             new StackTraceElement[] { new StackTraceElement("java.lang.Object", "toString", "Object.java", 1) };
+        nacosException.setStackTrace(stackTrace);
         assertThat(nacosException.getErrorCode(), is(1));
         assertThat(nacosException.getErrorMsg(), is(nullValue()));
         assertThat(nacosException.getCause().getCause(), is(nullValue()));
