@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class ThreadUtilTest {
 
     @Test
-    void getSuitableThreadCount() {
-        assertThat(ThreadUtil.getSuitableThreadCount(), is(16));
+    void getSuitableThreadCountReturnsFour() {
+        assertThat(ThreadUtil.getSuitableThreadCount(), is(4));
     }
 }

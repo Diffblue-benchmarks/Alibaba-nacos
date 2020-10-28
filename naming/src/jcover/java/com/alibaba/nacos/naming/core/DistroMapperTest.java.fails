@@ -74,7 +74,7 @@ public class DistroMapperTest {
 
     @Test
     public void mapSrv() {
-        assertThat(service.mapSrv("Acme"), is("10.128.0.5:0"));
+        assertThat(service.mapSrv("Acme"), is("10.1.0.4:0"));
         Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
     }
 

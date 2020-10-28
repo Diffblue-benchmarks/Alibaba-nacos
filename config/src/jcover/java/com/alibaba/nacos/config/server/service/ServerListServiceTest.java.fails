@@ -1,0 +1,54 @@
+package com.alibaba.nacos.config.server.service;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
+
+import javax.servlet.ServletContext;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.env.Environment;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+/**
+ * Unit tests for com.alibaba.nacos.config.server.service.ServerListService
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ServerListService.class})
+@ExtendWith(SpringExtension.class)
+class ServerListServiceTest {
+
+    @MockBean(name = "env")
+    private Environment env;
+
+    @MockBean(name = "servletContext")
+    private ServletContext servletContext;
+
+    @Autowired
+    private ServerListService service;
+
+    @Test
+    void isHealthCheck1() {
+        when(servletContext.getContextPath())
+            .thenReturn("foo=bar");
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
+        assertThat(service.isHealthCheck(), is(true));
+    }
+
+    @Test
+    void isHealthCheck2() {
+        when(servletContext.getContextPath())
+            .thenReturn("8080");
+        when(env.getProperty(Mockito.<String>any()))
+            .thenReturn("foo");
+        assertThat(service.isHealthCheck(), is(true));
+    }
+}

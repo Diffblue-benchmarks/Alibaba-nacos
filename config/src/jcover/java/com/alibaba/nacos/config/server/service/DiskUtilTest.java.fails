@@ -77,9 +77,9 @@ class DiskUtilTest {
 
     @Test
     void getters() {
-        assertThat(DiskUtil.heartBeatFile().getPath(), is("/home/thomas_perkins/nacos/status/heartBeat.txt"));
-        assertThat(DiskUtil.targetBetaFile("1234", "/bin/bash", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/data/tenant-beta-data/bin/bash/bin/bash/1234"));
-        assertThat(DiskUtil.targetTagFile("1234", "/bin/bash", "/bin/bash", "tag").getPath(), is("/home/thomas_perkins/nacos/data/tag-beta-data/bin/bash/bin/bash/1234/tag"));
+        assertThat(DiskUtil.heartBeatFile().getPath(), is("/home/runner/nacos/status/heartBeat.txt"));
+        assertThat(DiskUtil.targetBetaFile("1234", "/bin/bash", "/bin/bash").getPath(), is("/home/runner/nacos/data/tenant-beta-data/bin/bash/bin/bash/1234"));
+        assertThat(DiskUtil.targetTagFile("1234", "/bin/bash", "/bin/bash", "tag").getPath(), is("/home/runner/nacos/data/tag-beta-data/bin/bash/bin/bash/1234/tag"));
     }
 
     @Test

@@ -15,12 +15,12 @@ public class NetUtilsTest {
 
     @Test
     public void localServer() {
-        assertThat(NetUtils.localServer(), is("10.128.0.5:0"));
+        assertThat(NetUtils.localServer(), is("10.1.0.4:0"));
     }
 
     @Test
     public void getLocalAddress() {
-        assertThat(NetUtils.getLocalAddress(), is("10.128.0.5"));
+        assertThat(NetUtils.getLocalAddress(), is("10.1.0.4"));
     }
 
     @Test

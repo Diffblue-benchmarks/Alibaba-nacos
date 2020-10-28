@@ -35,8 +35,7 @@ class ConfigInfoWrapperTest {
     }
 
     @Test
-    void testEquals() {
-        assertThat(new ConfigInfoWrapper().equals(new Object()), is(false));
+    void equalsReturnsFalse() {
         assertThat(new ConfigInfoWrapper().equals(new Object()), is(false));
     }
 }

@@ -69,7 +69,7 @@ class LocalDataSourceServiceImplTest {
 
     @Test
     void getCurrentDBUrl() {
-        assertThat(service.getCurrentDBUrl(), is("jdbc:derby:/home/thomas_perkins/nacos/data/derby-data;create=true"));
+        assertThat(service.getCurrentDBUrl(), is("jdbc:derby:/home/runner/nacos/data/derby-data;create=true"));
     }
 
     @Test

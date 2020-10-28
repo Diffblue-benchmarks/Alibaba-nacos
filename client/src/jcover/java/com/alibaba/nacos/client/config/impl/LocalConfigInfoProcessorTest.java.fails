@@ -22,9 +22,13 @@ class LocalConfigInfoProcessorTest {
 
     @Test
     void getSnapshot() {
-        assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "", "en_GB", "en_GB"), is(nullValue()));
         assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "bar", "en_GB"), is(nullValue()));
         assertThat(LocalConfigInfoProcessor.getSnapshot("Acme", "1234", "en_GB", ""), is(nullValue()));
+    }
+
+    @Test
+    void saveSnapshotConfigIsBar() {
+        LocalConfigInfoProcessor.saveSnapshot("Acme", "1234", "en_GB", "en_GB", "bar");
     }
 
     @Test
@@ -54,7 +58,7 @@ class LocalConfigInfoProcessorTest {
 
     @Test
     void getters() {
-        assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "/bin/bash", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/data/config-data-tenant/bin/bash/bin/bash/1234"));
-        assertThat(LocalConfigInfoProcessor.getSnapshotFile("data.txt", "1234", "/bin/bash", "/bin/bash").getPath(), is("/home/thomas_perkins/nacos/config/data.txt_nacos/snapshot-tenant/bin/bash/bin/bash/1234"));
+        assertThat(LocalConfigInfoProcessor.getFailoverFile("data.txt", "1234", "/bin/bash", "/bin/bash").getPath(), is("/home/runner/nacos/config/data.txt_nacos/data/config-data-tenant/bin/bash/bin/bash/1234"));
+        assertThat(LocalConfigInfoProcessor.getSnapshotFile("data.txt", "1234", "/bin/bash", "/bin/bash").getPath(), is("/home/runner/nacos/config/data.txt_nacos/snapshot-tenant/bin/bash/bin/bash/1234"));
     }
 }

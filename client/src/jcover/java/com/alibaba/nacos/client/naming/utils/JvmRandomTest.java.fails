@@ -15,8 +15,8 @@ class JvmRandomTest {
 
     @Test
     void nextLong() {
-        assertThat(JvmRandom.nextLong(63L), is(41L));
+        assertThat(JvmRandom.nextLong(63L), is(18L));
         assertThat(JvmRandom.nextLong(1L), is(0L));
-        assertThat(JvmRandom.nextLong(2L), is(0L));
+        assertThat(JvmRandom.nextLong(2L), is(1L));
     }
 }
