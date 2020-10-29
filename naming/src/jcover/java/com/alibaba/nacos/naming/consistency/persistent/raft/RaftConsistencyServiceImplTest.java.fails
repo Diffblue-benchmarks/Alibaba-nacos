@@ -12,7 +12,6 @@ import com.alibaba.nacos.naming.pojo.Record;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -45,14 +44,14 @@ public class RaftConsistencyServiceImplTest {
     public void put() throws Exception, com.alibaba.nacos.api.exception.NacosException {
         Record value = mock(Record.class);
         service.put("key", value);
-        Mockito.verify(raftCore).signalPublish(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
+        Mockito.verify(raftCore).signalPublish(Mockito.eq("key"), Mockito.<Record>any());
     }
 
     @Test
     public void remove() throws Exception, com.alibaba.nacos.api.exception.NacosException {
         service.remove("key");
-        Mockito.verify(raftCore).signalDelete(ArgumentMatchers.eq("key"));
-        Mockito.verify(raftCore).unlistenAll(ArgumentMatchers.eq("key"));
+        Mockito.verify(raftCore).signalDelete(Mockito.eq("key"));
+        Mockito.verify(raftCore).unlistenAll(Mockito.eq("key"));
     }
 
     @Test
@@ -67,7 +66,7 @@ public class RaftConsistencyServiceImplTest {
         @SuppressWarnings("unchecked")
         RecordListener<Record> listener = mock(RecordListener.class);
         service.listen("key", listener);
-        Mockito.verify(raftCore).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(raftCore).listen(Mockito.eq("key"), Mockito.<RecordListener>any());
     }
 
     @Test
@@ -75,7 +74,7 @@ public class RaftConsistencyServiceImplTest {
         @SuppressWarnings("unchecked")
         RecordListener<Record> listener = mock(RecordListener.class);
         service.unlisten("key", listener);
-        Mockito.verify(raftCore).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(raftCore).unlisten(Mockito.eq("key"), Mockito.<RecordListener>any());
     }
 
     @Test
@@ -97,12 +96,12 @@ public class RaftConsistencyServiceImplTest {
     @Test
     public void onPut() throws Exception, com.alibaba.nacos.api.exception.NacosException {
         service.onPut(new Datum<Record>(), new RaftPeer());
-        Mockito.verify(raftCore).onPublish(ArgumentMatchers.<Datum>any(), ArgumentMatchers.<RaftPeer>any());
+        Mockito.verify(raftCore).onPublish(Mockito.<Datum>any(), Mockito.<RaftPeer>any());
     }
 
     @Test
     public void onRemove() throws Exception, com.alibaba.nacos.api.exception.NacosException {
         service.onRemove(new Datum<Record>(), new RaftPeer());
-        Mockito.verify(raftCore).onDelete(ArgumentMatchers.eq((String) null), ArgumentMatchers.<RaftPeer>any());
+        Mockito.verify(raftCore).onDelete(Mockito.eq((String) null), Mockito.<RaftPeer>any());
     }
 }

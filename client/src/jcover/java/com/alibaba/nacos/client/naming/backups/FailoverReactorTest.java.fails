@@ -39,9 +39,16 @@ class FailoverReactorTest {
     }
 
     @Test
-    void isFailoverSwitchReturnsFalse() {
+    void isFailoverSwitch1() {
         HostReactor hostReactor = mock(HostReactor.class);
         assertThat(new FailoverReactor(hostReactor, "foo").isFailoverSwitch(), is(false));
+    }
+
+    @Test
+    void isFailoverSwitch2() {
+        EventDispatcher eventDispatcher1 = mock(EventDispatcher.class);
+        NamingProxy serverProxy1 = mock(NamingProxy.class);
+        assertThat(new FailoverReactor(new HostReactor(eventDispatcher1, serverProxy1, "OX13QD"), "foo").isFailoverSwitch(), is(false));
     }
 
     @Test

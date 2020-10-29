@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 
 import com.alibaba.nacos.api.naming.listener.EventListener;
 
-import java.util.ArrayList;
 import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
@@ -55,22 +54,8 @@ class NacosNamingServiceTest {
     }
 
     @Test
-    void selectInstances() throws com.alibaba.nacos.api.exception.NacosException {
-        assertThat(new NacosNamingService("Smith").selectInstances("Acme", false), empty());
-        assertThat(new NacosNamingService("Smith").selectInstances("Acme", "Acme", new ArrayList<String>(), false), empty());
-        assertThat(new NacosNamingService("Smith").selectInstances("bar", "Acme", false), empty());
-        assertThat(new NacosNamingService("Smith").selectInstances("Acme", false, true), empty());
-    }
-
-    @Test
-    void subscribe1() throws com.alibaba.nacos.api.exception.NacosException {
+    void subscribeServiceNameIsAcme() throws com.alibaba.nacos.api.exception.NacosException {
         EventListener listener = mock(EventListener.class);
-        new NacosNamingService("foo").subscribe("Acme", listener);
-    }
-
-    @Test
-    void subscribe2() throws com.alibaba.nacos.api.exception.NacosException {
-        EventListener listener = mock(EventListener.class);
-        new NacosNamingService("Smith").subscribe("Acme", "user.home", listener);
+        new NacosNamingService("Smith").subscribe("Acme", listener);
     }
 }

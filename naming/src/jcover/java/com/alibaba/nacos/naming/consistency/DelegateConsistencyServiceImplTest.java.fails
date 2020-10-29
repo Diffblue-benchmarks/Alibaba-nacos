@@ -11,7 +11,6 @@ import com.alibaba.nacos.naming.pojo.Record;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -41,13 +40,13 @@ public class DelegateConsistencyServiceImplTest {
     public void put() throws com.alibaba.nacos.api.exception.NacosException {
         Record value = mock(Record.class);
         service.put("key", value);
-        Mockito.verify(persistentConsistencyService).put(ArgumentMatchers.eq("key"), ArgumentMatchers.<Record>any());
+        Mockito.verify(persistentConsistencyService).put(Mockito.eq("key"), Mockito.<Record>any());
     }
 
     @Test
     public void remove() throws com.alibaba.nacos.api.exception.NacosException {
         service.remove("key");
-        Mockito.verify(persistentConsistencyService).remove(ArgumentMatchers.eq("key"));
+        Mockito.verify(persistentConsistencyService).remove(Mockito.eq("key"));
     }
 
     @Test
@@ -62,7 +61,7 @@ public class DelegateConsistencyServiceImplTest {
         @SuppressWarnings("unchecked")
         RecordListener<Record> listener = mock(RecordListener.class);
         service.listen("key", listener);
-        Mockito.verify(persistentConsistencyService).listen(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(persistentConsistencyService).listen(Mockito.eq("key"), Mockito.<RecordListener>any());
     }
 
     @Test
@@ -70,8 +69,8 @@ public class DelegateConsistencyServiceImplTest {
         @SuppressWarnings("unchecked")
         RecordListener<Record> listener = mock(RecordListener.class);
         service.listen("com.alibaba.nacos.naming.domains.meta.", listener);
-        Mockito.verify(persistentConsistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
-        Mockito.verify(ephemeralConsistencyService).listen(ArgumentMatchers.eq("com.alibaba.nacos.naming.domains.meta."), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(persistentConsistencyService).listen(Mockito.eq("com.alibaba.nacos.naming.domains.meta."), Mockito.<RecordListener>any());
+        Mockito.verify(ephemeralConsistencyService).listen(Mockito.eq("com.alibaba.nacos.naming.domains.meta."), Mockito.<RecordListener>any());
     }
 
     @Test
@@ -79,7 +78,7 @@ public class DelegateConsistencyServiceImplTest {
         @SuppressWarnings("unchecked")
         RecordListener<Record> listener = mock(RecordListener.class);
         service.unlisten("key", listener);
-        Mockito.verify(persistentConsistencyService).unlisten(ArgumentMatchers.eq("key"), ArgumentMatchers.<RecordListener>any());
+        Mockito.verify(persistentConsistencyService).unlisten(Mockito.eq("key"), Mockito.<RecordListener>any());
     }
 
     @Test

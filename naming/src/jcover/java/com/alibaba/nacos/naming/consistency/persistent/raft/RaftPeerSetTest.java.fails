@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -43,25 +42,25 @@ public class RaftPeerSetTest {
     public void setApplicationContext() throws org.springframework.beans.BeansException {
         ApplicationContext applicationContext = mock(ApplicationContext.class);
         service.setApplicationContext(applicationContext);
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void getLeader() {
         assertThat(service.getLeader(), is(nullValue()));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void allSites() {
         assertThat(service.allSites(), empty());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void isReady() {
         assertThat(service.isReady(), is(false));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
@@ -75,86 +74,86 @@ public class RaftPeerSetTest {
         service.remove(servers);
 
         // assert
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void update() {
         RaftPeer peer = new RaftPeer();
         assertThat(service.update(peer), sameInstance(peer));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void isLeader() {
         assertThat(service.isLeader("female"), is(false));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void allServersIncludeMyself() {
         assertThat(service.allServersIncludeMyself(), empty());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void allPeers() {
         assertThat(service.allPeers(), empty());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void size() {
         assertThat(service.size(), is(0));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void decideLeader() {
         assertThat(service.decideLeader(new RaftPeer()), is(nullValue()));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void get() {
         assertThat(service.get("/some/path.html"), is(nullValue()));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void majorityCount() {
         assertThat(service.majorityCount(), is(1));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void reset() {
         service.reset();
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void setTerm() {
         service.setTerm(1L);
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void getTerm() {
         assertThat(service.getTerm(), is(0L));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void contains() {
         assertThat(service.contains(new RaftPeer()), is(false));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void onChangeServerList1() {
         service.onChangeServerList(new ArrayList<Server>());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
@@ -168,12 +167,12 @@ public class RaftPeerSetTest {
         service.onChangeServerList(latestMembers);
 
         // assert
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void onChangeHealthyServerList() {
         service.onChangeHealthyServerList(new ArrayList<Server>());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 }

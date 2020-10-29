@@ -1,0 +1,84 @@
+package com.alibaba.nacos.naming.cluster;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.naming.cluster.servers.ServerChangeListener;
+import com.alibaba.nacos.naming.misc.SwitchDomain;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * Unit tests for com.alibaba.nacos.naming.cluster.ServerListManager
+ *
+ * @author Diffblue Cover
+ */
+
+@ContextConfiguration(classes = {ServerListManager.class})
+@RunWith(SpringRunner.class)
+public class ServerListManagerTest {
+
+    @MockBean(name = "switchDomain")
+    private SwitchDomain switchDomain;
+
+    @Autowired
+    private ServerListManager service;
+
+    @Test
+    public void listen() {
+        ServerChangeListener listener = mock(ServerChangeListener.class);
+        service.listen(listener);
+    }
+
+    @Test
+    public void init() {
+        service.init();
+    }
+
+    @Test
+    public void containsSIsSmithReturnsFalse() {
+        assertThat(service.contains("Smith"), is(false));
+    }
+
+    @Test
+    public void getServersReturnsEmpty() {
+        assertThat(service.getServers(), empty());
+    }
+
+    @Test
+    public void getHealthyServersReturnsEmpty() {
+        assertThat(service.getHealthyServers(), empty());
+    }
+
+    @Test
+    public void getDistroConfigReturnsEmpty() {
+        assertThat(service.getDistroConfig().isEmpty(), is(true));
+    }
+
+    @Test
+    public void onReceiveServerStatus() {
+        service.onReceiveServerStatus("\r\n");
+    }
+
+    @Test
+    public void onReceiveServerStatusConfigInfoIsBar() {
+        service.onReceiveServerStatus("bar");
+    }
+
+    @Test
+    public void clean() {
+        service.clean();
+    }
+
+    @Test
+    public void getLiveSitesReturnsEmpty() {
+        assertThat(service.getLiveSites(), empty());
+    }
+}

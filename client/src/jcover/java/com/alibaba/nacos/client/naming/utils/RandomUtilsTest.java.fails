@@ -19,7 +19,7 @@ class RandomUtilsTest {
 
     @Test
     void nextInt() {
-        assertThat(RandomUtils.nextInt(), is(2_004_385_677));
+        assertThat(RandomUtils.nextInt(), is(1_088_326_140));
         assertThat(RandomUtils.nextInt(new Random(1L)), is(-1_155_869_325));
         assertThat(RandomUtils.nextInt(1), is(0));
         assertThat(RandomUtils.nextInt(new Random(1L), 1), is(0));
@@ -27,7 +27,7 @@ class RandomUtilsTest {
 
     @Test
     void nextLong() {
-        assertThat(RandomUtils.nextLong(), is(7_945_355_343_321_329_255L));
+        assertThat(RandomUtils.nextLong(), is(1_644_450_707_207_624_317L));
         assertThat(RandomUtils.nextLong(new Random(1L)), is(-4_964_420_948_893_066_024L));
     }
 
@@ -40,13 +40,13 @@ class RandomUtilsTest {
 
     @Test
     void nextFloat() {
-        assertEquals(0x1.3ce88p-3f /* 0.15474 */, RandomUtils.nextFloat(), 0);
+        assertEquals(0x1.a410c8p-2f /* 0.41022 */, RandomUtils.nextFloat(), 0);
         assertEquals(0x1.7635aap-1f /* 0.730878 */, RandomUtils.nextFloat(new Random(1L)), 0);
     }
 
     @Test
     void nextDouble() {
-        assertThat(RandomUtils.nextDouble(), closeTo(0x1.8243421077c08p-2 /* 0.37721 */, 0.0));
+        assertThat(RandomUtils.nextDouble(), closeTo(0x1.2e77121a101ap-4 /* 0.073844 */, 0.0));
         assertThat(RandomUtils.nextDouble(new Random(1L)), closeTo(0x1.7635aa8cdc4e6p-1 /* 0.730878 */, 0.0));
     }
 }

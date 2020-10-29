@@ -4,22 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Properties;
-
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.support.BeanNameGenerator;
-import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.io.ResourceLoader;
 
 /**
  * Unit tests for com.alibaba.nacos.core.listener.StartingSpringApplicationRunListener
@@ -39,28 +27,8 @@ class StartingSpringApplicationRunListenerTest {
     @Test
     void starting() {
         Class<?>[] primarySources1 = new Class[] { String.class };
-        SpringApplication application = new SpringApplication(primarySources1);
-        application.setApplicationContextClass(ConfigurableApplicationContext.class);
-        application.setDefaultProperties(new HashMap<String, Object>());
-        ConfigurableEnvironment environment =
-             mock(ConfigurableEnvironment.class);
-        application.setEnvironment(environment);
-        application.setHeadless(false);
-        LinkedList<ApplicationListener<ApplicationEvent>> listeners =
-             new LinkedList<ApplicationListener<ApplicationEvent>>();
-        @SuppressWarnings("unchecked")
-        ApplicationListener<ApplicationEvent> applicationListener =
-             mock(ApplicationListener.class);
-        listeners.add(applicationListener);
-        application.setListeners(listeners);
-        application.setLogStartupInfo(false);
-        application.setMainApplicationClass(String.class);
-        ResourceLoader resourceLoader2 = mock(ResourceLoader.class);
-        application.setResourceLoader(resourceLoader2);
-        application.setSources(new HashSet<String>());
-        application.setWebApplicationType(WebApplicationType.NONE);
         String[] args = new String[] { "foo" };
-        new StartingSpringApplicationRunListener(application, args).starting();
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources1), args).starting();
     }
 
     @Test
@@ -73,50 +41,8 @@ class StartingSpringApplicationRunListenerTest {
     }
 
     @Test
-    void contextPrepared1() {
+    void contextPrepared() {
         SpringApplication application = mock(SpringApplication.class);
-        String[] args = new String[] { "foo" };
-        ConfigurableApplicationContext context =
-             mock(ConfigurableApplicationContext.class);
-        new StartingSpringApplicationRunListener(application, args).contextPrepared(context);
-    }
-
-    @Test
-    void contextPrepared2() {
-        Class<?>[] primarySources1 = new Class[] { int.class };
-        SpringApplication application = new SpringApplication(primarySources1);
-        application.setAddCommandLineProperties(false);
-        application.setAddConversionService(false);
-        application.setAdditionalProfiles("octet-stream");
-        application.setAllowBeanDefinitionOverriding(false);
-        application.setApplicationContextClass(ConfigurableApplicationContext.class);
-        Banner banner = mock(Banner.class);
-        application.setBanner(banner);
-        application.setBannerMode(Banner.Mode.OFF);
-        BeanNameGenerator beanNameGenerator = mock(BeanNameGenerator.class);
-        application.setBeanNameGenerator(beanNameGenerator);
-        application.setDefaultProperties(new HashMap<String, Object>());
-        application.setDefaultProperties(new Properties());
-        ConfigurableEnvironment environment =
-             mock(ConfigurableEnvironment.class);
-        application.setEnvironment(environment);
-        application.setHeadless(false);
-        LinkedList<ApplicationContextInitializer<ConfigurableApplicationContext>> initializers =
-             new LinkedList<ApplicationContextInitializer<ConfigurableApplicationContext>>();
-        @SuppressWarnings("unchecked")
-        ApplicationContextInitializer<ConfigurableApplicationContext> applicationContextInitializer =
-             mock(ApplicationContextInitializer.class);
-        initializers.add(applicationContextInitializer);
-        application.setInitializers(initializers);
-        LinkedList<ApplicationListener<ApplicationEvent>> listeners =
-             new LinkedList<ApplicationListener<ApplicationEvent>>();
-        @SuppressWarnings("unchecked")
-        ApplicationListener<ApplicationEvent> applicationListener =
-             mock(ApplicationListener.class);
-        listeners.add(applicationListener);
-        application.setListeners(listeners);
-        application.setLogStartupInfo(false);
-        application.setMainApplicationClass(String.class);
         String[] args = new String[] { "foo" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
@@ -126,20 +52,10 @@ class StartingSpringApplicationRunListenerTest {
     @Test
     void contextLoaded() {
         Class<?>[] primarySources1 = new Class[] { String.class };
-        SpringApplication application = new SpringApplication(primarySources1);
-        application.setAllowBeanDefinitionOverriding(false);
-        application.setApplicationContextClass(ConfigurableApplicationContext.class);
-        application.setBannerMode(Banner.Mode.OFF);
-        application.setDefaultProperties(new HashMap<String, Object>());
-        application.setDefaultProperties(new Properties());
-        application.setListeners(new LinkedList<ApplicationListener<ApplicationEvent>>());
-        ResourceLoader resourceLoader2 = mock(ResourceLoader.class);
-        application.setResourceLoader(resourceLoader2);
-        application.setWebApplicationType(WebApplicationType.NONE);
         String[] args = new String[] { "foo" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
-        new StartingSpringApplicationRunListener(application, args).contextLoaded(context);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources1), args).contextLoaded(context);
     }
 
     @Test
@@ -154,32 +70,20 @@ class StartingSpringApplicationRunListenerTest {
     @Test
     void running() {
         Class<?>[] primarySources1 = new Class[] { String.class };
-        SpringApplication application = new SpringApplication(primarySources1);
-        application.setAdditionalProfiles("octet-stream");
-        application.setAllowBeanDefinitionOverriding(false);
-        application.setBannerMode(Banner.Mode.OFF);
-        application.setDefaultProperties(new Properties());
-        ConfigurableEnvironment environment =
-             mock(ConfigurableEnvironment.class);
-        application.setEnvironment(environment);
-        application.setLogStartupInfo(false);
-        application.setMainApplicationClass(String.class);
-        ResourceLoader resourceLoader2 = mock(ResourceLoader.class);
-        application.setResourceLoader(resourceLoader2);
         String[] args = new String[] { "foo" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
-        new StartingSpringApplicationRunListener(application, args).running(context);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources1), args).running(context);
     }
 
     @Test
     void failed() {
-        SpringApplication application = mock(SpringApplication.class);
+        Class<?>[] primarySources1 = new Class[] { String.class };
         String[] args = new String[] { "foo" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
         Exception exception = new Exception();
         exception.setStackTrace(new StackTraceElement[] { });
-        new StartingSpringApplicationRunListener(application, args).failed(context, exception);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources1), args).failed(context, exception);
     }
 }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -44,7 +43,7 @@ public class DistroMapperTest {
     @Test
     public void getHealthyList() {
         assertThat(service.getHealthyList(), empty());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
@@ -53,7 +52,7 @@ public class DistroMapperTest {
             .thenReturn(false);
         Instance instance = mock(Instance.class);
         assertThat(service.responsible(new Cluster(), instance), is(false));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
@@ -61,7 +60,7 @@ public class DistroMapperTest {
         when(switchDomain.isDistroEnabled())
             .thenReturn(false);
         assertThat(service.responsible("Acme"), is(true));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
@@ -69,31 +68,31 @@ public class DistroMapperTest {
         when(switchDomain.isDistroEnabled())
             .thenReturn(true);
         assertThat(service.responsible("Acme"), is(false));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void mapSrv() {
         assertThat(service.mapSrv("Acme"), is("10.1.0.4:0"));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void distroHash1() {
         assertThat(service.distroHash("Acme"), is(2_035_034));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void distroHash2() {
         assertThat(service.distroHash(""), is(0));
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
     public void onChangeServerList() {
         service.onChangeServerList(new ArrayList<Server>());
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 
     @Test
@@ -107,6 +106,6 @@ public class DistroMapperTest {
         service.onChangeHealthyServerList(latestReachableMembers);
 
         // assert
-        Mockito.verify(serverListManager).listen(ArgumentMatchers.<ServerChangeListener>any());
+        Mockito.verify(serverListManager).listen(Mockito.<ServerChangeListener>any());
     }
 }

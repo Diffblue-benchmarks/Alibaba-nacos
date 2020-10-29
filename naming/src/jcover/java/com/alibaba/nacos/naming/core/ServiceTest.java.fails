@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 /**
@@ -164,7 +163,7 @@ public class ServiceTest {
 
         // assert
         Mockito.verify(cluster).init();
-        Mockito.verify(cluster).setService(ArgumentMatchers.<Service>any());
+        Mockito.verify(cluster).setService(Mockito.<Service>any());
     }
 
     @Test

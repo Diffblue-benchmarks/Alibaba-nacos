@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -61,7 +60,7 @@ class StandaloneProfileApplicationListenerTest {
         service.onApplicationEvent(new ApplicationEnvironmentPreparedEvent(application, args, environment));
 
         // assert
-        Mockito.verify(environment).addActiveProfile(ArgumentMatchers.eq("standalone"));
+        Mockito.verify(environment).addActiveProfile(Mockito.eq("standalone"));
     }
 
     @Test

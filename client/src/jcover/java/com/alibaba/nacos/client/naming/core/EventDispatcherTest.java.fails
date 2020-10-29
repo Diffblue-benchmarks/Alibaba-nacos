@@ -24,12 +24,8 @@ class EventDispatcherTest {
         EventDispatcher eventDispatcher = new EventDispatcher();
         ExecutorService executor = mock(ExecutorService.class);
         eventDispatcher.setExecutor(executor);
-        ServiceInfo serviceInfo = new ServiceInfo();
-        serviceInfo.setGroupName("Acme");
-        serviceInfo.setLastRefTime(1L);
-        serviceInfo.setName("Acme");
         EventListener listener = mock(EventListener.class);
-        eventDispatcher.addListener(serviceInfo, "some event", listener);
+        eventDispatcher.addListener(new ServiceInfo(), "some event", listener);
     }
 
     @Test
@@ -57,9 +53,6 @@ class EventDispatcherTest {
 
     @Test
     void serviceChangedServiceInfoIsNull() {
-        EventDispatcher eventDispatcher = new EventDispatcher();
-        ExecutorService executor = mock(ExecutorService.class);
-        eventDispatcher.setExecutor(executor);
-        eventDispatcher.serviceChanged(null);
+        new EventDispatcher().serviceChanged(null);
     }
 }

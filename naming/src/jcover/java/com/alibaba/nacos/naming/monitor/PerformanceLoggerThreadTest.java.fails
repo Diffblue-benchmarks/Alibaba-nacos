@@ -10,7 +10,6 @@ import com.alibaba.nacos.naming.push.PushService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -50,8 +49,8 @@ public class PerformanceLoggerThreadTest {
     @Test
     public void refreshMetrics() {
         service.refreshMetrics();
-        Mockito.verify(pushService).setFailedPush(ArgumentMatchers.eq((Integer) 0));
-        Mockito.verify(pushService).setTotalPush(ArgumentMatchers.eq((Integer) 0));
+        Mockito.verify(pushService).setFailedPush(Mockito.eq((Integer) 0));
+        Mockito.verify(pushService).setTotalPush(Mockito.eq((Integer) 0));
     }
 
     @Test

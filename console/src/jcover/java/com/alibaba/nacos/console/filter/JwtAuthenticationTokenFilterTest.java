@@ -13,7 +13,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.core.env.Environment;
 import org.springframework.mock.web.MockFilterChain;
@@ -52,6 +51,6 @@ class JwtAuthenticationTokenFilterTest {
 
         // assert
         assertThat(request.getAttributeNames().hasMoreElements(), is(true));
-        Mockito.verify(servlet).service(ArgumentMatchers.<ServletRequest>any(), ArgumentMatchers.<ServletResponse>any());
+        Mockito.verify(servlet).service(Mockito.<ServletRequest>any(), Mockito.<ServletResponse>any());
     }
 }
