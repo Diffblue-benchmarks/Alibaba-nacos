@@ -38,12 +38,12 @@ public class ServerListManagerTest {
     }
 
     @Test
-    public void init() {
-        service.init();
+    public void containsSIsBar() {
+        assertThat(service.contains("bar"), is(false));
     }
 
     @Test
-    public void containsSIsSmithReturnsFalse() {
+    public void containsSIsSmith() {
         assertThat(service.contains("Smith"), is(false));
     }
 
