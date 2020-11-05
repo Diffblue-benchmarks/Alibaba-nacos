@@ -32,16 +32,17 @@ public class TaskDispatcherTest {
 
     @Test
     public void init() {
-        when(partitionConfig.getTaskDispatchPeriod())
-            .thenReturn(1)
-            .thenReturn(1);
         service.init();
     }
 
     @Test
-    public void addTaskKeyIsKey() {
+    public void addTask1() {
+        service.addTask("key");
+    }
+
+    @Test
+    public void addTask2() {
         when(partitionConfig.getTaskDispatchPeriod())
-            .thenReturn(1)
             .thenReturn(1);
         service.addTask("key");
     }

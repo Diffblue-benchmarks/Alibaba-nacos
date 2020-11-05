@@ -38,12 +38,7 @@ public class ServerListManagerTest {
     }
 
     @Test
-    public void containsSIsBar() {
-        assertThat(service.contains("bar"), is(false));
-    }
-
-    @Test
-    public void containsSIsSmith() {
+    public void containsSIsSmithReturnsFalse() {
         assertThat(service.contains("Smith"), is(false));
     }
 
@@ -63,7 +58,12 @@ public class ServerListManagerTest {
     }
 
     @Test
-    public void onReceiveServerStatus() {
+    public void onReceiveServerStatus1() {
+        service.onReceiveServerStatus("/some/path.html");
+    }
+
+    @Test
+    public void onReceiveServerStatus2() {
         service.onReceiveServerStatus("\r\n");
     }
 

@@ -1,0 +1,65 @@
+package com.alibaba.nacos.client.naming.core;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.mockito.Mockito.mock;
+
+import com.alibaba.nacos.api.naming.listener.EventListener;
+import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
+
+import java.util.concurrent.ExecutorService;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for com.alibaba.nacos.client.naming.core.EventDispatcher
+ *
+ * @author Diffblue Cover
+ */
+
+class EventDispatcherTest {
+
+    @Test
+    void factory() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
+        // pojo EventDispatcher eventDispatcher
+    }
+
+    @Test
+    void addListener() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
+        ServiceInfo serviceInfo = new ServiceInfo();
+        serviceInfo.setJsonFromServer("\"foo\"");
+        EventListener listener = mock(EventListener.class);
+        eventDispatcher.addListener(serviceInfo, "some event", listener);
+    }
+
+    @Test
+    void removeListenerServiceNameIsAcme() {
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        ExecutorService executor = mock(ExecutorService.class);
+        eventDispatcher.setExecutor(executor);
+        EventListener listener = mock(EventListener.class);
+        eventDispatcher.removeListener("Acme", "some event", listener);
+    }
+
+    @Test
+    void getSubscribeServicesReturnsEmpty() {
+        assertThat(new EventDispatcher().getSubscribeServices(), empty());
+    }
+
+    @Test
+    void serviceChanged() {
+        ServiceInfo serviceInfo = mock(ServiceInfo.class);
+        new EventDispatcher().serviceChanged(serviceInfo);
+    }
+
+    @Test
+    void serviceChangedServiceInfoIsNull() {
+        new EventDispatcher().serviceChanged(null);
+    }
+}

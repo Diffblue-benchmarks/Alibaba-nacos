@@ -68,4 +68,14 @@ class ServerHttpAgentTest {
     void getNameReturnsDefault() {
         assertThat(new ServerHttpAgent(new ServerListManager()).getName(), is("default"));
     }
+
+    @Test
+    void getNamespaceReturnsEmpty() {
+        assertThat(new ServerHttpAgent(new ServerListManager()).getNamespace(), is(""));
+    }
+
+    @Test
+    void getTenantReturnsEmpty() {
+        assertThat(new ServerHttpAgent(new ServerListManager()).getTenant(), is(""));
+    }
 }
