@@ -69,6 +69,7 @@ public class DataSyncerTest {
         keys.add("key");
         task.setKeys(keys);
         task.setLastExecuteTime(0L);
+        task.setRetryCount(0);
         task.setTargetServer("bar");
         service.submit(task, 1L);
     }

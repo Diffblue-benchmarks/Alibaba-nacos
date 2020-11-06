@@ -94,13 +94,6 @@ public class DistroConsistencyServiceImplTest {
     }
 
     @Test
-    public void onRemoveKeyIsKey() {
-        when(dataStore.remove(Mockito.<String>any()))
-            .thenReturn(new Datum<Record>());
-        service.onRemove("key");
-    }
-
-    @Test
     public void onReceiveChecksumsChecksumMapIsEmpty() {
         when(dataStore.keys())
             .thenReturn(new HashSet<String>());

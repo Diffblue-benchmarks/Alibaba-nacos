@@ -4,10 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 
-import com.alibaba.nacos.client.naming.net.NamingProxy;
-
-import java.util.concurrent.ExecutorService;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,17 +15,8 @@ import org.junit.jupiter.api.Test;
 class PushReceiverTest {
 
     @Test
-    void getUDPPort1() {
+    void getUDPPort() {
         HostReactor hostReactor = mock(HostReactor.class);
-        assertThat(new PushReceiver(hostReactor).getUDPPort(), is(36_382));
-    }
-
-    @Test
-    void getUDPPort2() {
-        EventDispatcher eventDispatcher1 = new EventDispatcher();
-        ExecutorService executor1 = mock(ExecutorService.class);
-        eventDispatcher1.setExecutor(executor1);
-        NamingProxy serverProxy1 = mock(NamingProxy.class);
-        assertThat(new PushReceiver(new HostReactor(eventDispatcher1, serverProxy1, "OX13QD")).getUDPPort(), is(47_465));
+        assertThat(new PushReceiver(hostReactor).getUDPPort(), is(46_314));
     }
 }

@@ -49,8 +49,8 @@ class ParamUtilsTest {
     }
 
     @Test
-    void checkParamDataIdIsBarAndGroupIsFoo() throws com.alibaba.nacos.api.exception.NacosException {
-        ParamUtils.checkParam("bar", "foo", "1234", "data");
+    void checkParamDataIdIsBarAndGroupIsData() throws com.alibaba.nacos.api.exception.NacosException {
+        ParamUtils.checkParam("bar", "data", "1234", "data");
     }
 
     @Test
