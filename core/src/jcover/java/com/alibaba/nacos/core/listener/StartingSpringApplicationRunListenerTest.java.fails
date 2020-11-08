@@ -4,19 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Properties;
-
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.support.BeanNameGenerator;
-import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.io.ResourceLoader;
 
 /**
  * Unit tests for com.alibaba.nacos.core.listener.StartingSpringApplicationRunListener
@@ -36,27 +27,8 @@ class StartingSpringApplicationRunListenerTest {
     @Test
     void starting() {
         Class<?>[] primarySources1 = new Class[] { String.class };
-        SpringApplication application = new SpringApplication(primarySources1);
-        application.setAddConversionService(false);
-        application.setAdditionalProfiles("octet-stream");
-        application.setAllowBeanDefinitionOverriding(false);
-        application.setBannerMode(Banner.Mode.OFF);
-        BeanNameGenerator beanNameGenerator = mock(BeanNameGenerator.class);
-        application.setBeanNameGenerator(beanNameGenerator);
-        application.setDefaultProperties(new Properties());
-        LinkedList<ApplicationContextInitializer<ConfigurableApplicationContext>> initializers =
-             new LinkedList<ApplicationContextInitializer<ConfigurableApplicationContext>>();
-        @SuppressWarnings("unchecked")
-        ApplicationContextInitializer<ConfigurableApplicationContext> applicationContextInitializer =
-             mock(ApplicationContextInitializer.class);
-        initializers.add(applicationContextInitializer);
-        application.setInitializers(initializers);
-        application.setLogStartupInfo(false);
-        ResourceLoader resourceLoader2 = mock(ResourceLoader.class);
-        application.setResourceLoader(resourceLoader2);
-        application.setWebApplicationType(WebApplicationType.NONE);
         String[] args = new String[] { "foo" };
-        new StartingSpringApplicationRunListener(application, args).starting();
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources1), args).starting();
     }
 
     @Test
@@ -98,21 +70,10 @@ class StartingSpringApplicationRunListenerTest {
     @Test
     void running() {
         Class<?>[] primarySources1 = new Class[] { String.class };
-        SpringApplication application = new SpringApplication(primarySources1);
-        ConfigurableEnvironment environment =
-             mock(ConfigurableEnvironment.class);
-        application.setEnvironment(environment);
-        application.setInitializers(new LinkedList<ApplicationContextInitializer<ConfigurableApplicationContext>>());
-        application.setLogStartupInfo(false);
-        application.setMainApplicationClass(String.class);
-        application.setRegisterShutdownHook(false);
-        ResourceLoader resourceLoader2 = mock(ResourceLoader.class);
-        application.setResourceLoader(resourceLoader2);
-        application.setSources(new HashSet<String>());
         String[] args = new String[] { "foo" };
         ConfigurableApplicationContext context =
              mock(ConfigurableApplicationContext.class);
-        new StartingSpringApplicationRunListener(application, args).running(context);
+        new StartingSpringApplicationRunListener(new SpringApplication(primarySources1), args).running(context);
     }
 
     @Test

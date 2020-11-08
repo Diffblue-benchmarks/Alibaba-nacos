@@ -67,19 +67,7 @@ class ConfigSubServiceTest {
     }
 
     @Test
-    void getCollectSampleResult1() throws Exception {
-        List<String> list1 = new ArrayList<String>();
-        list1.add("bar");
-        List<String> list2 = new ArrayList<String>();
-        list2.add("/some/path.html");
-        when(serverListService.getServerList())
-            .thenReturn(list2)
-            .thenReturn(list1);
-        assertThat(service.getCollectSampleResult("1234", "/some/path.html", "/some/path.html", 1).getLisentersGroupkeyStatus().isEmpty(), is(true));
-    }
-
-    @Test
-    void getCollectSampleResult2() throws Exception {
+    void getCollectSampleResult() throws Exception {
         List<String> list2 = new ArrayList<String>();
         list2.add("bar");
         when(serverListService.getServerList())

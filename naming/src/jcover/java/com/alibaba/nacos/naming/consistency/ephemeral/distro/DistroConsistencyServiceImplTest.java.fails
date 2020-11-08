@@ -16,6 +16,7 @@ import com.alibaba.nacos.naming.misc.GlobalConfig;
 import com.alibaba.nacos.naming.misc.SwitchDomain;
 import com.alibaba.nacos.naming.pojo.Record;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -94,6 +95,13 @@ public class DistroConsistencyServiceImplTest {
     }
 
     @Test
+    public void onRemoveKeyIsKey() {
+        when(dataStore.remove(Mockito.<String>any()))
+            .thenReturn(new Datum<Record>());
+        service.onRemove("key");
+    }
+
+    @Test
     public void onReceiveChecksumsChecksumMapIsEmpty() {
         when(dataStore.keys())
             .thenReturn(new HashSet<String>());
@@ -165,7 +173,7 @@ public class DistroConsistencyServiceImplTest {
     @Test
     public void isAvailableReturnsFalse() {
         when(switchDomain.getOverriddenServerStatus())
-            .thenReturn("bar");
+            .thenReturn("foo=bar");
         when(globalConfig.isDataWarmup())
             .thenReturn(true);
         assertThat(service.isAvailable(), is(false));

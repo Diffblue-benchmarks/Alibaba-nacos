@@ -33,11 +33,6 @@ public class ServerStatusManagerTest {
     private ServerStatusManager service;
 
     @Test
-    public void init() {
-        service.init();
-    }
-
-    @Test
     public void getServerStatusReturnsStarting() {
         assertThat(service.getServerStatus(), is(ServerStatus.STARTING));
     }

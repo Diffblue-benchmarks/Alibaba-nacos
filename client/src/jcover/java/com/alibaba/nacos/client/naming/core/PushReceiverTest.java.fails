@@ -17,6 +17,6 @@ class PushReceiverTest {
     @Test
     void getUDPPort() {
         HostReactor hostReactor = mock(HostReactor.class);
-        assertThat(new PushReceiver(hostReactor).getUDPPort(), is(46_314));
+        assertThat(new PushReceiver(hostReactor).getUDPPort(), is(49_242));
     }
 }

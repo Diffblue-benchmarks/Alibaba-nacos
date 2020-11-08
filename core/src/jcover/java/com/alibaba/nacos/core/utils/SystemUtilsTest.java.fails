@@ -22,7 +22,7 @@ class SystemUtilsTest {
 
     @Test
     void getLoad() {
-        assertEquals(2.25f, SystemUtils.getLoad(), 0);
+        assertEquals(2.54f, SystemUtils.getLoad(), 0);
     }
 
     @Test
@@ -32,7 +32,7 @@ class SystemUtilsTest {
 
     @Test
     void getMem() {
-        assertEquals(0x1.3618a4p-3f /* 0.151414 */, SystemUtils.getMem(), 0);
+        assertEquals(0x1.cf421ep-4f /* 0.1131 */, SystemUtils.getMem(), 0);
     }
 
     @Test
