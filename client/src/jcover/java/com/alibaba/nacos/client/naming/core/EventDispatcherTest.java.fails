@@ -24,8 +24,13 @@ class EventDispatcherTest {
         EventDispatcher eventDispatcher = new EventDispatcher();
         ExecutorService executor = mock(ExecutorService.class);
         eventDispatcher.setExecutor(executor);
+        ServiceInfo serviceInfo = new ServiceInfo();
+        serviceInfo.setAllIPs(false);
+        serviceInfo.setCacheMillis(1L);
+        serviceInfo.setChecksum("foo");
+        serviceInfo.setClusters("foo");
         EventListener listener = mock(EventListener.class);
-        eventDispatcher.addListener(new ServiceInfo(), "some event", listener);
+        eventDispatcher.addListener(serviceInfo, "some event", listener);
     }
 
     @Test
@@ -46,9 +51,14 @@ class EventDispatcherTest {
     }
 
     @Test
-    void serviceChanged() {
+    void serviceChanged1() {
         ServiceInfo serviceInfo = mock(ServiceInfo.class);
         new EventDispatcher().serviceChanged(serviceInfo);
+    }
+
+    @Test
+    void serviceChanged2() {
+        new EventDispatcher().serviceChanged(new ServiceInfo());
     }
 
     @Test

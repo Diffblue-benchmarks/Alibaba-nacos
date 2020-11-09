@@ -112,7 +112,7 @@ public class OverrideParameterRequestWrapperTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
         request.addUserRole("admin");
-        request.setRequestURI("bar");
+        request.setRequestURI("/some/path.html");
         request.setRequestedSessionId("1234");
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("name", new Object());
@@ -132,86 +132,6 @@ public class OverrideParameterRequestWrapperTest {
 
         // assert
         assertThat(result.getParameterMap().get("name"), Matchers.arrayContaining("/some/path.html"));
-        assertThat(result.getRequest().getAsyncContext(), is(nullValue()));
-        assertThat(result.getRequest().getAttributeNames().hasMoreElements(), is(false));
-        assertThat(result.getRequest().getCharacterEncoding(), is(nullValue()));
-        assertThat(result.getRequest().getContentLength(), is(-1));
-        assertThat(result.getRequest().getContentLengthLong(), is(-1L));
-        assertThat(result.getRequest().getContentType(), is(nullValue()));
-        assertThat(result.getRequest().getDispatcherType(), is(DispatcherType.REQUEST));
-        assertThat(result.getRequest().getInputStream().isFinished(), is(false));
-        assertThat(result.getRequest().getInputStream().isReady(), is(true));
-        assertThat(result.getRequest().getLocalAddr(), is("127.0.0.1"));
-        assertThat(result.getRequest().getLocalName(), is("localhost"));
-        assertThat(result.getRequest().getLocalPort(), is(80));
-        assertThat(result.getRequest().getLocale().getDisplayName(), is("English"));
-        assertThat(result.getRequest().getLocales().hasMoreElements(), is(true));
-        assertThat(result.getRequest().getParameterMap().isEmpty(), is(true));
-        assertThat(result.getRequest().getParameterNames().hasMoreElements(), is(false));
-        assertThat(result.getRequest().getProtocol(), is("HTTP/1.1"));
-        assertThat(result.getRequest().getRemoteAddr(), is("127.0.0.1"));
-        assertThat(result.getRequest().getRemoteHost(), is("localhost"));
-        assertThat(result.getRequest().getRemotePort(), is(80));
-        assertThat(result.getRequest().getScheme(), is("http"));
-        assertThat(result.getRequest().getServerName(), is("localhost"));
-        assertThat(result.getRequest().getServerPort(), is(80));
-        assertThat(result.getRequest().getServletContext().getAttributeNames().hasMoreElements(), is(true));
-        assertThat(result.getRequest().getServletContext().getContextPath(), is(""));
-        assertThat(result.getRequest().getServletContext().getDefaultSessionTrackingModes(), hasSize(3));
-        assertThat(result.getRequest().getServletContext().getEffectiveMajorVersion(), is(3));
-        assertThat(result.getRequest().getServletContext().getEffectiveMinorVersion(), is(1));
-        assertThat(result.getRequest().getServletContext().getEffectiveSessionTrackingModes(), hasSize(3));
-        assertThat(result.getRequest().getServletContext().getFilterRegistrations().isEmpty(), is(true));
-        assertThat(result.getRequest().getServletContext().getInitParameterNames().hasMoreElements(), is(false));
-        assertThat(result.getRequest().getServletContext().getMajorVersion(), is(3));
-        assertThat(result.getRequest().getServletContext().getMinorVersion(), is(1));
-        assertThat(result.getRequest().getServletContext().getRequestCharacterEncoding(), is(nullValue()));
-        assertThat(result.getRequest().getServletContext().getResponseCharacterEncoding(), is(nullValue()));
-        assertThat(result.getRequest().getServletContext().getServerInfo(), is("MockServletContext"));
-        assertThat(result.getRequest().getServletContext().getServletContextName(), is("MockServletContext"));
-        assertThat(result.getRequest().getServletContext().getServletNames().hasMoreElements(), is(false));
-        assertThat(result.getRequest().getServletContext().getServletRegistrations().isEmpty(), is(true));
-        assertThat(result.getRequest().getServletContext().getServlets().hasMoreElements(), is(false));
-        assertThat(result.getRequest().getServletContext().getSessionCookieConfig().getComment(), is(nullValue()));
-        assertThat(result.getRequest().getServletContext().getSessionCookieConfig().getDomain(), is(nullValue()));
-        assertThat(result.getRequest().getServletContext().getSessionCookieConfig().getMaxAge(), is(-1));
-        assertThat(result.getRequest().getServletContext().getSessionCookieConfig().getName(), is(nullValue()));
-        assertThat(result.getRequest().getServletContext().getSessionCookieConfig().getPath(), is(nullValue()));
-        assertThat(result.getRequest().getServletContext().getSessionCookieConfig().isHttpOnly(), is(false));
-        assertThat(result.getRequest().getServletContext().getSessionCookieConfig().isSecure(), is(false));
-        assertThat(result.getRequest().getServletContext().getSessionTimeout(), is(0));
-        assertThat(result.getRequest().isAsyncStarted(), is(false));
-        assertThat(result.getRequest().isAsyncSupported(), is(false));
-        assertThat(result.getRequest().isSecure(), is(false));
-    }
-
-    @Test
-    public void buildRequestNameIsNameAndValueIsNull() throws java.io.IOException {
-
-        // arrange
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setMethod("GET");
-        request.addUserRole("admin");
-        request.setRequestURI("/some/path.html");
-        request.setRequestedSessionId("1234");
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("name", new Object());
-        session.setNew(false);
-        request.setSession(session);
-        request.setQueryString("foo=bar");
-        Principal userPrincipal = mock(Principal.class);
-        request.setUserPrincipal(userPrincipal);
-        request.setAuthType("BASIC");
-        request.setSecure(false);
-        request.setProtocol("HTTP/1.1");
-        request.setCookies(new Cookie("name", "value"));
-
-        // act
-        OverrideParameterRequestWrapper result =
-             OverrideParameterRequestWrapper.buildRequest(request, "name", null);
-
-        // assert
-        assertThat(result.getParameterMap().isEmpty(), is(true));
         assertThat(result.getRequest().getAsyncContext(), is(nullValue()));
         assertThat(result.getRequest().getAttributeNames().hasMoreElements(), is(false));
         assertThat(result.getRequest().getCharacterEncoding(), is(nullValue()));
@@ -353,5 +273,10 @@ public class OverrideParameterRequestWrapperTest {
     @Test
     public void getParameterValuesNameIsNameReturnsNull() throws java.io.IOException {
         assertThat(new OverrideParameterRequestWrapper(new MockHttpServletRequest()).getParameterValues("name"), is(nullValue()));
+    }
+
+    @Test
+    public void addParameterNameIsNameAndValueIsNull() throws java.io.IOException {
+        new OverrideParameterRequestWrapper(new MockHttpServletRequest()).addParameter("name", null);
     }
 }

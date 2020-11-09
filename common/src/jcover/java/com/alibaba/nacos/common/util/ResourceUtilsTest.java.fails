@@ -17,9 +17,9 @@ class ResourceUtilsTest {
 
     @Test
     void getResourceURL() throws java.io.IOException {
-        assertThat(ResourceUtils.getResourceURL("classpath:").toString(), is("file:/tmp/jcover-cp-52x3H6/"));
-        assertThat(ResourceUtils.getResourceURL(null, "").toString(), is("file:/tmp/jcover-cp-52x3H6/"));
-        assertThat(ResourceUtils.getResourceURL(ClassLoader.getSystemClassLoader(), "").toString(), is("file:/tmp/jcover-cp-52x3H6/"));
+        assertThat(ResourceUtils.getResourceURL("classpath:").toString(), is("file:/tmp/jcover-cp-Pl03Xm/"));
+        assertThat(ResourceUtils.getResourceURL(null, "").toString(), is("file:/tmp/jcover-cp-Pl03Xm/"));
+        assertThat(ResourceUtils.getResourceURL(ClassLoader.getSystemClassLoader(), "").toString(), is("file:/tmp/jcover-cp-Pl03Xm/"));
         assertThat(ResourceUtils.getResourceURL("foo").toString(), is("file:/home/runner/work/product/product/JVD/projects/Alibaba-nacos/common/foo"));
     }
 
