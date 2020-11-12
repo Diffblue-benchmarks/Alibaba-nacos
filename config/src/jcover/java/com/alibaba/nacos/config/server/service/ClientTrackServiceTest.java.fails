@@ -49,7 +49,7 @@ class ClientTrackServiceTest {
         Map<String, SubscriberStatus> result =
              ClientTrackService.listSubsByGroup("key");
         assertThat(result.get("RA123456789CN").getGroupKey(), is("key"));
-        assertThat(result.get("RA123456789CN").getLastTime(), is(1_604_892_984_759L));
+        assertThat(result.get("RA123456789CN").getLastTime(), is(1_605_152_077_736L));
         assertThat(result.get("RA123456789CN").getMd5(), is("RA123456789CN"));
         assertThat(result.get("RA123456789CN").getServerIp(), is(nullValue()));
         assertThat(result.get("RA123456789CN").getStatus(), is(false));

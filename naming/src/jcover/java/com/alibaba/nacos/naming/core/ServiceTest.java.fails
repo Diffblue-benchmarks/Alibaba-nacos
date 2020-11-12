@@ -104,7 +104,14 @@ public class ServiceTest {
 
     @Test
     public void processClientBeat() {
-        new Service().processClientBeat(new RsInfo());
+        RsInfo rsInfo = new RsInfo();
+        rsInfo.setMetadata(new HashMap<String, String>());
+        rsInfo.setPort(1);
+        rsInfo.setQps(1.0);
+        rsInfo.setRt(1.0);
+        rsInfo.setServiceName("Acme");
+        rsInfo.setWeight(1.0);
+        new Service().processClientBeat(rsInfo);
     }
 
     @Test

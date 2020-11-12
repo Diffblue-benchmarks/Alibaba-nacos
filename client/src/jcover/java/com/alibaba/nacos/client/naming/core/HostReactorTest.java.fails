@@ -72,14 +72,9 @@ class HostReactorTest {
     void getServiceInfo2() {
 
         // arrange
-        EventDispatcher eventDispatcher1 = new EventDispatcher();
-        ExecutorService executor1 = mock(ExecutorService.class);
-        eventDispatcher1.setExecutor(executor1);
-        NamingProxy serverProxy1 = new NamingProxy("1234", null, "Smith");
-        serverProxy1.setProperties(new Properties());
-        serverProxy1.setServerPort(1);
+        EventDispatcher eventDispatcher = mock(EventDispatcher.class);
         HostReactor hostReactor =
-             new HostReactor(eventDispatcher1, serverProxy1, "OX13QD");
+             new HostReactor(eventDispatcher, new NamingProxy("1234", "api.github.com", "Smith"), "OX13QD", false, 1);
 
         // act
         ServiceInfo result = hostReactor.getServiceInfo("Acme", "OX13QD");
@@ -128,18 +123,18 @@ class HostReactorTest {
 
     @Test
     void scheduleUpdateIfAbsentServiceNameIsAcme() {
-        EventDispatcher eventDispatcher1 = new EventDispatcher();
-        ExecutorService executor1 = mock(ExecutorService.class);
-        eventDispatcher1.setExecutor(executor1);
-        NamingProxy serverProxy1 =
-             new NamingProxy("1234", "api.github.com", "foo");
-        serverProxy1.setProperties(new Properties());
-        serverProxy1.setServerPort(1);
-        new HostReactor(eventDispatcher1, serverProxy1, "OX13QD").scheduleUpdateIfAbsent("Acme", "OX13QD");
+        EventDispatcher eventDispatcher = mock(EventDispatcher.class);
+        NamingProxy serverProxy =
+             new NamingProxy("1234", "api.github.com", "Smith");
+        serverProxy.setServerPort(1);
+        new HostReactor(eventDispatcher, serverProxy, "OX13QD", false, 1).scheduleUpdateIfAbsent("Acme", "OX13QD");
     }
 
     @Test
     void refreshOnlyServiceNameIsAcme() {
-        new HostReactor(new EventDispatcher(), new NamingProxy("1234", "api.github.com", "Smith"), "OX13QD").refreshOnly("Acme", "OX13QD");
+        NamingProxy serverProxy1 =
+             new NamingProxy("1234", "api.github.com", "Smith");
+        serverProxy1.setServerPort(1);
+        new HostReactor(new EventDispatcher(), serverProxy1, "OX13QD").refreshOnly("Acme", "OX13QD");
     }
 }

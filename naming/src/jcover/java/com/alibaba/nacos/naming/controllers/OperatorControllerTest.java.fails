@@ -123,7 +123,7 @@ public class OperatorControllerTest {
             MockMvcRequestBuilders.get("/v1/ns/operator/metrics"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(content().json("{\"serviceCount\":1,\"load\":1.94,\"mem\":0.22562155,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.0,\"status\":\"UP\",\"responsibleInstanceCount\":1}"));
+            .andExpect(content().json("{\"serviceCount\":1,\"load\":1.43,\"mem\":0.2208206,\"raftNotifyTaskCount\":1,\"responsibleServiceCount\":1,\"instanceCount\":1,\"cpu\":0.0,\"status\":\"UP\",\"responsibleInstanceCount\":1}"));
     }
 
     @Test
