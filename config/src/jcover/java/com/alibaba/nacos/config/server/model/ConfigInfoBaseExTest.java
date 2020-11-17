@@ -73,7 +73,8 @@ class ConfigInfoBaseExTest {
     }
 
     @Test
-    void equalsReturnsFalse() {
+    void testEquals() {
+        assertThat(new ConfigInfoBaseEx().equals(new Object()), is(false));
         assertThat(new ConfigInfoBaseEx().equals(new Object()), is(false));
     }
 }

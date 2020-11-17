@@ -68,7 +68,6 @@ public class DataSyncerTest {
         ArrayList<String> keys = new ArrayList<String>();
         keys.add("key");
         task.setKeys(keys);
-        task.setLastExecuteTime(0L);
         task.setTargetServer("bar");
         service.submit(task, 1L);
     }

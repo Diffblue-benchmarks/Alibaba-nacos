@@ -19,11 +19,11 @@ class TimeUtilsTest {
 
     @Test
     void getCurrentTime() {
-        assertThat(TimeUtils.getCurrentTime(), equalTo(Timestamp.valueOf("2020-11-12 03:40:32.36")));
+        assertThat(TimeUtils.getCurrentTime(), equalTo(Timestamp.valueOf("2020-11-17 03:44:37.676")));
     }
 
     @Test
     void getCurrentTimeStr() {
-        assertThat(Pattern.matches("\\d{2,4}-\\d{1,2}-\\d{1,2} \\d{1,2}:\\d{2}:\\d{2}", TimeUtils.getCurrentTimeStr()), is(true));
+        assertThat(Pattern.matches("\\d{4}-\\d{1,2}-\\d{1,2} \\d{1,2}:\\d{2}:\\d{2}", TimeUtils.getCurrentTimeStr()), is(true));
     }
 }
